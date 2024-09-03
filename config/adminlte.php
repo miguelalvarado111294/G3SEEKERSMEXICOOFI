@@ -311,14 +311,14 @@ return [
             'text' => 'search',
         ],
         [
-            'text' => 'blog',
+            'text' => 'Inicio',
             'url' => 'admin/blog',
             'can' => 'manage-blog',
         ],
         [
             'text' => 'pages',
             'url' => 'admin/pages',
-            'icon' => 'far fa-fw fa-file',
+            'icon' => 'fas fa-home',
             'label' => 4,
             'label_color' => 'success',
         ],
