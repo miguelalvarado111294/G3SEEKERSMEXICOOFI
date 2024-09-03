@@ -3,14 +3,13 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('auth.login');
-});
+
 
 Auth::routes();
 
 Route::group(['middleware'=>'auth'],function(){
-    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('/', [App\Http\Controllers\AdminController::class, 'index'])->name('admin.index');
+
     Route::resource('referencia',App\Http\Controllers\ReferenciaController::class);
     Route::resource('cliente',  App\Http\Controllers\ClienteController::class);
     Route::resource('vehiculo', App\Http\Controllers\VehiculoController::class);
@@ -51,7 +50,6 @@ Route::get('/ctaespejo/crearctaespejo/{id}',   [App\Http\Controllers\CtaespejoCo
 Route::post('/ctaespejo/{id}',            [App\Http\Controllers\CtaespejoController::class, 'storectaespejo'])->name('ctaespejop.crear');
 
 
-Route::get('/admin', [App\Http\Controllers\AdminController::class, 'index'])->name('admin.index');
 
 
 

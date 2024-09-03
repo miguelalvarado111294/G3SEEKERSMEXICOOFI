@@ -154,8 +154,8 @@ return [
 
     'layout_topnav' => null,
     'layout_boxed' => null,
-    'layout_fixed_sidebar' => null,
-    'layout_fixed_navbar' => null,
+    'layout_fixed_sidebar' => true,
+    'layout_fixed_navbar' => true,
     'layout_fixed_footer' => null,
     'layout_dark_mode' => null,
 
@@ -316,16 +316,39 @@ return [
             'can' => 'manage-blog',
         ],
         [
-            'text' => 'pages',
-            'url' => 'admin/pages',
-            'icon' => 'fas fa-home',
-            'label' => 4,
-            'label_color' => 'success',
+            'text' => 'Inicio',
+            'route' => 'admin.index',
+            'icon' => 'fas fa-home'
         ],
-        ['header' => 'account_settings'],
+        ['header' => 'PANEL'],
         [
-            'text' => 'profile',
-            'url' => 'admin/settings',
+            'text' => 'Clientes',
+            'route' => 'cliente.index',
+            'icon' => 'fas fa-fw fa-user',
+        ],
+        [
+            'text' => 'Referencias',
+            'route' => 'referencia.index',
+            'icon' => 'fas fa-fw fa-user',
+        ],
+        [
+            'text' => 'Cuentas',
+            'route' => 'cuenta.index',
+            'icon' => 'fas fa-fw fa-user',
+        ],
+        [
+            'text' => 'Vehiculos',
+            'route' => 'vehiculo.index',
+            'icon' => 'fas fa-fw fa-user',
+        ],
+        [
+            'text' => 'Dispositivos',
+            'route' => 'vehiculo.index',
+            'icon' => 'fas fa-fw fa-user',
+        ],
+        [
+            'text' => 'Sensores',
+            'route' => 'sensor.index',
             'icon' => 'fas fa-fw fa-user',
         ],
         [
