@@ -310,15 +310,15 @@ return [
             'type' => 'sidebar-menu-search',
             'text' => 'search',
         ],
-        [
-            'text' => 'Inicio',
-            'url' => 'admin/blog',
-            'can' => 'manage-blog',
-        ],
-        [
+        /*[
             'text' => 'Inicio',
             'route' => 'admin.index',
             'icon' => 'fas fa-home'
+        ],*/
+        [
+            'text' => 'Usuarios',
+            'route' => 'admin.users.index',
+            'icon' => 'fas fa-users'
         ],
         ['header' => 'PANEL'],
         [
@@ -356,7 +356,7 @@ return [
             'url' => 'admin/settings',
             'icon' => 'fas fa-fw fa-lock',
         ],
-        [
+      /*  [
             'text' => 'multilevel',
             'icon' => 'fas fa-fw fa-share',
             'submenu' => [
@@ -409,7 +409,7 @@ return [
             'text' => 'information',
             'icon_color' => 'cyan',
             'url' => '#',
-        ],
+        ],*/
     ],
 
     /*

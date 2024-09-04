@@ -8,7 +8,9 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('/home', [App\Http\Controllers\AdminController::class, 'index'])->name('admin.index');
+    Route::get('/', [App\Http\Controllers\AdminController::class, 'index'])->name('admin.index');
+
+    Route::resource('user', App\Http\Controllers\UserController::class)->names('admin.users');
 
     Route::resource('referencia', App\Http\Controllers\ReferenciaController::class);
     Route::resource('cliente',  App\Http\Controllers\ClienteController::class);
