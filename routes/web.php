@@ -9,6 +9,8 @@ Auth::routes();
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/', [App\Http\Controllers\AdminController::class, 'index'])->name('admin.index');
+    Route::get('/admin/edit/{user}', [App\Http\Controllers\UserController::class, 'edit'])->name('admin.edit');
+    Route::get('/admin/update/{user}', [App\Http\Controllers\UserController::class, 'update'])->name('admin.update');
 
     Route::resource('user', App\Http\Controllers\UserController::class)->names('admin.users');
 
@@ -51,3 +53,5 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/ctaespejo/crearctaespejo/{id}',   [App\Http\Controllers\CtaespejoController::class, 'crearctaespejo'])->name('ctaesoejof.crear');;
     Route::post('/ctaespejo/{id}',            [App\Http\Controllers\CtaespejoController::class, 'storectaespejo'])->name('ctaespejop.crear');
 });
+
+

@@ -25,7 +25,8 @@
                     <td> {{ $user->name }} </td>
                     <td>{{ $user->email }}</td>
                     <td>
-                        <a href="" class="btn btn-warning">Editar</a>
+                        <a href="{{route('admin.edit',$user)}}" class="btn btn-warning">Editar</a>
+
 
                         <form action="" method="post" class="d-inline">
                             @csrf
