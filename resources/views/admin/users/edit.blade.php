@@ -12,22 +12,28 @@
     <div class="card">
 
         <div class="card-body">
-            <p class="h5">Nombre:</p>
+            {{--  <p class="h5">Nombre:</p>
             <p class="form-control"> {{ $user->name }}</p>
 
-
-
-            {!! Form::model($user, ['route' => ['admin.update', $user], 'method' => 'put']) !!}
             @foreach ($roles as $role)
-                <div>
-                    <label>
-                        {!! Form::checkbox('roles[]', $role->id, null, ['class' => 'mr-1']) !!}
-                        {{ $role->name }}
-                    </label>
-                </div>
+                <input type="checkbox" name="roles[]" value="{{ $role->id }}" />
+                <label>{{ $role->name }}</label>
             @endforeach
-            {!! Form::close() !!}
+--}}
+
+            <p class="h5">Nombre:</p>
+            <p class="form-control"> {{ $user->name }}</p>
+            <form action="{{route('admin.update',$user)}}">
+                @foreach ($roles as $role)
+                    <input type="checkbox" name="roles[]" value="{{ $role->id }}" />
+                    <label>{{ $role->name }}</label>
+                @endforeach
+                <br>
+                <input type="submit" class="btn btn-primary" value="Submit">
+            </form>
 
         </div>
+
+
     </div>
-    @stop
+@stop

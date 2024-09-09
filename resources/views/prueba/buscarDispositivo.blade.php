@@ -13,7 +13,6 @@
 
         <a href="{{ route('dispositivof.crear', $id) }}" class="btn btn-warning">Asignar dispositivo</a>
 
-
         <br><br>
         <h1>Datos de dispositivo</h1> {{ $id }}
         </br>
@@ -27,7 +26,6 @@
                     <th>Comentarios</th>
                     <th>Acciones</th>
                     <th>Lineas y Sensores</th>
-
                 </tr>
             </thead>
 
@@ -39,7 +37,6 @@
                         <td>{{ $dispositivo->noserie }}</td>
                         <td>{{ $dispositivo->imei }}</td>
                         <td>{{ $dispositivo->comentarios }}</td>
-
                         <td>
                             <a href="{{ url('/dispositivo/' . $dispositivo->id . '/edit') }}"
                                 class="btn btn-warning">Editar</a>
@@ -52,11 +49,8 @@
                             </form>
                         </td>
                         <td>
-
                             <a href="{{ route('buscar.linea', $dispositivo->id) }}" class="btn btn-warning">Linea</a>
                             <a href="{{ route('buscar.sensor', $dispositivo->id) }}" class="btn btn-warning">Sensor</a>
-                        </td>
-
                         </td>
 
 
@@ -67,11 +61,7 @@
         </table>
         <br><br><br>
 
-
-
-
         <a href=" {{ route('buscar.vehiculo', $cliente_id) }}" class="btn btn-primary">Regresar</a>
-
 
     </div>
 @endsection
