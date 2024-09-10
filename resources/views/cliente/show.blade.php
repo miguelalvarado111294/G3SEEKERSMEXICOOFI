@@ -25,21 +25,24 @@
                 <a href="{{ route('buscar.cuenta', $cliente->id) }} "
                     style="text-align: center; display: inline-block; width: 17%;" class="btn btn-primary">Cuenta</a>
                 <br><br>
-                <a href="{{ url('/cliente/' . $cliente->id . '/edit') }}"
-                    style="text-align: center; display: inline-block; width: 17%; " class="btn btn-warning">Editar</a>
+                @can('cliente.edit')
+                    <a href="{{ url('/cliente/' . $cliente->id . '/edit') }}"
+                        style="text-align: center; display: inline-block; width: 17%; " class="btn btn-warning">Editar</a>
+                @endcan
 
+                @can('cliente.destroy')
                 <form action="{{ url('/cliente/' . $cliente->id) }}" method="post" class="d-inline">
                     @csrf
                     {{ method_field('DELETE') }}
                     <input class="btn btn-danger" style="text-align: center; display: inline-block; width: 17%; "
                         type="submit" onclick=" return confirm('seguro quieres eliminar?')" value="Borrar">
-                </form>
+                </form>  @endcan
             </div>
         </div>
-                <br><br>
-                <div class="card">
+        <br><br>
+        <div class="card">
 
-                    <div class="card-body">
+            <div class="card-body">
                 <h1>Referencias </h1><a href="{{ route('referenciaf.crear', $cliente->id) }}"
                     class="btn btn-success">Registrar
                     nuevo referencia</a>
@@ -89,9 +92,8 @@
                 </table>
             </div>
         </div>
-                <br><br><br>
+        <br><br><br>
 
-                <a href="{{ url('cliente') }}" class="btn btn-dark">Regresar</a>
-            </div>
-
+        <a href="{{ url('cliente') }}" class="btn btn-dark">Regresar</a>
+    </div>
 @endsection

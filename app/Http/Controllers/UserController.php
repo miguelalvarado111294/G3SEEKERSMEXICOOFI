@@ -48,9 +48,7 @@ class UserController extends Controller
     public function edit(User $user)
     {
         //
-
         $roles=Role::all();
-
         return view('admin.users.edit',compact('user','roles'));
 
     }
@@ -60,13 +58,9 @@ class UserController extends Controller
      */
     public function update(Request $request,User $user)
     {
-        //
-
-
-//      $user->roles()->sync($request->roles);
-        return $request;
-
-
+        //    
+    $user->roles()->sync($request->roles);
+    return "con exito";
 
     }
 

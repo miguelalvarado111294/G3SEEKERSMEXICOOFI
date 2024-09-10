@@ -12,18 +12,11 @@
     <div class="card">
 
         <div class="card-body">
-            {{--  <p class="h5">Nombre:</p>
-            <p class="form-control"> {{ $user->name }}</p>
 
-            @foreach ($roles as $role)
-                <input type="checkbox" name="roles[]" value="{{ $role->id }}" />
-                <label>{{ $role->name }}</label>
-            @endforeach
---}}
 
             <p class="h5">Nombre:</p>
             <p class="form-control"> {{ $user->name }}</p>
-            <form action="{{route('admin.update',$user)}}">
+            <form action="{{ route('admin.update', $user) }}">
                 @foreach ($roles as $role)
                     <input type="checkbox" name="roles[]" value="{{ $role->id }}" />
                     <label>{{ $role->name }}</label>
