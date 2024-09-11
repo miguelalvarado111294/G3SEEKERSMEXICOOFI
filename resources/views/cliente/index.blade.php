@@ -18,13 +18,21 @@
             <button class="btn btn-outline-success" type="submit">Buscar </button>
         </form>
         <br>
+        @can('cliente.create')
+
+        <div style="text-align:center; margin:auto; width: 50%;">
+                
+            <a href="{{ url('cliente/create') }}" class="btn btn-success text-align: center">Alta Nuevo Socio</a>
+        </div>
+        @endcan
+
         <br>
         <div class="card">
             <div class="card-body" style="text-align:center; margin:auto">
                 <ul>
                     @foreach ($clientes as $cliente)
                         <a href=" {{ route('cliente.show', $cliente->id) }}" class="btn btn-primary"
-                            style="text-align: center; display: inline-block; width: 50%; ">
+                            style="text-align: center; display: inline-block; width: 50%;">
                             {{ $cliente->nombre }} {{ $cliente->segnombre }} {{ $cliente->apellidopat }}
                             {{ $cliente->apellidomat }}
                         </a>
@@ -33,9 +41,7 @@
             </div>
         </div>
         <br>
-        <div style="text-align:center; margin:auto;">
-            <a href="{{ url('cliente/create') }}" class="btn btn-success text-align: center">Alta Nuevo Socio</a>
-        </div>
+
         <br><br>
         {!! $clientes->links() !!}
 

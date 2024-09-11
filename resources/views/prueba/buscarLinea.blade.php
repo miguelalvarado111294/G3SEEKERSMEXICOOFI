@@ -13,8 +13,11 @@
 
 
         <br><br>
+        @can('linea.create')
+            
         <a href="{{ route('lineaf.crear', $dispositivoid) }}" class="btn btn-success">Registrar Nueva Linea</a>
 
+        @endcan
         <br><br><br>
         <h1>Datos de Línea</h1>
 
@@ -43,14 +46,18 @@
 
 
                         <td>
-                            <a href="{{ url('/linea/' . $linea->id . '/edit') }}" class="btn btn-warning">Editar</a>
+                            @can('linea.edit')
+                                <a href="{{ url('/linea/' . $linea->id . '/edit') }}" class="btn btn-warning">Editar</a>
+                            @endcan
 
-                            <form action="{{ url('/linea/' . $linea->id) }}" method="post" class="d-inline">
-                                @csrf
-                                {{ method_field('DELETE') }}
-                                <input class="btn btn-danger" type="submit"
-                                    onclick=" return confirm('seguro quieres eliminar?')" value="Borrar">
-                            </form>
+                            @can('linea.destroy')
+                                <form action="{{ url('/linea/' . $linea->id) }}" method="post" class="d-inline">
+                                    @csrf
+                                    {{ method_field('DELETE') }}
+                                    <input class="btn btn-danger" type="submit"
+                                        onclick=" return confirm('seguro quieres eliminar?')" value="Borrar">
+                                </form>
+                            @endcan
                         </td>
 
 

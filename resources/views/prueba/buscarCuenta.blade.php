@@ -12,8 +12,9 @@
         @endif
 
         <br>
-
-        <a href="{{ route('cuentaf.crear', $id) }}" class="btn btn-success">Registrar nueva cuenta</a>
+        @can('cuenta.create')
+            <a href="{{ route('cuentaf.crear', $id) }}" class="btn btn-success">Registrar nueva cuenta</a>
+        @endcan
 
         <br><br>
 
@@ -40,14 +41,21 @@
                         <td>{{ $cuenta->comentarios }}</td>
                         <td>
 
-                            <a href="{{ url('/cuenta/' . $cuenta->id . '/edit') }}" class="btn btn-warning">Editar</a>
-                            <form action="{{ url('/cuenta/' . $cuenta->id) }}" method="post" class="d-inline">
-                                @csrf
-                                {{ method_field('DELETE') }}
-                                <input class="btn btn-danger" type="submit"
-                                    onclick=" return confirm('seguro quieres eliminar?')" value="Borrar">
-                            </form>
+                            @can('cuenta.edit')
+                                <a href="{{ url('/cuenta/' . $cuenta->id . '/edit') }}" class="btn btn-warning">Editar</a>
+                            @endcan
+
+                            @can('cuenta.destroy')
+                                <form action="{{ url('/cuenta/' . $cuenta->id) }}" method="post" class="d-inline">
+                                    @csrf
+                                    {{ method_field('DELETE') }}
+                                    <input class="btn btn-danger" type="submit"
+                                        onclick=" return confirm('seguro quieres eliminar?')" value="Borrar">
+                                </form>
+                            @endcan
+
                         </td>
+
                         <td>
                             <a href="{{ route('buscar.vehiculo', $clienteid) }}"
                                 class="btn btn-primary ; float-right">Vehiculos</a>

@@ -36,7 +36,8 @@
                     {{ method_field('DELETE') }}
                     <input class="btn btn-danger" style="text-align: center; display: inline-block; width: 17%; "
                         type="submit" onclick=" return confirm('seguro quieres eliminar?')" value="Borrar">
-                </form>  @endcan
+                </form>  
+                @endcan
             </div>
         </div>
         <br><br>

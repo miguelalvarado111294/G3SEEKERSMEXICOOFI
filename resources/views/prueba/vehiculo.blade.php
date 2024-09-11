@@ -11,7 +11,9 @@
             </div>
         @endif
 
-        <a href="{{ route('vehiculof.crear', $id) }}" class="btn btn-success">Registrar nuevo vehiculo</a>
+        @can('vehiculo.create')
+            <a href="{{ route('vehiculof.crear', $id) }}" class="btn btn-success">Registrar nuevo vehiculo</a>
+        @endcan
 
         <br><br>
         <h1>Vehiculos Adjuntos de Socios </h1>
@@ -43,13 +45,19 @@
                         <td>{{ $vehiculo->noserie }}</td>
                         <td> {{ $vehiculo->comentarios }} </td>
                         <td>
-                            <a href="{{ url('/vehiculo/' . $vehiculo->id . '/edit') }}" class="btn btn-warning">Editar</a>
-                            <form action="{{ url('/vehiculo/' . $vehiculo->id) }}" method="post" class="d-inline">
-                                @csrf
-                                {{ method_field('DELETE') }}
-                                <input class="btn btn-danger" type="submit"
-                                    onclick=" return confirm('seguro quieres eliminar?')" value="Borrar">
-                            </form>
+                            @can('vehiculo.edit')
+                                <a href="{{ url('/vehiculo/' . $vehiculo->id . '/edit') }}" class="btn btn-warning">Editar</a>
+                            @endcan
+
+                            @can('vehiculo.destroy')
+                                <form action="{{ url('/vehiculo/' . $vehiculo->id) }}" method="post" class="d-inline">
+                                    @csrf
+                                    {{ method_field('DELETE') }}
+                                    <input class="btn btn-danger" type="submit"
+                                        onclick=" return confirm('seguro quieres eliminar?')" value="Borrar">
+                                </form>
+                            @endcan
+
                         </td>
                         <td>
                             <a href="{{ route('buscar.dispositivo', $vehiculo->id) }}"

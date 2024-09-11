@@ -10,8 +10,9 @@
                 </button>
             </div>
         @endif
-
-        <a href="{{ route('dispositivof.crear', $id) }}" class="btn btn-warning">Asignar dispositivo</a>
+        @can('dispositivo.create')
+            <a href="{{ route('dispositivof.crear', $id) }}" class="btn btn-warning">Asignar dispositivo</a>
+        @endcan
 
         <br><br>
         <h1>Datos de dispositivo</h1> {{ $id }}
@@ -38,15 +39,21 @@
                         <td>{{ $dispositivo->imei }}</td>
                         <td>{{ $dispositivo->comentarios }}</td>
                         <td>
-                            <a href="{{ url('/dispositivo/' . $dispositivo->id . '/edit') }}"
-                                class="btn btn-warning">Editar</a>
+                            @can('dispositivo.edit')
+                                <a href="{{ url('/dispositivo/' . $dispositivo->id . '/edit') }}"
+                                    class="btn btn-warning">Editar</a>
+                            @endcan
 
-                            <form action="{{ url('/dispositivo/' . $dispositivo->id) }}" method="post" class="d-inline">
-                                @csrf
-                                {{ method_field('DELETE') }}
-                                <input class="btn btn-danger" type="submit"
-                                    onclick=" return confirm('Estas Seguro de Eliminar?')" value="Borrar">
-                            </form>
+
+                            @can('dispositivo.destroy')
+                                <form action="{{ url('/dispositivo/' . $dispositivo->id) }}" method="post" class="d-inline">
+                                    @csrf
+                                    {{ method_field('DELETE') }}
+                                    <input class="btn btn-danger" type="submit"
+                                        onclick=" return confirm('Estas Seguro de Eliminar?')" value="Borrar">
+                                </form>
+                            @endcan
+
                         </td>
                         <td>
                             <a href="{{ route('buscar.linea', $dispositivo->id) }}" class="btn btn-warning">Linea</a>
