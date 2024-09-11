@@ -295,25 +295,25 @@ return [
 
     'menu' => [
         // Navbar items:
-        [
+        /*[
             'type' => 'navbar-search',
             'text' => 'search',
             'topnav_right' => true,
-        ],
+        ],*/
         [
             'type' => 'fullscreen-widget',
             'topnav_right' => true,
         ],
 
         // Sidebar items:
-        [
+        /*  [
             'type' => 'sidebar-menu-search',
             'text' => 'search',
-        ],
+        ],*/
         [
-            'text' => 'Inicio',
-            'route' => 'admin.index',
-            'icon' => 'fas fa-home'
+            'text' => 'Usuarios',
+            'route' => 'admin.users.index',
+            'icon' => 'fas fa-users'
         ],
         
         ['header' => 'PANEL'],

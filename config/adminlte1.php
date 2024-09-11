@@ -316,9 +316,9 @@ return [
             'icon' => 'fas fa-home'
         ],
         
-        ['header' => 'PANEL'],
+        ['header' => 'Cont'],
         [
-            'text' => 'Clientes',
+            'text' => 'Clientess',
             'route' => 'cliente.index',
             'icon' => 'fas fa-fw fa-user',
         ],
