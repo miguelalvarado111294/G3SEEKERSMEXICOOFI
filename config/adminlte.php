@@ -310,14 +310,21 @@ return [
             'type' => 'sidebar-menu-search',
             'text' => 'search',
         ],*/
+        ['header' => 'Panel de Administracion'],
         [
             'text' => 'Usuarios',
             'route' => 'admin.users.index',
             'icon' => 'fas fa-users',
             'can' => 'admin.index'
         ],
+        [
+            'text' => 'Crear roles',
+            'route' => 'admin.users.index',
+            'icon' => 'fas fa-users',
+            'can' => 'admin.index'
+        ],
 
-        ['header' => 'PANEL'],
+        ['header' => 'Datos del Cliente'],
        /*  [
             'text' => 'Clientes',
             'route' => 'cliente.index',
