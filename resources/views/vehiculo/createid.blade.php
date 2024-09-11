@@ -26,7 +26,8 @@
 
                 </div>
                 <br>
-                <div class="form-group">
+           
+
                     <label>Marca</label>
                     <input type="text" class="form-control" name="marca" value=" {{ old('marca') }} ">
                 </div>

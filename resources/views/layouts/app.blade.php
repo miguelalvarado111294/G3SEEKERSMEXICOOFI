@@ -23,7 +23,7 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ route('cliente.index') }}">
-                   Home
+                    Home
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -68,8 +68,7 @@
                                         {{ __('Logout') }}
                                     </a>
                                     @can('admin.index')
-                                    <a class="nav-link" href="{{ route('admin.index') }}">Dashboard</a>
-
+                                        <a class="nav-link" href="{{ route('admin.index') }}">Dashboard</a>
                                     @endcan
 
 
