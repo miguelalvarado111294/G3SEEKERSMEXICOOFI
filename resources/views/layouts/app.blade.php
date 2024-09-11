@@ -67,7 +67,12 @@
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
+                                    @can('admin.index')
                                     <a class="nav-link" href="{{ route('admin.index') }}">Dashboard</a>
+
+                                    @endcan
+
+
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
