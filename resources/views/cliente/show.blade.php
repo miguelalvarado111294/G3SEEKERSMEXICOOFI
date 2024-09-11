@@ -2,11 +2,11 @@
 @section('content')
     <div class="container">
 
-        <div class="card">
-
-            <div class="card-body">
+       
                 <h1>Datos Personales</h1>
+                <div class="card">
 
+                    <div class="card-body">
                 <ul>
 
                     Nombre : {{ $cliente->nombre }} <br>

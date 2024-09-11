@@ -8,14 +8,19 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 Route::group(['middleware' => 'auth'], function () {
+
     Route::get('/', [App\Http\Controllers\AdminController::class, 'index'])->name('admin.index');
+
+    Route::resource('/user', App\Http\Controllers\UserController::class)->names('admin.users');
+
     Route::get('/admin/edit/{user}', [App\Http\Controllers\UserController::class, 'edit'])->name('admin.edit');
     Route::get('/admin/update/{user}', [App\Http\Controllers\UserController::class, 'update'])->name('admin.update');
 
-    Route::resource('user', App\Http\Controllers\UserController::class)->names('admin.users');
 
     Route::resource('referencia', App\Http\Controllers\ReferenciaController::class);
     Route::resource('cliente',  App\Http\Controllers\ClienteController::class);
+    Route::get('/cliente/{id}',                 [App\Http\Controllers\ClienteController::class, 'show'])->name('cliente.show');
+    Route::get('cliente/{id}/buscararchivos',   [App\Http\Controllers\ClienteController::class, 'buscararchivos'])->name('buscar.buscararchivos');
     Route::resource('vehiculo', App\Http\Controllers\VehiculoController::class);
     Route::resource('linea',    App\Http\Controllers\LineaController::class);
     Route::resource('cuenta',   App\Http\Controllers\CuentaController::class);
@@ -53,5 +58,3 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/ctaespejo/crearctaespejo/{id}',   [App\Http\Controllers\CtaespejoController::class, 'crearctaespejo'])->name('ctaesoejof.crear');;
     Route::post('/ctaespejo/{id}',            [App\Http\Controllers\CtaespejoController::class, 'storectaespejo'])->name('ctaespejop.crear');
 });
-
-

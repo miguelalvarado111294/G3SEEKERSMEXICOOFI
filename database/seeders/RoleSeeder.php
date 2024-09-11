@@ -20,46 +20,48 @@ class RoleSeeder extends Seeder
         //
         $role1 = Role::create(['name' => 'Admin']);
         $role2 = Role::create(['name' => 'Usuario']);
+        $role3 = Role::create(['name' => 'Cobranza']);
+        $role4 = Role::create(['name' => 'Contabilidad']);
+        $role5 = Role::create(['name' => 'Operaciones']);     
 
-        
-        Permission::create(['name'=> 'admin.index'])->syncRoles([$role1]);
-        Permission::create(['name'=> 'admin.users'])->syncRoles([$role1]);
-        Permission::create(['name'=> 'referencia.index'])->syncRoles([$role1,$role2]);
-        Permission::create(['name'=> 'referencia.create'])->syncRoles([$role1]);
-        Permission::create(['name'=> 'referencia.edit'])->syncRoles([$role1]);
-        Permission::create(['name'=> 'referencia.destroy'])->syncRoles([$role1]);
+        Permission::create(['name' => 'admin.index'])->syncRoles([$role1]);
+        Permission::create(['name' => 'admin.users'])->syncRoles([$role1]);
+        Permission::create(['name' => 'admin.edit' ])->syncRoles([$role1]);
 
-        Permission::create(['name'=> 'cliente.index']);
-        Permission::create(['name'=> 'cliente.create']);
-        Permission::create(['name'=> 'cliente.edit'])->syncRoles([$role1]);
-        Permission::create(['name'=> 'cliente.destroy'])->syncRoles([$role1]);
-        Permission::create(['name'=> 'cliente.show']);
+        Permission::create(['name' => 'referencia.index'])->syncRoles([$role1, $role2]);
+        Permission::create(['name' => 'referencia.create'])->syncRoles([$role1]);
+        Permission::create(['name' => 'referencia.edit'])->syncRoles([$role1]);
+        Permission::create(['name' => 'referencia.destroy'])->syncRoles([$role1]);
 
-        Permission::create(['name'=> 'cuenta.index']);
-        Permission::create(['name'=> 'cuenta.create']);
-        Permission::create(['name'=> 'cuenta.edit']);
-        Permission::create(['name'=> 'cuenta.destroy']);
+        Permission::create(['name' => 'cliente.index'])->syncRoles([$role1, $role2]);
+        Permission::create(['name' => 'cliente.create'])->syncRoles([$role1, $role2]);
+        Permission::create(['name' => 'cliente.edit'])->syncRoles([$role1]);
+        Permission::create(['name' => 'cliente.destroy'])->syncRoles([$role1]);
+        Permission::create(['name' => 'cliente.show'])->syncRoles([$role1, $role2]);
 
+        Permission::create(['name' => 'cuenta.index'])->syncRoles([$role1, $role2]);
+        Permission::create(['name' => 'cuenta.create'])->syncRoles([$role1]);
+        Permission::create(['name' => 'cuenta.edit'])->syncRoles([$role1]);
+        Permission::create(['name' => 'cuenta.destroy'])->syncRoles([$role1]);
 
-        Permission::create(['name'=> 'vehiculo.index']);
-        Permission::create(['name'=> 'vehiculo.create']);
-        Permission::create(['name'=> 'vehiculo.edit']);
-        Permission::create(['name'=> 'vehiculo.destroy']);
+        Permission::create(['name' => 'vehiculo.index'])->syncRoles([$role1, $role2]);
+        Permission::create(['name' => 'vehiculo.create'])->syncRoles([$role1]);
+        Permission::create(['name' => 'vehiculo.edit'])->syncRoles([$role1]);
+        Permission::create(['name' => 'vehiculo.destroy'])->syncRoles([$role1]);
 
-        
-        Permission::create(['name'=> 'dispositivo.index']);
-        Permission::create(['name'=> 'dispositivo.create']);
-        Permission::create(['name'=> 'dispositivo.edit']);
-        Permission::create(['name'=> 'dispositivo.destroy']);
+        Permission::create(['name' => 'dispositivo.index'])->syncRoles([$role1, $role2]);
+        Permission::create(['name' => 'dispositivo.create'])->syncRoles([$role1]);
+        Permission::create(['name' => 'dispositivo.edit'])->syncRoles([$role1]);
+        Permission::create(['name' => 'dispositivo.destroy'])->syncRoles([$role1]);
 
-        Permission::create(['name'=> 'linea.index']);
-        Permission::create(['name'=> 'linea.create']);
-        Permission::create(['name'=> 'linea.edit']);
-        Permission::create(['name'=> 'linea.destroy']);
+        Permission::create(['name' => 'linea.index'])->syncRoles([$role1, $role2]);
+        Permission::create(['name' => 'linea.create'])->syncRoles([$role1]);
+        Permission::create(['name' => 'linea.edit'])->syncRoles([$role1]);
+        Permission::create(['name' => 'linea.destroy'])->syncRoles([$role1]);
 
-        Permission::create(['name'=> 'sensor.index']);
-        Permission::create(['name'=> 'sensor.create']);
-        Permission::create(['name'=> 'sensor.edit']);
-        Permission::create(['name'=> 'sensor.destroy']);
+        Permission::create(['name' => 'sensor.index'])->syncRoles([$role1, $role2]);
+        Permission::create(['name' => 'sensor.create'])->syncRoles([$role1]);
+        Permission::create(['name' => 'sensor.edit'])->syncRoles([$role1]);
+        Permission::create(['name' => 'sensor.destroy'])->syncRoles([$role1]);
     }
 }
