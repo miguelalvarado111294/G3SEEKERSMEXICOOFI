@@ -15,6 +15,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/admin/edit/{user}', [App\Http\Controllers\UserController::class, 'edit'])->name('admin.edit');
     Route::get('/admin/update/{user}', [App\Http\Controllers\UserController::class, 'update'])->name('admin.update');
+    Route::get('/admin/destroy/{user}', [App\Http\Controllers\UserController::class, 'destroy'])->name('admin.destroy');
 
 
     Route::resource('referencia', App\Http\Controllers\ReferenciaController::class);

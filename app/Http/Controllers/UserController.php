@@ -14,8 +14,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users=User::paginate(10);
-        return view('admin.users.index',compact('users'));
+        $users = User::paginate(10);
+        return view('admin.users.index', compact('users'));
     }
 
     /**
@@ -48,27 +48,28 @@ class UserController extends Controller
     public function edit(User $user)
     {
         //
-        $roles=Role::all();
-        return view('admin.users.edit',compact('user','roles'));
-
+        $roles = Role::all();
+        return view('admin.users.edit', compact('user', 'roles'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request,User $user)
+    public function update(Request $request, User $user)
     {
         //    
-    $user->roles()->sync($request->roles);
-    return "con exito";
-
+        $user->roles()->sync($request->roles);
+        return "con exito";
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(User $user)
+
     {
+        $user = User::destroy($user);
+        return "eliminado";
         //
     }
 }

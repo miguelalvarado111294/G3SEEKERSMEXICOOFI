@@ -1,4 +1,11 @@
-@extends('layouts.app')
+@extends('adminlte::page')
+
+@section('title', 'G3SEEKERSMX')
+
+@section('content_header')
+    <h1 class="text-center"><b>G3 Seekers</b></h1>
+@stop
+
 @section('content')
     <div class="container">
 
@@ -19,11 +26,10 @@
         </form>
         <br>
         @can('cliente.create')
+            <div style="text-align:center; margin:auto; width: 50%;">
 
-        <div style="text-align:center; margin:auto; width: 50%;">
-                
-            <a href="{{ url('cliente/create') }}" class="btn btn-success text-align: center">Alta Nuevo Socio</a>
-        </div>
+                <a href="{{ url('cliente/create') }}" class="btn btn-success text-align: center">Alta Nuevo Socio</a>
+            </div>
         @endcan
 
         <br>
@@ -31,8 +37,8 @@
             <div class="card-body" style="text-align:center; margin:auto">
                 <ul>
                     @foreach ($clientes as $cliente)
-                        <a href=" {{ route('cliente.show', $cliente->id) }}" class="btn btn-primary"
-                            style="text-align: center; display: inline-block; width: 50%;">
+                        <a href=" {{ route('cliente.show', $cliente->id) }}" class="btn btn-default"
+                            style="text-align: center; display: inline-block; width: 95%;">
                             {{ $cliente->nombre }} {{ $cliente->segnombre }} {{ $cliente->apellidopat }}
                             {{ $cliente->apellidomat }}
                         </a>

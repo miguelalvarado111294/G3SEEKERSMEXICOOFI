@@ -15,8 +15,8 @@ class LineaController extends Controller
 
     public function index()
     {
-        $datos['lineas'] = Linea::paginate(7);
-        return view('linea.index', $datos);
+        $lineas=Linea::paginate(10);
+        return view('linea.index',compact('lineas'));
     }
 
     public function create()
@@ -58,7 +58,7 @@ class LineaController extends Controller
 
 
         $dispositivo = Dispositivo::find($dispositivoid);
-
+/*
         $linea = new Linea;
         $linea->simcard = $request->simcard;
         $linea->telefono = $request->telefono;
@@ -67,7 +67,13 @@ class LineaController extends Controller
         $linea->comentarios = $request->comentarios;
         $linea->dispositivo_id = $dispositivoid;
         $linea->cliente_id = $dispositivo->cliente_id;
-        $linea->save();
+        $linea->save();*/
+
+        $datosCliente = $request->except('_token');
+        $datosCliente['cliente_id']=$dispositivo->cliente_id;
+        $datosCliente['dispositivo_id']=$dispositivoid;
+        $mArray = array_map('strtoupper', $datosCliente);
+        Linea::insert($mArray);
 
         return redirect()->route('buscar.linea', $dispositivoid);
     }

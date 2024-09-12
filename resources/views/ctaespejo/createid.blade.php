@@ -1,34 +1,39 @@
-@extends('layouts.app')
-@section('content')
-    <div class="container">
+@extends('adminlte::page')
 
-        crear cta espejo
+@section('title', 'G3SEEKERSMX')
 
-        <form action=" {{ route('ctaespejop.crear', $id) }} " method="post">
-            @csrf
+@section('content_header')
+    <h1 class="text-center"><b>G3 Seekers</b></h1>
+    <br>
+    <h3 class="text-center">Datos Personales</h3>
+    <br>
 
-            <div class="form-group">
-                <label>Usuario:</label>
-                <input type="text" class="form-control" name="usuario">
-            </div>
-            <br>
+    crear cta espejo
 
-            <div class="form-group">
-                <label> Contraseña : </label>
-                <input type="text" class="form-control" name="contrasenia">
-            </div>
-            <br>
+    <form action=" {{ route('ctaespejop.crear', $id) }} " method="post">
+        @csrf
 
-            <div class="form-group">
-                <label> Comentarios:</label>
-                <input type="text" class="form-control" name="comentarios">
-            </div>
-            <br>
+        <div class="form-group">
+            <label>Usuario:</label>
+            <input type="text" class="form-control" name="usuario">
+        </div>
+        <br>
+
+        <div class="form-group">
+            <label> Contraseña : </label>
+            <input type="text" class="form-control" name="contrasenia">
+        </div>
+        <br>
+
+        <div class="form-group">
+            <label> Comentarios:</label>
+            <input type="text" class="form-control" name="comentarios">
+        </div>
+        <br>
 
 
-            <div class="form-group">
-                <input type="submit" class="btn btn-success" value="Enviar Datos">
-        </form>
-    </div>
+        <div class="form-group">
+            <input type="submit" class="btn btn-success" value="Enviar Datos">
+    </form>
     </div>
 @endsection

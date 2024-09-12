@@ -1,6 +1,12 @@
-@extends('layouts.app')
-@section('content')
-    <div class="container">
+@extends('adminlte::page')
+
+@section('title', 'G3SEEKERSMX')
+
+@section('content_header')
+    <h1 class="text-center"><b>G3 Seekers</b></h1>
+<br>
+    <h3 class="text-center">Datos Personales</h3>
+<br>
 
         @if (Session::has('mensaje'))
             <div class="alert alert-success alert dismissible" role="alert">
@@ -36,12 +42,12 @@
             <tbody>
                 @foreach ($lineas as $linea)
                     <tr>
-                        <td> {{ $linea->dispositivo->id }} </td>
+                     
+                       {{--  <td> {{ $linea->dispositivo->id }} </td> --}} 
                         <td>{{ $linea->simcard }}</td>
                         <td>{{ $linea->telefono }}</td>
                         <td>{{ $linea->tipolinea }}</td>
                         <td> {{ $linea->cliente->nombre }} </td>
-                        <td> {{ $linea->dispositivo->modelo }} </td>
 
                         <td>
                             <a href="{{ url('/linea/' . $linea->id . '/edit') }}" class="btn btn-warning">Editar</a>
@@ -61,5 +67,4 @@
         {!! $lineas->links() !!}
 
 
-    </div>
 @endsection

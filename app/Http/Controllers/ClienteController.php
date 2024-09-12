@@ -61,8 +61,11 @@ class ClienteController extends Controller
             $datosCliente['compPago'] = $request->file('compPago')->store('uploads', 'public');
         }
 
+        $mArray = array_map('strtoupper', $datosCliente);
+
+
         //insertar datos al modelo cliente
-        Cliente::insert($datosCliente);
+        Cliente::insert($mArray);
 
         return redirect()->route('cliente.index');
     }

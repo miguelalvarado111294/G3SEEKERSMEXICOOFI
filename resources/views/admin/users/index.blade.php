@@ -28,7 +28,7 @@
                         <a href="{{route('admin.edit',$user)}}" class="btn btn-warning">Editar</a>
 
 
-                        <form action="" method="post" class="d-inline">
+                        <form action="{{route('admin.destroy',$user)}}" method="post" class="d-inline">
                             @csrf
                             {{ method_field('DELETE') }}
                             <input class="btn btn-danger" type="submit"

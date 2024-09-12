@@ -30,15 +30,11 @@ class dispositivo extends Model
         return $this->belongsTo('App\Models\Cliente', 'cliente_id', 'id');
     }
 
-
     public function lineas()
     {
         return $this->belongsTo('App\Models\Linea', 'linea_id', 'id');
     }
-    /*
-public function sensors(){
-    return $this->belongsTo(Sensor::class,'dispositivo_id','id');
-}*/
+
 
     public function vehiculo()
     {

@@ -1,16 +1,12 @@
-{{--
-<form action="{{route('cliente.index')}}" method="get">
-    @csrf
-    <div class="btn-group">
-        <input type="text" name="busqueda" class="form-control">
-        <input type="submit" value="enviar" class="btn btn-primary">
-    </div>
-</form>
---}}
+@extends('adminlte::page')
 
-@extends('layouts.app')
-@section('content')
-    <div class="container">
+@section('title', 'G3SEEKERSMX')
+
+@section('content_header')
+    <h1 class="text-center"><b>G3 Seekers</b></h1>
+<br>
+    <h3 class="text-center">Datos Personales</h3>
+<br>
 
         @if (Session::has('mensaje'))
             <div class="alert alert-success alert dismissible" role="alert">

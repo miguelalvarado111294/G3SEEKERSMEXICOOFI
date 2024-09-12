@@ -14,7 +14,7 @@ class VehiculoController extends Controller
 
     public function index()
     {
-        $datos['vehiculos'] = Vehiculo::paginate(7);
+        $datos['vehiculos'] = Vehiculo::paginate(10);
         return view('vehiculo.index', $datos);
     }
 
@@ -48,8 +48,12 @@ class VehiculoController extends Controller
             'color' => 'required|string|max:10'
         ]);
 
+        $datosCliente = $request->except('_token');
+        $datosCliente['cliente_id']=$id;
+        $mArray = array_map('strtoupper', $datosCliente);
+        Vehiculo::insert($mArray);
 
-        $vehiculo = Vehiculo::create([
+/*        $vehiculo = Vehiculo::create([
             'marca' => $request->marca,
             'modelo' => $request->modelo,
             'noserie' => $request->noserie,
@@ -59,7 +63,7 @@ class VehiculoController extends Controller
             'tipo' => $request->tipo,
             'comentarios' => $request->comentarios,
             'cliente_id' => $id
-        ]);
+        ]);*/
 
         return redirect()->route('buscar.vehiculo', $id);
     }

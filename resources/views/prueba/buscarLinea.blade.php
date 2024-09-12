@@ -1,6 +1,12 @@
-@extends('layouts.app')
-@section('content')
-    <div class="container">
+@extends('adminlte::page')
+
+@section('title', 'G3SEEKERSMX')
+
+@section('content_header')
+    <h1 class="text-center"><b>G3 Seekers</b></h1>
+<br>
+    <h3 class="text-center">Datos Personales</h3>
+<br>
 
         @if (Session::has('mensaje'))
             <div class="alert alert-success alert dismissible" role="alert">
@@ -47,11 +53,11 @@
 
                         <td>
                             @can('linea.edit')
-                                <a href="{{ url('/linea/' . $linea->id . '/edit') }}" class="btn btn-warning">Editar</a>
+                                <a href="{{ url('/linea/' . $linea . '/edit') }}" class="btn btn-warning">Editar</a>
                             @endcan
 
                             @can('linea.destroy')
-                                <form action="{{ url('/linea/' . $linea->id) }}" method="post" class="d-inline">
+                                <form action="{{ url('/linea/' . $linea) }}" method="post" class="d-inline">
                                     @csrf
                                     {{ method_field('DELETE') }}
                                     <input class="btn btn-danger" type="submit"

@@ -53,13 +53,20 @@ class CuentaController extends Controller
             'contraseniaParo' => 'required|alpha_dash|min:2|max:100'
         ]);
 
-        $cuenta = Cuenta::create([
+       // $usuario = strtoupper($request);
+
+       $datosCliente = $request->except('_token');
+       $datosCliente['cliente_id']=$id;
+       $mArray = array_map('strtoupper', $datosCliente);
+       Cuenta::insert($mArray);
+
+      /*  $cuenta = Cuenta::create([
             'usuario' => $request->usuario,
-            'contrasenia' => $request->usuario,
-            'contraseniaParo' => $request->usuario,
+            'contrasenia' => $request->contrasenia,
+            'contraseniaParo' => $request->contraseniaParo,
             'comentarios' => $request->comentarios,
             'cliente_id' => $id
-        ]);
+        ]);*/
 
         return redirect()->route('buscar.cuenta', $id);
     }

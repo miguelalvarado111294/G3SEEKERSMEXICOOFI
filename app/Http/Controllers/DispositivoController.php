@@ -52,7 +52,6 @@ class DispositivoController extends Controller
 
     public function stodis(Request $request, $id)
     {
-        // return $request;
         $vehiculoid = $id;
         $vehiculo = Vehiculo::find($vehiculoid);
         $clienteid = $vehiculo->cliente_id;
@@ -63,24 +62,14 @@ class DispositivoController extends Controller
             'imei' => 'required|numeric|min:2|min:18'
         ]);
 
-        /*
-        $dispositivo=Dispositivo::create([
-        'modelo'=>$request->modelo,
-        'noserie'=>$request->noserie,
-        'imei'=>$request->imei,
-        'cuenta'=>$request->cuenta,
-        'sucursal'=>$request->sucursal,
-        'fechacompra'=>$request->fechacompra,
-        'noeconomico'=>$request->noeconomico,
-        'comentarios'=>$request->comentarios,
-        'cliente_id'=>$clienteid,
-        'vehiculo_id'=>$vehiculoid
-        
-        ]);
+        $datosCliente = $request->except('_token');
+        $datosCliente['cliente_id']=$clienteid;
+        $datosCliente['vehiculo_id']=$vehiculoid;
 
-        return $dispositivo;
-*/
+        $mArray = array_map('strtoupper', $datosCliente);
+        Dispositivo::insert($mArray);
 
+/*
         $dispositivo = new Dispositivo();
         $dispositivo->modelo = $request->modelo;
         $dispositivo->noserie = $request->noserie;
@@ -94,7 +83,7 @@ class DispositivoController extends Controller
         $dispositivo->cliente_id = $clienteid;
 
         $dispositivo->save();
-
+*/
         return redirect()->route('buscar.dispositivo', $vehiculoid = $id);
     }
     public function show(dispositivo $dispositivo) {}
