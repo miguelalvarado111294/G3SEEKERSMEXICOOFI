@@ -8,10 +8,10 @@
     <h3 class="text-center">Datos Personales</h3>
 <br>
 
-        <form action="{{ url('/referencia/' . $referencia->id) }}" method="post"> >
+        <form action="{{ url('/referencia/' . $referencia->id) }}" method="post"> 
             @csrf
             {{ method_field('PATCH') }}
-            @include('/referencia.form', ['modo' => 'Editar']);
+            @include('/referencia.form', ['modo' => 'Editar'])
         </form>
 
     </div>

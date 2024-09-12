@@ -7,9 +7,9 @@
 @stop
 
 @section('content')
-    <div class="container">
 
-        <h1 style="text-align: center; display: inline-block; width: 100%; ">Datos de Clientes</h1>
+    <div class="container">
+        <h3 class="text-center">Clientes</h3>
         @if (Session::has('mensaje'))
             <div class="alert alert-success alert-dismissible" role="alert">
                 {{ Session::get('mensaje') }}
@@ -18,7 +18,7 @@
                 </button>
             </div>
         @endif
-
+        <br>
         <form class="d-flex" role="search">
             <input name="busqueda" class="form-control me-2" type="search"
                 placeholder="Buscar por Nombre , Apellido , telefono, dispositivo n/s, cuenta " aria-label="Search">
@@ -27,7 +27,6 @@
         <br>
         @can('cliente.create')
             <div style="text-align:center; margin:auto; width: 50%;">
-
                 <a href="{{ url('cliente/create') }}" class="btn btn-success text-align: center">Alta Nuevo Socio</a>
             </div>
         @endcan
