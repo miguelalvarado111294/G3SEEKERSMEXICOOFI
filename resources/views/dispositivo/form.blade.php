@@ -1,5 +1,3 @@
-<h1>{{ $modo }} dispositivo </h1>
-<br>
 
 <div class="form-group">
     <label for="modelo">modelo</label>

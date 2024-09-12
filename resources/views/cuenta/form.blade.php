@@ -1,7 +1,3 @@
-<h1>{{ $modo }} Cuentas </h1>
-<br>
-
-<br>
 
 <div class="form-group">
     <label for="usuario">usuario</label>

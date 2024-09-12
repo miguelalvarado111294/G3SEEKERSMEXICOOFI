@@ -7,10 +7,10 @@
 <br>
     <h3 class="text-center">Datos Personales</h3>
 <br>
-        <form action="{{ url('/linea/' . $linea->id) }}" method="post"> >
+        <form action="{{ url('/linea/' . $linea->id) }}" method="post"> 
             @csrf
             {{ method_field('PATCH') }}
-            @include('/linea.form', ['modo' => 'Editar']);
+            @include('/linea.form', ['modo' => 'Editar'])
         </form>
 
 @endsection

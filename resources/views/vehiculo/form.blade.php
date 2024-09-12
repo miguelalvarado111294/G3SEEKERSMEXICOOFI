@@ -1,5 +1,4 @@
-<h1>{{ $modo }} Vehiculos </h1>
-<br>
+
 <div class="form-group">
     <label for="marca">Marca del Vehiculo</label>
     <input type="text" class="form-control" name="marca"

@@ -1,5 +1,3 @@
-<h1>{{ $modo }} Cuentas Espejo</h1>
-<br>
 
 <div class="form-group">
     <label for="usuario">usuario</label>

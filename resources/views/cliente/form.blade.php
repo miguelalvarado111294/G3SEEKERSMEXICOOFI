@@ -1,8 +1,4 @@
 
-
-<h1>{{ $modo }} Cliente </h1>
-<br>
-
 <div class="form-group">
     <label for="nombre">Nombre</label>
 

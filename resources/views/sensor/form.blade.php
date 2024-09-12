@@ -1,5 +1,3 @@
-<h1>{{ $modo }} Sensor </h1>
-<br>
 
 <div class="form-group">
     <label for="marca">Marca</label>

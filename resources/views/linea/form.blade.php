@@ -1,5 +1,3 @@
-<h1>{{ $modo }} Linea </h1>
-<br>
 
 <div class="form-group">
     <label for="nombre">simcard</label>
