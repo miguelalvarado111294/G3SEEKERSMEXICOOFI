@@ -21,8 +21,8 @@ class VehiculoController extends Controller
     public function create()
     {
         $clientes = Cliente::all();
-        $dispositivo = dispositivo::all();
-        $cuentas = cuenta::all();
+        $dispositivo = Dispositivo::all();
+        $cuentas = Cuenta::all();
         return view('vehiculo.create', compact('clientes', 'tipounidad', 'cuentas', 'dispositivo'));
     }
 
@@ -39,21 +39,20 @@ class VehiculoController extends Controller
 
         // return $request;
         $request->validate([
-            'marca' => 'required|alpha_dash|min:2|max:100',
-            'modelo' => 'alpha_num',
-            'noserie' => 'required|alpha_dash|min:18',
-            'nomotor' => 'required|alpha_dash|min:18',
-
-            'placa' => 'required|alpha_dash|min:8',
-            'color' => 'required|string|max:10'
+            'marca' => 'required|alpha_dash|min:3|max:100',
+            'modelo' => 'required|alpha_num|alpha_dash',
+            'noserie' => 'required|alpha_dash|min:5',
+            'nomotor' => 'required|alpha_dash|min:5',
+            'placa' => 'required|alpha_dash|min:4',
+            'color' => 'string|min:4|max:15'
         ]);
 
         $datosCliente = $request->except('_token');
-        $datosCliente['cliente_id']=$id;
+        $datosCliente['cliente_id'] = $id;
         $mArray = array_map('strtoupper', $datosCliente);
         Vehiculo::insert($mArray);
 
-/*        $vehiculo = Vehiculo::create([
+        /*        $vehiculo = Vehiculo::create([
             'marca' => $request->marca,
             'modelo' => $request->modelo,
             'noserie' => $request->noserie,
@@ -72,11 +71,12 @@ class VehiculoController extends Controller
     {
 
         $campos = [
-            'marca' => 'required|alpha_dash|min:2|max:100',
-            'modelo' => 'alpha_num',
-            'noserie' => 'required|alpha_dash|min:18',
-            'placa' => 'required|alpha_dash|min:8',
-            'color' => 'required|string|max:10'
+            'marca' => 'required|alpha_dash|min:3|max:100',
+            'modelo' => 'required|alpha_num|alpha_dash',
+            'noserie' => 'required|alpha_dash|min:5',
+            'nomotor' => 'required|alpha_dash|min:5',
+            'placa' => 'required|alpha_dash|min:4',
+            'color' => 'string|min:4|max:15'
         ];
 
         $this->validate($request, $campos/*$mensaje*/);
@@ -97,12 +97,12 @@ class VehiculoController extends Controller
     {
 
         $request->validate([
-            'marca' => 'required|alpha_dash|min:2|max:100',
-            'modelo' => 'alpha_num',
-            'noserie' => 'required|alpha_dash|min:18',
-            'placa' => 'required|alpha_dash|min:8',
-            'color' => 'required|string|max:10'
-
+            'marca' => 'required|alpha_dash|min:3|max:100',
+            'modelo' => 'required|alpha_num|alpha_dash',
+            'noserie' => 'required|alpha_dash|min:5',
+            'nomotor' => 'required|alpha_dash|min:5',
+            'placa' => 'required|alpha_dash|min:4',
+            'color' => 'string|min:4|max:15'
         ]);
 
         $vehiculo = Vehiculo::where('id', '=', $id)->update($request->except(['_token', '_method']));

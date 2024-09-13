@@ -16,7 +16,13 @@
             </button>
         </div>
     @endif
-
+    <br>
+    <form class="d-flex" role="search">
+        <input name="busqueda" class="form-control me-2" type="search"
+            placeholder="Buscar por Nombre , Apellido , telefono, dispositivo n/s, cuenta " aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Buscar </button>
+    </form>
+    <br>
     <br>
     <a href="{{ url('cuenta/create') }}" class="btn btn-success">Registrar nueva cuenta</a>
     </br>
@@ -26,24 +32,23 @@
             <table class="table table-light">
                 <thead class="thead-light">
                     <tr>
-                        {{-- <th>#</th> --}}
-                        <th>cliente</th>
+                         <th>Id</th> 
                         <th>usuario</th>
                         <th>contrasenia</th>
-                        <th>vehiculo</th>
                         <th>contraseniaParo</th>
-
+                        <th>Acciones</th>
                     </tr>
                 </thead>
 
                 <tbody>
                     @foreach ($cuentas as $cuenta)
                         <tr>
-                            <td>{{ $cuenta->cliente->nombre }} {{ $cuenta->cliente->apellidopat }}
-                                {{ $cuenta->cliente->apellidomat }}</td>
+                            <td> {{$cuenta->id}} </td>
+
                             <td>{{ $cuenta->usuario }}</td>
                             <td>{{ $cuenta->contrasenia }}</td>
                             <td>{{ $cuenta->contraseniaParo }}</td>
+
                             <td>
                                 <a href="{{ url('/cuenta/' . $cuenta->id . '/edit') }}" class="btn btn-warning">Editar</a>
                                 -

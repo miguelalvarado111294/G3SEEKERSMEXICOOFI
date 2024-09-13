@@ -33,7 +33,7 @@ return [
             'telefono'=>'required|numeric|digits:10|unique:clientes,telefono,'. $cliente->id,
             'direccion'=>'required',
             'email'=>'required|string|min:2|max:100|email|unique:clientes',
-            'rfc'=>'alpha_num|min:2|max:100|unique:clientes',
+            'rfc'=>'nullable|alpha_num|min:2|max:100|unique:clientes',
             'actaconstitutiva'=>'mimes:pdf,jpeg,png,jpg|max:5000',
             'consFiscal'=>'mimes:pdf,jpeg,png,jpg|max:5000',
             'comprDom'=>'mimes:pdf,jpeg,png,jpg|max:5000',

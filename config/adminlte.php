@@ -351,6 +351,11 @@ return [
             'icon' => 'fas fa-fw fa-user',
         ],
         [
+            'text' => 'Lineas',
+            'route' => 'linea.index',
+            'icon' => 'fas fa-fw fa-user',
+        ],
+        [
             'text' => 'Sensores',
             'route' => 'sensor.index',
             'icon' => 'fas fa-fw fa-user',

@@ -8,10 +8,18 @@ use App\Models\cliente;
 
 class ReferenciaController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $datos['referencias'] = Referencia::paginate(5);
-        return view('referencia.index', $datos);
+
+        $busqueda = $request->get('busqueda');  //recibe del input de index cliente y lo almacena en una variable 
+        
+        $referencia = Referencia::where('nombre', 'LIKE', '%' . $busqueda . '%')
+            ->orWhere('segnombre', 'LIKE', '%' . $busqueda . '%')
+            ->orWhere('apellidopat', 'LIKE', '%' . $busqueda . '%')             //busqueda 
+            ->orWhere('apellidomat', 'LIKE', '%' . $busqueda . '%')
+            ->orWhere('telefono', 'LIKE', '%' . $busqueda . '%')->paginate(10);
+
+        return view('referencia.index', compact('referencias'));
     }
 
     public function create(Request $request)
@@ -33,8 +41,8 @@ class ReferenciaController extends Controller
         $request->validate([
             'nombre' => 'required|alpha|min:2|max:100',
             'segnombre' => 'nullable|alpha',
-            'apellidopat' => 'required|alpha|min:2|max:100',
-            'apellidomat' => 'required|alpha|min:2|max:100',
+            'apellidopat' => 'required|alpha|min:5|max:100',
+            'apellidomat' => 'required|alpha|min:5|max:100',
             'telefono' => 'required|numeric|digits:10',
             'parentesco' => 'required'
         ]);
@@ -59,8 +67,8 @@ class ReferenciaController extends Controller
         $request->validate([
             'nombre' => 'required|alpha|min:2|max:100',
             'segnombre' => 'nullable|alpha',
-            'apellidopat' => 'required|alpha|min:2|max:100',
-            'apellidomat' => 'required|alpha|min:2|max:100',
+            'apellidopat' => 'required|alpha|min:5|max:100',
+            'apellidomat' => 'required|alpha|min:5|max:100',
             'telefono' => 'required|numeric|digits:10',
             'parentesco' => 'required'
         ]);
@@ -86,8 +94,8 @@ class ReferenciaController extends Controller
         $request->validate([
             'nombre' => 'required|alpha|min:2|max:100',
             'segnombre' => 'nullable|alpha',
-            'apellidopat' => 'required|alpha|min:2|max:100',
-            'apellidomat' => 'required|alpha|min:2|max:100',
+            'apellidopat' => 'required|alpha|min:5|max:100',
+            'apellidomat' => 'required|alpha|min:5|max:100',
             'telefono' => 'required|numeric|digits:10',
             'parentesco' => 'required'
 

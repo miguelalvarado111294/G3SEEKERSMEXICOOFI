@@ -103,9 +103,9 @@ class DispositivoController extends Controller
     {
 
         $campos = [
-            'modelo' => 'required|alpha_dash|min:2|max:100',
-            'noserie' => 'required|alpha_dash|min:20',
-            'imei' => 'required|numeric|min:2|min:18'
+            'modelo' => 'required|min:2|max:100',
+            'noserie' => 'nullable|alpha_dash|min:20',
+            'imei' => 'required|alpha_dash|min:5|min:10'
         ];
 
         $this->validate($request, $campos/*$mensaje*/);

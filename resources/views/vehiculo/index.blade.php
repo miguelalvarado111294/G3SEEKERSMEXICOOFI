@@ -16,7 +16,13 @@
             </button>
         </div>
     @endif
-
+    <br>
+    <form class="d-flex" role="search">
+        <input name="busqueda" class="form-control me-2" type="search"
+            placeholder="Buscar por Nombre , Apellido , telefono, dispositivo n/s, cuenta " aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Buscar </button>
+    </form>
+    <br>
     <br>
     <a href="{{ url('vehiculo/create') }}" class="btn btn-success">Registrar Vehiculos</a>
     <br><br>

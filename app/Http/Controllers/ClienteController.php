@@ -17,6 +17,7 @@ class ClienteController extends Controller
         //recuperar todos los clientes
 
         $busqueda = $request->get('busqueda');  //recibe del input de index cliente y lo almacena en una variable 
+        
         $clientes = Cliente::where('nombre', 'LIKE', '%' . $busqueda . '%')
             ->orWhere('segnombre', 'LIKE', '%' . $busqueda . '%')
             ->orWhere('apellidopat', 'LIKE', '%' . $busqueda . '%')             //busqueda 
@@ -25,11 +26,8 @@ class ClienteController extends Controller
             ->orWhere('email', 'LIKE', '%' . $busqueda . '%')
             ->orWhere('rfc', 'LIKE', '%' . $busqueda . '%')->paginate(10);
 
-
-        $numeroeconomico = Dispositivo::where('noeconomico', 'LIKE', '%' . $busqueda . '%')->paginate(10);
         return view('cliente.index', compact('clientes'));
     }
-
 
     public function create()
     {
@@ -127,10 +125,10 @@ class ClienteController extends Controller
             'segnombre' => 'nullable|alpha',
             'apellidopat' => 'required|alpha|min:2|max:100',
             'apellidomat' => 'required|alpha|min:2|max:100',
-            'telefono' => 'required|numeric|digits:10|unique:clientes,telefono,' . $id,
+            'telefono' => 'required|numeric|digits:10',
             'direccion' => 'required',
             'email' => 'required|string|min:2|max:100|email|unique:clientes,email,' . $id,
-            'rfc' => 'alpha_num|min:2|max:100|unique:clientes,rfc,' . $id,
+            'rfc' => 'nullable|alpha_num|min:2|max:100|unique:clientes,rfc,' . $id,
             'actaconstitutiva' => 'mimes:pdf,jpeg,png,jpg|max:5000',
             'consFiscal' => 'mimes:pdf,jpeg,png,jpg|max:5000',
             'comprDom' => 'mimes:pdf,jpeg,png,jpg|max:5000',

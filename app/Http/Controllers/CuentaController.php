@@ -19,11 +19,16 @@ use App\Models\dispositivo;
 class CuentaController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
+        $datos['cuentas'] = Cuenta::paginate(10);
 
-        $datos['cuentas'] = Cuenta::paginate(7);
-        return view('cuenta.index', $datos);
+        $busqueda = $request->get('busqueda');  //recibe del input de index cliente y lo almacena en una variable 
+        $cuentas = Cuenta::where('usuario', 'LIKE', '%' . $busqueda . '%');
+
+
+
+        return view('cuenta.index', compact('datos','cuentas'));
     }
 
     public function create()
@@ -48,9 +53,10 @@ class CuentaController extends Controller
     {
 
         $request->validate([
-            'usuario' => 'required|alpha_dash|min:2|max:15',
+            'usuario' => 'required|alpha_dash|min:3|max:15',
             'contrasenia' => 'required|alpha_dash|min:2|max:15',
-            'contraseniaParo' => 'required|alpha_dash|min:2|max:100'
+            'contraseniaParo' => 'required|alpha_dash|min:2|max:100',
+            'comentarios' => 'nullable|alpha|min:10|max:100'
         ]);
 
        // $usuario = strtoupper($request);
@@ -75,10 +81,10 @@ class CuentaController extends Controller
     {
 
         $campos = [
-            'usuario' => 'required|alpha_dash|min:2|max:15',
+            'usuario' => 'required|alpha_dash|min:3|max:15',
             'contrasenia' => 'required|alpha_dash|min:2|max:15',
-            'contraseniaParo' => 'required|alpha_dash|min:2|max:100'
-
+            'contraseniaParo' => 'required|alpha_dash|min:2|max:100',
+            'comentarios' => 'nullable|alpha|min:10|max:100'
         ];
 
         $this->validate($request, $campos/*$mensaje*/);
@@ -101,9 +107,11 @@ class CuentaController extends Controller
     {
 
         $request->validate([
-            'usuario' => 'required|alpha_dash|min:2|max:15',
+            'usuario' => 'required|alpha_dash|min:3|max:15',
             'contrasenia' => 'required|alpha_dash|min:2|max:15',
-            'contraseniaParo' => 'required|alpha_dash|min:2|max:100'
+            'contraseniaParo' => 'required|alpha_dash|min:2|max:100',
+            'comentarios' => 'nullable|alpha|min:10|max:100'
+
         ]);
 
         $cuenta = Cuenta::where('id', '=', $id)->update($request->except(['_token', '_method']));

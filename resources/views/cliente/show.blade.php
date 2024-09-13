@@ -4,11 +4,9 @@
 
 @section('content_header')
     <h1 class="text-center"><b>G3 Seekers</b></h1>
+    <h3 class="text-center">Datos Personales</h3>
 
-
-
-
-    <h1>Datos Personales</h1>
+    <br>
     <div class="card">
 
         <div class="card-body">
@@ -25,32 +23,47 @@
                 Comentarios {{ $cliente->comentarios }}
 
             </ul>
+
+        </div>
+    </div>
+
+    @can('cliente.edit')
+        <a href="{{ url('/cliente/' . $cliente->id . '/edit') }}" style="text-align: center; display: inline-block; width: 17%; "
+            class="btn btn-warning">Editar</a>
+    @endcan
+
+    @can('cliente.destroy')
+        <form action="{{ url('/cliente/' . $cliente->id) }}" method="post" class="d-inline">
+            @csrf
+            {{ method_field('DELETE') }}
+            <input class="btn btn-danger" style="text-align: center; display: inline-block; width: 17%; " type="submit"
+                onclick=" return confirm('seguro quieres eliminar?')" value="Borrar">
+        </form>
+    @endcan
+    <br><br>
+
+    <div class="card">
+        <div class="card-body">
+
             <a href="{{ route('buscar.buscararchivos', $cliente->id) }}" class="btn btn-primary"
                 style="text-align: center; display: inline-block; width: 17%; ">Documentos electronicos</a>
             <a href="{{ route('buscar.cuenta', $cliente->id) }} "
                 style="text-align: center; display: inline-block; width: 17%;" class="btn btn-primary">Cuenta</a>
-            <br><br>
-            @can('cliente.edit')
-                <a href="{{ url('/cliente/' . $cliente->id . '/edit') }}"
-                    style="text-align: center; display: inline-block; width: 17%; " class="btn btn-warning">Editar</a>
-            @endcan
-
-            @can('cliente.destroy')
-                <form action="{{ url('/cliente/' . $cliente->id) }}" method="post" class="d-inline">
-                    @csrf
-                    {{ method_field('DELETE') }}
-                    <input class="btn btn-danger" style="text-align: center; display: inline-block; width: 17%; " type="submit"
-                        onclick=" return confirm('seguro quieres eliminar?')" value="Borrar">
-                </form>
-            @endcan
         </div>
+
     </div>
+
+
     <br>
+
     <div class="card">
 
         <div class="card-body">
-            <h1>Referencias </h1><a href="{{ route('referenciaf.crear', $cliente->id) }}" class="btn btn-success">Registrar
-                nuevo referencia</a>
+
+            <h3 class="text-center">Referencias</h3>
+            <br>
+            <a href="{{ route('referenciaf.crear', $cliente->id) }}" class="btn btn-success">Registrar Nueva Referencia</a>
+            <br>
             <br>
 
             <table class="table table-light">
@@ -96,7 +109,8 @@
             </table>
         </div>
     </div>
-    <br><br><br>
+    <br>
 
     <a href="{{ url('cliente') }}" class="btn btn-dark">Regresar</a>
+
 @endsection

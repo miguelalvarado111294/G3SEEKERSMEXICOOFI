@@ -4,7 +4,7 @@
     <input type="text" class="form-control" name="modelo"
         value="{{ isset($dispositivo->modelo) ? $dispositivo->modelo : old('modelo') }}" id="modelo">
     @error('modelo')
-        ;
+        
         <small style ="color: red"> {{ $message }}</small>
     @enderror
     <br>
@@ -15,7 +15,7 @@
     <input type="text" class="form-control" name="noserie"
         value="{{ isset($dispositivo->noserie) ? $dispositivo->noserie : old('noserie') }}" id="noserie">
     @error('noserie')
-        ;
+        
         <small style ="color: red"> {{ $message }}</small>
     @enderror
     <br>
@@ -26,7 +26,7 @@
     <input type="text" class="form-control" name="imei"
         value="{{ isset($dispositivo->imei) ? $dispositivo->imei : old('imei') }}" id="imei">
     @error('imei')
-        ;
+        
         <small style ="color: red"> {{ $message }}</small>
     @enderror
     <br>
@@ -38,7 +38,7 @@
     <input type="text" class="form-control" name="cuenta"
         value="{{ isset($dispositivo->cuenta) ? $dispositivo->cuenta : old('cuenta') }}" id="cuenta">
     @error('cuenta')
-        ;
+        
         <small style ="color: red"> {{ $message }}</small>
     @enderror
     <br>
@@ -51,7 +51,7 @@
     <input type="text" class="form-control" name="sucursal"
         value="{{ isset($dispositivo->sucursal) ? $dispositivo->sucursal : old('sucursal') }}" id="sucursal">
     @error('sucursal')
-        ;
+        
         <small style ="color: red"> {{ $message }}</small>
     @enderror
     <br>
@@ -64,7 +64,7 @@
     <input type="text" class="form-control" name="fechacompra"
         value="{{ isset($dispositivo->fechacompra) ? $dispositivo->fechacompra : old('fechacompra') }}" id="fechacompra">
     @error('fechacompra')
-        ;
+        
         <small style ="color: red"> {{ $message }}</small>
     @enderror
     <br>
@@ -77,7 +77,7 @@
     <input type="text" class="form-control" name="noeconomico"
         value="{{ isset($dispositivo->noeconomico) ? $dispositivo->noeconomico : old('noeconomico') }}" id="noeconomico">
     @error('noeconomico')
-        ;
+        
         <small style ="color: red"> {{ $message }}</small>
     @enderror
     <br>
@@ -94,7 +94,7 @@
     <input type="text" class="form-control" name="comentarios"
         value="{{ isset($cuenta->comentarios) ? $cuenta->comentarios : old('comentarios') }}" id="comentarios">
     @error('contraseniaParo')
-        ;
+        
         <small style ="color: red"> {{ $message }}</small>
     @enderror
     <br>
