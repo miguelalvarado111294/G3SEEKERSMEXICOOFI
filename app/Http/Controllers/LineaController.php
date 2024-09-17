@@ -36,7 +36,7 @@ class LineaController extends Controller
     public function store(Request $request)
     {
         $campos = [
-            'simcard' => 'required|numeric|digits:18',
+            'simcard' => 'required||min:18|max:20',
             'telefono' => 'required|numeric|digits:10',
             'tipolinea' => 'required|alpha|min:2|max:5',
             'renovacion' => 'required|alpha'
@@ -100,7 +100,7 @@ class LineaController extends Controller
     {
 
         $campos = [
-            'simcard' => 'required|numeric|digits:18',
+            'simcard' => 'required||min:18|max:20',
             'telefono' => 'required|numeric|digits:10',
             'tipolinea' => 'required|alpha|min:2|max:5',
             'renovacion' => 'required|alpha'

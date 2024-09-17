@@ -72,7 +72,7 @@
         <br>
         <br>
         <br>
-        {!! $clientes->links() !!}
+        {!! $clientes->appends(['busqueda'=>$busqueda]) !!}
 
     </div>
 @endsection

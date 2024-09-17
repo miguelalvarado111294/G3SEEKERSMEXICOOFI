@@ -8,19 +8,20 @@ use App\Models\cliente;
 
 class ReferenciaController extends Controller
 {
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public function index(Request $request)
     {
 
         $busqueda = $request->get('busqueda');  //recibe del input de index cliente y lo almacena en una variable 
         $referencias = Referencia::where('nombre', 'LIKE', '%' . $busqueda . '%')
-        ->orWhere('segnombre', 'LIKE', '%' . $busqueda . '%')
-        ->orWhere('apellidopat', 'LIKE', '%' . $busqueda . '%')             //busqueda 
-        ->orWhere('apellidomat', 'LIKE', '%' . $busqueda . '%')
-        ->orWhere('telefono', 'LIKE', '%' . $busqueda . '%')->paginate(10);
+            ->orWhere('segnombre', 'LIKE', '%' . $busqueda . '%')
+            ->orWhere('apellidopat', 'LIKE', '%' . $busqueda . '%')             //busqueda 
+            ->orWhere('apellidomat', 'LIKE', '%' . $busqueda . '%')
+            ->orWhere('telefono', 'LIKE', '%' . $busqueda . '%')->paginate(10);
 
-        return view('referencia.index', compact('referencias','busqueda'));
+        return view('referencia.index', compact('referencias', 'busqueda'));
     }
-
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public function create(Request $request)
     {
         $clientes = Cliente::all();
@@ -29,19 +30,34 @@ class ReferenciaController extends Controller
 
     public function crearref($id)
     {
-
         $cliente = cliente::all();
         return view('referencia.createid', compact('id'));
+    }
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    public function store(Request $request)
+    {
+        $request->validate([
+            'nombre' => 'required|alpha|min:2|max:100',
+            'segnombre' => 'nullable|alpha',
+            'apellidopat' => 'required|alpha|min:4|max:100',
+            'apellidomat' => 'required|alpha|min:4|max:100',
+            'telefono' => 'required|numeric|digits:10',
+            'parentesco' => 'required'
+        ]);
+
+        $datosCliente = $request->except('_token');
+
+        Referencia::create($request->all());
+        return redirect('referencia')->with('mensaje', 'Referencia agregado exitosamente ');
     }
 
     public function storef(Request $request, $id)
     {
-
         $request->validate([
             'nombre' => 'required|alpha|min:2|max:100',
             'segnombre' => 'nullable|alpha',
-            'apellidopat' => 'required|alpha|min:5|max:100',
-            'apellidomat' => 'required|alpha|min:5|max:100',
+            'apellidopat' => 'required|alpha|min:4|max:100',
+            'apellidomat' => 'required|alpha|min:4|max:100',
             'telefono' => 'required|numeric|digits:10',
             'parentesco' => 'required'
         ]);
@@ -58,25 +74,7 @@ class ReferenciaController extends Controller
 
         return redirect()->route('cliente.show', $id);
     }
-
-
-    public function store(Request $request)
-    {
-
-        $request->validate([
-            'nombre' => 'required|alpha|min:2|max:100',
-            'segnombre' => 'nullable|alpha',
-            'apellidopat' => 'required|alpha|min:5|max:100',
-            'apellidomat' => 'required|alpha|min:5|max:100',
-            'telefono' => 'required|numeric|digits:10',
-            'parentesco' => 'required'
-        ]);
-
-        Referencia::create($request->all());
-        return redirect('referencia')->with('mensaje', 'Referencia agregado exitosamente ');
-    }
-
-
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public function show(referencia $referencia) {}
 
     public function edit($id)
@@ -86,25 +84,27 @@ class ReferenciaController extends Controller
         return view('referencia.edit', compact('referencia', 'clientes'));
     }
 
-
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public function update(Request $request, $id)
     {
+        $referencia_id=$id;
 
         $request->validate([
             'nombre' => 'required|alpha|min:2|max:100',
             'segnombre' => 'nullable|alpha',
-            'apellidopat' => 'required|alpha|min:5|max:100',
-            'apellidomat' => 'required|alpha|min:5|max:100',
+            'apellidopat' => 'required|alpha|min:4|max:100',
+            'apellidomat' => 'required|alpha|min:4|max:100',
             'telefono' => 'required|numeric|digits:10',
             'parentesco' => 'required'
 
         ]);
 
-        $referencia = Referencia::where('id', '=', $id)->update($request->except(['_token', '_method']));
-        $referencia = Referencia::find($id);
+        $referencia = Referencia::where('id', '=', $referencia_id)->update($request->except(['_token', '_method']));
+
+        $referencia = Referencia::find($referencia_id);
         return redirect()->route('cliente.show', $referencia->cliente_id);
     }
-
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public function destroy($id)
     {
         $referencia = Referencia::findOrFail($id);

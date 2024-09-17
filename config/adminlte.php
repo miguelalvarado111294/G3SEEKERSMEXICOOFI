@@ -325,7 +325,7 @@ return [
         ],
 
         ['header' => 'Datos del Cliente'],
-         [
+        [
             'text' => 'Clientes',
             'route' => 'cliente.index',
             'icon' => 'fas fa-fw fa-user',
@@ -360,12 +360,12 @@ return [
             'route' => 'sensor.index',
             'icon' => 'fas fa-fw fa-user',
         ],
-          /*[
+        /*[
             'text' => 'change_password',
             'url' => 'admin/settings',
             'icon' => 'fas fa-fw fa-lock',
         ],*/
-       /* [
+        /* [
             'text' => 'Cliente',
             'icon' => 'fas fa-fw fa-share',
             'submenu' =>
@@ -434,7 +434,7 @@ return [
                 ],
             ],
         ],*/
-       /* ['header' => 'labels'],
+        /* ['header' => 'labels'],
         [
             'text' => 'important',
             'icon_color' => 'red',
@@ -450,7 +450,8 @@ return [
             'icon_color' => 'cyan',
             'url' => '#',
         ],
-    */],
+    */
+    ],
 
 
     /*

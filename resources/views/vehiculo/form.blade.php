@@ -13,7 +13,6 @@
     <input type="text" class="form-control" name="modelo"
         value="{{ isset($vehiculo->modelo) ? $vehiculo->modelo : old('modelo') }}" id="modelo">
     @error('modelo')
-        
         <small style ="color: red"> {{ $message }}</small>
     @enderror
     <br>

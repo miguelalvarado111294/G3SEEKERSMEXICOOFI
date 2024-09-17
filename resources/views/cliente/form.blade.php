@@ -1,4 +1,3 @@
-
 <div class="form-group">
     <label for="nombre">Nombre</label>
 
@@ -6,7 +5,6 @@
         value="{{ isset($cliente->nombre) ? $cliente->nombre : old('nombre') }}" id="nombre">
 
     @error('nombre')
-        ;
         <small style ="color: red"> {{ $message }}</small>
     @enderror
 
@@ -19,7 +17,6 @@
         value="{{ isset($cliente->segnombre) ? $cliente->segnombre : old('segnombre') }}" id="segnombre">
 
     @error('segnombre')
-        ;
         <small style ="color: red"> {{ $message }}</small>
     @enderror
 
@@ -31,7 +28,6 @@
         value="{{ isset($cliente->apellidopat) ? $cliente->apellidopat : old('apellidopat') }}" id="apellidopat">
 
     @error('apellidopat')
-        ;
         <small style ="color: red"> {{ $message }}</small>
     @enderror
     <br>
@@ -41,7 +37,6 @@
     <input type="text" class="form-control" name="apellidomat"
         value="{{ isset($cliente->apellidomat) ? $cliente->apellidomat : old('apellidomat') }}" id="apellidomat">
     @error('apellidomat')
-        ;
         <small style ="color: red"> {{ $message }}</small>
     @enderror
 
@@ -52,7 +47,6 @@
     <input type="text" class="form-control" name="telefono"
         value="{{ isset($cliente->telefono) ? $cliente->telefono : old('telefono') }}" id="telefono">
     @error('telefono')
-        ;
         <small style ="color: red"> {{ $message }}</small>
     @enderror
     <br>
@@ -63,7 +57,6 @@
         value="{{ isset($cliente->direccion) ? $cliente->direccion : old('direccion') }}" id="direccion"
         placeholder="Calle /Numero /Colonia /Ciudad">
     @error('direccion')
-        ;
         <small style ="color: red"> {{ $message }}</small>
     @enderror
 
@@ -74,7 +67,6 @@
     <input type="text" class="form-control" name="email"
         value="{{ isset($cliente->email) ? $cliente->email : old('email') }}" id="email">
     @error('email')
-        ;
         <small style ="color: red"> {{ $message }}</small>
     @enderror
 
@@ -85,7 +77,6 @@
     <input type="text" class="form-control" name="rfc"
         value="{{ isset($cliente->rfc) ? $cliente->rfc : old('rfc') }}" id="rfc">
     @error('rfc')
-        ;
         <small style ="color: red"> {{ $message }}</small>
     @enderror
 
@@ -96,7 +87,6 @@
     {{ isset($cliente->actaconstitutiva) ? $cliente->actaconstitutiva : old('actaconstitutiva') }}
     <input type="file" class="form-control" name="actaconstitutiva" value="" id="actaconstitutiva">
     @error('actaconstitutiva')
-        ;
         <small style ="color: red"> {{ $message }}</small>
     @enderror
     <br>
@@ -106,7 +96,6 @@
     {{ isset($cliente->consFiscal) ? $cliente->consFiscal : old('consFiscal') }}
     <input type="file" class="form-control" name="consFiscal" value="" id="consFiscal">
     @error('consFiscal')
-        ;
         <small style ="color: red"> {{ $message }}</small>
     @enderror
     <br>
@@ -116,7 +105,6 @@
     {{ isset($cliente->comprDom) ? $cliente->comprDom : old('comprDom') }}
     <input type="file" class="form-control" name="comprDom" value="" id="comprDom">
     @error('comprDom')
-        ;
         <small style ="color: red"> {{ $message }}</small>
     @enderror
 
@@ -128,7 +116,6 @@
     {{ isset($cliente->tarjetacirculacion) ? $cliente->tarjetacirculacion : old('tarjetacirculacion') }}
     <input type="file" class="form-control" name="tarjetacirculacion" value="" id="tarjetacirculacion">
     @error('tarjetacirculacion')
-        ;
         <small style ="color: red"> {{ $message }}</small>
     @enderror
     <br>
