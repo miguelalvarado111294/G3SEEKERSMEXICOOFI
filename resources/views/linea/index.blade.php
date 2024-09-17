@@ -19,8 +19,8 @@
 
     <br>
     <form class="d-flex" role="search">
-        <input name="busqueda" class="form-control me-2" type="search"
-            placeholder="Buscar por Nombre , Apellido , telefono, dispositivo n/s, cuenta " aria-label="Search">
+        <input name="busqueda" class="form-control me-2" type="search" value="{{$busqueda}}"
+            placeholder="Buscar por Nombre , Sim Card/Numero de telefono  " aria-label="Search">
         <button class="btn btn-outline-success" type="submit">Buscar </button>
     </form>
     <br>
@@ -45,29 +45,38 @@
                 </thead>
 
                 <tbody>
-                    @foreach ($lineas as $linea)
+
+
+                    @if (count($lineas) <= 0)
                         <tr>
-
-                            <td> {{ $linea->id }} </td>
-                            <td>{{ $linea->simcard }}</td>
-                            <td>{{ $linea->telefono }}</td>
-                            <td>{{ $linea->tipolinea }}</td>
-                            <td> {{ $linea->cliente->nombre }} {{ $linea->cliente->segnombre }}
-                                {{ $linea->cliente->apellidopat }} {{ $linea->cliente->apellidomat }}</td>
-
-                            <td>
-                                <a href="{{ url('/linea/' . $linea->id . '/edit') }}" class="btn btn-warning">Editar</a>
-
-                                <form action="{{ url('/linea/' . $linea->id) }}" method="post" class="d-inline">
-                                    @csrf
-                                    {{ method_field('DELETE') }}
-                                    <input class="btn btn-danger" type="submit"
-                                        onclick=" return confirm('seguro quieres eliminar?')" value="Borrar">
-                                </form>
-                            </td>
-
+                            <td colspan="8"> No hay resultados de . {{$busqueda}} </td>
                         </tr>
-                    @endforeach
+                    @else
+                        @foreach ($lineas as $linea)
+                            <tr>
+
+                                <td> {{ $linea->id }} </td>
+                                <td>{{ $linea->simcard }}</td>
+                                <td>{{ $linea->telefono }}</td>
+                                <td>{{ $linea->tipolinea }}</td>
+                                <td> {{ $linea->cliente->nombre }} {{ $linea->cliente->segnombre }}
+                                    {{ $linea->cliente->apellidopat }} {{ $linea->cliente->apellidomat }}</td>
+
+                                <td>
+                                    <a href="{{ url('/linea/' . $linea->id . '/edit') }}"
+                                        class="btn btn-warning">Editar</a>
+
+                                    <form action="{{ url('/linea/' . $linea->id) }}" method="post" class="d-inline">
+                                        @csrf
+                                        {{ method_field('DELETE') }}
+                                        <input class="btn btn-danger" type="submit"
+                                            onclick=" return confirm('seguro quieres eliminar?')" value="Borrar">
+                                    </form>
+                                </td>
+
+                            </tr>
+                        @endforeach
+                    @endif
                 </tbody>
             </table>
         </div>

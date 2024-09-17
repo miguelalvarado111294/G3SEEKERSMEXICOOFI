@@ -9,7 +9,7 @@ Auth::routes();
 
 Route::group(['middleware' => 'auth'], function () {
 
-    Route::get('/', [App\Http\Controllers\AdminController::class, 'index'])->name('admin.index');
+    Route::get('/home', [App\Http\Controllers\AdminController::class, 'index'])->name('admin.index');
 
     Route::resource('/user', App\Http\Controllers\UserController::class)->names('admin.users');
 

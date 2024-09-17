@@ -12,14 +12,13 @@ class ReferenciaController extends Controller
     {
 
         $busqueda = $request->get('busqueda');  //recibe del input de index cliente y lo almacena en una variable 
-        
-        $referencia = Referencia::where('nombre', 'LIKE', '%' . $busqueda . '%')
-            ->orWhere('segnombre', 'LIKE', '%' . $busqueda . '%')
-            ->orWhere('apellidopat', 'LIKE', '%' . $busqueda . '%')             //busqueda 
-            ->orWhere('apellidomat', 'LIKE', '%' . $busqueda . '%')
-            ->orWhere('telefono', 'LIKE', '%' . $busqueda . '%')->paginate(10);
+        $referencias = Referencia::where('nombre', 'LIKE', '%' . $busqueda . '%')
+        ->orWhere('segnombre', 'LIKE', '%' . $busqueda . '%')
+        ->orWhere('apellidopat', 'LIKE', '%' . $busqueda . '%')             //busqueda 
+        ->orWhere('apellidomat', 'LIKE', '%' . $busqueda . '%')
+        ->orWhere('telefono', 'LIKE', '%' . $busqueda . '%')->paginate(10);
 
-        return view('referencia.index', compact('referencias'));
+        return view('referencia.index', compact('referencias','busqueda'));
     }
 
     public function create(Request $request)

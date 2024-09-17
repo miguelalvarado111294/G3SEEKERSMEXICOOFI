@@ -18,8 +18,8 @@
     @endif
     <br>
     <form class="d-flex" role="search">
-        <input name="busqueda" class="form-control me-2" type="search"
-            placeholder="Buscar por Nombre , Apellido , telefono, dispositivo n/s, cuenta " aria-label="Search">
+        <input name="busqueda" class="form-control me-2" type="search" value="{{$busqueda}}"
+            placeholder="Buscar por ID / Numero econonomico / Modelo Numero / de Serie / Imei  " aria-label="Search">
         <button class="btn btn-outline-success" type="submit">Buscar </button>
     </form>
     <br>
@@ -43,30 +43,36 @@
                 </thead>
 
                 <tbody>
-                    @foreach ($dispositivos as $dispositivo)
+                    @if (count($dispositivos) <= 0)
                         <tr>
-                            <td>{{ $dispositivo->id }} </td>
-                            <td> {{ $dispositivo->cliente->nombre }} {{ $dispositivo->cliente->segnombre }}
-                                {{ $dispositivo->cliente->apellidopat }} {{ $dispositivo->cliente->apellidomat }} </td>
-                            <td>{{ $dispositivo->modelo }}</td>
-                            <td>{{ $dispositivo->noserie }}</td>
-                            <td>{{ $dispositivo->imei }}</td>
-
-                            <td>
-                                <a href="{{ url('/dispositivo/' . $dispositivo->id . '/edit') }}"
-                                    class="btn btn-warning">Editar</a>
-
-                                <form action="{{ url('/dispositivo/' . $dispositivo->id) }}" method="post"
-                                    class="d-inline">
-                                    @csrf
-                                    {{ method_field('DELETE') }}
-                                    <input class="btn btn-danger" type="submit"
-                                        onclick=" return confirm('seguro quieres eliminar?')" value="Borrar">
-                                </form>
-                            </td>
-
+                            <td colspan="8"> No hay resultados de . {{$busqueda}} </td>
                         </tr>
-                    @endforeach
+                    @else
+                        @foreach ($dispositivos as $dispositivo)
+                            <tr>
+                                <td>{{ $dispositivo->id }} </td>
+                                <td> {{ $dispositivo->cliente->nombre }} {{ $dispositivo->cliente->segnombre }}
+                                    {{ $dispositivo->cliente->apellidopat }} {{ $dispositivo->cliente->apellidomat }} </td>
+                                <td>{{ $dispositivo->modelo }}</td>
+                                <td>{{ $dispositivo->noserie }}</td>
+                                <td>{{ $dispositivo->imei }}</td>
+
+                                <td>
+                                    <a href="{{ url('/dispositivo/' . $dispositivo->id . '/edit') }}"
+                                        class="btn btn-warning">Editar</a>
+
+                                    <form action="{{ url('/dispositivo/' . $dispositivo->id) }}" method="post"
+                                        class="d-inline">
+                                        @csrf
+                                        {{ method_field('DELETE') }}
+                                        <input class="btn btn-danger" type="submit"
+                                            onclick=" return confirm('seguro quieres eliminar?')" value="Borrar">
+                                    </form>
+                                </td>
+
+                            </tr>
+                        @endforeach
+                    @endif
                 </tbody>
             </table>
 

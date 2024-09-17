@@ -10,11 +10,15 @@ use Illuminate\Http\Request;
 class SensorController extends Controller
 {
 
-    public function index()
+ 
+    public function index(Request $request)
     {
+        $busqueda = $request->get('busqueda');  //recibe del input de index cliente y lo almacena en una variable 
+        
+        $sensors = Sensor::where('marca', 'LIKE', '%' . $busqueda . '%')
+        ->orWhere('modelo', 'LIKE', '%' . $busqueda . '%')->orWhere('noserie', 'LIKE', '%' . $busqueda . '%')->paginate(10);
 
-        $datos['sensors'] = sensor::paginate(5);
-        return view('sensor.index', $datos);
+        return view('sensor.index', compact('sensors','busqueda'));
     }
 
     public function create()

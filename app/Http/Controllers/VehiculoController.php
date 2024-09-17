@@ -5,17 +5,22 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\vehiculo;
 use App\Models\cliente;
-use App\Models\tipovehiculo;
 use App\Models\cuenta;
 use App\Models\dispositivo;
 
 class VehiculoController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
-        $datos['vehiculos'] = Vehiculo::paginate(10);
-        return view('vehiculo.index', $datos);
+
+        $busqueda = $request->get('busqueda');  //recibe del input de index cliente y lo almacena en una variable 
+        
+        $vehiculos = Vehiculo::where('noserie', 'LIKE', '%' . $busqueda . '%')
+            ->orWhere('nomotor', 'LIKE', '%' . $busqueda . '%')
+            ->orWhere('placa', 'LIKE', '%' . $busqueda . '%') ->paginate(10);
+
+        return view('vehiculo.index', compact('vehiculos','busqueda'));
     }
 
     public function create()

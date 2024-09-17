@@ -19,7 +19,7 @@
 
     <br>
     <form class="d-flex" role="search">
-        <input name="busqueda" class="form-control me-2" type="search"
+        <input name="busqueda" class="form-control me-2" type="search" value="{{ $busqueda }}"
             placeholder="Buscar por Nombre , Apellido , telefono, dispositivo n/s, cuenta " aria-label="Search">
         <button class="btn btn-outline-success" type="submit">Buscar </button>
     </form>
@@ -46,26 +46,33 @@
                 </thead>
 
                 <tbody>
-                    @foreach ($sensors as $sensor)
+                    @if (count($sensors) <= 0)
                         <tr>
-                            <td>{{ $sensor->marca }} </td>
-                            <td>{{ $sensor->modelo }}</td>
-                            <td>{{ $sensor->noserie }}</td>
-                            <td>{{ $sensor->tipo }}</td>
-
-                            <td>
-                                <a href="{{ url('/sensor/' . $sensor->id . '/edit') }}" class="btn btn-warning">Editar</a>
-
-                                <form action="{{ url('/sensor/' . $sensor->id) }}" method="post" class="d-inline">
-                                    @csrf
-                                    {{ method_field('DELETE') }}
-                                    <input class="btn btn-danger" type="submit"
-                                        onclick=" return confirm('seguro quieres eliminar?')" value="Borrar">
-                                </form>
-                            </td>
-
+                            <td colspan="8"> No hay resultados de . {{ $busqueda }} </td>
                         </tr>
-                    @endforeach
+                    @else
+                        @foreach ($sensors as $sensor)
+                            <tr>
+                                <td>{{ $sensor->marca }} </td>
+                                <td>{{ $sensor->modelo }}</td>
+                                <td>{{ $sensor->noserie }}</td>
+                                <td>{{ $sensor->tipo }}</td>
+
+                                <td>
+                                    <a href="{{ url('/sensor/' . $sensor->id . '/edit') }}"
+                                        class="btn btn-warning">Editar</a>
+
+                                    <form action="{{ url('/sensor/' . $sensor->id) }}" method="post" class="d-inline">
+                                        @csrf
+                                        {{ method_field('DELETE') }}
+                                        <input class="btn btn-danger" type="submit"
+                                            onclick=" return confirm('seguro quieres eliminar?')" value="Borrar">
+                                    </form>
+                                </td>
+
+                            </tr>
+                        @endforeach
+                    @endif
                 </tbody>
             </table>
 

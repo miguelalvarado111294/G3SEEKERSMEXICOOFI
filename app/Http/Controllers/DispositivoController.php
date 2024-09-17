@@ -14,11 +14,15 @@ class DispositivoController extends Controller
 {
 
 
-    public function index()
+    public function index(Request $request)
     {
+        $busqueda = $request->get('busqueda');  //recibe del input de index cliente y lo almacena en una variable 
+        
+        $dispositivos = Dispositivo::where('modelo', 'LIKE', '%' . $busqueda . '%')
+            ->orWhere('imei', 'LIKE', '%' . $busqueda . '%')
+            ->orWhere('noeconomico', 'LIKE', '%' . $busqueda . '%') ->paginate(10);
 
-        $datos['dispositivos'] = dispositivo::paginate(10);
-        return view('dispositivo.index', $datos);
+        return view('dispositivo.index', compact('dispositivos','busqueda'));
     }
 
     public function create()

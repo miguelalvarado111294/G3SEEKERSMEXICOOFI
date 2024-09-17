@@ -13,11 +13,16 @@ class LineaController extends Controller
 {
 
 
-    public function index()
+    public function index(Request $request)
     {
-        $lineas=Linea::paginate(10);
-        return view('linea.index',compact('lineas'));
+        $busqueda = $request->get('busqueda');  //recibe del input de index cliente y lo almacena en una variable 
+        
+        $lineas = Linea::where('simcard', 'LIKE', '%' . $busqueda . '%')
+            ->orWhere('telefono', 'LIKE', '%' . $busqueda . '%')->paginate(10);
+
+        return view('linea.index', compact('lineas','busqueda'));
     }
+
 
     public function create()
     {

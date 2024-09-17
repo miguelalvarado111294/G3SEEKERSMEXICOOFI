@@ -26,7 +26,7 @@ class ClienteController extends Controller
             ->orWhere('email', 'LIKE', '%' . $busqueda . '%')
             ->orWhere('rfc', 'LIKE', '%' . $busqueda . '%')->paginate(10);
 
-        return view('cliente.index', compact('clientes'));
+        return view('cliente.index', compact('clientes','busqueda'));
     }
 
     public function create()

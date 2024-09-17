@@ -18,7 +18,15 @@ use App\Models\dispositivo;
 
 class CuentaController extends Controller
 {
+    public function index(Request $request)
+    {
 
+        $busqueda = $request->get('busqueda');  //recibe del input de index cliente y lo almacena en una variable 
+        $cuentas = Cuenta::where('usuario', 'LIKE', '%' . $busqueda . '%')->paginate(10);
+
+        return view('cuenta.index', compact('cuentas','busqueda'));
+    }
+/*
     public function index(Request $request)
     {
         $datos['cuentas'] = Cuenta::paginate(10);
@@ -29,7 +37,7 @@ class CuentaController extends Controller
 
 
         return view('cuenta.index', compact('datos','cuentas'));
-    }
+    }*/
 
     public function create()
     {

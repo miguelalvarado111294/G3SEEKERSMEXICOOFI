@@ -18,8 +18,8 @@
     @endif
     <br>
     <form class="d-flex" role="search">
-        <input name="busqueda" class="form-control me-2" type="search"
-            placeholder="Buscar por Nombre , Apellido , telefono, dispositivo n/s, cuenta " aria-label="Search">
+        <input name="busqueda" class="form-control me-2" type="search" value="{{$busqueda}}"
+            placeholder="Buscar por Numero de Serie, Numero de Motor o Placa " aria-label="Search">
         <button class="btn btn-outline-success" type="submit">Buscar </button>
     </form>
     <br>
@@ -45,32 +45,38 @@
                 </thead>
 
                 <tbody>
-                    @foreach ($vehiculos as $vehiculo)
+                    @if (count($vehiculos) <= 0)
                         <tr>
-                            <td> {{ $vehiculo->id }} </td>
-                            <td>{{ $vehiculo->cliente->nombre }} {{ $vehiculo->cliente->apellidopat }}
-                                {{ $vehiculo->cliente->apellidomat }}</td>{{-- campo para el cliente --}}
-                            <td>{{ $vehiculo->marca }}</td>
-                            <td>{{ $vehiculo->modelo }}</td>
-                            <td>{{ $vehiculo->noserie }}</td>
-                            <td>{{ $vehiculo->placa }}</td>
-                            <td>{{ $vehiculo->color }}</td>
-
-
-                            <td>
-                                <a href="{{ url('/vehiculo/' . $vehiculo->id . '/edit') }}"
-                                    class="btn btn-warning">Editar</a>
-                                -
-                                <form action="{{ url('/vehiculo/' . $vehiculo->id) }}" method="post" class="d-inline">
-                                    @csrf
-                                    {{ method_field('DELETE') }}
-                                    <input class="btn btn-danger" type="submit"
-                                        onclick=" return confirm('seguro quieres eliminar?')" value="Borrar">
-                                </form>
-                            </td>
-
+                            <td colspan="8"> No hay resultados de . {{$busqueda}} </td>
                         </tr>
-                    @endforeach
+                    @else
+                        @foreach ($vehiculos as $vehiculo)
+                            <tr>
+                                <td> {{ $vehiculo->id }} </td>
+                                <td>{{ $vehiculo->cliente->nombre }} {{ $vehiculo->cliente->apellidopat }}
+                                    {{ $vehiculo->cliente->apellidomat }}</td>{{-- campo para el cliente --}}
+                                <td>{{ $vehiculo->marca }}</td>
+                                <td>{{ $vehiculo->modelo }}</td>
+                                <td>{{ $vehiculo->noserie }}</td>
+                                <td>{{ $vehiculo->placa }}</td>
+                                <td>{{ $vehiculo->color }}</td>
+
+
+                                <td>
+                                    <a href="{{ url('/vehiculo/' . $vehiculo->id . '/edit') }}"
+                                        class="btn btn-warning">Editar</a>
+                                    -
+                                    <form action="{{ url('/vehiculo/' . $vehiculo->id) }}" method="post" class="d-inline">
+                                        @csrf
+                                        {{ method_field('DELETE') }}
+                                        <input class="btn btn-danger" type="submit"
+                                            onclick=" return confirm('seguro quieres eliminar?')" value="Borrar">
+                                    </form>
+                                </td>
+
+                            </tr>
+                        @endforeach
+                    @endif
                 </tbody>
             </table>
 
