@@ -12,15 +12,15 @@
         <div class="card-body">
             <ul>
 
-                Nombre : {{ $cliente->nombre }} <br>
-                Segundo Nombre : {{ $cliente->segnombre }}<br>
-                Apellido Paterno : {{ $cliente->apellidopat }}<br>
-                Apellido Materno : {{ $cliente->apellidomat }} <br>
-                Telefono : {{ $cliente->telefono }} <br>
-                Direccion : {{ $cliente->direccion }} <br>
-                Email : {{ $cliente->email }} <br>
-                RFC : {{ $cliente->rfc }} <br>
-                Comentarios {{ $cliente->comentarios }}
+               <b>Nombre :</b>  {{ $cliente->nombre }} <br>
+                <b>Segundo Nombre :</b> {{ $cliente->segnombre }}<br>
+               <b> Apellido Paterno :</b> {{ $cliente->apellidopat }}<br>
+               <b> Apellido Materno :</b> {{ $cliente->apellidomat }} <br>
+                <b>Telefono :</b> {{ $cliente->telefono }} <br>
+               <b> Direccion :</b> {{ $cliente->direccion }} <br>
+               <b> Email : </b>{{ $cliente->email }} <br>
+               <b> RFC : </b>{{ $cliente->rfc }} <br>
+               <b> Comentarios</b> {{ $cliente->comentarios }}
 
             </ul>
 
@@ -69,7 +69,6 @@
             <table class="table table-light">
                 <thead class="thead-light">
                     <tr>
-                        <th># </th>
                         <th>Nombre</th>
                         <th>Segundo Nombre</th>
                         <th>Apellido Paterno</th>
@@ -84,7 +83,6 @@
                 <tbody>
                     @foreach ($referencias as $referencia)
                         <tr>
-                            <td> </td>
                             <td>{{ $referencia->nombre }}</td>
                             <td>{{ $referencia->segnombre }}</td>
                             <td>{{ $referencia->apellidopat }}</td>

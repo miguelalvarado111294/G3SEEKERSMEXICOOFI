@@ -25,7 +25,8 @@
     </form>
     <br>
     <br>
-    <a href="{{ url('sensor/create') }}" class="btn btn-success">Registrar nuevo sensor</a>
+    {{--     <a href="{{ url('sensor/create') }}" class="btn btn-success">Registrar nuevo sensor</a>
+--}}
     <br><br>
 
     <div class="card">

@@ -19,12 +19,16 @@
     @endif
     <br>
     <form class="d-flex" role="search">
-        <input name="busqueda" class="form-control me-2" type="search" placeholder="Buscar por Nombre Segundo Nombre, Apellido Paterno, Apellido Materno y por Telefono" value="{{$busqueda}}" aria-label="Search">
+        <input name="busqueda" class="form-control sm me-2" type="search"
+            placeholder="Buscar por Nombre Segundo Nombre, Apellido Paterno, Apellido Materno y por Telefono"
+            value="{{ $busqueda }}" aria-label="Search">
         <button class="btn btn-outline-success" type="submit">Buscar </button>
     </form>
     <br>
     <br>
-    <a href="{{ url('referencia/create') }}" class="btn btn-success">Registrar nuevo referencia</a>
+    {{--     <a href="{{ url('referencia/create') }}" class="btn btn-success">Registrar nuevo referencia</a>
+--}}
+
     <br><br>
     <div class="card">
         <div class="card-body">
@@ -46,13 +50,18 @@
                 <tbody>
                     @if (count($referencias) <= 0)
                         <tr>
-                            <td colspan="8"> No hay resultados de . {{$busqueda}} </td>
+                            <td colspan="8"> No hay resultados de . {{ $busqueda }} </td>
                         </tr>
                     @else
                         @foreach ($referencias as $referencia)
                             <tr>
-                                <td>{{ $referencia->cliente->nombre }} {{ $referencia->cliente->apellidopat }}
-                                    {{ $referencia->cliente->apellidomat }}</td>{{-- campo para el cliente --}}
+                                <td><a href="{{ route('cliente.show', $referencia->cliente->id) }}"
+                                        class="btn btn-default"
+                                        style="text-align: center; display: inline-block; width: 100%;">
+                                        {{ $referencia->cliente->nombre }} {{ $referencia->cliente->apellidopat }}
+                                        {{ $referencia->cliente->apellidomat }}
+                                    </a>
+                                </td>{{-- campo para el cliente --}}
                                 <td>{{ $referencia->nombre }}</td>
                                 <td>{{ $referencia->segnombre }}</td>
                                 <td>{{ $referencia->apellidopat }}</td>
@@ -63,7 +72,7 @@
                                 <td>
                                     <a href="{{ url('/referencia/' . $referencia->id . '/edit') }}"
                                         class="btn btn-warning">Editar</a>
-                                    -
+
                                     <form action="{{ url('/referencia/' . $referencia->id) }}" method="post"
                                         class="d-inline">
                                         @csrf

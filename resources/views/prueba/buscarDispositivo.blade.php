@@ -21,6 +21,13 @@
     @endcan
 
     <br><br>
+
+
+
+
+
+
+
     <div class="card">
         <div class="card-body">
 
@@ -40,8 +47,8 @@
 
                 <tbody>
                     @foreach ($dispositivos as $dispositivo)
-                        <tr>
-                            <td> {{ $dispositivo->id }} </td>
+                  
+                            <td>{{ $dispositivo->id }} </td>
                             <td>{{ $dispositivo->modelo }}</td>
                             <td>{{ $dispositivo->noserie }}</td>
                             <td>{{ $dispositivo->imei }}</td>
@@ -78,7 +85,24 @@
         </div>
 
     </div>
+    <h3 class="text-center">Datos del Vehiculo</h3><br>
 
+    <div class="card">
+        <div class="card-head"><br>
+            <ul>
+                <b>
+                    Vehiculo marca : {{ $vehiculo->marca }}<br>
+                    Modelo : {{ $vehiculo->modelo }}<br>
+                    Numero de motor : {{ $vehiculo->nomotor }}<br>
+                    Numero de serie : {{ $vehiculo->noserie }}<br>
+                    Placa : {{ $vehiculo->placa }}<br>
+                    Color : {{ $vehiculo->color }}<br>
+                </b>
+
+
+            </ul>
+        </div>
+    </div>
     <br>
 
     <a href=" {{ route('buscar.vehiculo', $cliente_id) }}" class="btn btn-primary">Regresar</a>

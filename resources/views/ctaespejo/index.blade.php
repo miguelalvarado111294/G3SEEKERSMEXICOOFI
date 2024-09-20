@@ -20,8 +20,8 @@
 
 
         <br><br>
-        <a href="{{ url('ctaespejo/create') }}" class="btn btn-success">Registrar nueva cuenta</a>
-        <br><br><br>
+        {{--<a href="{{ url('ctaespejo/create') }}" class="btn btn-success">Registrar nueva cuenta</a> --}}
+                <br><br><br>
         <h1>Datos de Cuenta Espejo</h1>
         </br>
         <table class="table table-light">

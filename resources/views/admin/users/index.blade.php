@@ -9,43 +9,39 @@
 @section('content')
     <p class="text-center">lista de usuarios </b></p>
 
-    <table class="table table-light">
-        <thead class="thead-light">
-            <tr>
-                <th>ID</th>
-                <th>nombre</th>
-                <th>correo</th>
-            </tr>
-        </thead>
 
-        <tbody>
-            @foreach ($users as $user)
-                <tr>
-                    <td>{{ $user->id }}</td>
-                    <td> {{ $user->name }} </td>
-                    <td>{{ $user->email }}</td>
-                    <td>
-                        <a href="{{route('admin.edit',$user)}}" class="btn btn-warning">Editar</a>
+    <div class="card">
+        <div class="card-body">
+            <table class="table table-light">
+                <thead class="thead-light">
+                    <tr>
+                        <th>nombre</th>
+                        <th>correo</th>
+                        <th> </th>
+                    </tr>
+                </thead>
 
+                <tbody>
+                    @foreach ($users as $user)
+                        <tr>
+                            <td> {{ $user->name }} </td>
+                            <td>{{ $user->email }}</td>
+                            <td>
+                                <a href="{{ route('admin.edit', $user) }}" class="btn btn-warning">Editar</a>
+                                <form action="{{ route('admin.destroy', $user) }}" method="get" class="d-inline">
+                                    @csrf
+                                    {{ method_field('DELETE') }}
+                                    <input class="btn btn-danger" type="submit"
+                                        onclick=" return confirm('seguro quieres eliminar?')" value="Borrar">
+                                </form>
+                            </td>
 
-                        <form action="{{route('admin.destroy',$user)}}" method="post" class="d-inline">
-                            @csrf
-                            {{ method_field('DELETE') }}
-                            <input class="btn btn-danger" type="submit"
-                                onclick=" return confirm('seguro quieres eliminar?')" value="Borrar">
-                        </form>
-                    </td>
-
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
-
-
-
-
-
-
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
 
 @stop
 

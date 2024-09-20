@@ -18,13 +18,14 @@
     @endif
     <br>
     <form class="d-flex" role="search">
-        <input name="busqueda" class="form-control me-2" type="search" value="{{$busqueda}}"
+        <input name="busqueda" class="form-control me-2" type="search" value="{{ $busqueda }}"
             placeholder="Buscar por Numero de Serie, Numero de Motor o Placa " aria-label="Search">
         <button class="btn btn-outline-success" type="submit">Buscar </button>
     </form>
     <br>
     <br>
-    <a href="{{ url('vehiculo/create') }}" class="btn btn-success">Registrar Vehiculos</a>
+    {{--    <a href="{{ url('vehiculo/create') }}" class="btn btn-success">Registrar Vehiculos</a>
+ --}}
     <br><br>
 
     <div class="card">
@@ -47,25 +48,30 @@
                 <tbody>
                     @if (count($vehiculos) <= 0)
                         <tr>
-                            <td colspan="8"> No hay resultados de . {{$busqueda}} </td>
+                            <td colspan="8"> No hay resultados de . {{ $busqueda }} </td>
                         </tr>
                     @else
                         @foreach ($vehiculos as $vehiculo)
                             <tr>
-                                <td> {{ $vehiculo->id }} </td>
-                                <td>{{ $vehiculo->cliente->nombre }} {{ $vehiculo->cliente->apellidopat }}
-                                    {{ $vehiculo->cliente->apellidomat }}</td>{{-- campo para el cliente --}}
+
+                                <td> <a href=" {{ route('buscar.dispositivo', $vehiculo->id) }}" class="btn btn-default"
+                                        style="text-align: center; display: inline-block; width: 100%;"> Ver 
+                                </td>
+
                                 <td>{{ $vehiculo->marca }}</td>
                                 <td>{{ $vehiculo->modelo }}</td>
                                 <td>{{ $vehiculo->noserie }}</td>
                                 <td>{{ $vehiculo->placa }}</td>
                                 <td>{{ $vehiculo->color }}</td>
+                                <td>{{ $vehiculo->cliente->nombre }} {{ $vehiculo->cliente->apellidopat }}
+                                    {{ $vehiculo->cliente->apellidomat }} </a>
+                                </td>{{-- campo para el cliente --}}
 
 
                                 <td>
                                     <a href="{{ url('/vehiculo/' . $vehiculo->id . '/edit') }}"
                                         class="btn btn-warning">Editar</a>
-                                    -
+
                                     <form action="{{ url('/vehiculo/' . $vehiculo->id) }}" method="post" class="d-inline">
                                         @csrf
                                         {{ method_field('DELETE') }}
@@ -85,7 +91,8 @@
     </div>
 
 
-    {!! $vehiculos->links() !!}
+    {!! $vehiculos->appends(['busqueda' => $busqueda]) !!}
+
 
 
     </div>

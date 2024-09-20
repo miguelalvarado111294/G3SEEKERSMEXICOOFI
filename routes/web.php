@@ -10,6 +10,7 @@ Auth::routes();
 Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/home', [App\Http\Controllers\AdminController::class, 'index'])->name('admin.index');
+    Route::get('/', [App\Http\Controllers\AdminController::class, 'index'])->name('admin.index');
 
     Route::resource('/user', App\Http\Controllers\UserController::class)->names('admin.users');
 
@@ -36,6 +37,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/referencia/{id}',             [App\Http\Controllers\ReferenciaController::class, 'storef'])->name('referenciap.crear');
 
     Route::get('/prueba/{id}/buscarVehiculo',   [App\Http\Controllers\PruebaController::class, 'buscarVehiculo'])->name('buscar.vehiculo');
+
+    Route::get('/prueba/{id}/buscarVehiculo',   [App\Http\Controllers\PruebaController::class, 'buscarVehiculo'])->name('buscar.vehiculo');
+    Route::get('/prueba/{id}/',   [App\Http\Controllers\PruebaController::class, 'buscadorvehiculo'])->name('buscador.vehiculo');
+
     Route::get('/vehiculo/crearvehi/{id}',      [App\Http\Controllers\VehiculoController::class, 'crearvehi'])->name('vehiculof.crear');
     Route::post('/vehiculo/{id}',               [App\Http\Controllers\VehiculoController::class, 'stovehi'])->name('vehiculop.crear');
 

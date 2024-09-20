@@ -17,12 +17,12 @@ class DispositivoController extends Controller
     public function index(Request $request)
     {
         $busqueda = $request->get('busqueda');  //recibe del input de index cliente y lo almacena en una variable 
-        
-        $dispositivos = Dispositivo::where('modelo', 'LIKE', '%' . $busqueda . '%')
-            ->orWhere('imei', 'LIKE', '%' . $busqueda . '%')
-            ->orWhere('noeconomico', 'LIKE', '%' . $busqueda . '%') ->paginate(10);
 
-        return view('dispositivo.index', compact('dispositivos','busqueda'));
+        $dispositivos = Dispositivo::where('id', 'LIKE',  $busqueda)
+            ->orWhere('imei', 'LIKE', '%' . $busqueda . '%')
+            ->orWhere('noeconomico', 'LIKE', '%' . $busqueda . '%')->paginate(10);
+
+        return view('dispositivo.index', compact('dispositivos', 'busqueda'));
     }
 
     public function create()
@@ -67,13 +67,13 @@ class DispositivoController extends Controller
         ]);
 
         $datosCliente = $request->except('_token');
-        $datosCliente['cliente_id']=$clienteid;
-        $datosCliente['vehiculo_id']=$vehiculoid;
+        $datosCliente['cliente_id'] = $clienteid;
+        $datosCliente['vehiculo_id'] = $vehiculoid;
 
         $mArray = array_map('strtoupper', $datosCliente);
         Dispositivo::insert($mArray);
 
-/*
+        /*
         $dispositivo = new Dispositivo();
         $dispositivo->modelo = $request->modelo;
         $dispositivo->noserie = $request->noserie;

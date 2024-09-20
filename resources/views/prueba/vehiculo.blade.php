@@ -17,6 +17,7 @@
         </div>
     @endif
 
+    <br>
     @can('vehiculo.create')
         <a href="{{ route('vehiculof.crear', $id) }}" class="btn btn-success">Registrar nuevo vehiculo</a>
     @endcan
@@ -25,7 +26,6 @@
 
     <div class="card">
         <div class="card-body">
-
 
             <table class="table table-light">
                 <thead class="thead-light">

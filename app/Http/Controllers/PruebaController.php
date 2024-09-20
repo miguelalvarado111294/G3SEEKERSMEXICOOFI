@@ -10,6 +10,9 @@ use App\Models\vehiculo;
 use App\Models\linea;
 use App\Models\sensor;
 
+
+use Illuminate\Http\Request;
+
 class PruebaController extends Controller
 {
 
@@ -22,6 +25,10 @@ class PruebaController extends Controller
 
         return view('prueba.buscarCuenta', compact('cuentas', 'id', 'clienteid'));
     }
+
+
+
+
 
 
     public function buscarVehiculo($id)
@@ -37,18 +44,41 @@ class PruebaController extends Controller
     }
 
 
+
+
+    public function buscadorvehiculo(Request $request, $id)
+
+    {
+        $cliente_id = $id;
+
+        $busqueda = $request->get('busqueda');  //recibe del input de index cliente y lo almacena en una variable 
+        $vehiculos = Vehiculo::where('noserie', 'LIKE', '%' . $busqueda . '%')
+            ->orWhere('nomotor', 'LIKE', '%' . $busqueda . '%')
+            ->orWhere('placa', 'LIKE', '%' . $busqueda . '%')->paginate(10);
+
+        return view('prueba.vehiculo', compact('vehiculos', 'id', 'cliente_id'));
+        //se envia a view vehiculo id de cliente
+
+    }
+
+
+
+
+
+
+
     public function buscarDispositivo($id)
     { //recibe desde view vehiculos_id de vehiculo
 
 
         $vehiculoid = $id;
-        $vehiculo = vehiculo::find($vehiculoid);
+        $vehiculo = Vehiculo::find($vehiculoid);
         $cliente_id = $vehiculo->cliente_id;
 
-        $dispositivos = Dispositivo::where('vehiculo_id', 'LIKE', $id)->get()->take(1);
+        $dispositivos = Dispositivo::where('vehiculo_id', 'LIKE', $vehiculoid)->get()->take(1);
 
 
-        return view('prueba.buscarDispositivo', compact('dispositivos', 'id', 'cliente_id', 'vehiculoid'));
+        return view('prueba.buscarDispositivo', compact('vehiculo','dispositivos', 'id', 'cliente_id', 'vehiculoid'));
     }
 
     public function buscarLinea($id)

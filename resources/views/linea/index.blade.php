@@ -24,8 +24,8 @@
         <button class="btn btn-outline-success" type="submit">Buscar </button>
     </form>
     <br>
-
-    <a href="{{ url('linea/create') }}" class="btn btn-success">Registrar Nueva Linea</a>
+{{--     <a href="{{ url('linea/create') }}" class="btn btn-success">Registrar Nueva Linea</a>
+--}}
 
     <br><br>
 

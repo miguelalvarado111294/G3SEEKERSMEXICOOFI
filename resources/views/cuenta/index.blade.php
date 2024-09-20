@@ -18,13 +18,13 @@
     @endif
     <br>
     <form class="d-flex" role="search">
-        <input name="busqueda" class="form-control me-2" type="search" value="{{$busqueda}}"
+        <input name="busqueda" class="form-control me-2" type="search" value="{{ $busqueda }}"
             placeholder="Buscar por Usuario" aria-label="Search">
         <button class="btn btn-outline-success" type="submit">Buscar </button>
     </form>
     <br>
     <br>
-    <a href="{{ url('cuenta/create') }}" class="btn btn-success">Registrar nueva cuenta</a>
+    {{--     <a href="{{ url('cuenta/create') }}" class="btn btn-success">Registrar nueva cuenta</a> --}}
     </br>
     <br>
     <div class="card">
@@ -32,7 +32,7 @@
             <table class="table table-light">
                 <thead class="thead-light">
                     <tr>
-                        <th>Id</th>
+                        <th>Cliente</th>
                         <th>usuario</th>
                         <th>contrasenia</th>
                         <th>contraseniaParo</th>
@@ -43,12 +43,18 @@
                 <tbody>
                     @if (count($cuentas) <= 0)
                         <tr>
-                            <td colspan="8"> No hay resultados de . {{$busqueda}} </td>
+                            <td colspan="8"> No hay resultados de . {{ $busqueda }} </td>
                         </tr>
                     @else
                         @foreach ($cuentas as $cuenta)
                             <tr>
-                                <td> {{ $cuenta->id }} </td>
+                                <td><a href="{{ route('cliente.show', $cuenta->cliente->id) }}" class="btn btn-default"
+                                        style="text-align: center; display: inline-block; width: 100%;">
+                                        {{ $cuenta->cliente->nombre }}
+                                        {{ $cuenta->cliente->segnombre }}
+                                        {{ $cuenta->cliente->apellidopat }}
+                                        {{ $cuenta->cliente->apellidomat }}
+                                </td>
 
                                 <td>{{ $cuenta->usuario }}</td>
                                 <td>{{ $cuenta->contrasenia }}</td>
