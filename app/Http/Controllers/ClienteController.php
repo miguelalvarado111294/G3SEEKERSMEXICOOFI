@@ -19,7 +19,7 @@ class ClienteController extends Controller
         //recuperar todos los clientes
         $clientes = Cliente::where('nombre', 'LIKE', '%' . $busqueda . '%')
             ->orWhere('segnombre', 'LIKE', '%' . $busqueda . '%')
-            ->orWhere('apellidopat', 'LIKE', '%' . $busqueda . '%')             //busqueda 
+            ->orWhere('apellidopat', 'LIKE', '%' . $busqueda . '%')                         //busqueda 
             ->orWhere('apellidomat', 'LIKE', '%' . $busqueda . '%')
             ->orWhere('telefono', 'LIKE', '%' . $busqueda . '%')
             ->orWhere('email', 'LIKE', '%' . $busqueda . '%')
@@ -38,8 +38,25 @@ class ClienteController extends Controller
     public function store(storecliente $request) //form request para validacion
     {
 
+
+        $st1 = strtoupper($request->nombre);
+        $st2 = strtoupper($request->segnombre);
+        $st3 = strtoupper($request->apellidopat);
+        $st4 = strtoupper($request->apellidomat);
+        $st5 = strtoupper($request->direccion);
+        $st6 = strtoupper($request->email);
+        $st7 = strtoupper($request->rfc);
+
         $datosCliente = $request->except('_token');
         //insertar FILES al store
+
+        $datosCliente['nombre'] = $st1;
+        $datosCliente['segnombre'] = $st2;
+        $datosCliente['apellidopat'] = $st3;
+        $datosCliente['apellidomat'] = $st4;
+        $datosCliente['direccion'] = $st5;
+        $datosCliente['email'] = $st6;
+        $datosCliente['rfc'] = $st7;
 
         if ($request->hasFile('actaconstitutiva')) {
             $datosCliente['actaconstitutiva'] = $request->file('actaconstitutiva')->store('public/imagenes');
@@ -57,11 +74,14 @@ class ClienteController extends Controller
             $datosCliente['compPago'] = $request->file('compPago')->store('public/imagenes');
         }
 
-        // convertir a mayusculas
-        $mArray = array_map('strtoupper', $datosCliente);
+
+
+
+
+        // $mArray = array_map('strtoupper', $datosCliente);
 
         //insertar datos al modelo cliente
-        Cliente::insert($mArray);
+        Cliente::insert($datosCliente);
 
         return redirect()->route('cliente.index');
     }
