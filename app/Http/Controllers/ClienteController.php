@@ -37,27 +37,18 @@ class ClienteController extends Controller
 
     public function store(storecliente $request) //form request para validacion
     {
-
-
-        $st1 = strtoupper($request->nombre);
-        $st2 = strtoupper($request->segnombre);
-        $st3 = strtoupper($request->apellidopat);
-        $st4 = strtoupper($request->apellidomat);
-        $st5 = strtoupper($request->direccion);
-        $st6 = strtoupper($request->email);
-        $st7 = strtoupper($request->rfc);
-
         $datosCliente = $request->except('_token');
+
+        //mayusculas
+        $datosCliente['nombre'] = strtoupper($request->nombre);
+        $datosCliente['segnombre']  = strtoupper($request->segnombre);
+        $datosCliente['apellidopat'] = strtoupper($request->apellidopat);
+        $datosCliente['apellidomat'] = strtoupper($request->apellidomat);
+        $datosCliente['direccion'] = strtoupper($request->direccion);
+        $datosCliente['email'] = strtoupper($request->email);
+        $datosCliente['rfc'] = strtoupper($request->rfc);
+
         //insertar FILES al store
-
-        $datosCliente['nombre'] = $st1;
-        $datosCliente['segnombre'] = $st2;
-        $datosCliente['apellidopat'] = $st3;
-        $datosCliente['apellidomat'] = $st4;
-        $datosCliente['direccion'] = $st5;
-        $datosCliente['email'] = $st6;
-        $datosCliente['rfc'] = $st7;
-
         if ($request->hasFile('actaconstitutiva')) {
             $datosCliente['actaconstitutiva'] = $request->file('actaconstitutiva')->store('public/imagenes');
         }
@@ -73,9 +64,6 @@ class ClienteController extends Controller
         if ($request->hasFile('compPago')) {
             $datosCliente['compPago'] = $request->file('compPago')->store('public/imagenes');
         }
-
-
-
 
 
         // $mArray = array_map('strtoupper', $datosCliente);
