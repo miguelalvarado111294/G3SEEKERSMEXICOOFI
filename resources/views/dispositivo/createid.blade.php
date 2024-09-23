@@ -18,7 +18,7 @@
                 <input type="text" class="form-control" name="modelo" value=" {{ old('modelo') }}">
             </div>
             @error('modelo')
-                ;
+                
                 <small style ="color: red"> {{ $message }}</small>
             @enderror
             <br>
@@ -28,7 +28,7 @@
                 <label>Numero de Serie : </label>
                 <input type="text" class="form-control" name="noserie" value=" {{ old('noserie') }}">
                 @error('noserie')
-                    ;
+                    
                     <small style ="color: red"> {{ $message }}</small>
                 @enderror
                 <br>
@@ -39,7 +39,7 @@
                 <label>Imei:</label>
                 <input type="text" class="form-control" name="imei"value=" {{ old('imei') }}">
                 @error('imei')
-                    ;
+                    
                     <small style ="color: red"> {{ $message }}</small>
                 @enderror
                 <br>
@@ -52,7 +52,7 @@
                 <label>Cuenta:</label>
                 <input type="text" class="form-control" name="cuenta"value=" {{ old('cuenta') }}">
                 @error('cuenta')
-                    ;
+                    
                     <small style ="color: red"> {{ $message }}</small>
                 @enderror
                 <br>
@@ -65,7 +65,7 @@
                 <label>sucursal:</label>
                 <input type="text" class="form-control" name="sucursal"value=" {{ old('sucursal') }}">
                 @error('sucursal')
-                    ;
+                    
                     <small style ="color: red"> {{ $message }}</small>
                 @enderror
                 <br>
@@ -77,7 +77,7 @@
                 <label>Fecha Compra:</label>
                 <input type="text" class="form-control" name="fechacompra"value=" {{ old('fechacompra') }}">
                 @error('fechacompra')
-                    ;
+                    
                     <small style ="color: red"> {{ $message }}</small>
                 @enderror
                 <br>
@@ -88,7 +88,7 @@
                 <label>numero Economico:</label>
                 <input type="text" class="form-control" name="noeconomico"value=" {{ old('noeconomico') }}">
                 @error('noeconomico')
-                    ;
+                    
                     <small style ="color: red"> {{ $message }}</small>
                 @enderror
                 <br>
@@ -101,7 +101,7 @@
                 <label> Comentarios:</label>
                 <input type="text" class="form-control" name="comentarios" value=" {{ old('comentarios') }}">
                 @error('comentarios')
-                    ;
+                    
                     <small style ="color: red"> {{ $message }}</small>
                 @enderror
                 <br>

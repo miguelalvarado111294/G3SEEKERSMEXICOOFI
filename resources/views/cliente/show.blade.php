@@ -22,7 +22,6 @@
                 <b> Email : </b>{{ $cliente->email }} <br>
                 <b> RFC : </b>{{ $cliente->rfc }} <br>
                 <b> Comentarios</b> {{ $cliente->comentarios }} <br>
-                ima : {{ $cliente->consFiscal }}
                 <br>
                 <br>
 

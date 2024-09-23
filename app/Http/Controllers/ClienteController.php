@@ -11,13 +11,12 @@ use Illuminate\Support\Facades\Storage;
 
 class ClienteController extends Controller
 {
-
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public function index(Request $request)
     {
+        //recibe del input de index cliente y lo almacena en una variable 
+        $busqueda = $request->get('busqueda');
         //recuperar todos los clientes
-
-        $busqueda = $request->get('busqueda');  //recibe del input de index cliente y lo almacena en una variable 
-
         $clientes = Cliente::where('nombre', 'LIKE', '%' . $busqueda . '%')
             ->orWhere('segnombre', 'LIKE', '%' . $busqueda . '%')
             ->orWhere('apellidopat', 'LIKE', '%' . $busqueda . '%')             //busqueda 
@@ -28,16 +27,16 @@ class ClienteController extends Controller
 
         return view('cliente.index', compact('clientes', 'busqueda'));
     }
-
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public function create()
     {
         //peticion desde el boton del index
         return view('cliente.create');
     }
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     public function store(storecliente $request) //form request para validacion
     {
-        /*$request->validate([]);*/
 
         $datosCliente = $request->except('_token');
         //insertar FILES al store
@@ -45,7 +44,6 @@ class ClienteController extends Controller
         if ($request->hasFile('actaconstitutiva')) {
             $datosCliente['actaconstitutiva'] = $request->file('actaconstitutiva')->store('public/imagenes');
         }
-
         if ($request->hasFile('consFiscal')) {
             $datosCliente['consFiscal'] = $request->file('consFiscal')->store('public/imagenes');
         }
@@ -59,16 +57,15 @@ class ClienteController extends Controller
             $datosCliente['compPago'] = $request->file('compPago')->store('public/imagenes');
         }
 
-
-
+        // convertir a mayusculas
         $mArray = array_map('strtoupper', $datosCliente);
 
         //insertar datos al modelo cliente
-
         Cliente::insert($mArray);
 
         return redirect()->route('cliente.index');
     }
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
     public function show($id) //recive id de cliente
@@ -77,7 +74,7 @@ class ClienteController extends Controller
         //traer datos de cliente
         $cliente = cliente::find($id);
         //traer referencias a la vista show
-        $referencias = Referencia::where('cliente_id', 'LIKE',$id )->get();
+        $referencias = Referencia::where('cliente_id', 'LIKE', $id)->get();
         //unir datos de las consultas en un solo array para enviar a la vista
         $data = [
             'cliente' => $cliente,
@@ -86,6 +83,7 @@ class ClienteController extends Controller
 
         return view('cliente.show')->with($data);
     }
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     public function buscararchivos($id)
     {
@@ -101,6 +99,7 @@ class ClienteController extends Controller
         return view('cliente.archivos', compact('cliente'));
     }
 
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
     public function clienteshow($id)
@@ -116,12 +115,14 @@ class ClienteController extends Controller
 
         return view('cliente.show')->with($data);
     }
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     public function edit($id) //recive el id del cliente para editarlo
     {
         $cliente = cliente::findOrfail($id);
         return view('cliente.edit', compact('cliente'));
     }
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
     public function update(Request $request, $id) //atrayendo los datos del cliente form
@@ -182,6 +183,7 @@ class ClienteController extends Controller
 
         return redirect('cliente')->with('mensaje', 'Cliente editado exitosamente ');
     }
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     public function destroy($id)
     {
@@ -189,3 +191,4 @@ class ClienteController extends Controller
         return redirect('cliente')->with('mensaje', 'Cliente eliminado exitosamente ');
     }
 }
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

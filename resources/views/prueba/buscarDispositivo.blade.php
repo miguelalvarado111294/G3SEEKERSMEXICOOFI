@@ -72,8 +72,8 @@
 
                             </td>
                             <td>
-                                <a href="{{ route('buscar.linea', $dispositivo->id) }}" class="btn btn-warning">Linea</a>
-                                <a href="{{ route('buscar.sensor', $dispositivo->id) }}" class="btn btn-warning">Sensor</a>
+                                <a href="{{ route('buscar.linea', $dispositivo->id) }}" class="btn btn-primary">Linea</a>
+                                <a href="{{ route('buscar.sensor', $dispositivo->id) }}" class="btn btn-primary">Sensor</a>
                             </td>
 
 
@@ -105,6 +105,6 @@
     </div>
     <br>
 
-    <a href=" {{ route('buscar.vehiculo', $cliente_id) }}" class="btn btn-primary">Regresar</a>
+    <a href=" {{ route('buscar.vehiculo', $cliente_id) }}" class="btn btn-dark">Regresar</a>
 
 @endsection

@@ -22,22 +22,28 @@
                         <th></th>
                     </tr>
                 </thead>
-{{--               @foreach ($cliente as $client)--}} 
-                    <tbody>
-                        <tr>
-                    
-                            <td>
-                                <img src="{{ asset('/storage/uploads' . '/' . $cliente->actaconstitutiva) }}">
-                                {{ $cliente->actaconstitutiva }}
+                {{--               --}}
+                 @foreach ($cliente as $client)
+                <tbody>
+                    <tr>
 
-                            </td>
+                        <td><img src="{{ asset('storage') . '/' . $client->actaconstitutiva }}" width="200" alt="">
+                            {{$client->actaconstitutiva}}
+                        </td>
+                        <td><img src="{{ asset('storage') . '/' . $client->consFiscal }}" width="200" alt="">
+                        </td>
+                        <td><img src="{{ asset('storage') . '/' . $client->comprDom }}" width="200" alt="">
+                        </td>
+                        <td><img src="{{ asset('storage') . '/' . $client->tarjetacirculacion }}" width="200"alt="">
+                        </td>
+                        <td><img src="{{ asset('storage') . '/' . $client->compPago }}" width="200" alt="">
+                        </td>
 
-                           
 
-                        </tr>
-                    </tbody>
-            {{--    @endforeach--}} 
-
+                    </tr>
+                </tbody>
+                {{--   --}}
+                @endforeach 
             </table>
 
         </div>

@@ -7,7 +7,24 @@
 @stop
 
 @section('content')
-    <p class="text-center">Bienvenido <b> {{Auth::user()->name}} al Panel de Control</b></p>
+    <p class="text-center">Bienvenido <b> {{ Auth::user()->name }} al Panel de Control</b></p>
+
+   
+   <div class="card">
+    <div class="card-body">
+            <div class="row justify-content-center" >
+
+            <img src="{{ asset('storage\imagenes\logo.png') }}">
+
+        </div>
+
+    </div>
+   </div>
+
+
+
+
+
 @stop
 
 @section('css')
@@ -16,5 +33,8 @@
 @stop
 
 @section('js')
-    <script> console.log("Hi, I'm using the Laravel-AdminLTE package!"); </script>
+
+    <script>
+        console.log("Hi, I'm using the Laravel-AdminLTE package!");
+    </script>
 @stop
