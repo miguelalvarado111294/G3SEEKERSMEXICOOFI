@@ -6,7 +6,6 @@
     <h1 class="text-center"><b>G3 Seekers</b></h1>
     <br>
     <h3 class="text-center">Cuentas</h3>
-    <br>
 
     @if (Session::has('mensaje'))
         <div class="alert alert-success alert dismissible" role="alert">
@@ -22,8 +21,6 @@
             placeholder="Buscar por Usuario" aria-label="Search">
         <button class="btn btn-outline-success" type="submit">Buscar </button>
     </form>
-    <br>
-    <br>
     {{--     <a href="{{ url('cuenta/create') }}" class="btn btn-success">Registrar nueva cuenta</a> --}}
     </br>
     <br>
@@ -83,7 +80,7 @@
 
 
     </div>
-
+<br>
     {!! $cuentas->links() !!}
 
 

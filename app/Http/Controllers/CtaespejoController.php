@@ -13,7 +13,7 @@ class CtaespejoController extends Controller
     public function index()
     {
 
-        $datos['ctaespejos'] = Ctaespejo::paginate(7);
+        $datos['ctaespejos'] = Ctaespejo::paginate(10);
         return view('ctaespejo.index', $datos);
     }
 

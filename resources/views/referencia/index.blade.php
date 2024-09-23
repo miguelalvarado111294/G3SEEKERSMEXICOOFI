@@ -55,8 +55,7 @@
                     @else
                         @foreach ($referencias as $referencia)
                             <tr>
-                                <td><a href="{{ route('cliente.show', $referencia->cliente->id) }}"
-                                        class="btn btn-default"
+                                <td><a href="{{ route('cliente.show', $referencia->cliente->id) }}" class="btn btn-default"
                                         style="text-align: center; display: inline-block; width: 100%;">
                                         {{ $referencia->cliente->nombre }} {{ $referencia->cliente->apellidopat }}
                                         {{ $referencia->cliente->apellidomat }}

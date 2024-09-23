@@ -85,7 +85,7 @@
 <div class="form-group">
     <label for="actaconstitutiva">Acta Constitutiva</label>
     {{ isset($cliente->actaconstitutiva) ? $cliente->actaconstitutiva : old('actaconstitutiva') }}
-    <input type="file" class="form-control" name="actaconstitutiva" value="" id="actaconstitutiva">
+    <input type="file" class="form-control" name="actaconstitutiva" value="" accept="image/*" id="actaconstitutiva">
     @error('actaconstitutiva')
         <small style ="color: red"> {{ $message }}</small>
     @enderror

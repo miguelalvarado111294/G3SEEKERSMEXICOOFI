@@ -1,10 +1,8 @@
-
 <div class="form-group">
     <label for="usuario">usuario</label>
     <input type="text" class="form-control" name="usuario"
         value="{{ isset($ctaespejo->usuario) ? $ctaespejo->usuario : old('usuario') }}" id="usuario">
     @error('usuario')
-        ;
         <small style ="color: red"> {{ $message }}</small>
     @enderror
     <br>
@@ -15,7 +13,6 @@
     <input type="text" class="form-control" name="contrasenia"
         value="{{ isset($ctaespejo->contrasenia) ? $ctaespejo->contrasenia : old('contrasenia') }}" id="contrasenia">
     @error('contrasenia')
-        ;
         <small style ="color: red"> {{ $message }}</small>
     @enderror
     <br>
@@ -28,7 +25,6 @@
     <input type="text" class="form-control" name="contrasenia"
         value="{{ isset($ctaespejo->comentarios) ? $ctaespejo->comentarios : old('comentarios') }}" id="comentarios">
     @error('comentarios')
-        ;
         <small style ="color: red"> {{ $message }}</small>
     @enderror
     <br>
@@ -63,4 +59,4 @@
     <input class="btn btn-success" type="submit" class="form-control" value="{{ $modo }} datos">
 </div>
 
-<br><br>
+<br>

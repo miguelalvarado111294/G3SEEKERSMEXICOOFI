@@ -35,12 +35,12 @@
                 <thead class="thead-light">
                     <tr>
                         <th>ID</th>
-                        <th>Cliente</th>
                         <th>Marca</th>
                         <th>Modelo</th>
                         <th>Numero de Serie</th>
                         <th>Placa</th>
                         <th>Color</th>
+                        <th>Cliente</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -54,8 +54,9 @@
                         @foreach ($vehiculos as $vehiculo)
                             <tr>
 
-                                <td> <a href=" {{ route('buscar.dispositivo', $vehiculo->id) }}" class="btn btn-default"
-                                        style="text-align: center; display: inline-block; width: 100%;"> Ver 
+                                <td> 
+                                    <a href=" {{ route('buscar.dispositivo', $vehiculo->id) }}" class="btn btn-default"
+                                        style="text-align: center; display: inline-block; width: 100%;"> Ver detalles
                                 </td>
 
                                 <td>{{ $vehiculo->marca }}</td>

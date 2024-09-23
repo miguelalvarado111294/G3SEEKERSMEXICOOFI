@@ -58,7 +58,7 @@ class ReferenciaController extends Controller
             'segnombre' => 'nullable|alpha',
             'apellidopat' => 'required|alpha|min:4|max:100',
             'apellidomat' => 'required|alpha|min:4|max:100',
-            'telefono' => 'required|numeric|digits:10',
+            'telefono' => 'required|numeric|digits:10|unique:referencias,telefono,' . $id,
             'parentesco' => 'required'
         ]);
 
@@ -87,7 +87,7 @@ class ReferenciaController extends Controller
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public function update(Request $request, $id)
     {
-        $referencia_id=$id;
+        $referencia_id = $id;
 
         $request->validate([
             'nombre' => 'required|alpha|min:2|max:100',

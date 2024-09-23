@@ -33,7 +33,6 @@
             <table class="table table-light">
                 <thead class="thead-light">
                     <tr>
-                        <th></th>
                         <th>id</th>
                         <th>cliente</th>
                         <th>modelo</th>
@@ -54,7 +53,7 @@
                                 <td> <a href=" {{ route('buscar.dispositivo', $dispositivo->vehiculo_id) }}"
                                         class="btn btn-default"
                                         style="text-align: center; display: inline-block; width: 100%;">
-                                        {{ $dispositivo->id }} </a>
+                                       Ver detalles de :  {{ $dispositivo->id }} </a>
                                 </td>
                                 <td> {{ $dispositivo->cliente->nombre }} {{ $dispositivo->cliente->segnombre }}
                                     {{ $dispositivo->cliente->apellidopat }} {{ $dispositivo->cliente->apellidomat }} </td>

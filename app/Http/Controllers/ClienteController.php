@@ -17,7 +17,7 @@ class ClienteController extends Controller
         //recuperar todos los clientes
 
         $busqueda = $request->get('busqueda');  //recibe del input de index cliente y lo almacena en una variable 
-        
+
         $clientes = Cliente::where('nombre', 'LIKE', '%' . $busqueda . '%')
             ->orWhere('segnombre', 'LIKE', '%' . $busqueda . '%')
             ->orWhere('apellidopat', 'LIKE', '%' . $busqueda . '%')             //busqueda 
@@ -26,7 +26,7 @@ class ClienteController extends Controller
             ->orWhere('email', 'LIKE', '%' . $busqueda . '%')
             ->orWhere('rfc', 'LIKE', '%' . $busqueda . '%')->paginate(10);
 
-        return view('cliente.index', compact('clientes','busqueda'));
+        return view('cliente.index', compact('clientes', 'busqueda'));
     }
 
     public function create()
@@ -43,26 +43,28 @@ class ClienteController extends Controller
         //insertar FILES al store
 
         if ($request->hasFile('actaconstitutiva')) {
-            $datosCliente['actaconstitutiva'] = $request->file('actaconstitutiva')->store('uploads', 'public');
+            $datosCliente['actaconstitutiva'] = $request->file('actaconstitutiva')->store('public/imagenes');
         }
 
         if ($request->hasFile('consFiscal')) {
-            $datosCliente['consFiscal'] = $request->file('consFiscal')->store('uploads', 'public');
+            $datosCliente['consFiscal'] = $request->file('consFiscal')->store('public/imagenes');
         }
         if ($request->hasFile('comprDom')) {
-            $datosCliente['comprDom'] = $request->file('comprDom')->store('uploads', 'public');
+            $datosCliente['comprDom'] = $request->file('comprDom')->store('public/imagenes');
         }
         if ($request->hasFile('tarjetacirculacion')) {
-            $datosCliente['tarjetacirculacion'] = $request->file('tarjetacirculacion')->store('uploads', 'public');
+            $datosCliente['tarjetacirculacion'] = $request->file('tarjetacirculacion')->store('public/imagenes');
         }
         if ($request->hasFile('compPago')) {
-            $datosCliente['compPago'] = $request->file('compPago')->store('uploads', 'public');
+            $datosCliente['compPago'] = $request->file('compPago')->store('public/imagenes');
         }
+
+
 
         $mArray = array_map('strtoupper', $datosCliente);
 
-
         //insertar datos al modelo cliente
+
         Cliente::insert($mArray);
 
         return redirect()->route('cliente.index');
@@ -75,7 +77,7 @@ class ClienteController extends Controller
         //traer datos de cliente
         $cliente = cliente::find($id);
         //traer referencias a la vista show
-        $referencias = Referencia::where('cliente_id', 'LIKE', '%' . $id . '%')->get();
+        $referencias = Referencia::where('cliente_id', 'LIKE',$id )->get();
         //unir datos de las consultas en un solo array para enviar a la vista
         $data = [
             'cliente' => $cliente,
@@ -87,11 +89,16 @@ class ClienteController extends Controller
 
     public function buscararchivos($id)
     {
+        //        return $id;
+        $cliente_id = $id;
 
-        $archivos = Cliente::find($id);
-        $cliente = Cliente::find($id);
+        // $cliente = Cliente::find($cliente_id)->get();
+        $cliente = Cliente::select('actaconstitutiva')->where('id', '=', $cliente_id)->first();
 
-        return view('cliente.archivos', compact('archivos', 'cliente'));
+        //return $cliente;
+
+
+        return view('cliente.archivos', compact('cliente'));
     }
 
 
@@ -100,7 +107,7 @@ class ClienteController extends Controller
     {
 
         $cliente = cliente::findOrFail($id);
-        $referencias = referencia::where('cliente_id', 'LIKE', '%' . $id . '%')->get();
+        $referencias = referencia::where('cliente_id', 'LIKE', $id)->get();
 
         $data = [
             'cliente' => $cliente,

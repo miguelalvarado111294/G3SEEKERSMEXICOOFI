@@ -61,7 +61,7 @@ class CuentaController extends Controller
     {
 
         $request->validate([
-            'usuario' => 'required|alpha_dash|min:3|max:15',
+            'usuario' => 'required|alpha_dash|min:3|max:15|unique:cuentas,usuario,' . $id,
             'contrasenia' => 'required|alpha_dash|min:2|max:15',
             'contraseniaParo' => 'required|alpha_dash|min:2|max:100',
             'comentarios' => 'nullable|alpha|min:10|max:100'

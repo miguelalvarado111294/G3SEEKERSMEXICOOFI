@@ -61,9 +61,9 @@ class DispositivoController extends Controller
         $clienteid = $vehiculo->cliente_id;
 
         $request->validate([
-            'modelo' => 'required|alpha_dash|min:2|max:100',
-            'noserie' => 'required|alpha_dash|min:20',
-            'imei' => 'required|numeric|min:2|min:18'
+            'modelo' => 'required|alpha_dash|min:2|max:100|unique:dispositivos,modelo,' . $id,
+            'noserie' => 'required|alpha_dash|min:20|unique:dispositivos,noserie,' . $id,
+            'imei' => 'required|numeric|min:2|min:18|unique:dispositivos,imei,' . $id,
         ]);
 
         $datosCliente = $request->except('_token');

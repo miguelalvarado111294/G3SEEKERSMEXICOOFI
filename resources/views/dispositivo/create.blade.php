@@ -10,6 +10,6 @@
 
         <form action="{{ url('/dispositivo') }}" method="post" enctype="multipart/form-data">
             @csrf
-            @include('/dispositivo.form', ['modo' => 'Crear']);
+            @include('/dispositivo.form', ['modo' => 'Crear'])
         </form>
 @endsection

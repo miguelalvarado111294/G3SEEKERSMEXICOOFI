@@ -46,9 +46,9 @@ class VehiculoController extends Controller
         $request->validate([
             'marca' => 'required|alpha_dash|min:3|max:100',
             'modelo' => 'required|alpha_num|alpha_dash',
-            'noserie' => 'required|alpha_dash|min:5',
-            'nomotor' => 'required|alpha_dash|min:5',
-            'placa' => 'required|alpha_dash|min:4',
+            'noserie' => 'required|alpha_dash|min:5|unique:vehiculos,noserie,' . $id,
+            'nomotor' => 'required|alpha_dash|min:5|unique:vehiculos,nomotor,' . $id,
+            'placa' => 'required|alpha_dash|min:4|unique:vehiculos,placa,' . $id,
             'color' => 'string|min:4|max:15'
         ]);
 

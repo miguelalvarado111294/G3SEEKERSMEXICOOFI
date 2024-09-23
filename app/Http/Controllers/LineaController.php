@@ -63,7 +63,7 @@ class LineaController extends Controller
 
 
         $dispositivo = Dispositivo::find($dispositivoid);
-/*
+        /*
         $linea = new Linea;
         $linea->simcard = $request->simcard;
         $linea->telefono = $request->telefono;
@@ -73,6 +73,13 @@ class LineaController extends Controller
         $linea->dispositivo_id = $dispositivoid;
         $linea->cliente_id = $dispositivo->cliente_id;
         $linea->save();*/
+        
+        /*$request->validate([
+            'simcard' => 'required|alpha_dash|min:3|max:15|unique:lineas,simcard,' . $id,
+            'telefono' => 'required|alpha_dash|min:2|max:15|unique:lineas,simcard,' . $id,
+            'contraseniaParo' => 'required|alpha_dash|min:2|max:100',
+            'comentarios' => 'nullable|alpha|min:10|max:100'
+        ]); */
 
         $datosCliente = $request->except('_token');
         $datosCliente['cliente_id']=$dispositivo->cliente_id;

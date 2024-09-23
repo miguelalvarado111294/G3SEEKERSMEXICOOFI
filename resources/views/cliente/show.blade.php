@@ -4,32 +4,42 @@
 
 @section('content_header')
     <h1 class="text-center"><b>G3 Seekers</b></h1>
-    <h3 class="text-center">Datos Personales</h3>
 
     <br>
     <div class="card">
 
         <div class="card-body">
+            <h3 class="text-center">Datos Personales</h3>
+
             <ul>
 
-               <b>Nombre :</b>  {{ $cliente->nombre }} <br>
+                <b>Nombre :</b> {{ $cliente->nombre }} <br>
                 <b>Segundo Nombre :</b> {{ $cliente->segnombre }}<br>
-               <b> Apellido Paterno :</b> {{ $cliente->apellidopat }}<br>
-               <b> Apellido Materno :</b> {{ $cliente->apellidomat }} <br>
+                <b> Apellido Paterno :</b> {{ $cliente->apellidopat }}<br>
+                <b> Apellido Materno :</b> {{ $cliente->apellidomat }} <br>
                 <b>Telefono :</b> {{ $cliente->telefono }} <br>
-               <b> Direccion :</b> {{ $cliente->direccion }} <br>
-               <b> Email : </b>{{ $cliente->email }} <br>
-               <b> RFC : </b>{{ $cliente->rfc }} <br>
-               <b> Comentarios</b> {{ $cliente->comentarios }}
+                <b> Direccion :</b> {{ $cliente->direccion }} <br>
+                <b> Email : </b>{{ $cliente->email }} <br>
+                <b> RFC : </b>{{ $cliente->rfc }} <br>
+                <b> Comentarios</b> {{ $cliente->comentarios }} <br>
+                ima : {{ $cliente->consFiscal }}
+                <br>
+                <br>
+
+                <a href="{{ route('buscar.buscararchivos', $cliente->id) }}" class="btn btn-primary"
+                    style="text-align: center; display: inline-block; width: 17%; ">Documentos electronicos</a>
+                <a href="{{ route('buscar.cuenta', $cliente->id) }} "
+                    style="text-align: center; display: inline-block; width: 17%;" class="btn btn-primary">Cuenta</a>
 
             </ul>
 
         </div>
     </div>
+    <br>
 
     @can('cliente.edit')
-        <a href="{{ url('/cliente/' . $cliente->id . '/edit') }}" style="text-align: center; display: inline-block; width: 17%; "
-            class="btn btn-warning">Editar</a>
+        <a href="{{ url('/cliente/' . $cliente->id . '/edit') }}"
+            style="text-align: center; display: inline-block; width: 17%; " class="btn btn-warning">Editar</a>
     @endcan
 
     @can('cliente.destroy')
@@ -40,18 +50,7 @@
                 onclick=" return confirm('seguro quieres eliminar?')" value="Borrar">
         </form>
     @endcan
-    <br><br>
-
-    <div class="card">
-        <div class="card-body">
-
-            <a href="{{ route('buscar.buscararchivos', $cliente->id) }}" class="btn btn-primary"
-                style="text-align: center; display: inline-block; width: 17%; ">Documentos electronicos</a>
-            <a href="{{ route('buscar.cuenta', $cliente->id) }} "
-                style="text-align: center; display: inline-block; width: 17%;" class="btn btn-primary">Cuenta</a>
-        </div>
-
-    </div>
+    <br>
 
 
     <br>

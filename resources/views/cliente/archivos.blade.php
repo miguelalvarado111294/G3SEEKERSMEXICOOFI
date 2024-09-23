@@ -19,23 +19,25 @@
                         <th>Comprobante Domicilio</th>
                         <th>Tarjeta Circulacion</th>
                         <th>Comprobante Pago</th>
+                        <th></th>
                     </tr>
                 </thead>
+{{--               @foreach ($cliente as $client)--}} 
+                    <tbody>
+                        <tr>
+                    
+                            <td>
+                                <img src="{{ asset('/storage/uploads' . '/' . $cliente->actaconstitutiva) }}">
+                                {{ $cliente->actaconstitutiva }}
 
-                <tbody>
-                    <tr>
-                        <td><img src="{{ asset('storage') . '/' . $cliente->actaconstitutiva }}" width="200" alt="">
-                        </td>
-                        <td><img src="{{ asset('storage') . '/' . $cliente->consFiscal }}" width="200" alt="">
-                        </td>
-                        <td><img src="{{ asset('storage') . '/' . $cliente->comprDom }}" width="200" alt="">
-                        </td>
-                        <td><img src="{{ asset('storage') . '/' . $cliente->tarjetacirculacion }}" width="200"alt="">
-                        </td>
-                        <td><img src="{{ asset('storage') . '/' . $cliente->compPago }}" width="200" alt="">
-                        </td>
-                    </tr>
-                </tbody>
+                            </td>
+
+                           
+
+                        </tr>
+                    </tbody>
+            {{--    @endforeach--}} 
+
             </table>
 
         </div>
