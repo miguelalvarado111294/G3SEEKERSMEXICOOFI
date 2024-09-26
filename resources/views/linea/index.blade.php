@@ -20,7 +20,7 @@
     <br>
     <form class="d-flex" role="search">
         <input name="busqueda" class="form-control me-2" type="search" value="{{$busqueda}}"
-            placeholder="Buscar por Nombre , Sim Card/Numero de telefono  " aria-label="Search">
+            placeholder="Buscar por Sim Card/Numero de telefono / " aria-label="Search">
         <button class="btn btn-outline-success" type="submit">Buscar </button>
     </form>
     <br>
@@ -55,7 +55,16 @@
                         @foreach ($lineas as $linea)
                             <tr>
 
-                                <td> {{ $linea->id }} </td>
+                                <td> 
+                                    
+                                    
+                                    <a href=" {{ route('buscar.linea', $linea->dispositivo_id) }}"
+                                        class="btn btn-default"
+                                        style="text-align: center; display: inline-block; width: 100%;">
+                                       Ver detalles de :  {{ $linea->id }} </a>
+
+
+                                </td>
                                 <td>{{ $linea->simcard }}</td>
                                 <td>{{ $linea->telefono }}</td>
                                 <td>{{ $linea->tipolinea }}</td>

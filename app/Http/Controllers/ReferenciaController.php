@@ -22,11 +22,7 @@ class ReferenciaController extends Controller
         return view('referencia.index', compact('referencias', 'busqueda'));
     }
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    public function create(Request $request)
-    {
-        $clientes = Cliente::all();
-        return view('referencia.create', compact('clientes'));
-    }
+
 
     public function crearref($id)
     {
@@ -34,22 +30,7 @@ class ReferenciaController extends Controller
         return view('referencia.createid', compact('id'));
     }
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    public function store(Request $request)
-    {
-        $request->validate([
-            'nombre' => 'required|alpha|min:2|max:100',
-            'segnombre' => 'nullable|alpha',
-            'apellidopat' => 'required|alpha|min:4|max:100',
-            'apellidomat' => 'required|alpha|min:4|max:100',
-            'telefono' => 'required|numeric|digits:10',
-            'parentesco' => 'required'
-        ]);
 
-        $datosCliente = $request->except('_token');
-
-        Referencia::create($request->all());
-        return redirect('referencia')->with('mensaje', 'Referencia agregado exitosamente ');
-    }
 
     public function storef(Request $request, $id)
     {
@@ -104,11 +85,35 @@ class ReferenciaController extends Controller
         $referencia = Referencia::find($referencia_id);
         return redirect()->route('cliente.show', $referencia->cliente_id);
     }
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public function destroy($id)
     {
         $referencia = Referencia::findOrFail($id);
         Referencia::destroy($id);
         return redirect()->route('cliente.show', $referencia->cliente_id);
+    }
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'nombre' => 'required|alpha|min:2|max:100',
+            'segnombre' => 'nullable|alpha',
+            'apellidopat' => 'required|alpha|min:4|max:100',
+            'apellidomat' => 'required|alpha|min:4|max:100',
+            'telefono' => 'required|numeric|digits:10',
+            'parentesco' => 'required'
+        ]);
+
+        $datosCliente = $request->except('_token');
+
+        Referencia::create($request->all());
+        return redirect('referencia')->with('mensaje', 'Referencia agregado exitosamente ');
+    }
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    public function create(Request $request)
+    {
+        $clientes = Cliente::all();
+        return view('referencia.create', compact('clientes'));
     }
 }

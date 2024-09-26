@@ -22,28 +22,28 @@
                         <th></th>
                     </tr>
                 </thead>
-                {{--               --}}
-                 @foreach ($cliente as $client)
+                {{--                           @foreach ($cliente as $client)
+     --}}
                 <tbody>
                     <tr>
 
-                        <td><img src="{{ asset('storage') . '/' . $client->actaconstitutiva }}" width="200" alt="">
-                            {{$client->actaconstitutiva}}
+                        <td><img src="{{ asset('storage/') . $cliente->actaconstitutiva }}" width="200" alt="">
+                            {{$cliente->actaconstitutiva}}
                         </td>
-                        <td><img src="{{ asset('storage') . '/' . $client->consFiscal }}" width="200" alt="">
+                        <td><img src="{{ asset('storage') . '/' . $cliente->consFiscal }}" width="200" alt="">
                         </td>
-                        <td><img src="{{ asset('storage') . '/' . $client->comprDom }}" width="200" alt="">
+                        <td><img src="{{ asset('storage') . '/' . $cliente->comprDom }}" width="200" alt="">
                         </td>
-                        <td><img src="{{ asset('storage') . '/' . $client->tarjetacirculacion }}" width="200"alt="">
+                        <td><img src="{{ asset('storage') . '/' . $cliente->tarjetacirculacion }}" width="200"alt="">
                         </td>
-                        <td><img src="{{ asset('storage') . '/' . $client->compPago }}" width="200" alt="">
+                        <td><img src="{{ asset('storage') . '/' . $cliente->compPago }}" width="200" alt="">
                         </td>
 
 
                     </tr>
                 </tbody>
-                {{--   --}}
-                @endforeach 
+                {{--                  @endforeach 
+ --}}
             </table>
 
         </div>

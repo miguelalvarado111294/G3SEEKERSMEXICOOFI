@@ -20,7 +20,7 @@
     <br>
     <form class="d-flex" role="search">
         <input name="busqueda" class="form-control me-2" type="search" value="{{ $busqueda }}"
-            placeholder="Buscar por Nombre , Apellido , telefono, dispositivo n/s, cuenta " aria-label="Search">
+            placeholder="Buscar por Numero de Serie" aria-label="Search">
         <button class="btn btn-outline-success" type="submit">Buscar </button>
     </form>
     <br>
@@ -58,6 +58,7 @@
                                 <td>{{ $sensor->modelo }}</td>
                                 <td>{{ $sensor->noserie }}</td>
                                 <td>{{ $sensor->tipo }}</td>
+
 
                                 <td>
                                     <a href="{{ url('/sensor/' . $sensor->id . '/edit') }}"

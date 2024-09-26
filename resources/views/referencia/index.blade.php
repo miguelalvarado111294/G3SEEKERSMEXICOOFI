@@ -20,7 +20,7 @@
     <br>
     <form class="d-flex" role="search">
         <input name="busqueda" class="form-control sm me-2" type="search"
-            placeholder="Buscar por Nombre Segundo Nombre, Apellido Paterno, Apellido Materno y por Telefono"
+            placeholder="Buscar por Nombre /Segundo Nombre/Apellido Paterno/Apellido Materno/Telefono"
             value="{{ $busqueda }}" aria-label="Search">
         <button class="btn btn-outline-success" type="submit">Buscar </button>
     </form>

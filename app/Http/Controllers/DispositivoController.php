@@ -25,28 +25,7 @@ class DispositivoController extends Controller
         return view('dispositivo.index', compact('dispositivos', 'busqueda'));
     }
 
-    public function create()
-    {
-        $vehiculos = vehiculo::all();
-        $clientes = cliente::all();
-        return view('dispositivo.create', compact('vehiculos', 'clientes'));
-    }
 
-    public function store(Request $request)
-    {
-
-        $campos = [
-            'modelo' => 'required|alpha_dash|min:2|max:100',
-            'noserie' => 'required|alpha_dash|min:20',
-            'imei' => 'required|numeric|min:2|min:18'
-        ];
-
-        $this->validate($request, $campos/*$mensaje*/);
-        $datosDispositivo = $request->except('_token');
-        Dispositivo::insert($datosDispositivo);
-
-        return redirect('dispositivo')->with('mensaje', 'Dispositivo agregado exitosamente ');
-    }
 
     public function creardisp($id)
     {
@@ -126,5 +105,28 @@ class DispositivoController extends Controller
         Dispositivo::destroy($id);
         $dispositivos = Dispositivo::where('cliente_id', 'LIKE', '%' . $id . '%')->get();
         return redirect()->back();
+    }
+
+    public function create()
+    {
+        $vehiculos = vehiculo::all();
+        $clientes = cliente::all();
+        return view('dispositivo.create', compact('vehiculos', 'clientes'));
+    }
+
+    public function store(Request $request)
+    {
+
+        $campos = [
+            'modelo' => 'required|alpha_dash|min:2|max:100',
+            'noserie' => 'required|alpha_dash|min:20',
+            'imei' => 'required|numeric|min:2|min:18'
+        ];
+
+        $this->validate($request, $campos/*$mensaje*/);
+        $datosDispositivo = $request->except('_token');
+        Dispositivo::insert($datosDispositivo);
+
+        return redirect('dispositivo')->with('mensaje', 'Dispositivo agregado exitosamente ');
     }
 }

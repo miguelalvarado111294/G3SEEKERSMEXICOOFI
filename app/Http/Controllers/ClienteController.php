@@ -50,25 +50,26 @@ class ClienteController extends Controller
 
         //insertar FILES al store
         if ($request->hasFile('actaconstitutiva')) {
-            $datosCliente['actaconstitutiva'] = $request->file('actaconstitutiva')->store('public/imagenes');
+            $datosCliente['actaconstitutiva'] = $request->file('actaconstitutiva')->store('public');
         }
         if ($request->hasFile('consFiscal')) {
-            $datosCliente['consFiscal'] = $request->file('consFiscal')->store('public/imagenes');
+            $datosCliente['consFiscal'] = $request->file('consFiscal')->store('public');
         }
         if ($request->hasFile('comprDom')) {
-            $datosCliente['comprDom'] = $request->file('comprDom')->store('public/imagenes');
+            $datosCliente['comprDom'] = $request->file('comprDom')->store('public');
         }
         if ($request->hasFile('tarjetacirculacion')) {
-            $datosCliente['tarjetacirculacion'] = $request->file('tarjetacirculacion')->store('public/imagenes');
+            $datosCliente['tarjetacirculacion'] = $request->file('tarjetacirculacion')->store('public');
         }
         if ($request->hasFile('compPago')) {
-            $datosCliente['compPago'] = $request->file('compPago')->store('public/imagenes');
+            $datosCliente['compPago'] = $request->file('compPago')->store('public');
         }
-
 
         // $mArray = array_map('strtoupper', $datosCliente);
 
         //insertar datos al modelo cliente
+
+        //return $datosCliente;
         Cliente::insert($datosCliente);
 
         return redirect()->route('cliente.index');
@@ -127,7 +128,7 @@ class ClienteController extends Controller
 
     public function edit($id) //recive el id del cliente para editarlo
     {
-        $cliente = cliente::findOrfail($id);
+        $cliente = Cliente::findOrfail($id);
         return view('cliente.edit', compact('cliente'));
     }
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

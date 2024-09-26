@@ -78,7 +78,7 @@ class PruebaController extends Controller
         $dispositivos = Dispositivo::where('vehiculo_id', 'LIKE', $vehiculoid)->get()->take(1);
 
 
-        return view('prueba.buscarDispositivo', compact('vehiculo','dispositivos', 'id', 'cliente_id', 'vehiculoid'));
+        return view('prueba.buscarDispositivo', compact('vehiculo', 'dispositivos', 'id', 'cliente_id', 'vehiculoid'));
     }
 
     public function buscarLinea($id)
@@ -89,27 +89,22 @@ class PruebaController extends Controller
 
         $dispositivo = Dispositivo::find($dispositivoid);
         $vehiculoid = $dispositivo->vehiculo_id;
-
         return view('prueba.buscarLinea', compact('lineas', 'dispositivoid', 'vehiculoid'));
     }
 
     public function buscarSensor($id)
     {
 
-        $dispositivoid = $id;
-        $sensors = Sensor::where('dispositivo_id', 'LIKE', $dispositivoid)->get();
-        $dispositivo = Dispositivo::find($dispositivoid);
-        $vehiculoid = $dispositivo->vehiculo_id;
+      // return $dispositivo_id;
+        $sensors = Sensor::where('dispositivo_id', 'LIKE', $id)->get();
 
-        return view('prueba.buscarSensor', compact('sensors', 'id', 'vehiculoid'));
+ return view('prueba.buscarSensor', compact('sensors','id'));
     }
 
     public function buscarCtaespejo($id)
     {
 
         $ctaespejos = Ctaespejo::where('cuenta_id', 'LIKE', $id)->get();
-
-
         return view('prueba.buscarctaespejo', compact('ctaespejos', 'id'));
     }
 }

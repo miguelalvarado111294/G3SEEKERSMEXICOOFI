@@ -17,7 +17,7 @@
                     <tr>
                         <th>nombre</th>
                         <th>correo</th>
-                        <th> </th>
+                        <th> Acciones </th>
                     </tr>
                 </thead>
 

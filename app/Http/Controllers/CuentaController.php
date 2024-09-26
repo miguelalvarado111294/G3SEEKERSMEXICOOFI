@@ -24,32 +24,9 @@ class CuentaController extends Controller
         $busqueda = $request->get('busqueda');  //recibe del input de index cliente y lo almacena en una variable 
         $cuentas = Cuenta::where('usuario', 'LIKE', '%' . $busqueda . '%')->paginate(10);
 
-        return view('cuenta.index', compact('cuentas','busqueda'));
+        return view('cuenta.index', compact('cuentas', 'busqueda'));
     }
-/*
-    public function index(Request $request)
-    {
-        $datos['cuentas'] = Cuenta::paginate(10);
 
-        $busqueda = $request->get('busqueda');  //recibe del input de index cliente y lo almacena en una variable 
-        $cuentas = Cuenta::where('usuario', 'LIKE', '%' . $busqueda . '%');
-
-
-
-        return view('cuenta.index', compact('datos','cuentas'));
-    }*/
-
-    public function create()
-    {
-
-        $clientes = Cliente::all();
-        $vehiculos = vehiculo::all();
-        $lineas = linea::all();
-        $ctaespejos = ctaespejo::all();
-        $dispositivos = dispositivo::all();
-
-        return view('cuenta.create', compact('clientes', 'vehiculos', 'lineas', 'ctaespejos', 'dispositivos'));
-    }
 
     public function crearcta($id)
     {
@@ -67,14 +44,14 @@ class CuentaController extends Controller
             'comentarios' => 'nullable|alpha|min:10|max:100'
         ]);
 
-       // $usuario = strtoupper($request);
+        // $usuario = strtoupper($request);
 
-       $datosCliente = $request->except('_token');
-       $datosCliente['cliente_id']=$id;
-       $mArray = array_map('strtoupper', $datosCliente);
-       Cuenta::insert($mArray);
+        $datosCliente = $request->except('_token');
+        $datosCliente['cliente_id'] = $id;
+        $mArray = array_map('strtoupper', $datosCliente);
+        Cuenta::insert($mArray);
 
-      /*  $cuenta = Cuenta::create([
+        /*  $cuenta = Cuenta::create([
             'usuario' => $request->usuario,
             'contrasenia' => $request->contrasenia,
             'contraseniaParo' => $request->contraseniaParo,
@@ -132,4 +109,14 @@ class CuentaController extends Controller
         cuenta::destroy($id);
         return redirect()->back();
     }
+
+
+
+    public function create()
+    {
+        return view('cuenta.create');
+    
+    }
 }
+
+

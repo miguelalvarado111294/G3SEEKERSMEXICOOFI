@@ -65,8 +65,10 @@
                             </td>
 
                             <td>
-                                <a href="{{ route('buscar.vehiculo', $clienteid) }}" class="btn btn-primary ; float-right">Vehiculos</a>
-                                <a href="{{ route('buscar.ctaespejo', $cuenta->id) }}" class="btn btn-primary">Cuenta Espejo</a>
+                                <a href="{{ route('buscar.vehiculo', $clienteid) }}"
+                                    class="btn btn-primary ; float-right">Vehiculos</a>
+                                <a href="{{ route('buscar.ctaespejo', $cuenta->id) }}" class="btn btn-primary">Cuenta
+                                    Espejo</a>
 
                             </td>
                         </tr>

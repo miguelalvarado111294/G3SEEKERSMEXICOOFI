@@ -74,12 +74,13 @@ class LineaController extends Controller
         $linea->cliente_id = $dispositivo->cliente_id;
         $linea->save();*/
         
-        /*$request->validate([
+        
+        $request->validate([
             'simcard' => 'required|alpha_dash|min:3|max:15|unique:lineas,simcard,' . $id,
             'telefono' => 'required|alpha_dash|min:2|max:15|unique:lineas,simcard,' . $id,
             'contraseniaParo' => 'required|alpha_dash|min:2|max:100',
             'comentarios' => 'nullable|alpha|min:10|max:100'
-        ]); */
+        ]); 
 
         $datosCliente = $request->except('_token');
         $datosCliente['cliente_id']=$dispositivo->cliente_id;
@@ -113,7 +114,7 @@ class LineaController extends Controller
             'renovacion' => 'required|alpha'
         ];
 
-        $this->validate($request, $campos/*$mensaje*/);
+        $this->validate($request, $campos);
         $datosLinea = $request->except(['_token', '_method']);
         Linea::where('id', '=', $id)->update($datosLinea);
 

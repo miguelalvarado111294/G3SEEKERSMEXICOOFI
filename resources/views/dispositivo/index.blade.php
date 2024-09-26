@@ -19,7 +19,7 @@
     <br>
     <form class="d-flex" role="search">
         <input name="busqueda" class="form-control me-2" type="search" value="{{ $busqueda }}"
-            placeholder="Buscar por ID / Numero econonomico / Modelo Numero / de Serie / Imei  " aria-label="Search">
+            placeholder="Buscar por ID / Numero econonomico / Numero de Serie / Imei  " aria-label="Search">
         <button class="btn btn-outline-success" type="submit">Buscar </button>
     </form>
     <br>
@@ -38,6 +38,13 @@
                         <th>modelo</th>
                         <th>noserie</th>
                         <th>imei</th>
+                        <th>Cuenta</th>
+                        <th>Sucursal</th>
+                        <th>Fecha Compra</th>
+                        <th>Comentarios</th>
+
+
+                    
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -60,6 +67,10 @@
                                 <td>{{ $dispositivo->modelo }}</td>
                                 <td>{{ $dispositivo->noserie }}</td>
                                 <td>{{ $dispositivo->imei }}</td>
+                                <td>{{ $dispositivo->cuenta }}</td>
+                                <td>{{ $dispositivo->sucursal }}</td>
+                                <td>{{ $dispositivo->fechacompra }}</td>
+                                <td>{{ $dispositivo->comentarios }}</td>
 
                                 <td>
                                     <a href="{{ url('/dispositivo/' . $dispositivo->id . '/edit') }}"

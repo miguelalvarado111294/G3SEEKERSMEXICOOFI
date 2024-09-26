@@ -10,15 +10,15 @@ use Illuminate\Http\Request;
 class SensorController extends Controller
 {
 
- 
+
     public function index(Request $request)
     {
         $busqueda = $request->get('busqueda');  //recibe del input de index cliente y lo almacena en una variable 
-        
-        $sensors = Sensor::where('marca', 'LIKE', '%' . $busqueda . '%')
-        ->orWhere('modelo', 'LIKE', '%' . $busqueda . '%')->orWhere('noserie', 'LIKE', '%' . $busqueda . '%')->paginate(10);
 
-        return view('sensor.index', compact('sensors','busqueda'));
+        $sensors = Sensor::where('marca', 'LIKE', '%' . $busqueda . '%')
+            ->orWhere('modelo', 'LIKE', '%' . $busqueda . '%')->orWhere('noserie', 'LIKE', '%' . $busqueda . '%')->paginate(10);
+
+        return view('sensor.index', compact('sensors', 'busqueda'));
     }
 
     public function create()
@@ -84,9 +84,9 @@ class SensorController extends Controller
     public function edit($id)
     {
 
-        $dispositivos = dispositivo::all();
-        $sensors = sensor::findOrfail($id);
-        return view('sensor.edit', compact('sensors', 'dispositivos'));
+        $sensor = Sensor::find($id);
+        // return $sensors;
+        return view('sensor.edit', compact('sensor'));
     }
 
 
@@ -101,10 +101,14 @@ class SensorController extends Controller
 
         ]);
 
-        $sensor = Sensor::where('id', '=', $id)->update($request);
-        $sensor = Sensor::find($id);
+        //return $request;
+        $datosSensor = $request->except(['_token', '_method']);
 
-        return redirect()->route('buscar.sensor', $id);
+        Sensor::where('id', '=', $id)->update($datosSensor);
+        $sensor=Sensor::find($id);
+        $dispositivo_id=$sensor->dispositivo_id;
+
+        return redirect()->route('buscar.sensor', $dispositivo_id);
 
         /*
         $campos= [
@@ -126,6 +130,6 @@ class SensorController extends Controller
     public function destroy($id)
     {
         sensor::destroy($id);
-        return redirect()->route('buscar.sensor', $id);
+        return redirect()->back();
     }
 }

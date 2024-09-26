@@ -19,7 +19,7 @@
     <br>
     <form class="d-flex" role="search">
         <input name="busqueda" class="form-control me-2" type="search" value="{{ $busqueda }}"
-            placeholder="Buscar por Numero de Serie, Numero de Motor o Placa " aria-label="Search">
+            placeholder="Buscar por Numero de Serie/ Numero de Motor/ Placa/ " aria-label="Search">
         <button class="btn btn-outline-success" type="submit">Buscar </button>
     </form>
     <br>

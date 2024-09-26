@@ -14,14 +14,12 @@ return new class extends Migration
         Schema::create('ctaespejos', function (Blueprint $table) {
             $table->engine = "InnoDB";
             $table->id();
-            $table->string("usuario");
-            $table->string("contrasenia");
+            $table->string('usuario');
+            $table->string('contrasenia');
             $table->string('comentarios')->nullable();
             $table->bigInteger('cuenta_id')->unsigned();
 
             $table->foreign('cuenta_id')->references('id')->on('cuentas')->onDelete('cascade')->onUpdate('cascade');
-
-
 
             $table->timestamps();
         });

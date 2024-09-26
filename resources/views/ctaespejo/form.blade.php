@@ -1,5 +1,5 @@
 <div class="form-group">
-    <label for="usuario">usuario</label>
+    <label for="usuario">Usuario</label>
     <input type="text" class="form-control" name="usuario"
         value="{{ isset($ctaespejo->usuario) ? $ctaespejo->usuario : old('usuario') }}" id="usuario">
     @error('usuario')
@@ -9,7 +9,7 @@
 </div>
 
 <div class="form-group">
-    <label for="contrasenia">contrasenia</label>
+    <label for="contrasenia">Contrasenia</label>
     <input type="text" class="form-control" name="contrasenia"
         value="{{ isset($ctaespejo->contrasenia) ? $ctaespejo->contrasenia : old('contrasenia') }}" id="contrasenia">
     @error('contrasenia')
@@ -19,10 +19,9 @@
 </div>
 
 
-
 <div class="form-group">
     <label for="comentarios">Comentarios</label>
-    <input type="text" class="form-control" name="contrasenia"
+    <input type="text" class="form-control" name="comentarios"
         value="{{ isset($ctaespejo->comentarios) ? $ctaespejo->comentarios : old('comentarios') }}" id="comentarios">
     @error('comentarios')
         <small style ="color: red"> {{ $message }}</small>
@@ -56,7 +55,7 @@
 <br>
 
 <div class="form-group">
-    <input class="btn btn-success" type="submit" class="form-control" value="{{ $modo }} datos">
+    <input class="btn btn-success" type="submit" class="form-control" value="Editar Datos">
 </div>
 
 <br>

@@ -61,7 +61,6 @@
                 @endforeach
             </tbody>
         </table>
-        <a href=" {{ route('buscar.dispositivo', $vehiculoid) }}" class="btn btn-primary">Regresar</a>
 
 
     </div>

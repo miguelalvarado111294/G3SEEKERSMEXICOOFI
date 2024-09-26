@@ -8,7 +8,7 @@
     <h3 class="text-center">Editar Sensor</h3>
 <br>
 
-        <form action="{{ url('/sensor/' . $sensors->id) }}" method="post"> >
+        <form action="{{ url('/sensor/' . $sensor->id) }}" method="post"> >
             @csrf
             {{ method_field('PATCH') }}
             @include('/sensor.form', ['modo' => 'Editar']);

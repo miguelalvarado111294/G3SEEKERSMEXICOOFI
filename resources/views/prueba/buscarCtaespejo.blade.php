@@ -45,7 +45,7 @@
                             <td>
                                 <a href="{{ url('/ctaespejo/' . $ctaespejo->id . '/edit') }}"
                                     class="btn btn-warning">Editar</a>
-                                -
+
                                 <form action="{{ url('/ctaespejo/' . $ctaespejo->id) }}" method="post" class="d-inline">
                                     @csrf
                                     {{ method_field('DELETE') }}
