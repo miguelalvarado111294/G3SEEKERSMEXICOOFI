@@ -88,7 +88,7 @@ class PruebaController extends Controller
 
     public function buscarSensor($id)
     {
-
+        
         // return $dispositivo_id;
         $sensors = Sensor::where('dispositivo_id', 'LIKE', $id)->get();
 
