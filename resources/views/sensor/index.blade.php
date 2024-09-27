@@ -41,7 +41,6 @@
                         <th>Modelo</th>
                         <th>Numero de Serie</th>
                         <th>Tipo</th>
-                        <th>Dispositivo</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>

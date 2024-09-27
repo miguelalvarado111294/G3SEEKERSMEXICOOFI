@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
             //cliente::factory(50)->create();
 
         $this->call(RoleSeeder::class);
-       // $this->call(UserSeeder::class);
+        $this->call(UserSeeder::class);
 
     }
 }

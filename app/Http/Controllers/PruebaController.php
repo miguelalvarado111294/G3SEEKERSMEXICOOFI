@@ -62,11 +62,6 @@ class PruebaController extends Controller
     }
 
 
-
-
-
-
-
     public function buscarDispositivo($id)
     { //recibe desde view vehiculos_id de vehiculo
 
