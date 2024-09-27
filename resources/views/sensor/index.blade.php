@@ -33,10 +33,13 @@
         <div class="card-body">
 
 
-            <table class="table table-dark">
+            <table class="table table-light">
                 <thead class="thead-light">
                     <tr>
-                        {{-- <th>#</th> --}}
+                        <th> {{--<a href="{{ route('buscar.sensor', $dispositivo->id) }}"
+                                        class="btn btn-default"
+                                        style="text-align: center; display: inline-block; width: 100%;">
+                                       Ver detalles de :  </a>  --}}</th> 
                         <th>Marca</th>
                         <th>Modelo</th>
                         <th>Numero de Serie</th>

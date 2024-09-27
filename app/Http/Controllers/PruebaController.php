@@ -15,10 +15,8 @@ use Illuminate\Http\Request;
 
 class PruebaController extends Controller
 {
-
     public function buscarCuenta($id)
     { //recibe cliennte id desde show
-
         $cuentas = Cuenta::where('cliente_id', 'LIKE',  $id)->get()->take(1);
         $clientes = Cliente::find($id);
         $clienteid = $clientes->id;
@@ -26,14 +24,14 @@ class PruebaController extends Controller
         return view('prueba.buscarCuenta', compact('cuentas', 'id', 'clienteid', 'clientes'));
     }
 
-
-
-
-
+    public function buscarCtaespejo($id)
+    {
+        $ctaespejos = Ctaespejo::where('cuenta_id', 'LIKE', $id)->get();
+        return view('prueba.buscarctaespejo', compact('ctaespejos', 'id'));
+    }
 
     public function buscarVehiculo($id)
     { //recive id cliente desde buscar cta
-        //return $id;
         $cliente_id = $id;
         //obtener vehiculos relacionados con cliente id
         $vehiculos =    Vehiculo::where('cliente_id', 'LIKE', $cliente_id)->paginate(10); //busca vehiculos ligados a id_cliete
@@ -42,11 +40,9 @@ class PruebaController extends Controller
 
         return view('prueba.vehiculo', compact('vehiculos', 'id', 'cliente_id', 'cliente', 'cuenta'));
         //se envia a view vehiculo id de cliente
-
     }
 
     public function buscadorvehiculo(Request $request, $id)
-
     {
         $cliente_id = $id;
 
@@ -57,9 +53,7 @@ class PruebaController extends Controller
 
         return view('prueba.vehiculo', compact('vehiculos', 'id', 'cliente_id'));
         //se envia a view vehiculo id de cliente
-
     }
-
 
     public function buscarDispositivo($id)
     { //recibe desde view vehiculos_id de vehiculo
@@ -88,17 +82,12 @@ class PruebaController extends Controller
 
     public function buscarSensor($id)
     {
-        
-        // return $dispositivo_id;
+        $dispositivo_id=$id;
         $sensors = Sensor::where('dispositivo_id', 'LIKE', $id)->get();
+        $dispositivo=Dispositivo::find($dispositivo_id);
+        $cliente=Cliente::find($dispositivo->cliente_id);
+        $vehiculo=Vehiculo::find($dispositivo->vehiculo_id);
 
-        return view('prueba.buscarSensor', compact('sensors', 'id'));
-    }
-
-    public function buscarCtaespejo($id)
-    {
-
-        $ctaespejos = Ctaespejo::where('cuenta_id', 'LIKE', $id)->get();
-        return view('prueba.buscarctaespejo', compact('ctaespejos', 'id'));
+        return view('prueba.buscarSensor', compact('sensors', 'id','dispositivo','cliente','vehiculo'));
     }
 }

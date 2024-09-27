@@ -14,11 +14,15 @@ class SensorController extends Controller
     public function index(Request $request)
     {
         $busqueda = $request->get('busqueda');  //recibe del input de index cliente y lo almacena en una variable 
+        $sensors = Sensor::where('marca', 'LIKE', $busqueda )
+            ->orWhere('modelo', 'LIKE',  $busqueda )
+            ->orWhere('noserie', 'LIKE', $busqueda )->paginate(10);
+        
+           // return $sensors;
 
-        $sensors = Sensor::where('marca', 'LIKE', '%' . $busqueda . '%')
-            ->orWhere('modelo', 'LIKE', '%' . $busqueda . '%')->orWhere('noserie', 'LIKE', '%' . $busqueda . '%')->paginate(10);
-
-        return view('sensor.index', compact('sensors', 'busqueda'));
+      // $dispositivo=Dispositivo::find($sensors->dispositivo_id); 
+        
+            return view('sensor.index', compact('sensors', 'busqueda'/*,'dispositivo'*/));
     }
 
     public function create()
