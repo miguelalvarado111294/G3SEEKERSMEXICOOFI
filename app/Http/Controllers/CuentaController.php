@@ -3,18 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
-use Validator;
-use Illuminate\Support\Facades\Route;
-use GuzzleHttp\Cuent;
 
-
-use App\Models\cliente;
 use App\Models\cuenta;
-use App\Models\vehiculo;
-use App\Models\linea;
-use App\Models\ctaespejo;
-use App\Models\dispositivo;
 
 class CuentaController extends Controller
 {
@@ -23,7 +13,6 @@ class CuentaController extends Controller
 
         $busqueda = $request->get('busqueda');  //recibe del input de index cliente y lo almacena en una variable 
         $cuentas = Cuenta::where('usuario', 'LIKE', '%' . $busqueda . '%')->paginate(10);
-
         return view('cuenta.index', compact('cuentas', 'busqueda'));
     }
 
@@ -115,8 +104,5 @@ class CuentaController extends Controller
     public function create()
     {
         return view('cuenta.create');
-    
     }
 }
-
-

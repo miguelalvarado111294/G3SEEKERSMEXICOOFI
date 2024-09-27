@@ -3,9 +3,24 @@
 @section('title', 'G3SEEKERSMX')
 
 @section('content_header')
-    <h1 class="text-center"><b>G3 Seekers</b></h1>
+    <h1 class="text-center">
+        <b>G3 Seekers</b>
+    </h1>
     <br>
-    <h3 class="text-center">Vehiculo</h3>
+
+    <h1 class="text-center">Cliente :
+        @foreach ($cliente as $client)
+            {{ $client->nombre }} {{ $client->segnombre }} {{ $client->apellidopat }} {{ $client->apellidomat }}
+        @endforeach
+    </h1>
+
+    <h1 class="text-center">Cuenta :
+        @foreach ($cuenta as $cuent)
+            {{ $cuent->usuario }}
+        @endforeach
+    </h1>
+    <h3 class="text-center">Vehiculo('s')</h3>
+
     <br>
 
     @if (Session::has('mensaje'))
@@ -22,8 +37,7 @@
         <a href="{{ route('vehiculof.crear', $id) }}" class="btn btn-success">Registrar nuevo vehiculo</a>
     @endcan
 
-    <br><br>
-
+    <br>
     <div class="card">
         <div class="card-body">
 

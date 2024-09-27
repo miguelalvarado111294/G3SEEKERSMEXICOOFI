@@ -5,8 +5,16 @@
 @section('content_header')
     <h1 class="text-center"><b>G3 Seekers</b></h1>
     <br>
-    <h3 class="text-center">Dispositivos</h3>
+    <h1 class="text-center">Cliente :
+        @foreach ($cliente as $client)
+            {{ $client->nombre }} {{ $client->segnombre }} {{ $client->apellidopat }} {{ $client->apellidomat }}
+        @endforeach
+    </h1>
     <br>
+    <h3 class="text-center">Dispositivos Instalado en el Vehiculo</h3>
+    <br>
+
+
 
     @if (Session::has('mensaje'))
         <div class="alert alert-success alert dismissible" role="alert">

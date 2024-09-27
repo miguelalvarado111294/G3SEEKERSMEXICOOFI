@@ -17,12 +17,15 @@
             <p class="h5">Nombre:</p>
             <p class="form-control"> {{ $user->name }}</p>
             <form action="{{ route('admin.update', $user) }}">
+                <br>
                 @foreach ($roles as $role)
                     <input type="checkbox" name="roles[]" value="{{ $role->id }}" />
                     <label>{{ $role->name }}</label>
                 @endforeach
                 <br>
-                <input type="submit" class="btn btn-primary" value="Submit">
+                <br>
+
+                <input type="Guardar Cambios" class="btn btn-primary" value="Submit">
             </form>
 
         </div>

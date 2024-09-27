@@ -5,7 +5,8 @@
 @section('content_header')
     <h1 class="text-center"><b>G3 Seekers</b></h1>
     <br>
-    <h3 class="text-center">Cuenta de Socio</h3>
+    <h3 class="text-center">Cuenta de Socio : {{ $clientes->nombre }} {{ $clientes->segnombre }} {{ $clientes->apellidopat }}
+        {{ $clientes->apellidomat }} </h3>
     <br>
 
     @if (Session::has('mensaje'))
@@ -21,12 +22,12 @@
     @can('cuenta.create')
         <a href="{{ route('cuentaf.crear', $id) }}" class="btn btn-success">Registrar nueva cuenta</a>
     @endcan
-    <br><br>
+    <br>
+    <br>
 
 
     <div class="card">
         <div class="card-body">
-
 
             <table class="table table-light">
                 <thead class="thead-light">
@@ -52,7 +53,6 @@
                                 @can('cuenta.edit')
                                     <a href="{{ url('/cuenta/' . $cuenta->id . '/edit') }}" class="btn btn-warning">Editar</a>
                                 @endcan
-
                                 @can('cuenta.destroy')
                                     <form action="{{ url('/cuenta/' . $cuenta->id) }}" method="post" class="d-inline">
                                         @csrf
@@ -65,10 +65,9 @@
                             </td>
 
                             <td>
-                                <a href="{{ route('buscar.vehiculo', $clienteid) }}"
-                                    class="btn btn-primary ; float-right">Vehiculos</a>
-                                <a href="{{ route('buscar.ctaespejo', $cuenta->id) }}" class="btn btn-primary">Cuenta
-                                    Espejo</a>
+                    
+                                <a href="{{ route('buscar.ctaespejo', $cuenta->id) }}" class="btn btn-primary">Cuenta Espejo</a>
+                                <a href="{{ route('buscar.vehiculo', $clienteid) }}" class="btn btn-primary ; float-right">Vehiculos</a>
 
                             </td>
                         </tr>

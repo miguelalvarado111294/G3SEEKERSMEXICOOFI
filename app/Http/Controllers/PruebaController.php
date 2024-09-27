@@ -23,7 +23,7 @@ class PruebaController extends Controller
         $clientes = Cliente::find($id);
         $clienteid = $clientes->id;
 
-        return view('prueba.buscarCuenta', compact('cuentas', 'id', 'clienteid'));
+        return view('prueba.buscarCuenta', compact('cuentas', 'id', 'clienteid', 'clientes'));
     }
 
 
@@ -36,15 +36,14 @@ class PruebaController extends Controller
         //return $id;
         $cliente_id = $id;
         //obtener vehiculos relacionados con cliente id
-        $vehiculos = Vehiculo::where('cliente_id', 'LIKE', $cliente_id)->paginate(10); //busca vehiculos ligados a id_cliete
+        $vehiculos =    Vehiculo::where('cliente_id', 'LIKE', $cliente_id)->paginate(10); //busca vehiculos ligados a id_cliete
+        $cliente =      Cliente::where('id', 'LIKE', $cliente_id)->get(); //busca vehiculos ligados a id_cliete
+        $cuenta =      Cuenta::select('usuario')->where('cliente_id', 'LIKE', $cliente_id)->get(); //busca vehiculos ligados a id_cliete
 
-        return view('prueba.vehiculo', compact('vehiculos', 'id', 'cliente_id'));
+        return view('prueba.vehiculo', compact('vehiculos', 'id', 'cliente_id', 'cliente', 'cuenta'));
         //se envia a view vehiculo id de cliente
 
     }
-
-
-
 
     public function buscadorvehiculo(Request $request, $id)
 
@@ -65,15 +64,12 @@ class PruebaController extends Controller
     public function buscarDispositivo($id)
     { //recibe desde view vehiculos_id de vehiculo
 
-
         $vehiculoid = $id;
         $vehiculo = Vehiculo::find($vehiculoid);
         $cliente_id = $vehiculo->cliente_id;
-
         $dispositivos = Dispositivo::where('vehiculo_id', 'LIKE', $vehiculoid)->get()->take(1);
-
-
-        return view('prueba.buscarDispositivo', compact('vehiculo', 'dispositivos', 'id', 'cliente_id', 'vehiculoid'));
+        $cliente = Cliente::where('id', 'LIKE', $cliente_id)->get();
+        return view('prueba.buscarDispositivo', compact('vehiculo', 'dispositivos', 'id', 'cliente_id', 'vehiculoid', 'cliente'));
     }
 
     public function buscarLinea($id)
@@ -81,19 +77,22 @@ class PruebaController extends Controller
 
         $dispositivoid = $id;
         $lineas = Linea::where('dispositivo_id', 'LIKE', $dispositivoid)->get()->take(1);
-
         $dispositivo = Dispositivo::find($dispositivoid);
         $vehiculoid = $dispositivo->vehiculo_id;
-        return view('prueba.buscarLinea', compact('lineas', 'dispositivoid', 'vehiculoid'));
+        $cliente_id=$dispositivo->cliente_id;
+
+     $cliente=Cliente::find($cliente_id);
+
+        return view('prueba.buscarLinea', compact('lineas', 'dispositivoid', 'vehiculoid','cliente'));
     }
 
     public function buscarSensor($id)
     {
 
-      // return $dispositivo_id;
+        // return $dispositivo_id;
         $sensors = Sensor::where('dispositivo_id', 'LIKE', $id)->get();
 
- return view('prueba.buscarSensor', compact('sensors','id'));
+        return view('prueba.buscarSensor', compact('sensors', 'id'));
     }
 
     public function buscarCtaespejo($id)

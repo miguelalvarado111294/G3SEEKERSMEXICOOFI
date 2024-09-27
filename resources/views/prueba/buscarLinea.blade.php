@@ -5,6 +5,9 @@
 @section('content_header')
     <h1 class="text-center"><b>G3 Seekers</b></h1>
     <br>
+    <h1 class="text-center">Cliente :
+        {{ $cliente->nombre }}
+    </h1>
     <h3 class="text-center">Lineas</h3>
     <br>
 
