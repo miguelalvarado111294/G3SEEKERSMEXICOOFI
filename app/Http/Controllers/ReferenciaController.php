@@ -30,7 +30,14 @@ class ReferenciaController extends Controller
         return view('referencia.createid', compact('id'));
     }
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    public function crearr($id)
+    {
+        $cliente_id=$id;
+        return view('registroCliente.datosreferencia',compact('cliente_id'));
 
+  
+    }
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     public function storef(Request $request, $id)
     {
@@ -56,6 +63,36 @@ class ReferenciaController extends Controller
         return redirect()->route('cliente.show', $id);
     }
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    public function createnuevoref(Request $request, $id)
+    {
+        $cliente_id=$id;
+
+        $request->validate([
+            'nombre' => 'required|alpha|min:2|max:100',
+            'segnombre' => 'nullable|alpha',
+            'apellidopat' => 'required|alpha|min:4|max:100',
+            'apellidomat' => 'required|alpha|min:4|max:100',
+            'telefono' => 'required|numeric|digits:10|unique:referencias,telefono,' . $id,
+            'parentesco' => 'required'
+        ]);
+
+        $referencia = Referencia::create([
+            'nombre' => $request->nombre,
+            'segnombre' => $request->segnombre,
+            'apellidopat' => $request->apellidopat,
+            'apellidomat' => $request->apellidomat,
+            'parentesco' => $request->parentesco,
+            'telefono' => $request->telefono,
+            'cliente_id' => $cliente_id
+        ]);
+
+        //return $referencia;
+
+        return redirect()->route('crear.nuevo.cuenta', $id);
+    }
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
     public function show(referencia $referencia) {}
 
     public function edit($id)
@@ -111,9 +148,5 @@ class ReferenciaController extends Controller
         return redirect('referencia')->with('mensaje', 'Referencia agregado exitosamente ');
     }
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    public function create(Request $request)
-    {
-        $clientes = Cliente::all();
-        return view('referencia.create', compact('clientes'));
-    }
+    
 }

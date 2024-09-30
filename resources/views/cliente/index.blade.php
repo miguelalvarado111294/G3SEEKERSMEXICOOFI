@@ -21,13 +21,13 @@
         
         <form class="d-flex" role="search">
             <input name="busqueda" class="form-control sm me-2 " type="search" value="{{ $busqueda }}"
-                placeholder="Buscar por Nombre , Apellido , telefono, dispositivo n/s, cuenta" aria-label="Search">
+                placeholder="Buscar por Nombre / Apellido / Telefono / Email /  RFC" aria-label="Search">
             <button class="btn btn-outline-success" type="submit">Buscar </button>
         </form>
         <br>
 
         @can('cliente.create')
-            <div style="text-align:center; margin:auto; width: 50%;">
+            <div style="text-align:center; margin:auto; width: 100%;">
                 <a href="{{ url('cliente/create') }}" class="btn btn-success">Alta de Nuevo Usuario</a>
             @endcan
             <br>

@@ -19,8 +19,43 @@ class CuentaController extends Controller
 
     public function crearcta($id)
     {
-
+        
         return view('cuenta.createid', compact('id'));
+    }
+
+    public function crearc($id)
+    {
+        
+        return view('registroCliente.datoscuenta', compact('id'));
+    }
+
+    
+    public function createnuevocta(Request $request, $id)
+    {
+
+        $request->validate([
+            'usuario' => 'required|alpha_dash|min:3|max:15|unique:cuentas,usuario,' . $id,
+            'contrasenia' => 'required|alpha_dash|min:2|max:15',
+            'contraseniaParo' => 'required|alpha_dash|min:2|max:100',
+            'comentarios' => 'nullable|alpha|min:10|max:100'
+        ]);
+
+        // $usuario = strtoupper($request);
+
+        $datosCliente = $request->except('_token');
+        $datosCliente['cliente_id'] = $id;
+        $mArray = array_map('strtoupper', $datosCliente);
+        Cuenta::insert($mArray);
+
+        /*  $cuenta = Cuenta::create([
+            'usuario' => $request->usuario,
+            'contrasenia' => $request->contrasenia,
+            'contraseniaParo' => $request->contraseniaParo,
+            'comentarios' => $request->comentarios,
+            'cliente_id' => $id
+        ]);*/
+
+        return redirect()->route('buscar.cuenta', $id);
     }
 
     public function stocta(Request $request, $id)

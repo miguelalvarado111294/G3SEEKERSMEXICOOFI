@@ -63,4 +63,17 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/prueba/{id}/buscarctaespejo',     [App\Http\Controllers\PruebaController::class, 'buscarCtaespejo'])->name('buscar.ctaespejo');
     Route::get('/ctaespejo/crearctaespejo/{id}',   [App\Http\Controllers\CtaespejoController::class, 'crearctaespejo'])->name('ctaesoejof.crear');;
     Route::post('/ctaespejo/{id}',            [App\Http\Controllers\CtaespejoController::class, 'storectaespejo'])->name('ctaespejop.crear');
+
+
+    Route::get('/crear' ,   [App\Http\Controllers\ClienteController::class, 'crearcliente'])->name('crear.nuevo');
+    Route::post('/create' ,   [App\Http\Controllers\ClienteController::class, 'createnuevo'])->name('create.nuevo');
+
+   Route::get('/crearr/{id}' ,   [App\Http\Controllers\ReferenciaController::class, 'crearr'])->name('crear.nuevo.ref');
+   Route::post('/create/{id}' ,   [App\Http\Controllers\ReferenciaController::class, 'createnuevoref'])->name('create.nuevo.ref');
+
+   Route::get('/crearc/{id}' ,   [App\Http\Controllers\CuentaController::class, 'crearc'])->name('crear.nuevo.cuenta');
+   Route::post('/createc/{id}' ,   [App\Http\Controllers\CuentaController::class, 'createnuevocta'])->name('create.nuevo.cta');
+
+
+
 });

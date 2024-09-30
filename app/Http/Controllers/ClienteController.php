@@ -38,7 +38,6 @@ class ClienteController extends Controller
     public function store(storecliente $request) //form request para validacion
     {
         $datosCliente = $request->except('_token');
-
         //mayusculas
         $datosCliente['nombre'] = strtoupper($request->nombre);
         $datosCliente['segnombre']  = strtoupper($request->segnombre);
@@ -47,7 +46,6 @@ class ClienteController extends Controller
         $datosCliente['direccion'] = strtoupper($request->direccion);
         $datosCliente['email'] = strtoupper($request->email);
         $datosCliente['rfc'] = strtoupper($request->rfc);
-
         //insertar FILES al store
         if ($request->hasFile('actaconstitutiva')) {
             $datosCliente['actaconstitutiva'] = $request->file('actaconstitutiva')->store('public');
@@ -66,13 +64,11 @@ class ClienteController extends Controller
         }
 
         // $mArray = array_map('strtoupper', $datosCliente);
-
         //insertar datos al modelo cliente
-
         //return $datosCliente;
         Cliente::insert($datosCliente);
 
-        return redirect()->route('cliente.index');
+        return redirect()->route(route: 'cliente.index');
     }
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -199,5 +195,67 @@ class ClienteController extends Controller
         Cliente::destroy($id);
         return redirect('cliente')->with('mensaje', 'Cliente eliminado exitosamente ');
     }
-}
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+public function crearcliente()
+{
+    //peticion desde el boton del index
+    return view('registroCliente.datoscliente');
+}
+
+
+public function createnuevo(storecliente $request) //form request para validacion
+{
+    $datosCliente = $request->except('_token');
+    //mayusculas
+    $datosCliente['nombre'] = strtoupper($request->nombre);
+    $datosCliente['segnombre']  = strtoupper($request->segnombre);
+    $datosCliente['apellidopat'] = strtoupper($request->apellidopat);
+    $datosCliente['apellidomat'] = strtoupper($request->apellidomat);
+    $datosCliente['direccion'] = strtoupper($request->direccion);
+    $datosCliente['email'] = strtoupper($request->email);
+
+    $datosCliente['rfc'] = strtoupper($request->rfc);
+    //insertar FILES al store
+    if ($request->hasFile('actaconstitutiva')) {
+        $datosCliente['actaconstitutiva'] = $request->file('actaconstitutiva')->store('public');
+    }
+    if ($request->hasFile('consFiscal')) {
+        $datosCliente['consFiscal'] = $request->file('consFiscal')->store('public');
+    }
+    if ($request->hasFile('comprDom')) {
+        $datosCliente['comprDom'] = $request->file('comprDom')->store('public');
+    }
+    if ($request->hasFile('tarjetacirculacion')) {
+        $datosCliente['tarjetacirculacion'] = $request->file('tarjetacirculacion')->store('public');
+    }
+    if ($request->hasFile('compPago')) {
+        $datosCliente['compPago'] = $request->file('compPago')->store('public');
+    }
+
+    // $mArray = array_map('strtoupper', $datosCliente);
+    //insertar datos al modelo cliente
+    
+   Cliente::insert($datosCliente);
+    $cliente_telefono=$request->telefono;
+
+
+   $cliente=Cliente::where('telefono','like',$cliente_telefono)->get();
+  foreach($cliente as $client)
+  {
+    $cliente_id=$client->id;
+    }
+    $cliente_id;
+
+
+
+    return redirect()->route( ('crear.nuevo.ref'), $cliente_id);
+
+
+   // return view('crear.ref');
+}
+
+
+
+    
+}
