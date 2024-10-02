@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Cliente;
 use App\Models\Referencia;
-use App\Models\Dispositivo;
 use App\Http\Requests\storecliente;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Dompdf\Dompdf;
+use Barryvdh\DomPDF\facade\Pdf;
+
 
 class ClienteController extends Controller
 {
@@ -105,7 +107,6 @@ class ClienteController extends Controller
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 
     public function clienteshow($id)
     {
@@ -253,6 +254,16 @@ public function createnuevo(storecliente $request) //form request para validacio
 
 
    // return view('crear.ref');
+}
+
+
+
+public function orden(){
+
+    $clientes=Cliente::with('vehiculos')->get();
+    $pdf=PDF::loadView('funciones.orden',compact('clientes'));
+    return $pdf->stream('OrdenDeServicio.pdf');
+
 }
 
 

@@ -75,5 +75,8 @@ Route::group(['middleware' => 'auth'], function () {
    Route::post('/createc/{id}' ,   [App\Http\Controllers\CuentaController::class, 'createnuevocta'])->name('create.nuevo.cta');
 
 
+   Route::get( '/generate' ,   [App\Http\Controllers\ClienteController::class, 'generarconsulta'])->name('generarconsulta');
+   Route::get( '/orden' ,   [App\Http\Controllers\ClienteController::class, 'orden'])->name('crear.orden');
+
 
 });

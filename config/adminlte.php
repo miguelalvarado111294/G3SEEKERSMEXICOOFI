@@ -366,6 +366,12 @@ return [
             'route' => 'crear.nuevo',
             'icon' => 'fas fa-fw fa-user',
         ],
+
+        [
+            'text' => 'Nueva Orden',
+            'route' => 'crear.orden',
+            'icon' => 'fas fa-fw fa-user',
+        ],
         
         /*[
             'text' => 'change_password',
