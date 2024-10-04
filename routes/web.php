@@ -76,7 +76,9 @@ Route::group(['middleware' => 'auth'], function () {
 
 
    Route::get( '/generate' ,   [App\Http\Controllers\ClienteController::class, 'generarconsulta'])->name('generarconsulta');
-   Route::get( '/orden' ,   [App\Http\Controllers\ClienteController::class, 'orden'])->name('crear.orden');
+   Route::get( '/orden' ,      [App\Http\Controllers\ClienteController::class, 'orden'])->name('crear.orden');
+     
+   Route::get( '/orden/{id}' , [App\Http\Controllers\ClienteController::class, 'orden'])->name('crear.ordens');
 
 
 });

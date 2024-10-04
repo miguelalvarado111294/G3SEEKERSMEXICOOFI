@@ -255,18 +255,24 @@ public function createnuevo(storecliente $request) //form request para validacio
 
    // return view('crear.ref');
 }
-
-
-
+/*
 public function orden(){
 
     $clientes=Cliente::with('vehiculos')->get();
     $pdf=PDF::loadView('funciones.orden',compact('clientes'));
     return $pdf->stream('OrdenDeServicio.pdf');
 
-}
+}*/
 
 
+public function orden($id){
 
-    
-}
+    //  $clientes=Cliente::find($cliente_id)->with('vehiculos')->get();
+  //  $vehiculo=Vehiculo::find($vehiculo_id);
+
+    $cliente=Cliente::find($id);
+    $pdf=PDF::loadView('funciones.orden',compact('cliente'));
+    return $pdf->stream('OrdenDeServicio.pdf');
+
+}}
+

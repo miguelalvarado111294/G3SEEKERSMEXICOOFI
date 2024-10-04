@@ -360,6 +360,7 @@ return [
             'route' => 'sensor.index',
             'icon' => 'fas fa-fw fa-user',
         ],
+        ['header' => 'Cliente nuevo'],
 
         [
             'text' => 'Formulario Cliente nuevo',
@@ -369,6 +370,17 @@ return [
 
         [
             'text' => 'Nueva Orden',
+            'route' => 'crear.orden',
+            'icon' => 'fas fa-fw fa-user',
+        ],
+        ['header' => 'Inventario'],
+        [
+            'text' => 'Dispositivos',
+            'route' => 'crear.orden',
+            'icon' => 'fas fa-fw fa-user',
+        ],
+        [
+            'text' => 'Lineas',
             'route' => 'crear.orden',
             'icon' => 'fas fa-fw fa-user',
         ],
