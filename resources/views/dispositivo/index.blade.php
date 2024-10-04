@@ -44,7 +44,7 @@
                         <th>Comentarios</th>
 
 
-                    
+
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -60,7 +60,7 @@
                                 <td> <a href=" {{ route('buscar.dispositivo', $dispositivo->vehiculo_id) }}"
                                         class="btn btn-default"
                                         style="text-align: center; display: inline-block; width: 100%;">
-                                       Ver detalles de :  {{ $dispositivo->id }} </a>
+                                        Ver detalles de : {{ $dispositivo->id }} </a>
                                 </td>
                                 <td> {{ $dispositivo->cliente->nombre }} {{ $dispositivo->cliente->segnombre }}
                                     {{ $dispositivo->cliente->apellidopat }} {{ $dispositivo->cliente->apellidomat }} </td>

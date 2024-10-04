@@ -21,8 +21,7 @@
     @endif
     @can('dispositivo.create')
         <a href="{{ route('dispositivof.crear', $id) }}" class="btn btn-warning">Asignar dispositivo</a>
-        <a href="{{ route('crear.ordens', $cliente_id) }}" class="btn btn-warning">Generar orden</a>
-        
+        <a href="{{ route('crear.ordens', $vehiculoid) }}" class="btn btn-warning">Generar orden</a>
     @endcan
     <br>
     <br>
@@ -43,8 +42,9 @@
                 </thead>
                 <tbody>
                     @foreach ($dispositivos as $dispositivo)
+                    
                         <td>{{ $dispositivo->id }} </td>
-                        <td> {{ $dispositivo->cuenta }} </td>
+                        <td>{{ $dispositivo->cuenta }} </td>
                         <td>{{ $dispositivo->modelo }}</td>
                         <td>{{ $dispositivo->noserie }}</td>
                         <td>{{ $dispositivo->imei }}</td>

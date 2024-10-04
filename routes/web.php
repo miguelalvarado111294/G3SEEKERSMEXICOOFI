@@ -64,7 +64,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/ctaespejo/crearctaespejo/{id}',   [App\Http\Controllers\CtaespejoController::class, 'crearctaespejo'])->name('ctaesoejof.crear');;
     Route::post('/ctaespejo/{id}',            [App\Http\Controllers\CtaespejoController::class, 'storectaespejo'])->name('ctaespejop.crear');
 
-
     Route::get('/crear' ,   [App\Http\Controllers\ClienteController::class, 'crearcliente'])->name('crear.nuevo');
     Route::post('/create' ,   [App\Http\Controllers\ClienteController::class, 'createnuevo'])->name('create.nuevo');
 
@@ -74,11 +73,10 @@ Route::group(['middleware' => 'auth'], function () {
    Route::get('/crearc/{id}' ,   [App\Http\Controllers\CuentaController::class, 'crearc'])->name('crear.nuevo.cuenta');
    Route::post('/createc/{id}' ,   [App\Http\Controllers\CuentaController::class, 'createnuevocta'])->name('create.nuevo.cta');
 
-
    Route::get( '/generate' ,   [App\Http\Controllers\ClienteController::class, 'generarconsulta'])->name('generarconsulta');
    Route::get( '/orden' ,      [App\Http\Controllers\ClienteController::class, 'orden'])->name('crear.orden');
      
-   Route::get( '/orden/{id}' , [App\Http\Controllers\ClienteController::class, 'orden'])->name('crear.ordens');
+   Route::get( '/orden/{vehiculoid}' , [App\Http\Controllers\ClienteController::class, 'orden'])->name('crear.ordens');
 
 
 });

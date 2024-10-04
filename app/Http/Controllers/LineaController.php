@@ -16,11 +16,11 @@ class LineaController extends Controller
     public function index(Request $request)
     {
         $busqueda = $request->get('busqueda');  //recibe del input de index cliente y lo almacena en una variable 
-        
+
         $lineas = Linea::where('simcard', 'LIKE', '%' . $busqueda . '%')
             ->orWhere('telefono', 'LIKE', '%' . $busqueda . '%')->paginate(10);
 
-        return view('linea.index', compact('lineas','busqueda'));
+        return view('linea.index', compact('lineas', 'busqueda'));
     }
 
 
@@ -73,18 +73,19 @@ class LineaController extends Controller
         $linea->dispositivo_id = $dispositivoid;
         $linea->cliente_id = $dispositivo->cliente_id;
         $linea->save();*/
-        
-        
+
+
         $request->validate([
-            'simcard' => 'required|alpha_dash|min:3|max:15|unique:lineas,simcard,' . $id,
-            'telefono' => 'required|alpha_dash|min:2|max:15|unique:lineas,simcard,' . $id,
-            'contraseniaParo' => 'required|alpha_dash|min:2|max:100',
+            'simcard' => 'required|alpha_dash|min:3|max:18',
+            'telefono' => 'required|alpha_dash|min:2|digits:10',
             'comentarios' => 'nullable|alpha|min:10|max:100'
-        ]); 
+        ]);
 
         $datosCliente = $request->except('_token');
-        $datosCliente['cliente_id']=$dispositivo->cliente_id;
-        $datosCliente['dispositivo_id']=$dispositivoid;
+        $datosCliente['cliente_id'] = $dispositivo->cliente_id;
+        $datosCliente['dispositivo_id'] = $dispositivoid;
+
+        // return $request;
         $mArray = array_map('strtoupper', $datosCliente);
         Linea::insert($mArray);
 

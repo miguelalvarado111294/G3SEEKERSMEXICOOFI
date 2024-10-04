@@ -4,12 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Models\Cliente;
 use App\Models\Referencia;
+use App\Models\Vehiculo;
+use App\Models\Dispositivo;
+use App\Models\Linea;
+
+
 use App\Http\Requests\storecliente;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Dompdf\Dompdf;
 use Barryvdh\DomPDF\facade\Pdf;
-
+use Carbon\Carbon;
 
 class ClienteController extends Controller
 {
@@ -196,66 +201,65 @@ class ClienteController extends Controller
         Cliente::destroy($id);
         return redirect('cliente')->with('mensaje', 'Cliente eliminado exitosamente ');
     }
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-public function crearcliente()
-{
-    //peticion desde el boton del index
-    return view('registroCliente.datoscliente');
-}
-
-
-public function createnuevo(storecliente $request) //form request para validacion
-{
-    $datosCliente = $request->except('_token');
-    //mayusculas
-    $datosCliente['nombre'] = strtoupper($request->nombre);
-    $datosCliente['segnombre']  = strtoupper($request->segnombre);
-    $datosCliente['apellidopat'] = strtoupper($request->apellidopat);
-    $datosCliente['apellidomat'] = strtoupper($request->apellidomat);
-    $datosCliente['direccion'] = strtoupper($request->direccion);
-    $datosCliente['email'] = strtoupper($request->email);
-
-    $datosCliente['rfc'] = strtoupper($request->rfc);
-    //insertar FILES al store
-    if ($request->hasFile('actaconstitutiva')) {
-        $datosCliente['actaconstitutiva'] = $request->file('actaconstitutiva')->store('public');
-    }
-    if ($request->hasFile('consFiscal')) {
-        $datosCliente['consFiscal'] = $request->file('consFiscal')->store('public');
-    }
-    if ($request->hasFile('comprDom')) {
-        $datosCliente['comprDom'] = $request->file('comprDom')->store('public');
-    }
-    if ($request->hasFile('tarjetacirculacion')) {
-        $datosCliente['tarjetacirculacion'] = $request->file('tarjetacirculacion')->store('public');
-    }
-    if ($request->hasFile('compPago')) {
-        $datosCliente['compPago'] = $request->file('compPago')->store('public');
+    public function crearcliente()
+    {
+        //peticion desde el boton del index
+        return view('registroCliente.datoscliente');
     }
 
-    // $mArray = array_map('strtoupper', $datosCliente);
-    //insertar datos al modelo cliente
-    
-   Cliente::insert($datosCliente);
-    $cliente_telefono=$request->telefono;
+
+    public function createnuevo(storecliente $request) //form request para validacion
+    {
+        $datosCliente = $request->except('_token');
+        //mayusculas
+        $datosCliente['nombre'] = strtoupper($request->nombre);
+        $datosCliente['segnombre']  = strtoupper($request->segnombre);
+        $datosCliente['apellidopat'] = strtoupper($request->apellidopat);
+        $datosCliente['apellidomat'] = strtoupper($request->apellidomat);
+        $datosCliente['direccion'] = strtoupper($request->direccion);
+        $datosCliente['email'] = strtoupper($request->email);
+
+        $datosCliente['rfc'] = strtoupper($request->rfc);
+        //insertar FILES al store
+        if ($request->hasFile('actaconstitutiva')) {
+            $datosCliente['actaconstitutiva'] = $request->file('actaconstitutiva')->store('public');
+        }
+        if ($request->hasFile('consFiscal')) {
+            $datosCliente['consFiscal'] = $request->file('consFiscal')->store('public');
+        }
+        if ($request->hasFile('comprDom')) {
+            $datosCliente['comprDom'] = $request->file('comprDom')->store('public');
+        }
+        if ($request->hasFile('tarjetacirculacion')) {
+            $datosCliente['tarjetacirculacion'] = $request->file('tarjetacirculacion')->store('public');
+        }
+        if ($request->hasFile('compPago')) {
+            $datosCliente['compPago'] = $request->file('compPago')->store('public');
+        }
+
+        // $mArray = array_map('strtoupper', $datosCliente);
+        //insertar datos al modelo cliente
+
+        Cliente::insert($datosCliente);
+        $cliente_telefono = $request->telefono;
 
 
-   $cliente=Cliente::where('telefono','like',$cliente_telefono)->get();
-  foreach($cliente as $client)
-  {
-    $cliente_id=$client->id;
+        $cliente = Cliente::where('telefono', 'like', $cliente_telefono)->get();
+        foreach ($cliente as $client) {
+            $cliente_id = $client->id;
+        }
+        $cliente_id;
+
+
+
+        return redirect()->route(('crear.nuevo.ref'), $cliente_id);
+
+
+        // return view('crear.ref');
     }
-    $cliente_id;
-
-
-
-    return redirect()->route( ('crear.nuevo.ref'), $cliente_id);
-
-
-   // return view('crear.ref');
-}
-/*
+    /*
 public function orden(){
 
     $clientes=Cliente::with('vehiculos')->get();
@@ -265,14 +269,26 @@ public function orden(){
 }*/
 
 
-public function orden($id){
+    public function orden($vehiculo_id)
+    {
+$fecha=Carbon::now();
+        //  $clientes=Cliente::find($cliente_id)->with('vehiculos')->get();
+        $vehiculo = Vehiculo::find($vehiculo_id);
+        $cliente_id = $vehiculo->cliente_id;
+        $cliente = Cliente::find($cliente_id);
 
-    //  $clientes=Cliente::find($cliente_id)->with('vehiculos')->get();
-  //  $vehiculo=Vehiculo::find($vehiculo_id);
+        $dispositivo = Dispositivo::where('vehiculo_id', '=', $vehiculo->id)->first();
+        $dispositivo_id = $dispositivo->id;
+        $dispositivo = Dispositivo::find($dispositivo_id);
 
-    $cliente=Cliente::find($id);
-    $pdf=PDF::loadView('funciones.orden',compact('cliente'));
-    return $pdf->stream('OrdenDeServicio.pdf');
+        $linea = Linea::where('dispositivo_id', '=', $dispositivo_id)->first();
+        $linea_id = $linea->id;
 
-}}
+        $linea = Linea::find($linea_id);
 
+
+
+        $pdf = PDF::loadView('funciones.orden', compact('vehiculo', 'cliente', 'dispositivo', 'linea','fecha'));
+        return $pdf->stream('OrdenDeServicio.pdf');
+    }
+}

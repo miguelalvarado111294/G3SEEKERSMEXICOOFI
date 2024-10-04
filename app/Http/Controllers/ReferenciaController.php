@@ -32,10 +32,8 @@ class ReferenciaController extends Controller
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public function crearr($id)
     {
-        $cliente_id=$id;
-        return view('registroCliente.datosreferencia',compact('cliente_id'));
-
-  
+        $cliente_id = $id;
+        return view('registroCliente.datosreferencia', compact('cliente_id'));
     }
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -65,7 +63,7 @@ class ReferenciaController extends Controller
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public function createnuevoref(Request $request, $id)
     {
-        $cliente_id=$id;
+        $cliente_id = $id;
 
         $request->validate([
             'nombre' => 'required|alpha|min:2|max:100',
@@ -148,5 +146,5 @@ class ReferenciaController extends Controller
         return redirect('referencia')->with('mensaje', 'Referencia agregado exitosamente ');
     }
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
+
 }
