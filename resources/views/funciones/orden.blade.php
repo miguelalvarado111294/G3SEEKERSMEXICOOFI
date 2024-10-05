@@ -82,7 +82,7 @@
     </TABLE>
 
     <center>
-        <p>Esta orden solo podra usarse para el servicio de un solo equipo</p>
+        Esta orden solo podra usarse para el servicio de un solo equipo
     </center>
 
     <TABLE BORDER WIDTH="100%">
@@ -138,10 +138,34 @@
             <TD></TD>
         </TR>
     </TABLE>
-    
-    
-    <p>__________________________________________</p>
-    <p>Firma del Tecnico</p>
+
+    <TABLE BORDER>
+        <CAPTION ALIGN=top>
+            Mantenimiento
+        </CAPTION>
+        <TR>
+            <TD> <label><input type="checkbox" /> Limpieza de sim</label><br />
+                <label><input type="checkbox" /> Se programo</label><br />
+                <label><input type="checkbox" /> Reemplazo de Modulo</label><br />
+                <label><input type="checkbox" /> Encendido Manual</label><br />
+            </TD>
+            <TD> <label><input type="checkbox" /> Se cambio Antena GPS</label><br />
+                <label><input type="checkbox" /> Envio de Mensaje a la Plataforma</label><br />
+                <label><input type="checkbox" /> Encendido Ope. Normal</label><br />
+                <label><input type="checkbox" /> Paro de Motor</label><br />
+            </TD>
+            <TD><label><input type="checkbox" /> Se Cambio Antena GPS</label><br />
+                <label><input type="checkbox" /> Reset</label><br />
+                <label><input type="checkbox" /> Ubicacion Correcta</label><br />
+                <label><input type="checkbox" /> Desinstalacion-Reinstalacion</label><br />
+            </TD>
+            <TD> <label><input type="checkbox" /> Boton de Panico</label><br />
+                <label><input type="checkbox" /> Retiro Definitivo del Equipo</label><br />
+            </TD>
+        </TR>
+    </TABLE>
+
+
 
 
 
