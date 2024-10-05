@@ -271,7 +271,7 @@ public function orden(){
 
     public function orden($vehiculo_id)
     {
-$fecha=Carbon::now();
+$horaactual=Carbon::now();
         //  $clientes=Cliente::find($cliente_id)->with('vehiculos')->get();
         $vehiculo = Vehiculo::find($vehiculo_id);
         $cliente_id = $vehiculo->cliente_id;
@@ -288,7 +288,7 @@ $fecha=Carbon::now();
 
 
 
-        $pdf = PDF::loadView('funciones.orden', compact('vehiculo', 'cliente', 'dispositivo', 'linea','fecha'));
+        $pdf = PDF::loadView('funciones.orden', compact('vehiculo', 'cliente', 'dispositivo', 'linea','horaactual'));
         return $pdf->stream('OrdenDeServicio.pdf');
     }
 }

@@ -12,71 +12,136 @@
 </head>
 
 <body>
-    <h1>Orden de instalacion </h1>
-    <div class="card">
-        <div class="card-body">
+    <TABLE BORDER WIDTH="100%">
+        <TR>
+            <TD>
+                <h2>Orden de Servicio </h2>
+            </TD>
+            <TD> <b> Fecha de la solicitud : </b>{{ $horaactual }}</TD>
+            <TD><b>Folio : </b> ######</TD>
+            <TD> Imagen aqui</TD>
+        </TR>
+    </TABLE>
 
-            <div style="text-align: right">
-                Fecha en que se genero la solicitud : {{ $fecha }} <br>
-                Fecha de cita con cliente : _________________________
-            </div>
+    <TABLE BORDER WIDTH="100%">
+        <CAPTION ALIGN=top>Datos de Cliente</CAPTION>
+        <TR>
+            <TD>
+                <b>Nombre del Cliente o Empresa : </b> {{ $cliente->nombre }} {{ $cliente->segnombre }}
+                {{ $cliente->apellidopat }} {{ $cliente->apellidomat }}
+            </TD>
+        </TR>
+        <TR>
+            <TD><b>Email : </b> {{ $cliente->email }} <b>Telefono : </b> {{ $cliente->telefono }}</TD>
+        </TR>
+        </TD>
+        <TD> <b>Dirección : </b> {{ $cliente->direccion }}</TD>
+        </TR>
+    </TABLE>
 
-            <h3>Datos de Cliente</h3>
-            <p>
-                <b>Cliente</b> {{ $cliente->nombre }} {{ $cliente->segnombre }} {{ $cliente->apellidopat }}
-                {{ $cliente->apellidomat }}
-                <br>
-                <b>Telefono :</b> {{ $cliente->telefono }}
-                <br>
-                <b>Email :</b> {{ $cliente->email }}
-                <br>
-                <b>Dirección :</b> {{ $cliente->direccion }}
-                <br>
-            </p>
+    <TABLE BORDER WIDTH="100%">
+        <CAPTION ALIGN=top>Datos de la Unidad</CAPTION>
+        <TH COLSPAN=2>Vehiculo</TH>
+        <TH COLSPAN=2>Datos de la Linea</TH>
+        <TR>
+            <TD><b> Tipo de Vehiculo : </b></TD>
+            <TD>{{ $vehiculo->tipo }}</TD>
+            <TD> <b> Numero:</b></TD>
+            <TD>{{ $linea->telefono }}</TD>
+        </TR>
+        <TR>
+            <TD><b> Marca : </b></TD>
+            <TD> {{ $vehiculo->marca }}</TD>
+            <TD><b> Sim Card:</b> </TD>
+            <TD> {{ $linea->simcard }}</TD>
+        </TR>
+        <TR>
+            <TD><b> Modelo : </b></TD>
+            <TD>{{ $vehiculo->modelo }}</TD>
+            <TH COLSPAN=2>Datos del Dispositivo</TH>
+        </TR>
+        <TR>
+            <TD><b> Numero de Serie : </b></TD>
+            <TD>{{ $vehiculo->noserie }}</TD>
 
-            <div class="d">
-                <h3>Datos de Vehiculo</h3>
-                <p>
-                    <b> Marca:</b>{{ $vehiculo->marca }}
-                    <br>
-                    <b> Modelo:</b>{{ $vehiculo->modelo }}
-                    <br>
-                    <b> Numero de Serie:</b>{{ $vehiculo->noserie }}
-                    <br>
-                    <b> Placa:</b>{{ $vehiculo->placa }}
-                </p>
-            </div>
+            <TD><b> Modelo : </b></TD>
+            <TD>{{ $dispositivo->modelo }}</TD>
+        </TR>
+        <TR>
+            <TD><b> Placa : </b></TD>
+            <TD>{{ $vehiculo->placa }}</TD>
+            <TD><b> Imei</b> </TD>
+            <TD> {{ $dispositivo->imei }}</TD>
+        </TR>
+        <TR>
+            <TD><b> Color : </b></TD>
+            <TD>{{ $vehiculo->color }}</TD>
+            <TD><b> ID Dispositivo</b> </TD>
+            <TD> {{ $dispositivo->id }}</TD>
+        </TR>
+    </TABLE>
 
+    <center>
+        <p>Esta orden solo podra usarse para el servicio de un solo equipo</p>
+    </center>
 
-            <h3>Datos del Dispositivo</h3>
-            <p>
-                <b> Marca:</b> {{ $dispositivo->marca }}
-                <br>
-                <b> Modelo:</b>{{ $dispositivo->modelo }}
-                <br>
-                <b> Numero de Serie:</b>{{ $dispositivo->noserie }}
-                <br>
-                <b> Imei:</b>{{ $dispositivo->imei }}
-            </p>
-
-            <h3>Datos de la Linea</h3>
-            <p>
-
-                <b> Numero:</b> {{ $linea->telefono }}
-                <br>
-                <b> Sim Card:</b> {{ $linea->simcard }}
-
-            </p>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <p>__________________________________________</p>
-            <p>Firma del Tecnico</p>
-        </div>
-    </div>
+    <TABLE BORDER WIDTH="100%">
+        <TR>
+            <TD WIDTH="150"><b>Recepcion</b></TD>
+            <TD WIDTH="10"><b>Bien</b></TD>
+            <TD WIDTH="10"><b>Mal</b></TD>
+            <TD><b>Observaciones</b></TD>
+        </TR>
+        <TR>
+            <TD>Alimentacion</TD>
+            <TD></TD>
+            <TD></TD>
+            <TD></TD>
+        </TR>
+        <TR>
+            <TD>Paro del Motor</TD>
+            <TD></TD>
+            <TD></TD>
+            <TD></TD>
+        </TR>
+        </TR>
+        <TR>
+            <TD>Encendido de Equipo</TD>
+            <TD></TD>
+            <TD></TD>
+            <TD></TD>
+        </TR>
+        <TR>
+            <TD>Encendido de motor</TD>
+            <TD> </TD>
+            <TD></TD>
+            <TD></TD>
+        </TR>
+        </TR>
+        <TR>
+            <TD>Conexion AntenaGMS</TD>
+            <TD> </TD>
+            <TD></TD>
+            <TD></TD>
+        </TR>
+        <TR>
+            <TD>Boton de Panico</TD>
+            <TD> </TD>
+            <TD> </TD>
+            <TD></TD>
+        </TR>
+        </TR>
+        <TR>
+            <TD>Conexion AntenaGPS</TD>
+            <TD> </TD>
+            <TD> </TD>
+            <TD></TD>
+        </TR>
+    </TABLE>
+    
+    
+    <p>__________________________________________</p>
+    <p>Firma del Tecnico</p>
 
 
 
@@ -105,3 +170,59 @@
 </body>
 
 </html>
+
+
+
+{{--
+
+
+    
+    <h3>Datos del Dispositivo</h3>
+    <p>
+        <b> Id:</b> {{ $dispositivo->id }}
+        <br>
+
+        <b> Modelo:</b>{{ $dispositivo->modelo }}
+        <br>
+        <b> Numero de Serie:</b>{{ $dispositivo->noserie }}
+        <br>
+        <b> Imei:</b>{{ $dispositivo->imei }}
+    </p>
+
+
+   <h3>datos de la linea</h3>
+    <b> Numero:</b> {{ $linea->telefono }}
+    <b> Sim Card:</b> {{ $linea->simcard }}
+
+            <div style="text-align: left">
+                <h3>Vehiculo</h3>
+                <p>
+                    <b> Tipo de Vehiculo : </b>{{ $vehiculo->tipo }}
+                    <br>
+                    <b> Marca : </b> {{ $vehiculo->marca }}
+                    <br>
+                    <b> Modelo : </b>{{ $vehiculo->modelo }}
+                    <br>
+                    <b> Numero de Serie : </b>{{ $vehiculo->noserie }}
+                    <br>
+                    <b> Placa : </b>{{ $vehiculo->placa }}
+                    <br>
+                    <b> Color : </b>{{ $vehiculo->color }}
+                </p>
+            </div>
+--}}
+
+
+
+{{--
+            <p>
+                <b>Nombre del Cliente o Empresa : </b> {{ $cliente->nombre }} {{ $cliente->segnombre }}
+                {{ $cliente->apellidopat }}
+                {{ $cliente->apellidomat }}
+                <br>
+                <b>Telefono : </b> {{ $cliente->telefono }}
+                <b>Email : </b> {{ $cliente->email }}
+                <br>
+                <b>Dirección : </b> {{ $cliente->direccion }}
+                <br>
+            </p> --}}
