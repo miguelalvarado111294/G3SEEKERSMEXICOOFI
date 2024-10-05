@@ -139,7 +139,7 @@
         </TR>
     </TABLE>
 
-    <TABLE BORDER>
+    <TABLE BORDER WIDTH="100%">
         <CAPTION ALIGN=top>
             Mantenimiento
         </CAPTION>
@@ -165,10 +165,78 @@
         </TR>
     </TABLE>
 
+    <CENter>Observaciones del Tecnico</CENter>
+    <TABLE BORDER WIDTH="100%">
+        <TR>
+            <th WIDTH="300"><b>Observaciones</b></th>
+            <TH></TH>
+            <TH>Bueno</TH>
+            <TH>Regular</TH>
+            <TH>Malo</TH>
+        </TR>
+        <TR>
+            <TD> </TD>
+            <TD>Puntualidad</TD>
+            <td></td>
+            <TD></TD>
+            <TD></TD>
 
+        </TR>
+        <TR>
+            <TD> </TD>
+            <TD>Presentacion</TD>
+            <td></td>
+            <TD> </TD>
+            <TD> </TD>
+        </TR>
+        <TR>
+            <TD> </TD>
+            <TD>Atencion</TD>
+            <td></td>
+            <TD></TD>
+            <TD> </TD>
+        </TR>
+        <TR>
+            <TD> </TD>
+            <TD>Lexico</TD>
+            <td></td>
+            <TD></TD>
+            <TD> </TD>
+        </TR>
+        <TR>
+            <TD></TD>
+            <TD>Limpieza</TD>
+            <td></td>
+            <TD></TD>
+            <TD> </TD>
+        </TR>
+    </TABLE>
+<br>
+    <TABLE BORDER WIDTH="100%">
+        <TR>
+            <TD>
+                
+                ______________________ <br>
+                VoBo Vendedor
+                
+            </TD>
+            <TD>
+                ______________________ <br>
+                Firma del Instalador
 
+            </TD>
+            <TD>
+                ______________________ <br>
+                Gerente de Operaciones
 
+            </TD>
+            <TD>
+                ______________________ <br>
+                Firma de Cliente
 
+            </TD>
+        </TR>
+    </TABLE>
 
 
 
