@@ -27,8 +27,7 @@
                 <tbody>
                     <tr>
 
-                        <td><img src="{{ asset('storage/') . $cliente->actaconstitutiva }}" width="200" alt="">
-                            {{$cliente->actaconstitutiva}}
+                        <td><img src="{{ asset('storage/') . '/' .$cliente->actaconstitutiva }}" width="200" alt="">
                         </td>
                         <td><img src="{{ asset('storage') . '/' . $cliente->consFiscal }}" width="200" alt="">
                         </td>

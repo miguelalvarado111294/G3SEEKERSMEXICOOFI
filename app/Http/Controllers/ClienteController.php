@@ -99,15 +99,10 @@ class ClienteController extends Controller
 
     public function buscararchivos($id)
     {
-        //        return $id;
         $cliente_id = $id;
 
-        // $cliente = Cliente::find($cliente_id)->get();
-        $cliente = Cliente::select('actaconstitutiva')->where('id', '=', $cliente_id)->first();
-
+        $cliente = Cliente::find($id);
         //return $cliente;
-
-
         return view('cliente.archivos', compact('cliente'));
     }
 
@@ -271,7 +266,7 @@ public function orden(){
 
     public function orden($vehiculo_id)
     {
-$horaactual=Carbon::now();
+        $horaactual = Carbon::now();
         //  $clientes=Cliente::find($cliente_id)->with('vehiculos')->get();
         $vehiculo = Vehiculo::find($vehiculo_id);
         $cliente_id = $vehiculo->cliente_id;
@@ -288,7 +283,7 @@ $horaactual=Carbon::now();
 
 
 
-        $pdf = PDF::loadView('funciones.orden', compact('vehiculo', 'cliente', 'dispositivo', 'linea','horaactual'));
+        $pdf = PDF::loadView('funciones.orden', compact('vehiculo', 'cliente', 'dispositivo', 'linea', 'horaactual'));
         return $pdf->stream('OrdenDeServicio.pdf');
     }
 }

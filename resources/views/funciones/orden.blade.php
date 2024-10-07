@@ -216,28 +216,28 @@
         <TR>
             <TD>
                 
-                ______________________ <br>
+               <br> ______________________ <br>
                 VoBo Vendedor
                 
             </TD>
             <TD>
-                ______________________ <br>
+                <br>______________________ <br>
                 Firma del Instalador
 
             </TD>
             <TD>
-                ______________________ <br>
+                <br> ______________________ <br>
                 Gerente de Operaciones
 
             </TD>
             <TD>
-                ______________________ <br>
+                <br> ______________________ <br>
                 Firma de Cliente
 
             </TD>
         </TR>
     </TABLE>
-
+ 
 
 
 
