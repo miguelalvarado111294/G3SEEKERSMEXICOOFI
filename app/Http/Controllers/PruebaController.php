@@ -36,7 +36,7 @@ class PruebaController extends Controller
         $cuenta = Cuenta::where('cliente_id', 'LIKE',  $cliente_id)->get();
         $numerodecuentas = count($cuenta);
 
-        // $cuenta = Cuenta::find($cuenta->id);
+        //$cuenta = Cuenta::find($cuenta->id);
         return view('prueba.buscarCuenta', compact('cuenta', 'cliente_id', 'cliente', 'id', 'numerodecuentas'));
     }
 
@@ -59,8 +59,6 @@ class PruebaController extends Controller
         return view('prueba.vehiculo', compact('vehiculos', 'id', 'cliente_id', 'cliente', 'cuenta'));
         //se envia a view vehiculo id de cliente
     }
-
-
 
     public function buscarDispositivo($id)
     { //recibe desde view vehiculos_id de vehiculo
@@ -89,7 +87,7 @@ class PruebaController extends Controller
         $cliente = Cliente::find($cliente_id);
         $numerodelineas = count($lineas);
 
-        return view('prueba.buscarLinea', compact('lineas', 'dispositivoid', 'vehiculoid', 'cliente','numerodelineas'));
+        return view('prueba.buscarLinea', compact('lineas', 'dispositivoid', 'vehiculoid', 'cliente', 'numerodelineas'));
     }
 
     public function buscarSensor($id)
