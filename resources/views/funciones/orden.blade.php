@@ -14,13 +14,12 @@
 <body>
     <TABLE BORDER WIDTH="100%">
         <TR>
-            <TD>
-                <h2>Orden de Servicio </h2>
+            <TD WIDTH="140">
+                <h2>Orden de Servicio</h2>
             </TD>
             <TD> <b> Fecha de la solicitud : </b>{{ $horaactual }}</TD>
             <TD><b>Folio : </b> ######</TD>
-            <td> <img src="{{ asset('\storage\logo.png') }}" width="50">
-            </td>
+            <td>G3 SEEKERS Mx </td>
         </TR>
     </TABLE>
 
@@ -181,7 +180,6 @@
             <td></td>
             <TD></TD>
             <TD></TD>
-
         </TR>
         <TR>
             <TD> </TD>
@@ -216,106 +214,23 @@
     <TABLE BORDER WIDTH="100%">
         <TR>
             <TD>
-
-                <br> ______________________ <br>
+                <br> ___________________ <br>
                 VoBo Vendedor
-
             </TD>
             <TD>
-                <br>______________________ <br>
+                <br>___________________ <br>
                 Firma del Instalador
-
             </TD>
             <TD>
-                <br> ______________________ <br>
+                <br> ___________________ <br>
                 Gerente de Operaciones
-
             </TD>
             <TD>
-                <br> ______________________ <br>
+                <br> ___________________ <br>
                 Firma de Cliente
-
             </TD>
         </TR>
     </TABLE>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 </body>
 
 </html>
-
-
-
-{{--
-
-
-    
-    <h3>Datos del Dispositivo</h3>
-    <p>
-        <b> Id:</b> {{ $dispositivo->id }}
-        <br>
-
-        <b> Modelo:</b>{{ $dispositivo->modelo }}
-        <br>
-        <b> Numero de Serie:</b>{{ $dispositivo->noserie }}
-        <br>
-        <b> Imei:</b>{{ $dispositivo->imei }}
-    </p>
-
-
-   <h3>datos de la linea</h3>
-    <b> Numero:</b> {{ $linea->telefono }}
-    <b> Sim Card:</b> {{ $linea->simcard }}
-
-            <div style="text-align: left">
-                <h3>Vehiculo</h3>
-                <p>
-                    <b> Tipo de Vehiculo : </b>{{ $vehiculo->tipo }}
-                    <br>
-                    <b> Marca : </b> {{ $vehiculo->marca }}
-                    <br>
-                    <b> Modelo : </b>{{ $vehiculo->modelo }}
-                    <br>
-                    <b> Numero de Serie : </b>{{ $vehiculo->noserie }}
-                    <br>
-                    <b> Placa : </b>{{ $vehiculo->placa }}
-                    <br>
-                    <b> Color : </b>{{ $vehiculo->color }}
-                </p>
-            </div>
---}}
-
-
-
-{{--
-            <p>
-                <b>Nombre del Cliente o Empresa : </b> {{ $cliente->nombre }} {{ $cliente->segnombre }}
-                {{ $cliente->apellidopat }}
-                {{ $cliente->apellidomat }}
-                <br>
-                <b>Telefono : </b> {{ $cliente->telefono }}
-                <b>Email : </b> {{ $cliente->email }}
-                <br>
-                <b>Dirección : </b> {{ $cliente->direccion }}
-                <br>
-            </p> --}}

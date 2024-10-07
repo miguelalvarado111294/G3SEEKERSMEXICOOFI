@@ -8,25 +8,20 @@ use App\Models\linea;
 use App\Models\dispositivo;
 use App\Models\cliente;
 
-
 class LineaController extends Controller
 {
-
 
     public function index(Request $request)
     {
         $busqueda = $request->get('busqueda');  //recibe del input de index cliente y lo almacena en una variable 
-
         $lineas = Linea::where('simcard', 'LIKE', '%' . $busqueda . '%')
             ->orWhere('telefono', 'LIKE', '%' . $busqueda . '%')->paginate(10);
 
         return view('linea.index', compact('lineas', 'busqueda'));
     }
 
-
     public function create()
     {
-
         $clientes = cliente::all();
         $dispositivos = dispositivo::all();
 
@@ -40,41 +35,24 @@ class LineaController extends Controller
             'telefono' => 'required|numeric|digits:10',
             'tipolinea' => 'required|alpha|min:2|max:5',
             'renovacion' => 'required|alpha'
-
         ];
-        $this->validate($request, $campos/*$mensaje*/);
 
+        $this->validate($request, $campos/*$mensaje*/);
 
         $datosLinea = $request->except('_token');
         Linea::insert($datosLinea);
         return redirect('linea')->with('mensaje', 'linea agregado exitosamente ');
     }
 
-
     public function crearlinea($id)
     {
-
-        //return $id;
         return view('linea.createid', ['id' => $id]);
     }
 
     public function storep(Request $request, $dispositivoid)
     {
-
-
         $dispositivo = Dispositivo::find($dispositivoid);
-        /*
-        $linea = new Linea;
-        $linea->simcard = $request->simcard;
-        $linea->telefono = $request->telefono;
-        $linea->tipolinea = $request->tipolinea;
-        $linea->renovacion = $request->renovacion;
-        $linea->comentarios = $request->comentarios;
-        $linea->dispositivo_id = $dispositivoid;
-        $linea->cliente_id = $dispositivo->cliente_id;
-        $linea->save();*/
-
-
+     
         $request->validate([
             'simcard' => 'required|alpha_dash|min:3|max:18',
             'telefono' => 'required|alpha_dash|min:2|digits:10',
@@ -92,22 +70,16 @@ class LineaController extends Controller
         return redirect()->route('buscar.linea', $dispositivoid);
     }
 
-
-    public function show(linea $cliente) {}
-
     public function edit($id)
     {
-
         $clientes = cliente::all();
         $dispositivos = dispositivo::all();
         $linea = Linea::findOrfail($id);
         return view('linea.edit', compact('linea', 'clientes', 'dispositivos'));
     }
 
-
     public function update(Request $request, $id) //recive id de la linea
     {
-
         $campos = [
             'simcard' => 'required||min:18|max:20',
             'telefono' => 'required|numeric|digits:10',

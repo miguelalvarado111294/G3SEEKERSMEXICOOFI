@@ -47,7 +47,6 @@ class CtaespejoController extends Controller
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public function update(Request $request, $id)
     {
-       //return $request;
         $request->validate([
             'usuario' => 'required|alpha_dash|min:3|max:15',
             'contrasenia' =>  'required|alpha_dash|max:15',

@@ -79,6 +79,7 @@ class CuentaController extends Controller
         return redirect('cuenta')->with('mensaje', 'cuenta agregado exitosamente ');
     }
     public function show(cuenta $referencia) {}
+    
     public function edit($id)
     {
         $cuenta = Cuenta::findOrfail($id);

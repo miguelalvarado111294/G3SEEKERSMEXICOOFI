@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\Cliente;
@@ -7,7 +6,6 @@ use App\Models\Referencia;
 use App\Models\Vehiculo;
 use App\Models\Dispositivo;
 use App\Models\Linea;
-
 
 use App\Http\Requests\storecliente;
 use Illuminate\Http\Request;
@@ -70,19 +68,13 @@ class ClienteController extends Controller
             $datosCliente['compPago'] = $request->file('compPago')->store('public');
         }
 
-        // $mArray = array_map('strtoupper', $datosCliente);
-        //insertar datos al modelo cliente
-        //return $datosCliente;
         Cliente::insert($datosCliente);
 
         return redirect()->route(route: 'cliente.index');
     }
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
     public function show($id) //recive id de cliente
     {
-
         //traer datos de cliente
         $cliente = cliente::find($id);
         //traer referencias a la vista show
@@ -95,8 +87,7 @@ class ClienteController extends Controller
 
         return view('cliente.show')->with($data);
     }
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public function buscararchivos($id)
     {
         $cliente_id = $id;
@@ -105,12 +96,9 @@ class ClienteController extends Controller
         //return $cliente;
         return view('cliente.archivos', compact('cliente'));
     }
-
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
     public function clienteshow($id)
     {
-
         $cliente = cliente::findOrFail($id);
         $referencias = referencia::where('cliente_id', 'LIKE', $id)->get();
 
@@ -122,15 +110,12 @@ class ClienteController extends Controller
         return view('cliente.show')->with($data);
     }
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
     public function edit($id) //recive el id del cliente para editarlo
     {
         $cliente = Cliente::findOrfail($id);
         return view('cliente.edit', compact('cliente'));
     }
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
     public function update(Request $request, $id) //atrayendo los datos del cliente form
     {
         //validacion de datos
@@ -170,7 +155,6 @@ class ClienteController extends Controller
             Storage::delete('public/' . $cliente->comprDom);
             $datosCliente['comprDom'] = $request->file('comprDom')->store('uploads', 'public');
         }
-
 
         if ($request->hasFile('tarjetacirculacion')) {
             $cliente = Cliente::findOrFail($id);
@@ -234,12 +218,8 @@ class ClienteController extends Controller
             $datosCliente['compPago'] = $request->file('compPago')->store('public');
         }
 
-        // $mArray = array_map('strtoupper', $datosCliente);
-        //insertar datos al modelo cliente
-
         Cliente::insert($datosCliente);
         $cliente_telefono = $request->telefono;
-
 
         $cliente = Cliente::where('telefono', 'like', $cliente_telefono)->get();
         foreach ($cliente as $client) {
@@ -247,28 +227,14 @@ class ClienteController extends Controller
         }
         $cliente_id;
 
-
-
         return redirect()->route(('crear.nuevo.ref'), $cliente_id);
-
-
-        // return view('crear.ref');
-    }
-    /*
-public function orden(){
-
-    $clientes=Cliente::with('vehiculos')->get();
-    $pdf=PDF::loadView('funciones.orden',compact('clientes'));
-    return $pdf->stream('OrdenDeServicio.pdf');
-
-}*/
-
-
+}
+   
     public function orden($vehiculo_id)
     {
-        $horaactual = Carbon::now();
-        //  $clientes=Cliente::find($cliente_id)->with('vehiculos')->get();
+        $horaactual = Carbon::now()->toDateString();
         $vehiculo = Vehiculo::find($vehiculo_id);
+        
         $cliente_id = $vehiculo->cliente_id;
         $cliente = Cliente::find($cliente_id);
 
@@ -278,10 +244,7 @@ public function orden(){
 
         $linea = Linea::where('dispositivo_id', '=', $dispositivo_id)->first();
         $linea_id = $linea->id;
-
         $linea = Linea::find($linea_id);
-
-
 
         $pdf = PDF::loadView('funciones.orden', compact('vehiculo', 'cliente', 'dispositivo', 'linea', 'horaactual'));
         return $pdf->stream('OrdenDeServicio.pdf');
