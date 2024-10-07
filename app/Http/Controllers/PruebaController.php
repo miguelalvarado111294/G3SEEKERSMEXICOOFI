@@ -14,14 +14,30 @@ use Illuminate\Http\Request;
 
 class PruebaController extends Controller
 {
+
+    public function buscadorvehiculo(Request $request, $id)
+    {
+        $cliente_id = $id;
+        $busqueda = $request->get('busqueda');  //recibe del input de index cliente y lo almacena en una variable 
+        $vehiculos = Vehiculo::where('noserie', 'LIKE', '%' . $busqueda . '%')
+            ->orWhere('nomotor', 'LIKE', '%' . $busqueda . '%')
+            ->orWhere('placa', 'LIKE', '%' . $busqueda . '%')->paginate(10);
+
+        return view('prueba.vehiculo', compact('vehiculos', 'id', 'cliente_id'));
+        //se envia a view vehiculo id de cliente
+    }
+
     public function buscarCuenta($id)
     {
+        $cliente_id = $id;
         //recibe cliennte id desde show
-        $cuentas = Cuenta::where('cliente_id', 'LIKE',  $id)->get()->take(1);
-        $clientes = Cliente::find($id);
-        $clienteid = $clientes->id;
+        $cliente = Cliente::find($cliente_id);
 
-        return view('prueba.buscarCuenta', compact('cuentas', 'id', 'clienteid', 'clientes'));
+        $cuenta = Cuenta::where('cliente_id', 'LIKE',  $cliente_id)->get();
+        $numerodecuentas = count($cuenta);
+
+        // $cuenta = Cuenta::find($cuenta->id);
+        return view('prueba.buscarCuenta', compact('cuenta', 'cliente_id', 'cliente', 'id', 'numerodecuentas'));
     }
 
     public function buscarCtaespejo($id)
@@ -36,33 +52,30 @@ class PruebaController extends Controller
         $cliente_id = $id;
         //obtener vehiculos relacionados con cliente id
         $vehiculos =    Vehiculo::where('cliente_id', 'LIKE', $cliente_id)->paginate(10); //busca vehiculos ligados a id_cliete
-        $cliente =      Cliente::where('id', 'LIKE', $cliente_id)->get(); //busca vehiculos ligados a id_cliete
+        $cliente =      Cliente::find($cliente_id); //busca vehiculos ligados a id_cliete
+
         $cuenta =      Cuenta::select('usuario')->where('cliente_id', 'LIKE', $cliente_id)->get(); //busca vehiculos ligados a id_cliete
 
         return view('prueba.vehiculo', compact('vehiculos', 'id', 'cliente_id', 'cliente', 'cuenta'));
         //se envia a view vehiculo id de cliente
     }
 
-    public function buscadorvehiculo(Request $request, $id)
-    {
-        $cliente_id = $id;
-        $busqueda = $request->get('busqueda');  //recibe del input de index cliente y lo almacena en una variable 
-        $vehiculos = Vehiculo::where('noserie', 'LIKE', '%' . $busqueda . '%')
-            ->orWhere('nomotor', 'LIKE', '%' . $busqueda . '%')
-            ->orWhere('placa', 'LIKE', '%' . $busqueda . '%')->paginate(10);
 
-        return view('prueba.vehiculo', compact('vehiculos', 'id', 'cliente_id'));
-        //se envia a view vehiculo id de cliente
-    }
 
     public function buscarDispositivo($id)
     { //recibe desde view vehiculos_id de vehiculo
         $vehiculoid = $id;
         $vehiculo = Vehiculo::find($vehiculoid);
         $cliente_id = $vehiculo->cliente_id;
-        $dispositivos = Dispositivo::where('vehiculo_id', 'LIKE', $vehiculoid)->get()->take(1);
-        $cliente = Cliente::where('id', 'LIKE', $cliente_id)->get();
-        return view('prueba.buscarDispositivo', compact('vehiculo', 'dispositivos', 'id', 'cliente_id', 'vehiculoid', 'cliente'));
+        $cliente = Cliente::find($cliente_id);
+        $dispositivo = Dispositivo::where('vehiculo_id', 'LIKE', $vehiculoid)->get();
+        $numerodedispositivos = count($dispositivo);
+
+        //return $dispositivo;
+        //$dispositivo_id = $dispositivo->id;
+        //$dispositivo = Dispositivo::find($dispositivo_id);
+
+        return view('prueba.buscarDispositivo', compact('vehiculo', 'cliente', 'dispositivo', 'cliente_id', 'vehiculoid', 'numerodedispositivos'/*, 'dispositivo_id'*/));
     }
 
     public function buscarLinea($id)
@@ -73,10 +86,10 @@ class PruebaController extends Controller
         $dispositivo = Dispositivo::find($dispositivoid);
         $vehiculoid = $dispositivo->vehiculo_id;
         $cliente_id = $dispositivo->cliente_id;
-
         $cliente = Cliente::find($cliente_id);
+        $numerodelineas = count($lineas);
 
-        return view('prueba.buscarLinea', compact('lineas', 'dispositivoid', 'vehiculoid', 'cliente'));
+        return view('prueba.buscarLinea', compact('lineas', 'dispositivoid', 'vehiculoid', 'cliente','numerodelineas'));
     }
 
     public function buscarSensor($id)

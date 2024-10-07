@@ -5,12 +5,11 @@
 @section('content_header')
     <h1 class="text-center"><b>G3 Seekers</b></h1>
 <br>
-    <h3 class="text-center">Datos Personales</h3>
+    <h3 class="text-center">Crear Referencias</h3>
 <br>
-
         <form action="{{ url('/referencia') }}" method="post" enctype="multipart/form-data">
             @csrf
-            @include('/referencia.form', ['modo' => 'Crear']);
+            @include('/referencia.form', ['modo' => 'Crear'])
         </form>
     </div>
 @endsection

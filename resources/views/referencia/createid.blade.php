@@ -57,7 +57,7 @@
 
         <div class="form-group">
             <label>Parentesco:</label>
-            <input type="text" class="form-control" name="parentesco" value=" {{ old('parentesco') }} "> >
+            <input type="text" class="form-control" name="parentesco" value=" {{ old('parentesco') }} "> 
         </div>
 
         @error('parentesco')
@@ -68,7 +68,7 @@
 
         <div class="form-group">
             <label>Telefono:</label>
-            <input type="text" class="form-control" name="telefono"value=" {{ old('telefono') }} "> >
+            <input type="text" class="form-control" name="telefono"value=" {{ old('telefono') }} "> 
         </div>
 
         @error('telefono')
@@ -79,7 +79,7 @@
 
         <div class="form-group">
             <label>Comentarios:</label>
-            <input type="text" class="form-control" name="comentarios"value=" {{ old('comentarios') }} "> >
+            <input type="text" class="form-control" name="comentarios"value=" {{ old('comentarios') }} "> 
         </div>
         <br>
 

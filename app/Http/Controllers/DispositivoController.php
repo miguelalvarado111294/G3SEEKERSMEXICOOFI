@@ -59,9 +59,9 @@ class DispositivoController extends Controller
     public function update(Request $request, $id)
     {
         $campos = [
-            'modelo' => 'required|min:2|max:100',
-            'noserie' => 'nullable|alpha_dash|min:20',
-            'imei' => 'required|alpha_dash|min:5|min:10'
+            'modelo' => 'required|alpha_dash|min:2|max:100',
+            'noserie' => 'nullable|alpha_dash|min:20|unique:dispositivos,noserie,' . $id,
+            'imei' => 'required|numeric|min:2|min:18|unique:dispositivos,imei,' . $id,
         ];
 
         $this->validate($request, $campos/*$mensaje*/);
@@ -86,12 +86,12 @@ class DispositivoController extends Controller
         return view('dispositivo.create', compact('vehiculos', 'clientes'));
     }
 
-    public function store(Request $request)
+    public function store(Request $request,$id)
     {
         $campos = [
             'modelo' => 'required|alpha_dash|min:2|max:100',
-            'noserie' => 'required|alpha_dash|min:20',
-            'imei' => 'required|numeric|min:2|min:18'
+            'noserie' => 'nullable|alpha_dash|min:20|unique:dispositivos,noserie,' . $id,
+            'imei' => 'required|numeric|min:2|min:18|unique:dispositivos,imei,' . $id,
         ];
 
         $this->validate($request, $campos/*$mensaje*/);

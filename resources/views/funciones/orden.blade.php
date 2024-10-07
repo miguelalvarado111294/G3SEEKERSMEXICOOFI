@@ -15,7 +15,7 @@
     <TABLE BORDER WIDTH="100%">
         <TR>
             <TD WIDTH="140">
-                <h2>Orden de Servicio</h2>
+                Orden de Servicio
             </TD>
             <TD> <b> Fecha de la solicitud : </b>{{ $horaactual }}</TD>
             <TD><b>Folio : </b> ######</TD>

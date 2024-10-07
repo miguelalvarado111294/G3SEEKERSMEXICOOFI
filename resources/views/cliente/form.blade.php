@@ -74,9 +74,7 @@
 
 <div class="form-group">
     <label for="actaconstitutiva">Acta Constitutiva</label><br>
-    <img src="{{ asset('storage/') . '/' . $cliente->actaconstitutiva }}" width="200" alt="">    <br>
-
-
+ {{--    <img src="{{ asset('storage/') . '/' . $cliente->actaconstitutiva }}" width="200" alt="">    <br>--}}
     <input type="file" class="form-control" name="actaconstitutiva"
         value="{{ isset($cliente->actaconstitutiva) ? $cliente->actaconstitutiva : old('actaconstitutiva') }}"
         accept="image/*" id="actaconstitutiva">
@@ -87,7 +85,7 @@
 
 <div class="form-group">
     <label for="consFiscal">Constancia de Situación Fiscal</label><br>
-    <img src="{{ asset('storage/') . '/' . $cliente->consFiscal }}" width="200" alt="">    <br>
+    {{-- <img src="{{ asset('storage/') . '/' . $cliente->consFiscal }}" width="200" alt="">    <br>--}}
 
     <input type="file" class="form-control" name="consFiscal"
         value="{{ isset($cliente->consFiscal) ? $cliente->consFiscal : old('consFiscal') }} " id="consFiscal">
@@ -99,7 +97,7 @@
 
 <div class="form-group">
     <label for="comprDom">Comprobante de Domicilio</label><br>
-    <img src="{{ asset('storage/') . '/' . $cliente->comprDom }}" width="200" alt="">    <br>
+    {{-- <img src="{{ asset('storage/') . '/' . $cliente->comprDom }}" width="200" alt="">    <br>--}}
 
     <input type="file" class="form-control" name="comprDom"
         value="{{ isset($cliente->comprDom) ? $cliente->comprDom : old('comprDom') }}" id="comprDom">
@@ -111,7 +109,7 @@
 
 <div class="form-group">
     <label for="tarjetacirculacion">Tarjeta de Circulacion</label><br>
-    <img src="{{ asset('storage/') . '/' . $cliente->tarjetacirculacion }}" width="200" alt="">
+    {{-- <img src="{{ asset('storage/') . '/' . $cliente->tarjetacirculacion }}" width="200" alt="">--}}
     <br>
     <input type="file" class="form-control" name="tarjetacirculacion"
         value="{{ isset($cliente->tarjetacirculacion) ? $cliente->tarjetacirculacion : old('tarjetacirculacion') }} "
@@ -127,7 +125,7 @@
 <div class="form-group">
     <label for="compPago">Comprobante de Pago </label>
     <br>
-    <img src="{{ asset('storage/') . '/' . $cliente->compPago }}" width="200" alt="">
+   {{--  <img src="{{ asset('storage/') . '/' . $cliente->compPago }}" width="200" alt=""> --}}
     <input type="file" class="form-control" name="compPago"
         value="{{ isset($cliente->compPago) ? $cliente->compPago : old('compPago') }} " id="compPago">
     @error('compPago')

@@ -247,6 +247,6 @@ class ClienteController extends Controller
         $linea = Linea::find($linea_id);
 
         $pdf = PDF::loadView('funciones.orden', compact('vehiculo', 'cliente', 'dispositivo', 'linea', 'horaactual'));
-        return $pdf->stream('OrdenDeServicio.pdf');
+        return $pdf->download('OrdenDeServicio.pdf');
     }
 }

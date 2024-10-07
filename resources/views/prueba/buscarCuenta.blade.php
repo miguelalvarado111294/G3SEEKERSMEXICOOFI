@@ -5,8 +5,8 @@
 @section('content_header')
     <h1 class="text-center"><b>G3 Seekers</b></h1>
     <br>
-    <h3 class="text-center">Cuenta de Socio : {{ $clientes->nombre }} {{ $clientes->segnombre }} {{ $clientes->apellidopat }}
-        {{ $clientes->apellidomat }} </h3>
+    <h3 class="text-center">Cuenta de Socio : {{ $cliente->nombre }} {{ $cliente->segnombre }} {{ $cliente->apellidopat }}
+        {{ $cliente->apellidomat }} </h3>
     <br>
 
     @if (Session::has('mensaje'))
@@ -17,14 +17,15 @@
             </button>
         </div>
     @endif
-
-    <br>
-    @can('cuenta.create')
-        <a href="{{ route('cuentaf.crear', $id) }}" class="btn btn-success">Registrar nueva cuenta</a>
-    @endcan
-    <br>
     <br>
 
+    @if ($numerodecuentas <= 0)
+        @can('cuenta.create')
+            <a href="{{ route('cuentaf.crear', $cliente_id) }}" class="btn btn-success">Registrar nueva cuenta</a>
+        @endcan
+    @endif
+    <br>
+    <br>
 
     <div class="card">
         <div class="card-body">
@@ -40,50 +41,41 @@
                         <th>Vehiculos / Cuentas Espejo</th>
                     </tr>
                 </thead>
-
                 <tbody>
-                    @foreach ($cuentas as $cuenta)
-                        <tr>
-                            <td>{{ $cuenta->usuario }}</td>
-                            <td>{{ $cuenta->contrasenia }}</td>
-                            <td>{{ $cuenta->contraseniaParo }}</td>
-                            <td>{{ $cuenta->comentarios }}</td>
-                            <td>
 
+                    @foreach ($cuenta as $value)
+                        <tr>
+                            <td>{{ $value->usuario }}</td>
+                            <td>{{ $value->contrasenia }}</td>
+                            <td>{{ $value->contraseniaParo }}</td>
+                            <td>{{ $value->comentarios }}</td>
+                            <td>
                                 @can('cuenta.edit')
-                                    <a href="{{ url('/cuenta/' . $cuenta->id . '/edit') }}" class="btn btn-warning">Editar</a>
+                                    <a href="{{ url('/cuenta/' . $value->id . '/edit') }}" class="btn btn-warning">Editar</a>
                                 @endcan
                                 @can('cuenta.destroy')
-                                    <form action="{{ url('/cuenta/' . $cuenta->id) }}" method="post" class="d-inline">
+                                    <form action="{{ url('/cuenta/' . $value->id) }}" method="post" class="d-inline">
                                         @csrf
                                         {{ method_field('DELETE') }}
                                         <input class="btn btn-danger" type="submit"
                                             onclick=" return confirm('seguro quieres eliminar?')" value="Borrar">
                                     </form>
                                 @endcan
-
                             </td>
-
                             <td>
-                    
-                                <a href="{{ route('buscar.ctaespejo', $cuenta->id) }}" class="btn btn-primary">Cuenta Espejo</a>
-                                <a href="{{ route('buscar.vehiculo', $clienteid) }}" class="btn btn-primary ; float-right">Vehiculos</a>
-
+                                <a href="{{ route('buscar.ctaespejo', $value->id) }}" class="btn btn-primary">Cuenta
+                                    Espejo</a>
+                                <a href="{{ route('buscar.vehiculo', $cliente_id) }}"
+                                    class="btn btn-primary ; float-right">Vehiculos</a>
                             </td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
-
-
         </div>
-
     </div>
-    {{-- <a href="{{url('/prueba/' . $cuentas->$cliente_id  . '/buscarVehiculo')}}" class="btn btn-success  float-right" >Vehiculos</a>
- 
---}}
     <a href=" {{ route('cliente.show', $id) }}" class="btn btn-dark">Regresar</a>
-
-    <br><br>
+    <br>
+    <br>
 @endsection
 </div>

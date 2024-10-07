@@ -12,7 +12,6 @@
             <h3 class="text-center">Datos Personales</h3>
 
             <ul>
-
                 <b>Nombre :</b> {{ $cliente->nombre }} <br>
                 <b>Segundo Nombre :</b> {{ $cliente->segnombre }}<br>
                 <b> Apellido Paterno :</b> {{ $cliente->apellidopat }}<br>
@@ -29,9 +28,7 @@
                     style="text-align: center; display: inline-block; width: 17%; ">Documentos electronicos</a>
                 <a href="{{ route('buscar.cuenta', $cliente->id) }} "
                     style="text-align: center; display: inline-block; width: 17%;" class="btn btn-primary">Cuenta</a>
-
             </ul>
-
         </div>
     </div>
     <br>

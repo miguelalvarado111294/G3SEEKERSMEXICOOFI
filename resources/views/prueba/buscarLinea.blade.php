@@ -20,9 +20,16 @@
     @endif
     <br>
     <br>
+
+    @if ($numerodelineas <= 0)
+     
     @can('linea.create')
-        <a href="{{ route('lineaf.crear', $dispositivoid) }}" class="btn btn-success">Registrar Nueva Linea</a>
-    @endcan
+    <a href="{{ route('lineaf.crear', $dispositivoid) }}" class="btn btn-success">Registrar Nueva Linea</a>
+@endcan
+    @endif
+
+
+
     <br>
     <br>
     <div class="card">

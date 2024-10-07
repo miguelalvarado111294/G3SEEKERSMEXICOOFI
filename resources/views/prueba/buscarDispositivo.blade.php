@@ -4,9 +4,7 @@
     <h1 class="text-center"><b>G3 Seekers</b></h1>
     <br>
     <h1 class="text-center">Cliente :
-        @foreach ($cliente as $client)
-            {{ $client->nombre }} {{ $client->segnombre }} {{ $client->apellidopat }} {{ $client->apellidomat }}
-        @endforeach
+        {{ $cliente->nombre }} {{ $cliente->segnombre }} {{ $cliente->apellidopat }} {{ $cliente->apellidomat }}
     </h1>
     <br>
     <h3 class="text-center">Dispositivos Instalado en el Vehiculo</h3>
@@ -19,10 +17,16 @@
             </button>
         </div>
     @endif
-    @can('dispositivo.create')
-        <a href="{{ route('dispositivof.crear', $id) }}" class="btn btn-warning">Asignar dispositivo</a>
-        <a href="{{ route('crear.ordens', $vehiculoid) }}" class="btn btn-warning">Generar orden</a>
-    @endcan
+
+
+    @if ($numerodedispositivos <= 0)
+        @can('dispositivo.create')
+            <a href="{{ route('dispositivof.crear', $vehiculoid) }}" class="btn btn-warning">Asignar dispositivo</a>
+            <a href="{{ route('crear.ordens', $vehiculoid) }}" class="btn btn-warning">Generar orden</a>
+        @endcan
+    @endif
+
+
     <br>
     <br>
     <div class="card">
@@ -40,34 +44,34 @@
                         <th>Lineas y Sensores</th>
                     </tr>
                 </thead>
+
                 <tbody>
-                    @foreach ($dispositivos as $dispositivo)
-                    
-                        <td>{{ $dispositivo->id }} </td>
-                        <td>{{ $dispositivo->cuenta }} </td>
-                        <td>{{ $dispositivo->modelo }}</td>
-                        <td>{{ $dispositivo->noserie }}</td>
-                        <td>{{ $dispositivo->imei }}</td>
-                        <td>{{ $dispositivo->comentarios }}</td>
-                        <td>
-                            @can('dispositivo.edit')
-                                <a href="{{ url('/dispositivo/' . $dispositivo->id . '/edit') }}"
-                                    class="btn btn-warning">Editar</a>
-                            @endcan
-                            @can('dispositivo.destroy')
-                                <form action="{{ url('/dispositivo/' . $dispositivo->id) }}" method="post" class="d-inline">
-                                    @csrf
-                                    {{ method_field('DELETE') }}
-                                    <input class="btn btn-danger" type="submit"
-                                        onclick=" return confirm('Estas Seguro de Eliminar?')" value="Borrar">
-                                </form>
-                            @endcan
-                        </td>
-                        <td>
-                            <a href="{{ route('buscar.linea', $dispositivo->id) }}" class="btn btn-primary">Linea</a>
-                            <a href="{{ route('buscar.sensor', $dispositivo->id) }}" class="btn btn-primary">Sensor</a>
-                        </td>
-                        </tr>
+@foreach($dispositivo as $value)
+                    <td>{{ $value->id }} </td>
+                    <td>{{ $value->cuenta }} </td>
+                    <td>{{ $value->modelo }}</td>
+                    <td>{{ $value->noserie }}</td>
+                    <td>{{ $value->imei }}</td>
+                    <td>{{ $value->comentarios }}</td>
+                    <td>
+                        @can('dispositivo.edit')
+                            <a href="{{ url('/dispositivo/' . $value->id . '/edit') }}"
+                                class="btn btn-warning">Editar</a>
+                        @endcan
+                        @can('dispositivo.destroy')
+                            <form action="{{ url('/dispositivo/' . $value->id) }}" method="post" class="d-inline">
+                                @csrf
+                                {{ method_field('DELETE') }}
+                                <input class="btn btn-danger" type="submit"
+                                    onclick=" return confirm('Estas Seguro de Eliminar?')" value="Borrar">
+                            </form>
+                        @endcan
+                    </td>
+                    <td>
+                        <a href="{{ route('buscar.linea', $value->id) }}" class="btn btn-primary">Linea</a>
+                        <a href="{{ route('buscar.sensor', $value->id) }}" class="btn btn-primary">Sensor</a>
+                    </td>
+                    </tr>
                     @endforeach
                 </tbody>
             </table>

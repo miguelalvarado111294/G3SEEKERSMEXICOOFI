@@ -9,9 +9,7 @@
     <br>
 
     <h1 class="text-center">Cliente :
-        @foreach ($cliente as $client)
-            {{ $client->nombre }} {{ $client->segnombre }} {{ $client->apellidopat }} {{ $client->apellidomat }}
-        @endforeach
+        {{ $cliente->nombre }} {{ $cliente->segnombre }} {{ $cliente->apellidopat }} {{ $cliente->apellidomat }}
     </h1>
 
     <h1 class="text-center">Cuenta :
