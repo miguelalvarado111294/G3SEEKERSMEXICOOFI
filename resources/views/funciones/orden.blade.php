@@ -19,7 +19,8 @@
             </TD>
             <TD> <b> Fecha de la solicitud : </b>{{ $horaactual }}</TD>
             <TD><b>Folio : </b> ######</TD>
-            <TD> Imagen aqui</TD>
+            <td> <img src="{{ asset('\storage\logo.png') }}" width="50">
+            </td>
         </TR>
     </TABLE>
 
@@ -211,14 +212,14 @@
             <TD> </TD>
         </TR>
     </TABLE>
-<br>
+    <br>
     <TABLE BORDER WIDTH="100%">
         <TR>
             <TD>
-                
-               <br> ______________________ <br>
+
+                <br> ______________________ <br>
                 VoBo Vendedor
-                
+
             </TD>
             <TD>
                 <br>______________________ <br>
@@ -237,7 +238,7 @@
             </TD>
         </TR>
     </TABLE>
- 
+
 
 
 

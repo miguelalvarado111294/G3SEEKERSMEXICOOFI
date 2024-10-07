@@ -8,22 +8,17 @@
 
 @section('content')
     <p class="text-center">Bienvenido <b> {{ Auth::user()->name }} al Panel de Control</b></p>
+<br>
+<br>
+<br>
 
-   
-   <div class="card">
-    <div class="card-body">
-            <div class="row justify-content-center" >
-
-            <img src="{{ asset('storage\imagenes\logo.png') }}">
-
+    <div class="card">
+        <div class="card-body">
+            <div class="row justify-content-center">
+                <img src="{{ asset('storage\logo.png') }}" width="600">
+            </div>
         </div>
-
     </div>
-   </div>
-
-
-
-
 
 @stop
 

@@ -368,11 +368,6 @@ return [
             'icon' => 'fas fa-fw fa-user',
         ],
 
-        [
-            'text' => 'Nueva Orden',
-            'route' => 'crear.orden',
-            'icon' => 'fas fa-fw fa-user',
-        ],
         ['header' => 'Inventario'],
         [
             'text' => 'Dispositivos',
@@ -384,7 +379,7 @@ return [
             'route' => 'crear.orden',
             'icon' => 'fas fa-fw fa-user',
         ],
-        
+
         /*[
             'text' => 'change_password',
             'url' => 'admin/settings',
