@@ -38,6 +38,14 @@ class VehiculoController extends Controller
         return view('vehiculo.createid', compact('id', 'cuentas'));
     }
 
+
+    
+    public function crearvehiculo ($id)
+    {
+       // $cuentas = cuenta::all();
+        return view('registroCliente.datosvehiculo');
+    }
+
     public function stovehi(Request $request, $id)
     {
         $request->validate([

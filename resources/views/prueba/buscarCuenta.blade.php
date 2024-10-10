@@ -74,7 +74,7 @@
             </table>
         </div>
     </div>
-    <a href=" {{ route('cliente.show', $id) }}" class="btn btn-dark">Regresar</a>
+    <a href=" {{ route('crear.nuevo.vehiculo', $cliente_id) }}" class="btn btn-dark">Regresar</a>
     <br>
     <br>
 @endsection

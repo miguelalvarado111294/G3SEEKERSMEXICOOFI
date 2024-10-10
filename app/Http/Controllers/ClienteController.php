@@ -10,7 +10,6 @@ use App\Models\Linea;
 use App\Http\Requests\storecliente;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Dompdf\Dompdf;
 use Barryvdh\DomPDF\facade\Pdf;
 use Carbon\Carbon;
 

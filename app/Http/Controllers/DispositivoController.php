@@ -3,11 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\dispositivo;
-use App\Models\cuenta;
 use App\Models\vehiculo;
 use App\Models\cliente;
-use App\Models\linea;
-use GuzzleHttp\Client;
+
 use Illuminate\Http\Request;
 
 class DispositivoController extends Controller
@@ -17,7 +15,9 @@ class DispositivoController extends Controller
         $busqueda = $request->get('busqueda');  //recibe del input de index cliente y lo almacena en una variable 
         $dispositivos = Dispositivo::where('id', 'LIKE',  $busqueda)
             ->orWhere('imei', 'LIKE', '%' . $busqueda . '%')
+            ->orWhere('cuenta', '=', $busqueda)
             ->orWhere('noeconomico', 'LIKE', '%' . $busqueda . '%')->paginate(10);
+            
         return view('dispositivo.index', compact('dispositivos', 'busqueda'));
     }
 

@@ -10,7 +10,6 @@
 
     <div class="card">
         <div class="card-body">
-
             <table class="table table-light">
                 <thead class="thead-light">
                     <tr>
@@ -22,48 +21,28 @@
                         <th></th>
                     </tr>
                 </thead>
-                {{--                           @foreach ($cliente as $client)
-     --}}
                 <tbody>
                     <tr>
-
-                        <td><img src="{{ asset('storage/') . '/' .$cliente->actaconstitutiva }}" width="200" alt="">
+                        <td><img src="{{ asset('storage/') . '/' . $cliente->actaconstitutiva }}" width="400" alt="">
                         </td>
-                        <td><img src="{{ asset('storage') . '/' . $cliente->consFiscal }}" width="200" alt="">
+                        <td><img src="{{ asset('storage') . '/' . $cliente->consFiscal }}" width="400" alt="">
                         </td>
-                        <td><img src="{{ asset('storage') . '/' . $cliente->comprDom }}" width="200" alt="">
+                        <td><img src="{{ asset('storage') . '/' . $cliente->comprDom }}" width="400" alt="">
                         </td>
-                        <td><img src="{{ asset('storage') . '/' . $cliente->tarjetacirculacion }}" width="200"alt="">
+                        <td><img src="{{ asset('storage') . '/' . $cliente->tarjetacirculacion }}" width="400"alt="">
                         </td>
-                        <td><img src="{{ asset('storage') . '/' . $cliente->compPago }}" width="200" alt="">
+                        <td><img src="{{ asset('storage') . '/' . $cliente->compPago }}" width="400" alt="">
                         </td>
-
-
                     </tr>
                 </tbody>
-                {{--                  @endforeach 
- --}}
             </table>
-
         </div>
-
     </div>
-
-
-
-
-
-    <br>
-    <br>
-
-
-
 
     <div class="form-group">
         <a href="{{ URL::previous() }}" class="btn btn-dark">Regresar</a>
     </div>
     <br>
-
 
     </div>
 @endsection
