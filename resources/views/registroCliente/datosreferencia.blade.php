@@ -7,6 +7,7 @@
     <br>
     <div class="card">
         <div class="card-body">
+            
             <form action=" {{ route('create.nuevo.ref', $cliente_id) }} " method="post">
                 @csrf
                 <div class="form-group">

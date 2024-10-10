@@ -39,11 +39,31 @@ class VehiculoController extends Controller
     }
 
 
-    
+    //crear desde cliente
     public function crearvehiculo ($id)
     {
        // $cuentas = cuenta::all();
-        return view('registroCliente.datosvehiculo');
+        return view('registroCliente.datosvehiculo', compact('id'));
+    }
+
+    public function createvehiculo(Request $request, $id)
+    {
+        return $request;
+        $request->validate([
+            'marca' => 'required|alpha_dash|min:3|max:100',
+            'modelo' => 'required|alpha_num|alpha_dash',
+            'noserie' => 'required|alpha_dash|min:5|unique:vehiculos,noserie,' . $id,
+            'nomotor' => 'required|alpha_dash|min:5|unique:vehiculos,nomotor,' . $id,
+            'placa' => 'required|alpha_dash|min:4|unique:vehiculos,placa,' . $id,
+            'color' => 'string|min:4|max:15'
+        ]);
+
+        $datosCliente = $request->except('_token');
+        $datosCliente['cliente_id'] = $id;
+        $mArray = array_map('strtoupper', $datosCliente);
+        Vehiculo::insert($mArray);
+
+        return redirect()->route('buscar.vehiculo', $id);
     }
 
     public function stovehi(Request $request, $id)

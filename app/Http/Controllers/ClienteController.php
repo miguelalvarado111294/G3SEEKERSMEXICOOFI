@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\Cliente;
@@ -188,8 +189,28 @@ class ClienteController extends Controller
     }
 
 
-    public function createnuevo(storecliente $request) //form request para validacion
+    public function createnuevo(Request $request) //form request para validacion
     {
+        return $request;
+
+        $request->validate([
+            'nombre' => 'required|alpha|min:2|max:100',
+            'segnombre' => 'nullable|alpha',
+            'apellidopat' => 'required|alpha|min:2|max:100',
+            'apellidomat' => 'required|alpha|min:2|max:100',
+            'telefono' => 'required|numeric|digits:10',
+            'direccion' => 'required',
+            'email' => 'required|string|min:2|max:100|email|unique:clientes,email,',
+            'rfc' => 'nullable|alpha_num|min:2|max:100|unique:clientes,rfc,',
+            /* 'actaconstitutiva' => 'mimes:pdf,jpeg,png,jpg|max:5000',
+            'consFiscal' => 'mimes:pdf,jpeg,png,jpg|max:5000',
+            'comprDom' => 'mimes:pdf,jpeg,png,jpg|max:5000',
+            'tarjetacirculacion' => 'mimes:pdf,jpeg,png,jpg,pdf|max:5000',
+            'compPago' => 'mimes:pdf,jpeg,png,jpg|max:5000'*/
+        ]);
+
+
+
         $datosCliente = $request->except('_token');
         //mayusculas
         $datosCliente['nombre'] = strtoupper($request->nombre);
@@ -227,13 +248,13 @@ class ClienteController extends Controller
         $cliente_id;
 
         return redirect()->route(('crear.nuevo.ref'), $cliente_id);
-}
-   
+    }
+
     public function orden($vehiculo_id)
     {
         $horaactual = Carbon::now()->toDateString();
         $vehiculo = Vehiculo::find($vehiculo_id);
-        
+
         $cliente_id = $vehiculo->cliente_id;
         $cliente = Cliente::find($cliente_id);
 
@@ -248,4 +269,31 @@ class ClienteController extends Controller
         $pdf = PDF::loadView('funciones.orden', compact('vehiculo', 'cliente', 'dispositivo', 'linea', 'horaactual'));
         return $pdf->download('OrdenDeServicio.pdf');
     }
+
+
+    public function ordeninstalacion()
+    {
+        $clientes = Cliente::all();
+        return view('funciones.ordendeinstalacion', compact('clientes'));
+    
+    }
+
+    
+
+    public function ordenins(Request $request)
+    {
+        $horaactual = Carbon::now()->toDateString();
+
+        $cliente_id=$request->get('cliente');
+        $cliente = Cliente::find($cliente_id);
+
+
+
+        $pdf = PDF::loadView('funciones.ordendinstalacion', compact('cliente','horaactual'));
+        return $pdf->download('OrdenDeServicio.pdf');
+
+    
+    }
+
+
 }

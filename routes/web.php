@@ -73,14 +73,17 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/crearc/{id}',   [App\Http\Controllers\CuentaController::class, 'crearc'])->name('crear.nuevo.cuenta');
     Route::post('/createc/{id}',   [App\Http\Controllers\CuentaController::class, 'createnuevocta'])->name('create.nuevo.cta');
 
-    Route::get('/crearvehiculo/{id}',   [App\Http\Controllers\VehiculoController::class, 'crearvehiculo'])->name('crear.nuevo.vehiculo');
-    //Route::post('/createc/{id}' ,   [App\Http\Controllers\CuentaController::class, 'createnuevocta'])->name('create.nuevo.cta');
+
 
 
 
     //para generar el pdf
     Route::get('/generate',   [App\Http\Controllers\ClienteController::class, 'generarconsulta'])->name('generarconsulta');
     Route::get('/orden',      [App\Http\Controllers\ClienteController::class, 'orden'])->name('crear.orden');
+
+    Route::get('/ordeninstalacion',   [App\Http\Controllers\ClienteController::class, 'ordeninstalacion'])->name('ordeninstalacion');
+    Route::post('/ordenins',   [App\Http\Controllers\ClienteController::class, 'ordenins'])->name('ordenins');
+
 
     Route::get('/orden/{vehiculoid}', [App\Http\Controllers\ClienteController::class, 'orden'])->name('crear.ordens');
 });

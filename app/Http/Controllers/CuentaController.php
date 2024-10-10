@@ -13,21 +13,17 @@ class CuentaController extends Controller
         $cuentas = Cuenta::where('usuario', 'LIKE', '%' . $busqueda . '%')->paginate(10);
         return view('cuenta.index', compact('cuentas', 'busqueda'));
     }
-
     public function crearcta($id)
     {
         return view('cuenta.createid', compact('id'));
     }
-
-    //para registrar cuenta desde lado del cliente
-    public function crearc ($id)
+    public function crearc($id)
     {
         return view('registroCliente.datoscuenta', compact('id'));
     }
-    //crear cuenta desde lado del cliente
     public function createnuevocta(Request $request, $id)
     {
-        $cliente_id = $id;
+        $cliente_id=$id;
         $request->validate([
             'usuario' => 'required|alpha_dash|min:3|max:15|unique:cuentas,usuario,' . $id,
             'contrasenia' => 'required|alpha_dash|min:2|max:15',
@@ -40,11 +36,8 @@ class CuentaController extends Controller
         $mArray = array_map('strtoupper', $datosCliente);
         Cuenta::insert($mArray);
 
-        return redirect()->route('crear.nuevo.vehiculo', $cliente_id);
-
-
+        return redirect()->route('buscar.cuenta', $id);
     }
-
     public function stocta(Request $request, $id)
     {
         $request->validate([
@@ -61,7 +54,6 @@ class CuentaController extends Controller
 
         return redirect()->route('buscar.cuenta', $id);
     }
-
     public function store(Request $request, $id)
     {
         $campos = [
@@ -75,7 +67,6 @@ class CuentaController extends Controller
         Cuenta::insert($datosCuenta);
         return redirect('cuenta')->with('mensaje', 'cuenta agregado exitosamente ');
     }
-
     public function show(cuenta $referencia) {}
 
     public function edit($id)
@@ -83,7 +74,6 @@ class CuentaController extends Controller
         $cuenta = Cuenta::findOrfail($id);
         return view('cuenta.edit', compact('cuenta'));
     }
-
     public function update(Request $request, $id)
     {
         $request->validate([

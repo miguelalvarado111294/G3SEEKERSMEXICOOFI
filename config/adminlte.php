@@ -380,6 +380,13 @@ return [
             'icon' => 'fas fa-fw fa-user',
         ],
 
+        [
+            'text' => 'generar orden de instalacion',
+            'route' => 'ordeninstalacion',
+            'icon' => 'fas fa-fw fa-user',
+        ],
+
+
         /*[
             'text' => 'change_password',
             'url' => 'admin/settings',
