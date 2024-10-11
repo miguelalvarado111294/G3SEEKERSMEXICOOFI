@@ -22,6 +22,7 @@
             <td>G3 SEEKERS Mx </td>
         </TR>
     </TABLE>
+    {{-- formulario de obserbaciones de datos cliente --}}
 
     <TABLE BORDER WIDTH="100%">
         <CAPTION ALIGN=top>Datos de Cliente</CAPTION>
@@ -38,43 +39,43 @@
         <TD> <b>Dirección : </b> {{ $cliente->direccion }}</TD>
         </TR>
     </TABLE>
-
+    {{-- formulario de obserbaciones de datos uni --}}
     <TABLE BORDER WIDTH="100%">
         <CAPTION ALIGN=top>Datos de la Unidad</CAPTION>
         <TH COLSPAN=2>Vehiculo</TH>
         <TH COLSPAN=2>Datos de la Linea</TH>
         <TR>
-            <TD><b> Tipo de Vehiculo : </b></TD>
-            <TD>{{--$vehiculo->tipo --}}</TD>
-            <TD> <b> Numero:</b></TD>
-            <TD>{{--$linea->telefono--}}</TD>
+            <TD><b> Tipo de Vehiculo </b></TD>
+            <TD>{{-- $vehiculo->tipo --}}</TD>
+            <TD> <b> Numero</b></TD>
+            <TD>{{ $request->telefono }}</TD>
         </TR>
         <TR>
-            <TD> <b> Marca : </b></TD>
-            <TD> {{--$vehiculo->marca --}}</TD>
+            <TD> <b> Marca </b></TD>
+            <TD> {{-- $vehiculo->marca --}}</TD>
             <TD><b> Sim Card:</b> </TD>
-            <TD> {{-- $linea->simcard --}}</TD>
+            <TD> {{ $request->simcard }}</TD>
         </TR>
         <TR>
-            <TD><b> Modelo : </b></TD>
+            <TD><b> Modelo </b></TD>
             <TD>{{-- $vehiculo->modelo --}}</TD>
             <TH COLSPAN=2>Datos del Dispositivo</TH>
         </TR>
         <TR>
-            <TD><b> Numero de Serie : </b></TD>
-            <TD>{{-- $vehiculo->noseri--}} </TD>
+            <TD><b> Numero de Serie </b></TD>
+            <TD>{{-- $vehiculo->noseri --}} </TD>
 
-            <TD><b> Modelo : </b></TD>
-            <TD>{{-- $dispositivo->model--}}</TD>
+            <TD><b> Modelo </b></TD>
+            <TD>{{-- $dispositivo->model --}}</TD>
         </TR>
         <TR>
-            <TD><b> Placa : </b></TD>
-            <TD>{{-- $vehiculo->plac--}}</TD>
+            <TD><b> Placa </b></TD>
+            <TD>{{-- $vehiculo->plac --}}</TD>
             <TD><b> Imei</b> </TD>
-            <TD> {{-- $dispositivo->imei--}}</TD>
+            <TD> {{-- $dispositivo->imei --}}</TD>
         </TR>
         <TR>
-            <TD><b> Color : </b></TD>
+            <TD><b> Color </b></TD>
             <TD>{{-- $vehiculo->color --}}</TD>
             <TD><b> ID Dispositivo</b> </TD>
             <TD> {{-- $dispositivo->id --}}</TD>
@@ -83,154 +84,187 @@
 
     <center>
         Esta orden solo podra usarse para el servicio de un solo equipo
-    </center>
 
-    <TABLE BORDER WIDTH="100%">
-        <TR>
-            <TD WIDTH="150"><b>Recepcion</b></TD>
-            <TD WIDTH="10"><b>Bien</b></TD>
-            <TD WIDTH="10"><b>Mal</b></TD>
-            <TD><b>Observaciones</b></TD>
-        </TR>
-        <TR>
-            <TD>Alimentacion</TD>
-            <TD></TD>
-            <TD></TD>
-            <TD></TD>
-        </TR>
-        <TR>
-            <TD>Paro del Motor</TD>
-            <TD></TD>
-            <TD></TD>
-            <TD></TD>
-        </TR>
-        </TR>
-        <TR>
-            <TD>Encendido de Equipo</TD>
-            <TD></TD>
-            <TD></TD>
-            <TD></TD>
-        </TR>
-        <TR>
-            <TD>Encendido de motor</TD>
-            <TD> </TD>
-            <TD></TD>
-            <TD></TD>
-        </TR>
-        </TR>
-        <TR>
-            <TD>Conexion AntenaGMS</TD>
-            <TD> </TD>
-            <TD></TD>
-            <TD></TD>
-        </TR>
-        <TR>
-            <TD>Boton de Panico</TD>
-            <TD> </TD>
-            <TD> </TD>
-            <TD></TD>
-        </TR>
-        </TR>
-        <TR>
-            <TD>Conexion AntenaGPS</TD>
-            <TD> </TD>
-            <TD> </TD>
-            <TD></TD>
-        </TR>
-    </TABLE>
+        {{-- formulario de obserbaciones de observaciones --}}
 
-    <TABLE BORDER WIDTH="100%">
-        <CAPTION ALIGN=top>
-            Mantenimiento
-        </CAPTION>
-        <TR>
-            <TD> <label><input type="checkbox" /> Limpieza de sim</label><br />
-                <label><input type="checkbox" /> Se programo</label><br />
-                <label><input type="checkbox" /> Reemplazo de Modulo</label><br />
-                <label><input type="checkbox" /> Encendido Manual</label><br />
-            </TD>
-            <TD> <label><input type="checkbox" /> Se cambio Antena GPS</label><br />
-                <label><input type="checkbox" /> Envio de Mensaje a la Plataforma</label><br />
-                <label><input type="checkbox" /> Encendido Ope. Normal</label><br />
-                <label><input type="checkbox" /> Paro de Motor</label><br />
-            </TD>
-            <TD><label><input type="checkbox" /> Se Cambio Antena GPS</label><br />
-                <label><input type="checkbox" /> Reset</label><br />
-                <label><input type="checkbox" /> Ubicacion Correcta</label><br />
-                <label><input type="checkbox" /> Desinstalacion-Reinstalacion</label><br />
-            </TD>
-            <TD> <label><input type="checkbox" /> Boton de Panico</label><br />
-                <label><input type="checkbox" /> Retiro Definitivo del Equipo</label><br />
-            </TD>
-        </TR>
-    </TABLE>
+        <TABLE BORDER WIDTH="100%">
+          
+            <TR>
+                <TD>Recepcion de la Unidad</TD>
+                <TD>Bien</TD>
+                <TD>Mal</TD>
+                <TD>Observaciones</TD>
+            </TR>
+            <TR>
+                <TD>Tablero</TD>
+                <TD></TD>
+                <TD></TD>
+                <TD></TD>
+            </TR>
+            <TR>
+                <TD>Vestiduras</TD>
+                <TD></TD>
+                <TD></TD>
+                <TD></TD>
+            </TR>
+            <TR>
+                <TD>Molduras</TD>
+                <TD></TD>
+                <TD></TD>
+                <TD></TD>
+            </TR>
+            <TR>
+                <TD>Toldo</TD>
+                <TD></TD>
+                <TD></TD>
+                <TD></TD>
+            </TR>
+            <TR>
+                <TD>Asiento Copiloto</TD>
+                <TD></TD>
+                <TD></TD>
+                <TD></TD>
+            </TR>
+            <TR>
+                <TD>Encendido</TD>
+                <TD></TD>
+                <TD></TD>
+                <TD></TD>
+            </TR>
+            <TR>
+                <TD>Volts</TD>
+                <TD></TD>
+                <TD></TD>
+                <TD></TD>
+            </TR>
 
-    <CENter>Observaciones del Tecnico</CENter>
-    <TABLE BORDER WIDTH="100%">
-        <TR>
-            <th WIDTH="300"><b>Observaciones</b></th>
-            <TH></TH>
-            <TH>Bueno</TH>
-            <TH>Regular</TH>
-            <TH>Malo</TH>
-        </TR>
-        <TR>
-            <TD> </TD>
-            <TD>Puntualidad</TD>
-            <td></td>
-            <TD></TD>
-            <TD></TD>
-        </TR>
-        <TR>
-            <TD> </TD>
-            <TD>Presentacion</TD>
-            <td></td>
-            <TD> </TD>
-            <TD> </TD>
-        </TR>
-        <TR>
-            <TD> </TD>
-            <TD>Atencion</TD>
-            <td></td>
-            <TD></TD>
-            <TD> </TD>
-        </TR>
-        <TR>
-            <TD> </TD>
-            <TD>Lexico</TD>
-            <td></td>
-            <TD></TD>
-            <TD> </TD>
-        </TR>
-        <TR>
-            <TD></TD>
-            <TD>Limpieza</TD>
-            <td></td>
-            <TD></TD>
-            <TD> </TD>
-        </TR>
-    </TABLE>
-    <br>
-    <TABLE BORDER WIDTH="100%">
-        <TR>
-            <TD>
-                <br> ___________________ <br>
-                VoBo Vendedor
-            </TD>
-            <TD>
-                <br>___________________ <br>
-                Firma del Instalador
-            </TD>
-            <TD>
-                <br> ___________________ <br>
-                Gerente de Operaciones
-            </TD>
-            <TD>
-                <br> ___________________ <br>
-                Firma de Cliente
-            </TD>
-        </TR>
-    </TABLE>
+        </TABLE>
+
+<br>
+        <TABLE BORDER WIDTH="100%">
+
+            <TR>
+                <TD>Entrega de Unidad</TD>
+                <TD>Si</TD>
+                <TD>No</TD>
+                <TD>Observaciones</TD>
+            </TR>
+            <TR>
+                <TD>Queda Encendido el Equipo</TD>
+                <TD></TD>
+                <TD></TD>
+                <TD></TD>
+            </TR>
+
+            <TR>
+                <TD>Queda Conectada la Antena GPS</TD>
+                <TD></TD>
+                <TD></TD>
+                <TD></TD>
+            </TR>
+            <TR>
+                <TD>Queda Conectada la Antena GSM</TD>
+                <TD></TD>
+                <TD></TD>
+                <TD></TD>
+            </TR>
+            <TR>
+                <TD>Encendido Manual</TD>
+                <TD></TD>
+                <TD></TD>
+                <TD></TD>
+            </TR>
+            <TR>
+                <TD>Pánico</TD>
+                <TD></TD>
+                <TD></TD>
+                <TD></TD>
+            </TR>
+            <TR>
+                <TD>Posicion del Vehiculo</TD>
+                <TD></TD>
+                <TD></TD>
+                <TD></TD>
+            </TR>
+            <TR>
+                <TD>Paro del Motor</TD>
+                <TD></TD>
+                <TD></TD>
+                <TD></TD>
+            </TR>
+
+
+        </TABLE>
+
+
+
+        {{-- formulario de obserbaciones de tecnico --}}
+        <CENter>Observaciones del Tecnico</CENter>
+        <TABLE BORDER WIDTH="100%">
+            <TR>
+                <th WIDTH="300"><b>Observaciones</b></th>
+                <TH></TH>
+                <TH>Bueno</TH>
+                <TH>Regular</TH>
+                <TH>Malo</TH>
+            </TR>
+            <TR>
+                <TD> </TD>
+                <TD>Puntualidad</TD>
+                <td></td>
+                <TD></TD>
+                <TD></TD>
+            </TR>
+            <TR>
+                <TD> </TD>
+                <TD>Presentacion</TD>
+                <td></td>
+                <TD> </TD>
+                <TD> </TD>
+            </TR>
+            <TR>
+                <TD> </TD>
+                <TD>Atencion</TD>
+                <td></td>
+                <TD></TD>
+                <TD> </TD>
+            </TR>
+            <TR>
+                <TD> </TD>
+                <TD>Lexico</TD>
+                <td></td>
+                <TD></TD>
+                <TD> </TD>
+            </TR>
+            <TR>
+                <TD></TD>
+                <TD>Limpieza</TD>
+                <td></td>
+                <TD></TD>
+                <TD> </TD>
+            </TR>
+        </TABLE>
+        <br>
+        <TABLE BORDER WIDTH="100%">
+            <TR>
+                <TD>
+                    <br> ___________________ <br>
+                    VoBo Vendedor
+                </TD>
+                <TD>
+                    <br>___________________ <br>
+                    Firma del Instalador
+                </TD>
+                <TD>
+                    <br> ___________________ <br>
+                    Gerente de Operaciones
+                </TD>
+                <TD>
+                    <br> ___________________ <br>
+                    Firma de Cliente
+                </TD>
+            </TR>
+        </TABLE>
 </body>
 
 </html>
