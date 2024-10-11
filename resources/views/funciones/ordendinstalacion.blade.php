@@ -46,7 +46,7 @@
         <TH COLSPAN=2>Datos de la Linea</TH>
         <TR>
             <TD><b> Tipo de Vehiculo </b></TD>
-            <TD>{{-- $vehiculo->tipo --}}</TD>
+            <TD>{{-- $vehiculo->tipo --}}__________</TD>
             <TD> <b> Numero</b></TD>
             <TD>{{ $request->telefono }}</TD>
         </TR>
@@ -70,20 +70,20 @@
         </TR>
         <tr>
             <TD><b> Color</b></TD>
-            <TD><b>  </b></TD>
-            <TD><b> Cuenta </b></TD>
-            <TD><b>  </b></TD>
+            <TD><b> </b></TD>
+            <TD><b>  Imei</b></TD>
+            <TD><b> </b></TD>
 
 
         </tr>
         <TR>
             <TD><b> Placa </b></TD>
             <TD>{{-- $vehiculo->plac --}}</TD>
-            <TD><b> Imei</b> </TD>
+            <TD><b> Cuenta</b> </TD>
             <TD> {{-- $dispositivo->imei --}}</TD>
         </TR>
         <TR>
-            <TD><b>  </b></TD>
+            <TD><b> </b></TD>
             <TD>{{-- $vehiculo->color --}}</TD>
             <TD><b> ID Dispositivo</b> </TD>
             <TD> {{-- $dispositivo->id --}}</TD>
@@ -96,7 +96,7 @@
         {{-- formulario de obserbaciones de observaciones --}}
 
         <TABLE BORDER WIDTH="100%">
-          
+
             <TR>
                 <TD><b>Recepcion de la Unidad</b></TD>
                 <TD><b>Bien</b></TD>
@@ -259,7 +259,7 @@
                     VoBo Vendedor
                 </TD>
                 <TD>
-                   ___________________ <br>
+                    ___________________ <br>
                     Firma del Instalador
                 </TD>
                 <TD>
