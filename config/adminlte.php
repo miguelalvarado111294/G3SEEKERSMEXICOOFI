@@ -310,19 +310,47 @@ return [
             'type' => 'sidebar-menu-search',
             'text' => 'search',
         ],*/
+        
         ['header' => 'Panel de Administracion'],
         [
             'text' => 'Usuarios',
             'route' => 'admin.users.index',
             'icon' => 'fas fa-users',
             'can' => 'admin.index'
+        ],        ['header' => 'Cliente nuevo'],
+
+        [
+            'text' => 'Formulario Cliente nuevo',
+            'route' => 'crear.nuevo',
+            'icon' => 'fas fa-fw fa-user',
         ],
+        ['header' => 'Generar Formatos'],
+
+        [
+            'text' => 'Generar Orden de Instalacion',
+            'route' => 'ordeninstalacion',
+            'icon' => 'fas fa-fw fa-user',
+        ],
+
+        ['header' => 'Inventario'],
+        [
+            'text' => 'Dispositivos',
+            'route' => 'crear.orden',
+            'icon' => 'fas fa-fw fa-user',
+        ],
+        [
+            'text' => 'Lineas',
+            'route' => 'crear.orden',
+            'icon' => 'fas fa-fw fa-user',
+        ],
+        /*
+        
         [
             'text' => 'Crear roles',
             'route' => 'admin.users.index',
             'icon' => 'fas fa-users',
             'can' => 'admin.index'
-        ],
+        ],*/
 
         ['header' => 'Datos del Cliente'],
         [
@@ -360,30 +388,7 @@ return [
             'route' => 'sensor.index',
             'icon' => 'fas fa-fw fa-user',
         ],
-        ['header' => 'Cliente nuevo'],
 
-        [
-            'text' => 'Formulario Cliente nuevo',
-            'route' => 'crear.nuevo',
-            'icon' => 'fas fa-fw fa-user',
-        ],
-        [
-            'text' => 'Generar Orden de Instalacion',
-            'route' => 'ordeninstalacion',
-            'icon' => 'fas fa-fw fa-user',
-        ],
-
-        ['header' => 'Inventario'],
-        [
-            'text' => 'Dispositivos',
-            'route' => 'crear.orden',
-            'icon' => 'fas fa-fw fa-user',
-        ],
-        [
-            'text' => 'Lineas',
-            'route' => 'crear.orden',
-            'icon' => 'fas fa-fw fa-user',
-        ],
 
 
 

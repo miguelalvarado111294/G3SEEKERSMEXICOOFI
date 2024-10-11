@@ -4,7 +4,7 @@
 
 @section('content_header')
     <h1 class="text-center">
-        <b>G3 Seekers</b>
+        <h1 class="text-center"><b>G3 Seekers México</b></h1>
     </h1>
     <br>
 

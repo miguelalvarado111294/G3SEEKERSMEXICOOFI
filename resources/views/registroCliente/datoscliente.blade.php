@@ -3,8 +3,8 @@
 @section('title', 'G3SEEKERSMX')
 
 @section('content_header')
-    <h1 class="text-center"><b>G3 Seekers</b></h1>
-    <br>
+<h1 class="text-center"><b>G3 Seekers México</b></h1>
+<br>
     <h2 class="text-center">Registro Nuevo</h2>
     <br>
 
