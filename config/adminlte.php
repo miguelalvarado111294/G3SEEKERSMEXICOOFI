@@ -367,6 +367,11 @@ return [
             'route' => 'crear.nuevo',
             'icon' => 'fas fa-fw fa-user',
         ],
+        [
+            'text' => 'Generar Orden de Instalacion',
+            'route' => 'ordeninstalacion',
+            'icon' => 'fas fa-fw fa-user',
+        ],
 
         ['header' => 'Inventario'],
         [
@@ -380,11 +385,7 @@ return [
             'icon' => 'fas fa-fw fa-user',
         ],
 
-        [
-            'text' => 'generar orden de instalacion',
-            'route' => 'ordeninstalacion',
-            'icon' => 'fas fa-fw fa-user',
-        ],
+
 
 
         /*[

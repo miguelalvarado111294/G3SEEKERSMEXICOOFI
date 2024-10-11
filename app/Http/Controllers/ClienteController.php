@@ -275,25 +275,19 @@ class ClienteController extends Controller
     {
         $clientes = Cliente::all();
         return view('funciones.ordendeinstalacion', compact('clientes'));
-    
     }
 
-    
+
 
     public function ordenins(Request $request)
     {
+        return $request;
         $horaactual = Carbon::now()->toDateString();
 
-        $cliente_id=$request->get('cliente');
+        $cliente_id = $request->get('cliente');
         $cliente = Cliente::find($cliente_id);
 
-
-
-        $pdf = PDF::loadView('funciones.ordendinstalacion', compact('cliente','horaactual'));
-        return $pdf->download('OrdenDeServicio.pdf');
-
-    
+        $pdf = PDF::loadView('funciones.ordendinstalacion', compact('cliente', 'horaactual'));
+        return $pdf->download('OrdenDeInstalacion.pdf');
     }
-
-
 }
