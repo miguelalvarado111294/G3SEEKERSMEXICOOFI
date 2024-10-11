@@ -66,8 +66,16 @@
             <TD>{{-- $vehiculo->noseri --}} </TD>
 
             <TD><b> Modelo </b></TD>
-            <TD>{{-- $dispositivo->model --}}</TD>
+            <TD>{{-- $dispositivo->model --}} </TD>
         </TR>
+        <tr>
+            <TD><b> Color</b></TD>
+            <TD><b>  </b></TD>
+            <TD><b> Cuenta </b></TD>
+            <TD><b>  </b></TD>
+
+
+        </tr>
         <TR>
             <TD><b> Placa </b></TD>
             <TD>{{-- $vehiculo->plac --}}</TD>
@@ -75,7 +83,7 @@
             <TD> {{-- $dispositivo->imei --}}</TD>
         </TR>
         <TR>
-            <TD><b> Color </b></TD>
+            <TD><b>  </b></TD>
             <TD>{{-- $vehiculo->color --}}</TD>
             <TD><b> ID Dispositivo</b> </TD>
             <TD> {{-- $dispositivo->id --}}</TD>
@@ -90,49 +98,49 @@
         <TABLE BORDER WIDTH="100%">
           
             <TR>
-                <TD>Recepcion de la Unidad</TD>
-                <TD>Bien</TD>
-                <TD>Mal</TD>
-                <TD>Observaciones</TD>
+                <TD><b>Recepcion de la Unidad</b></TD>
+                <TD><b>Bien</b></TD>
+                <TD><b>Mal</b></TD>
+                <TD><b>Observaciones</b></TD>
             </TR>
             <TR>
-                <TD>Tablero</TD>
-                <TD></TD>
-                <TD></TD>
-                <TD></TD>
-            </TR>
-            <TR>
-                <TD>Vestiduras</TD>
+                <TD><b>Tablero</b></TD>
                 <TD></TD>
                 <TD></TD>
                 <TD></TD>
             </TR>
             <TR>
-                <TD>Molduras</TD>
+                <TD><b>Vestiduras</b></TD>
                 <TD></TD>
                 <TD></TD>
                 <TD></TD>
             </TR>
             <TR>
-                <TD>Toldo</TD>
+                <TD><b>Molduras</b></TD>
                 <TD></TD>
                 <TD></TD>
                 <TD></TD>
             </TR>
             <TR>
-                <TD>Asiento Copiloto</TD>
+                <TD><b>Toldo</b></TD>
                 <TD></TD>
                 <TD></TD>
                 <TD></TD>
             </TR>
             <TR>
-                <TD>Encendido</TD>
+                <TD><b>Asiento Copiloto</b></TD>
                 <TD></TD>
                 <TD></TD>
                 <TD></TD>
             </TR>
             <TR>
-                <TD>Volts</TD>
+                <TD><b>Encendido</b></TD>
+                <TD></TD>
+                <TD></TD>
+                <TD></TD>
+            </TR>
+            <TR>
+                <TD><b>Volts</b></TD>
                 <TD></TD>
                 <TD></TD>
                 <TD></TD>
@@ -140,54 +148,53 @@
 
         </TABLE>
 
-<br>
         <TABLE BORDER WIDTH="100%">
 
             <TR>
-                <TD>Entrega de Unidad</TD>
-                <TD>Si</TD>
-                <TD>No</TD>
-                <TD>Observaciones</TD>
+                <TD><b>Entrega de Unidad</b></TD>
+                <TD><b>Si</b></TD>
+                <TD><b>No</b></TD>
+                <TD><b>Observaciones</b></TD>
             </TR>
             <TR>
-                <TD>Queda Encendido el Equipo</TD>
+                <TD><b>Queda Encendido el Equipo</b></TD>
                 <TD></TD>
                 <TD></TD>
                 <TD></TD>
             </TR>
 
             <TR>
-                <TD>Queda Conectada la Antena GPS</TD>
+                <TD><b>Queda Conectada la Antena GPS</b></TD>
                 <TD></TD>
                 <TD></TD>
                 <TD></TD>
             </TR>
             <TR>
-                <TD>Queda Conectada la Antena GSM</TD>
+                <TD><b>Queda Conectada la Antena GSM</b></TD>
                 <TD></TD>
                 <TD></TD>
                 <TD></TD>
             </TR>
             <TR>
-                <TD>Encendido Manual</TD>
+                <TD><b>Encendido Manual</b></TD>
                 <TD></TD>
                 <TD></TD>
                 <TD></TD>
             </TR>
             <TR>
-                <TD>Pánico</TD>
+                <TD><b>Pánico</b></TD>
                 <TD></TD>
                 <TD></TD>
                 <TD></TD>
             </TR>
             <TR>
-                <TD>Posicion del Vehiculo</TD>
+                <TD><b>Posicion del Vehiculo</b></TD>
                 <TD></TD>
                 <TD></TD>
                 <TD></TD>
             </TR>
             <TR>
-                <TD>Paro del Motor</TD>
+                <TD><b>Paro del Motor</b></TD>
                 <TD></TD>
                 <TD></TD>
                 <TD></TD>
@@ -204,41 +211,41 @@
             <TR>
                 <th WIDTH="300"><b>Observaciones</b></th>
                 <TH></TH>
-                <TH>Bueno</TH>
-                <TH>Regular</TH>
-                <TH>Malo</TH>
+                <TH><b>Bueno</b></TH>
+                <TH><b>Regular</b></TH>
+                <TH><b>Malo</b></TH>
             </TR>
             <TR>
                 <TD> </TD>
-                <TD>Puntualidad</TD>
+                <TD><b>Puntualidad</b></TD>
                 <td></td>
                 <TD></TD>
                 <TD></TD>
             </TR>
             <TR>
                 <TD> </TD>
-                <TD>Presentacion</TD>
+                <TD><b>Presentacion</b></TD>
                 <td></td>
                 <TD> </TD>
                 <TD> </TD>
             </TR>
             <TR>
                 <TD> </TD>
-                <TD>Atencion</TD>
+                <TD><b>Atencion</b></TD>
                 <td></td>
                 <TD></TD>
                 <TD> </TD>
             </TR>
             <TR>
                 <TD> </TD>
-                <TD>Lexico</TD>
+                <TD><b>Lexico</b></TD>
                 <td></td>
                 <TD></TD>
                 <TD> </TD>
             </TR>
             <TR>
                 <TD></TD>
-                <TD>Limpieza</TD>
+                <TD><b>Limpieza</b></TD>
                 <td></td>
                 <TD></TD>
                 <TD> </TD>
@@ -248,19 +255,19 @@
         <TABLE BORDER WIDTH="100%">
             <TR>
                 <TD>
-                    <br> ___________________ <br>
+                    ___________________ <br>
                     VoBo Vendedor
                 </TD>
                 <TD>
-                    <br>___________________ <br>
+                   ___________________ <br>
                     Firma del Instalador
                 </TD>
                 <TD>
-                    <br> ___________________ <br>
+                    ___________________ <br>
                     Gerente de Operaciones
                 </TD>
                 <TD>
-                    <br> ___________________ <br>
+                    ___________________ <br>
                     Firma de Cliente
                 </TD>
             </TR>

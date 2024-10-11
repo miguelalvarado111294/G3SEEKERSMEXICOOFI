@@ -288,6 +288,6 @@ class ClienteController extends Controller
         $cliente = Cliente::find($cliente_id);
 
         $pdf = PDF::loadView('funciones.ordendinstalacion', compact('cliente', 'horaactual','request'));
-        return $pdf->download('OrdenDeInstalacion.pdf');
+        return $pdf->stream('OrdenDeInstalacion.pdf');
     }
 }
