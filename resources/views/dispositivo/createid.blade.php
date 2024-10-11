@@ -68,9 +68,25 @@
 
 
 
-        <div class="form-group">
+  {{--      <div class="form-group">
             <label>sucursal:</label>
             <input type="text" class="form-control" name="sucursal"value=" {{ old('sucursal') }}">
+
+--}}
+            <div class="form-group">
+                <label>Sucursal:</label>
+
+                <select name="sucursal" class="form-control">
+                    <option value="Pachuca">Pachuca</option>
+                    <option value="Oficinas_Centrales">Oficinas Centrales</option>
+                    <option value="Ahuzastepec">huzastepec</option>
+       
+                </select>
+
+
+
+
+
             @error('sucursal')
                 <small style ="color: red"> {{ $message }}</small>
             @enderror

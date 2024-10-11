@@ -23,7 +23,7 @@ class CuentaController extends Controller
     }
     public function createnuevocta(Request $request, $id)
     {
-        $cliente_id=$id;
+        $cliente_id = $id;
         $request->validate([
             'usuario' => 'required|alpha_dash|min:3|max:15|unique:cuentas,usuario,' . $id,
             'contrasenia' => 'required|alpha_dash|min:2|max:15',
@@ -38,6 +38,8 @@ class CuentaController extends Controller
 
         return redirect()->route('buscar.cuenta', $id);
     }
+
+
     public function stocta(Request $request, $id)
     {
         $request->validate([
@@ -51,9 +53,11 @@ class CuentaController extends Controller
         $datosCliente['cliente_id'] = $id;
         $mArray = array_map('strtoupper', $datosCliente);
         Cuenta::insert($mArray);
-
+return "ok";
         return redirect()->route('buscar.cuenta', $id);
     }
+
+
     public function store(Request $request, $id)
     {
         $campos = [

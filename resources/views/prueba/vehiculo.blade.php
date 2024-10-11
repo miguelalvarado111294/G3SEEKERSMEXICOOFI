@@ -34,7 +34,7 @@
     @can('vehiculo.create')
         <a href="{{ route('vehiculof.crear', $id) }}" class="btn btn-success">Registrar nuevo vehiculo</a>
     @endcan
-
+<br>
     <br>
     <div class="card">
         <div class="card-body">

@@ -320,7 +320,7 @@ return [
         ],        ['header' => 'Cliente nuevo'],
 
         [
-            'text' => 'Formulario Cliente nuevo',
+            'text' => 'Registro de Cliente nuevo',
             'route' => 'crear.nuevo',
             'icon' => 'fas fa-fw fa-user',
         ],

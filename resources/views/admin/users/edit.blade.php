@@ -20,7 +20,7 @@
                 <br>
                 @foreach ($roles as $role)
                     <input type="checkbox" name="roles[]" value="{{ $role->id }}" />
-                    <label>{{ $role->name }}</label>
+                    <label>{{ $role->name }}</label> <br>
                 @endforeach
                 <br>
                 <br>

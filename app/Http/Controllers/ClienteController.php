@@ -191,7 +191,7 @@ class ClienteController extends Controller
 
     public function createnuevo(Request $request) //form request para validacion
     {
-        return $request;
+        //return $request;
 
         $request->validate([
             'nombre' => 'required|alpha|min:2|max:100',

@@ -83,7 +83,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/ordeninstalacion',   [App\Http\Controllers\ClienteController::class, 'ordeninstalacion'])->name('ordeninstalacion');
     Route::post('/ordenins',   [App\Http\Controllers\ClienteController::class, 'ordenins'])->name('ordenins');
-
-
     Route::get('/orden/{vehiculoid}', [App\Http\Controllers\ClienteController::class, 'orden'])->name('crear.ordens');
+
+
 });

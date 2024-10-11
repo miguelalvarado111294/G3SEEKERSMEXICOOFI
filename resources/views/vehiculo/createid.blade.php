@@ -37,7 +37,7 @@
                     <input type="text" class="form-control" name="marca" value=" {{ old('marca') }} ">
                 </div>
                 @error('marca')
-                    ;
+                    
                     <small style ="color: red"> {{ $message }}</small>
                 @enderror
                 <br>
@@ -48,7 +48,7 @@
                     <input type="text" class="form-control" name="modelo" value=" {{ old('modelo') }} ">
                 </div>
                 @error('modelo')
-                    ;
+                    
                     <small style ="color: red"> {{ $message }}</small>
                 @enderror
                 <br>
@@ -59,7 +59,7 @@
                     <input type="text" class="form-control" name="noserie" value=" {{ old('noserie') }} ">
                 </div>
                 @error('noserie')
-                    ;
+                    
                     <small style ="color: red"> {{ $message }}</small>
                 @enderror
                 <br>
@@ -70,7 +70,7 @@
                     <input type="text" class="form-control" name="nomotor" value=" {{ old('nomotor') }} ">
                 </div>
                 @error('nomotor')
-                    ;
+                    
                     <small style ="color: red"> {{ $message }}</small>
                 @enderror
                 <br>
@@ -81,7 +81,7 @@
                     <input type="text" class="form-control" name="placa" value=" {{ old('placa') }} ">
                 </div>
                 @error('placa')
-                    ;
+                    
                     <small style ="color: red"> {{ $message }}</small>
                 @enderror
                 <br>
@@ -92,7 +92,7 @@
                     <input type="text" class="form-control" name="color" value=" {{ old('color') }} ">
                 </div>
                 @error('color')
-                    ;
+                    
                     <small style ="color: red"> {{ $message }}</small>
                 @enderror
                 <br>
