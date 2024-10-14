@@ -310,14 +310,15 @@ return [
             'type' => 'sidebar-menu-search',
             'text' => 'search',
         ],*/
-        
+
         ['header' => 'Panel de Administracion'],
         [
             'text' => 'Usuarios',
             'route' => 'admin.users.index',
             'icon' => 'fas fa-users',
             'can' => 'admin.index'
-        ],        ['header' => 'Cliente nuevo'],
+        ],
+        ['header' => 'Cliente nuevo'],
 
         [
             'text' => 'Registro de Cliente nuevo',
@@ -332,17 +333,6 @@ return [
             'icon' => 'fas fa-fw fa-user',
         ],
 
-        ['header' => 'Inventario'],
-        [
-            'text' => 'Dispositivos',
-            'route' => 'crear.orden',
-            'icon' => 'fas fa-fw fa-user',
-        ],
-        [
-            'text' => 'Lineas',
-            'route' => 'crear.orden',
-            'icon' => 'fas fa-fw fa-user',
-        ],
         /*
         
         [
@@ -390,6 +380,17 @@ return [
         ],
 
 
+        ['header' => 'Inventario'],
+        [
+            'text' => 'Dispositivos',
+            'route' => 'crear.orden',
+            'icon' => 'fas fa-fw fa-user',
+        ],
+        [
+            'text' => 'Lineas',
+            'route' => 'crear.orden',
+            'icon' => 'fas fa-fw fa-user',
+        ],
 
 
 

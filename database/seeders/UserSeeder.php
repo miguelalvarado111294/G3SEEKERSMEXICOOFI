@@ -18,6 +18,6 @@ class UserSeeder extends Seeder
             'name'=>'Administrador',
             'email' => 'administrador@gmail.com',
             'password'=> bcrypt('g3seeker5')
-        ]);
+        ])->assignRole('Admin');
     }
 }
