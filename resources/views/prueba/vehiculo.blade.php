@@ -43,6 +43,8 @@
                 <thead class="thead-light">
                     <tr>
                         <th>Id del vehiculo</th>
+                        <th>fecha de instalacion</th>
+
                         <th>Marca</th>
                         <th>Modelo</th>
                         <th>Color</th>
@@ -59,6 +61,8 @@
                     @foreach ($vehiculos as $vehiculo)
                         <tr>
                             <td>{{ $vehiculo->id }}</td>
+          {{--                 <td>{{ $vehiculo->Dispositivo->fechacompra }}</td>--}} 
+
                             <td>{{ $vehiculo->marca }} </td>
                             <td>{{ $vehiculo->modelo }}</td>
                             <td>{{ $vehiculo->color }} </td>
@@ -89,6 +93,7 @@
                     @endforeach
                 </tbody>
             </table>
+
 
         </div>
 

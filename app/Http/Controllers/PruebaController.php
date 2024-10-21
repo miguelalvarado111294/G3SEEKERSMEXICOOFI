@@ -55,6 +55,10 @@ class PruebaController extends Controller
         $cliente =      Cliente::find($cliente_id); //busca vehiculos ligados a id_cliete
         $cuenta =      Cuenta::select('usuario')->where('cliente_id', 'LIKE', $cliente_id)->get(); //busca vehiculos ligados a id_cliete
 
+
+
+
+        
         return view('prueba.vehiculo', compact('vehiculos', 'id', 'cliente_id', 'cliente', 'cuenta'));
         //se envia a view vehiculo id de cliente
     }

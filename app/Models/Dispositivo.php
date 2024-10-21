@@ -38,7 +38,7 @@ class dispositivo extends Model
 
     public function vehiculo()
     {
-        return $this->hasOne('App\Models\Vehiculo', 'vehiculo_id', 'id');
+        return $this->hasOne ('App\Models\Vehiculo', 'vehiculo_id', 'id');
     }
 
     public function sensors()

@@ -39,8 +39,9 @@
                         <th>id</th>
                         <th>Cuenta</th>
                         <th>Modelo</th>
-                        <th>Numero de Serie</th>
                         <th>Imei</th>
+                        <th>Fecha de Instalación</th>
+
                         <th>Comentarios</th>
                         <th>Acciones</th>
                         <th>Lineas y Sensores</th>
@@ -52,8 +53,9 @@
                         <td>{{ $value->id }} </td>
                         <td>{{ $value->cuenta }} </td>
                         <td>{{ $value->modelo }}</td>
-                        <td>{{ $value->noserie }}</td>
                         <td>{{ $value->imei }}</td>
+                        <td>{{ $value->fechacompra }}</td>
+
                         <td>{{ $value->comentarios }}</td>
                         <td>
                             @can('dispositivo.edit')
