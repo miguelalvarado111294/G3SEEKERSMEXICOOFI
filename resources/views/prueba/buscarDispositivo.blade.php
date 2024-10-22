@@ -26,9 +26,10 @@
         @endcan
     @endif
 
-    {{-- <a href="{{ route('crear.ordens', $vehiculoid) }}" class="btn btn-warning">Generar orden</a>--}}
-
-    <a href="{{ route('crear.cita', $vehiculo) }}" class="btn btn-warning">Generar orden</a>
+    {{-- <a href="{{ route('crear.ordens', $vehiculoid) }}" class="btn btn-warning">Generar orden</a> --}}
+    @can('crear.cita')
+        <a href="{{ route('crear.cita', $vehiculo) }}" class="btn btn-warning">Generar orden</a>
+    @endcan
 
 
     <br>

@@ -331,6 +331,7 @@ return [
             'text' => 'Generar Orden de Instalacion',
             'route' => 'ordeninstalacion',
             'icon' => 'fas fa-fw fa-user',
+            'can' => 'crear.orden'
         ],
 
         /*

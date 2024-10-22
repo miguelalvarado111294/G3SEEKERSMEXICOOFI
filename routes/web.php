@@ -80,7 +80,6 @@ Route::group(['middleware' => 'auth'], function () {
   //orden de servicio recibe datos del vehiculo
   Route::get('/orden/{vehiculoid}', [App\Http\Controllers\ClienteController::class, 'orden'])->name('crear.ordens');
 
-
   //orden de instalacion
   Route::get('/orden',      [App\Http\Controllers\ClienteController::class, 'orden'])->name('crear.orden'); //admin envia a form
   Route::get('/ordeninstalacion',   [App\Http\Controllers\ClienteController::class, 'ordeninstalacion'])->name('ordeninstalacion'); //envia la informacion al store 
