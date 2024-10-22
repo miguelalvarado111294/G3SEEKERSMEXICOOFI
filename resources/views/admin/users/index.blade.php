@@ -9,6 +9,10 @@
 @section('content')
     <p class="text-center">lista de usuarios </b></p>
 
+    <a href="{{ route('usuarios.create') }}" class="btn btn-success">Alta de Nuevo Usuario</a>
+<br>
+<br>
+
 
     <div class="card">
         <div class="card-body">

@@ -69,7 +69,8 @@ class UserController extends Controller
 
     {
         $user = User::destroy($user->id);
-        return "eliminado";
+        $users=User::all();
+        return view('admin.users.index',compact('users'));
         //
     }
 }
