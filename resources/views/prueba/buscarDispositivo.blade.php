@@ -1,8 +1,8 @@
 @extends('adminlte::page')
 @section('title', 'G3SEEKERSMX')
 @section('content_header')
-<h1 class="text-center"><b>G3 Seekers México</b></h1>
-<br>
+    <h1 class="text-center"><b>G3 Seekers México</b></h1>
+    <br>
     <h1 class="text-center">Cliente :
         {{ $cliente->nombre }} {{ $cliente->segnombre }} {{ $cliente->apellidopat }} {{ $cliente->apellidomat }}
     </h1>
@@ -26,7 +26,9 @@
         @endcan
     @endif
 
-    <a href="{{ route('crear.ordens', $vehiculoid) }}" class="btn btn-warning">Generar orden</a>
+    {{-- <a href="{{ route('crear.ordens', $vehiculoid) }}" class="btn btn-warning">Generar orden</a>--}}
+
+    <a href="{{ route('crear.cita', $vehiculo) }}" class="btn btn-warning">Generar orden</a>
 
 
     <br>
@@ -65,8 +67,10 @@
                                 <form action="{{ url('/dispositivo/' . $value->id) }}" method="post" class="d-inline">
                                     @csrf
                                     {{ method_field('DELETE') }}
+
                                     <input class="btn btn-danger" type="submit"
                                         onclick=" return confirm('Estas Seguro de Eliminar?')" value="Borrar">
+
                                 </form>
                             @endcan
                         </td>

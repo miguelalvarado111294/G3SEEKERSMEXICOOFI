@@ -18,42 +18,52 @@
                 </button>
             </div>
         @endif
-        
+
         <form class="d-flex" role="search">
             <input name="busqueda" class="form-control sm me-2 " type="search" value="{{ $busqueda }}"
                 placeholder="Buscar por Nombre / Apellido / Telefono / Email /  RFC" aria-label="Search">
             <button class="btn btn-outline-success" type="submit">Buscar </button>
         </form>
         <br>
+    @section('css')
+        <link rel="stylesheet" href="{{ asst('vendor/jquery-ui/jquery-ui.min.js') }}">
 
-        @can('cliente.create')
-            <div style="text-align:center; margin:auto; width: 100%;">
-                <a href="{{ url('cliente/create') }}" class="btn btn-success">Alta de Nuevo Usuario</a>
-            @endcan
-            <br>
-            <br>
-            <div class="card">
-                <div class="card-body" style="text-align:center; margin:auto">
-                    @if (count($clientes) <= 0)
-                        <tr>
-                            <td colspan="8"> No hay resultados de . {{ $busqueda }} </td>
-                        </tr>
-                    @else
-                        <ul>
-                            @foreach ($clientes as $cliente)
-                                <a href=" {{ route('cliente.show', $cliente->id) }}" class="btn btn-default"
-                                    style="text-align: center; display: inline-block; width: 100%;">
-                                    {{ $cliente->nombre }} {{ $cliente->segnombre }} {{ $cliente->apellidopat }}
-                                    {{ $cliente->apellidomat }}
-                                </a>
-                            @endforeach
-                        </ul>
-                    @endif
-                </div>
-            </div>
-            <br>
- 
-            {!! $clientes->appends(['busqueda' => $busqueda]) !!}
-
-        </div>
     @endsection
+
+    @can('cliente.create')
+        <div style="text-align:center; margin:auto; width: 100%;">
+            <a href="{{ url('cliente/create') }}" class="btn btn-success">Alta de Nuevo Usuario</a>
+        @endcan
+        <br>
+        <br>
+        <div class="card">
+            <div class="card-body" style="text-align:center; margin:auto">
+                @if (count($clientes) <= 0)
+                    <tr>
+                        <td colspan="8"> No hay resultados de . {{ $busqueda }} </td>
+                    </tr>
+                @else
+                    <ul>
+                        @foreach ($clientes as $cliente)
+                            <a href=" {{ route('cliente.show', $cliente->id) }}" class="btn btn-default"
+                                style="text-align: center; display: inline-block; width: 100%;">
+                                {{ $cliente->nombre }} {{ $cliente->segnombre }} {{ $cliente->apellidopat }}
+                                {{ $cliente->apellidomat }}
+                            </a>
+                        @endforeach
+                    </ul>
+                @endif
+            </div>
+        </div>
+        <br>
+
+        {!! $clientes->appends(['busqueda' => $busqueda]) !!}
+
+    </div>
+@endsection
+
+@section('js')
+    <script src="{{ asset('vendor/jquery-ui/jquery-ui.min.js') }}"></script>
+    <script src="{{ asset('assets/jquery.js') }}"></script>
+
+@endsection

@@ -8,6 +8,8 @@ use App\Models\Vehiculo;
 use App\Models\Dispositivo;
 use App\Models\Linea;
 
+use App\Http\Controllers\fechaservicio;
+
 use App\Http\Requests\storecliente;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -40,38 +42,7 @@ class ClienteController extends Controller
     }
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public function store(storecliente $request) //form request para validacion
-    {
-        $datosCliente = $request->except('_token');
-        //mayusculas
-        $datosCliente['nombre'] = strtoupper($request->nombre);
-        $datosCliente['segnombre']  = strtoupper($request->segnombre);
-        $datosCliente['apellidopat'] = strtoupper($request->apellidopat);
-        $datosCliente['apellidomat'] = strtoupper($request->apellidomat);
-        $datosCliente['direccion'] = strtoupper($request->direccion);
-        $datosCliente['email'] = strtoupper($request->email);
-        $datosCliente['rfc'] = strtoupper($request->rfc);
-        //insertar FILES al store
-        if ($request->hasFile('actaconstitutiva')) {
-            $datosCliente['actaconstitutiva'] = $request->file('actaconstitutiva')->store('public');
-        }
-        if ($request->hasFile('consFiscal')) {
-            $datosCliente['consFiscal'] = $request->file('consFiscal')->store('public');
-        }
-        if ($request->hasFile('comprDom')) {
-            $datosCliente['comprDom'] = $request->file('comprDom')->store('public');
-        }
-        if ($request->hasFile('tarjetacirculacion')) {
-            $datosCliente['tarjetacirculacion'] = $request->file('tarjetacirculacion')->store('public');
-        }
-        if ($request->hasFile('compPago')) {
-            $datosCliente['compPago'] = $request->file('compPago')->store('public');
-        }
-
-        Cliente::insert($datosCliente);
-
-        return redirect()->route(route: 'cliente.index');
-    }
+    
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public function show($id) //recive id de cliente
     {
@@ -181,14 +152,14 @@ class ClienteController extends Controller
         return redirect('cliente')->with('mensaje', 'Cliente eliminado exitosamente ');
     }
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+//cliente se registre aqui
     public function crearcliente()
     {
         //peticion desde el boton del index
         return view('registroCliente.datoscliente');
     }
 
-
+//cliente se registre aqui por si mismo
     public function createnuevo(Request $request) //form request para validacion
     {
         //return $request;
@@ -250,8 +221,13 @@ class ClienteController extends Controller
         return redirect()->route(('crear.nuevo.ref'), $cliente_id);
     }
 
-    public function orden($vehiculo_id)
+
+//orden de servicio
+    public function orden($vehiculo_id,Request $request)
     {
+        $fechacita=$request->fechacita;
+        
+
         $horaactual = Carbon::now()->toDateString();
         $vehiculo = Vehiculo::find($vehiculo_id);
 
@@ -266,18 +242,34 @@ class ClienteController extends Controller
         $linea_id = $linea->id;
         $linea = Linea::find($linea_id);
 
-        $pdf = PDF::loadView('funciones.orden', compact('vehiculo', 'cliente', 'dispositivo', 'linea', 'horaactual'));
+        $pdf = PDF::loadView('funciones.orden', compact('vehiculo', 'cliente', 'dispositivo', 'linea', 'horaactual','fechacita'));
         return $pdf->download('OrdenDeServicio.pdf');
     }
 
 
+
+    public function crearcita(Vehiculo $vehiculo)
+    {
+
+        $vehiculo_id = $vehiculo->id;
+
+
+        return view('funciones.horadecita', compact('vehiculo', 'vehiculo_id'));
+    }
+
+    
+    public function fechaservicio(Request $request)
+    {
+
+        return $request;   
+    }
+
+//orden de instalacion
     public function ordeninstalacion()
     {
         $clientes = Cliente::all();
         return view('funciones.ordendeinstalacion', compact('clientes'));
     }
-
-
 
     public function ordenins(Request $request)
     {
@@ -287,7 +279,43 @@ class ClienteController extends Controller
         $cliente_id = $request->get('cliente');
         $cliente = Cliente::find($cliente_id);
 
-        $pdf = PDF::loadView('funciones.ordendinstalacion', compact('cliente', 'horaactual','request'));
+        $pdf = PDF::loadView('funciones.ordendinstalacion', compact('cliente', 'horaactual', 'request'));
         return $pdf->stream('OrdenDeInstalacion.pdf');
+    }
+
+
+
+
+    public function store(storecliente $request) //form request para validacion
+    {
+        $datosCliente = $request->except('_token');
+        //mayusculas
+        $datosCliente['nombre'] = strtoupper($request->nombre);
+        $datosCliente['segnombre']  = strtoupper($request->segnombre);
+        $datosCliente['apellidopat'] = strtoupper($request->apellidopat);
+        $datosCliente['apellidomat'] = strtoupper($request->apellidomat);
+        $datosCliente['direccion'] = strtoupper($request->direccion);
+        $datosCliente['email'] = strtoupper($request->email);
+        $datosCliente['rfc'] = strtoupper($request->rfc);
+        //insertar FILES al store
+        if ($request->hasFile('actaconstitutiva')) {
+            $datosCliente['actaconstitutiva'] = $request->file('actaconstitutiva')->store('public');
+        }
+        if ($request->hasFile('consFiscal')) {
+            $datosCliente['consFiscal'] = $request->file('consFiscal')->store('public');
+        }
+        if ($request->hasFile('comprDom')) {
+            $datosCliente['comprDom'] = $request->file('comprDom')->store('public');
+        }
+        if ($request->hasFile('tarjetacirculacion')) {
+            $datosCliente['tarjetacirculacion'] = $request->file('tarjetacirculacion')->store('public');
+        }
+        if ($request->hasFile('compPago')) {
+            $datosCliente['compPago'] = $request->file('compPago')->store('public');
+        }
+
+        Cliente::insert($datosCliente);
+
+        return redirect()->route(route: 'cliente.index');
     }
 }

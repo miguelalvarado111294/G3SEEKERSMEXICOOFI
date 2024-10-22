@@ -354,7 +354,7 @@ return [
             'icon' => 'fas fa-fw fa-user',
         ],
         [
-            'text' => 'Cuentas',
+            'text' => 'Usuarios y Contraseñas',
             'route' => 'cuenta.index',
             'icon' => 'fas fa-fw fa-user',
         ],

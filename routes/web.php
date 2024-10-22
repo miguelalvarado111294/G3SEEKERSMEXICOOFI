@@ -75,15 +75,17 @@ Route::group(['middleware' => 'auth'], function () {
 
 
 
+    Route::get('/crearcita/{vehiculo} ',   [App\Http\Controllers\ClienteController::class, 'crearcita'])->name('crear.cita');
+    Route::post('/fechaservicio',   [App\Http\Controllers\ClienteController::class, 'fechaservicio'])->name('fechaservicio');
 
 
-    //para generar el pdf
-    Route::get('/generate',   [App\Http\Controllers\ClienteController::class, 'generarconsulta'])->name('generarconsulta');
+
+  //orden de instalacion
     Route::get('/orden',      [App\Http\Controllers\ClienteController::class, 'orden'])->name('crear.orden');
-
+    
     Route::get('/ordeninstalacion',   [App\Http\Controllers\ClienteController::class, 'ordeninstalacion'])->name('ordeninstalacion');
     Route::post('/ordenins',   [App\Http\Controllers\ClienteController::class, 'ordenins'])->name('ordenins');
+
+    //orden de servicio recibe datos del vehiculo
     Route::get('/orden/{vehiculoid}', [App\Http\Controllers\ClienteController::class, 'orden'])->name('crear.ordens');
-
-
 });

@@ -15,9 +15,9 @@
     <TABLE BORDER WIDTH="100%">
         <TR>
             <TD WIDTH="140">
-                Orden de Servicio
+                <b> Orden de Servicio</b>
             </TD>
-            <TD> <b> Fecha de la solicitud : </b>{{ $horaactual }}</TD>
+            <TD> <b> Fecha del Servicio : </b> {{$fechacita}}   </TD>
             <TD><b>Folio : </b> ######</TD>
             <td>G3 SEEKERS Mx </td>
         </TR>
