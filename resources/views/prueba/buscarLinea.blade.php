@@ -3,8 +3,8 @@
 @section('title', 'G3SEEKERSMX')
 
 @section('content_header')
-<h1 class="text-center"><b>G3 Seekers México</b></h1>
-<br>
+    <h1 class="text-center"><b>G3 Seekers México</b></h1>
+    <br>
     <h1 class="text-center">Cliente : {{ $cliente->nombre }} {{ $cliente->segnombre }} {{ $cliente->apellidopat }}
         {{ $cliente->apellidomat }} </h1>
     <br>
@@ -22,10 +22,9 @@
     <br>
 
     @if ($numerodelineas <= 0)
-     
-    @can('linea.create')
-    <a href="{{ route('lineaf.crear', $dispositivoid) }}" class="btn btn-success">Registrar Nueva Linea</a>
-@endcan
+        @can('linea.create')
+            <a href="{{ route('lineaf.crear', $dispositivoid) }}" class="btn btn-success">Registrar Nueva Linea</a>
+        @endcan
     @endif
 
 
@@ -42,7 +41,9 @@
                         <th>TipoLínea</th>
                         <th>Fecha contratacion</th>
                         <th>Comentarios</th>
-                        <th>Acciones</th>
+                        @can('linea.edit')
+                            <th>Acciones</th>
+                        @endcan
                     </tr>
                 </thead>
                 @foreach ($lineas as $linea)
@@ -75,6 +76,6 @@
         </div>
     </div>
     <br>
-    <a href=" {{ route('buscar.dispositivo', $vehiculoid) }}" class="btn btn-primary">Regresar</a>
+    <a href=" {{ route('buscar.dispositivo', $vehiculoid) }}" class="btn btn-dark">Regresar</a>
     </div>
 @endsection

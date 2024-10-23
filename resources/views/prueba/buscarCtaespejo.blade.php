@@ -50,12 +50,12 @@
                                     <a href="{{ url('/ctaespejo/' . $ctaespejo->id . '/edit') }}"
                                         class="btn btn-warning">Editar</a>
                                 @endcan
+
                                 @can('ctaespejo.destroy')
                                     <form action="{{ url('/ctaespejo/' . $ctaespejo->id) }}" method="post" class="d-inline">
                                         @csrf
                                         {{ method_field('DELETE') }}
-                                        <input class="btn btn-danger" type="submit"
-                                            onclick=" return confirm('seguro quieres eliminar?')" value="Borrar">
+                                        <input class="btn btn-danger" type="submit" onclick="return confirm('seguro quieres eliminar?')" value="Borrar">
                                     </form>
                                 @endcan
                             </td>
@@ -66,6 +66,6 @@
         </div>
 
     </div>
-
+        <a href=" {{ route('buscar.cuenta', $cliente_id) }}" class="btn btn-dark">Regresar</a>
 
 @endsection

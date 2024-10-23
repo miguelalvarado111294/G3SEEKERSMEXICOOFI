@@ -73,7 +73,10 @@
                         <th>Parentesco</th>
                         <th>Telefono</th>
                         <th>Comentarios</th>
-                        <th>Acciones</th>
+                        @can('referencia.edit')
+                            <th>Acciones</th>
+                        @endcan
+
                     </tr>
                 </thead>
 

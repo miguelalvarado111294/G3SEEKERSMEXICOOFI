@@ -3,8 +3,8 @@
 @section('title', 'G3SEEKERSMX')
 
 @section('content_header')
-<h1 class="text-center"><b>G3 Seekers México</b></h1>
-<br>
+    <h1 class="text-center"><b>G3 Seekers México</b></h1>
+    <br>
     <h3 class="text-center">Cuenta de Socio : {{ $cliente->nombre }} {{ $cliente->segnombre }} {{ $cliente->apellidopat }}
         {{ $cliente->apellidomat }} </h3>
     <br>
@@ -37,8 +37,11 @@
                         <th>Contraseña</th>
                         <th>Contraseña de motor</th>
                         <th>Comentarios</th>
-                        <th>Acciones</th>
                         <th>Vehiculos / Cuentas Espejo</th>
+                        @can('cuenta.edit')
+                            <th>Acciones</th>
+                        @endcan
+
                     </tr>
                 </thead>
                 <tbody>
@@ -49,6 +52,12 @@
                             <td>{{ $value->contrasenia }}</td>
                             <td>{{ $value->contraseniaParo }}</td>
                             <td>{{ $value->comentarios }}</td>
+                            <td>
+                                <a href="{{ route('buscar.ctaespejo', $value->id) }}" class="btn btn-primary">Cuenta
+                                    Espejo</a>
+                                <a href="{{ route('buscar.vehiculo', $cliente_id) }}"
+                                    class="btn btn-primary ; float-right">Vehiculos</a>
+                            </td>
                             <td>
                                 @can('cuenta.edit')
                                     <a href="{{ url('/cuenta/' . $value->id . '/edit') }}" class="btn btn-warning">Editar</a>
@@ -62,12 +71,7 @@
                                     </form>
                                 @endcan
                             </td>
-                            <td>
-                                <a href="{{ route('buscar.ctaespejo', $value->id) }}" class="btn btn-primary">Cuenta
-                                    Espejo</a>
-                                <a href="{{ route('buscar.vehiculo', $cliente_id) }}"
-                                    class="btn btn-primary ; float-right">Vehiculos</a>
-                            </td>
+
                         </tr>
                     @endforeach
                 </tbody>
@@ -76,5 +80,7 @@
     </div>
     <br>
     <br>
+    <a href=" {{ route('cliente.show', $cliente_id) }}" class="btn btn-dark">Regresar</a>
+
 @endsection
 </div>

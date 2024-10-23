@@ -44,10 +44,11 @@
                         <th>Modelo</th>
                         <th>Imei</th>
                         <th>Fecha de Instalación</th>
-
                         <th>Comentarios</th>
-                        <th>Acciones</th>
                         <th>Lineas y Sensores</th>
+                        @can('dispositivo.edit')
+                            <th>Acciones</th>
+                        @endcan
                     </tr>
                 </thead>
 
@@ -58,8 +59,11 @@
                         <td>{{ $value->modelo }}</td>
                         <td>{{ $value->imei }}</td>
                         <td>{{ $value->fechacompra }}</td>
-
                         <td>{{ $value->comentarios }}</td>
+                        <td>
+                            <a href="{{ route('buscar.linea', $value->id) }}" class="btn btn-primary">Linea</a>
+                            <a href="{{ route('buscar.sensor', $value->id) }}" class="btn btn-primary">Sensor</a>
+                        </td>
                         <td>
                             @can('dispositivo.edit')
                                 <a href="{{ url('/dispositivo/' . $value->id . '/edit') }}" class="btn btn-warning">Editar</a>
@@ -75,10 +79,7 @@
                                 </form>
                             @endcan
                         </td>
-                        <td>
-                            <a href="{{ route('buscar.linea', $value->id) }}" class="btn btn-primary">Linea</a>
-                            <a href="{{ route('buscar.sensor', $value->id) }}" class="btn btn-primary">Sensor</a>
-                        </td>
+
                         </tr>
                     @endforeach
                 </tbody>

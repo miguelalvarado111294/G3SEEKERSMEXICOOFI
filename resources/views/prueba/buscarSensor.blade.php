@@ -85,6 +85,7 @@
             </table>
         </div>
     </div>
+    <a href=" {{ route('buscar.dispositivo', $vehiculo->id) }}" class="btn btn-dark">Regresar</a>
 
 
 

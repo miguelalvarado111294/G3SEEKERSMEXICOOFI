@@ -42,8 +42,10 @@ class PruebaController extends Controller
 
     public function buscarCtaespejo($id)
     {
+        $cuenta=Cuenta::find($id);
+        $cliente_id=$cuenta->cliente_id;
         $ctaespejos = Ctaespejo::where('cuenta_id', 'LIKE', $id)->get();
-        return view('prueba.buscarctaespejo', compact('ctaespejos', 'id'));
+        return view('prueba.buscarctaespejo', compact('ctaespejos', 'id','cliente_id'));
     }
 
     public function buscarVehiculo($id)
@@ -54,11 +56,6 @@ class PruebaController extends Controller
         $vehiculos =    Vehiculo::where('cliente_id', 'LIKE', $cliente_id)->paginate(10); //busca vehiculos ligados a id_cliete
         $cliente =      Cliente::find($cliente_id); //busca vehiculos ligados a id_cliete
         $cuenta =      Cuenta::select('usuario')->where('cliente_id', 'LIKE', $cliente_id)->get(); //busca vehiculos ligados a id_cliete
-
-
-
-
-        
         return view('prueba.vehiculo', compact('vehiculos', 'id', 'cliente_id', 'cliente', 'cuenta'));
         //se envia a view vehiculo id de cliente
     }
