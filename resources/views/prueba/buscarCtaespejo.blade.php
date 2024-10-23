@@ -19,8 +19,11 @@
     @endif
 
     <br>
-    <a href="{{ route('ctaesoejof.crear', $id) }}" class="btn btn-success">Registrar nueva cuenta espejo</a>
-    <br><br>
+    @can('ctaespejo.create')
+        <a href="{{ route('ctaesoejof.crear', $id) }}" class="btn btn-success">Registrar nueva cuenta espejo</a>
+    @endcan
+    <br>
+    <br>
 
     <div class="card">
         <div class="card-body">
@@ -43,15 +46,18 @@
                             <td>{{ $ctaespejo->contrasenia }}</td>
                             <td>{{ $ctaespejo->comentarios }}</td>
                             <td>
-                                <a href="{{ url('/ctaespejo/' . $ctaespejo->id . '/edit') }}"
-                                    class="btn btn-warning">Editar</a>
-
-                                <form action="{{ url('/ctaespejo/' . $ctaespejo->id) }}" method="post" class="d-inline">
-                                    @csrf
-                                    {{ method_field('DELETE') }}
-                                    <input class="btn btn-danger" type="submit"
-                                        onclick=" return confirm('seguro quieres eliminar?')" value="Borrar">
-                                </form>
+                                @can('ctaespejo.edit')
+                                    <a href="{{ url('/ctaespejo/' . $ctaespejo->id . '/edit') }}"
+                                        class="btn btn-warning">Editar</a>
+                                @endcan
+                                @can('ctaespejo.destroy')
+                                    <form action="{{ url('/ctaespejo/' . $ctaespejo->id) }}" method="post" class="d-inline">
+                                        @csrf
+                                        {{ method_field('DELETE') }}
+                                        <input class="btn btn-danger" type="submit"
+                                            onclick=" return confirm('seguro quieres eliminar?')" value="Borrar">
+                                    </form>
+                                @endcan
                             </td>
                         </tr>
                 @endforeach

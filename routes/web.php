@@ -75,7 +75,7 @@ Route::group(['middleware' => 'auth'], function () {
   Route::post('/createc/{id}',   [App\Http\Controllers\CuentaController::class, 'createnuevocta'])->name('create.nuevo.cta');
 
 
-//click hacia seleccionar fecha de servicio
+  //click hacia seleccionar fecha de servicio
   Route::get('/crearcita/{vehiculo} ',   [App\Http\Controllers\ClienteController::class, 'crearcita'])->name('crear.cita');
   //orden de servicio recibe datos del vehiculo
   Route::get('/orden/{vehiculoid}', [App\Http\Controllers\ClienteController::class, 'orden'])->name('crear.ordens');
@@ -85,7 +85,7 @@ Route::group(['middleware' => 'auth'], function () {
   Route::get('/ordeninstalacion',   [App\Http\Controllers\ClienteController::class, 'ordeninstalacion'])->name('ordeninstalacion'); //envia la informacion al store 
   Route::post('/ordenins',   [App\Http\Controllers\ClienteController::class, 'ordenins'])->name('ordenins'); //generar el pdf con la informacion 
 
-//crear usuarios desde user
+  //crear usuarios desde user
   Route::get('/usuarios/create', [UsuarioController::class, 'create'])->name('usuarios.create');
   Route::post('/usuarios', [UsuarioController::class, 'store'])->name('usuarios.store');
 });

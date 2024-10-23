@@ -25,12 +25,9 @@
             <button class="btn btn-outline-success" type="submit">Buscar </button>
         </form>
         <br>
-    @section('css')
-        <link rel="stylesheet" href="{{ asst('vendor/jquery-ui/jquery-ui.min.js') }}">
 
-    @endsection
 
-    @can('cliente.create')
+        @can('cliente.create')
         <div style="text-align:center; margin:auto; width: 100%;">
             <a href="{{ url('cliente/create') }}" class="btn btn-success">Alta de Nuevo Usuario</a>
         @endcan

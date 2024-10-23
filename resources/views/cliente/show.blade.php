@@ -57,7 +57,9 @@
 
             <h3 class="text-center">Referencias</h3>
             <br>
-            <a href="{{ route('referenciaf.crear', $cliente->id) }}" class="btn btn-success">Registrar Nueva Referencia</a>
+            @can('referencia.create')
+                <a href="{{ route('referenciaf.crear', $cliente->id) }}" class="btn btn-success">Registrar Nueva Referencia</a>
+            @endcan
             <br>
             <br>
 
@@ -87,15 +89,19 @@
                             <td> {{ $referencia->comentarios }} </td>
                             <td>
 
-                                <a href="{{ url('/referencia/' . $referencia->id . '/edit') }}"
-                                    class="btn btn-warning">Editar</a>
-                                -
-                                <form action="{{ url('/referencia/' . $referencia->id) }}" method="post" class="d-inline">
-                                    @csrf
-                                    {{ method_field('DELETE') }}
-                                    <input class="btn btn-danger" type="submit"
-                                        onclick=" return confirm('seguro quieres eliminar?')" value="Borrar">
-                                </form>
+                                @can('referencia.edit')
+                                    <a href="{{ url('/referencia/' . $referencia->id . '/edit') }}"
+                                        class="btn btn-warning">Editar</a>
+                                @endcan
+
+                                @can('referencia.destroy')
+                                    <form action="{{ url('/referencia/' . $referencia->id) }}" method="post" class="d-inline">
+                                        @csrf
+                                        {{ method_field('DELETE') }}
+                                        <input class="btn btn-danger" type="submit"
+                                            onclick=" return confirm('seguro quieres eliminar?')" value="Borrar">
+                                    </form>
+                                @endcan
                             </td>
                     @endforeach
                 </tbody>
