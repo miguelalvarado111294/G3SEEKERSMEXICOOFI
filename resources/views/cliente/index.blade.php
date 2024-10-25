@@ -30,24 +30,27 @@
             <button class="btn btn-outline-primary" type="submit">Buscar </button>
         </form>
         <br>
---}}
+        --}}
         @can('cliente.create')
             <div style="text-align:center; margin:auto; width: 100%;">
                 <a href="{{ url('cliente/create') }}" class="btn btn-success">Alta de Nuevo Usuario</a>
             </div>
         @endcan
-        
+
         <br>
         <div class="card">
+            <div class="card-head">
+            </div>
             <div class="card-body">
-                    <div class="row">
-                        <input type="text" name="search" id="search" placeholder="Enter search name" class="form-control"
-                            onfocus="this.value=''">
-                            <div id="search_list"></div>
-                    </div>
+                <div class="row">
+                    <input type="text" name="search" id="search"
+                        placeholder="Para Buscar un Cliente , Ingrese Nombre / Apellido / Telefono / Email / RFC"
+                        class="form-control" onfocus="this.value=''">
+                    <div id="search_list"></div>
+                </div>
             </div>
         </div>
-    
+
         <br>
         <div class="card">
             <div class="card-body" style="text-align:center; margin:auto">
@@ -56,6 +59,7 @@
                         <td colspan="8"> No hay resultados de . {{ $busqueda }} </td>
                     </tr>
                 @else
+
                     <ul>
                         @foreach ($clientes as $cliente)
                             <a href=" {{ route('cliente.show', $cliente->id) }}" class="btn btn-default"
@@ -65,18 +69,13 @@
                             </a>
                         @endforeach
                     </ul>
+                    
                 @endif
             </div>
         </div>
-        <br>
-
     </div>
     <br>
-
-
-        {!! $clientes->appends(['busqueda' => $busqueda]) !!}
-
-  
+    {!! $clientes->appends(['busqueda' => $busqueda]) !!}
 @endsection
 
 
@@ -91,24 +90,24 @@
                 var query = $(this).val();
 
                 if (query.length === 0) {
-            // Limpiar la lista si el input está vacío
-            $('#search_list').html('');
-        } else {
+                    // Limpiar la lista si el input está vacío
+                    $('#search_list').html('');
+                } else {
 
                     $.ajax({
-                    url: "search",
-                    type: "GET",
-                    data: {
-                        'search': query
-                    },
-                    success: function(data) {
-                        $('#search_list').html(data);
-                    }
-                });
-                
+                        url: "search",
+                        type: "GET",
+                        data: {
+                            'search': query
+                        },
+                        success: function(data) {
+                            $('#search_list').html(data);
+                        }
+                    });
 
-            }
-               
+
+                }
+
                 //end of ajax call
             });
         });

@@ -10,7 +10,7 @@
 
         <div class="card-body">
             <h3 class="text-center">Datos Personales</h3>
-
+            <hr>
             <ul>
                 <b>Nombre :</b> {{ $cliente->nombre }} <br>
                 <b>Segundo Nombre :</b> {{ $cliente->segnombre }}<br>
@@ -21,48 +21,40 @@
                 <b> Email : </b>{{ $cliente->email }} <br>
                 <b> RFC : </b>{{ $cliente->rfc }} <br>
                 <b> Comentarios</b> {{ $cliente->comentarios }} <br>
-                <br>
-                <br>
-
-                <a href="{{ route('buscar.buscararchivos', $cliente->id) }}" class="btn btn-primary"
-                    style="text-align: center; display: inline-block; width: 17%; ">Documentos electronicos</a>
-                <a href="{{ route('buscar.cuenta', $cliente->id) }} "
-                    style="text-align: center; display: inline-block; width: 17%;" class="btn btn-primary">Cuenta</a>
             </ul>
+            <hr>
+            <a href="{{ route('buscar.buscararchivos', $cliente->id) }}" class="btn btn-primary"
+                style="text-align: center; display: inline-block; width: 17%; ">Documentos electronicos</a>
+            <a href="{{ route('buscar.cuenta', $cliente->id) }} "
+                style="text-align: center; display: inline-block; width: 17%;" class="btn btn-primary">Cuenta</a>
+            <br><br>
+            @can('cliente.edit')
+                <a href="{{ url('/cliente/' . $cliente->id . '/edit') }}"
+                    style="text-align: center; display: inline-block; width: 17%; " class="btn btn-warning">Editar</a>
+            @endcan
+
+            @can('cliente.destroy')
+                <form action="{{ url('/cliente/' . $cliente->id) }}" method="post" class="d-inline">
+                    @csrf
+                    {{ method_field('DELETE') }}
+                    <input class="btn btn-danger" style="text-align: center; display: inline-block; width: 17%; " type="submit"
+                        onclick=" return confirm('seguro quieres eliminar?')" value="Borrar">
+                </form>
+            @endcan
         </div>
     </div>
-    <br>
 
-    @can('cliente.edit')
-        <a href="{{ url('/cliente/' . $cliente->id . '/edit') }}"
-            style="text-align: center; display: inline-block; width: 17%; " class="btn btn-warning">Editar</a>
-    @endcan
-
-    @can('cliente.destroy')
-        <form action="{{ url('/cliente/' . $cliente->id) }}" method="post" class="d-inline">
-            @csrf
-            {{ method_field('DELETE') }}
-            <input class="btn btn-danger" style="text-align: center; display: inline-block; width: 17%; " type="submit"
-                onclick=" return confirm('seguro quieres eliminar?')" value="Borrar">
-        </form>
-    @endcan
-    <br>
-
-
-    <br>
 
     <div class="card">
-
-        <div class="card-body">
-
+        <div class="card-head">
             <h3 class="text-center">Referencias</h3>
-            <br>
+        </div>
+        <div class="card-body">
+            
             @can('referencia.create')
                 <a href="{{ route('referenciaf.crear', $cliente->id) }}" class="btn btn-success">Registrar Nueva Referencia</a>
             @endcan
-            <br>
-            <br>
-
+            <hr>
             <table class="table table-light">
                 <thead class="thead-light">
                     <tr>
@@ -73,14 +65,16 @@
                         <th>Parentesco</th>
                         <th>Telefono</th>
                         <th>Comentarios</th>
+                        
                         @can('referencia.edit')
                             <th>Acciones</th>
                         @endcan
-
+                        
                     </tr>
                 </thead>
 
                 <tbody>
+                    
                     @foreach ($referencias as $referencia)
                         <tr>
                             <td>{{ $referencia->nombre }}</td>
@@ -91,7 +85,6 @@
                             <td>{{ $referencia->telefono }}</td>
                             <td> {{ $referencia->comentarios }} </td>
                             <td>
-
                                 @can('referencia.edit')
                                     <a href="{{ url('/referencia/' . $referencia->id . '/edit') }}"
                                         class="btn btn-warning">Editar</a>
