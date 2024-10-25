@@ -89,7 +89,13 @@
         $(document).ready(function() {
             $('#search').on('keyup', function() {
                 var query = $(this).val();
-                $.ajax({
+
+                if (query.length === 0) {
+            // Limpiar la lista si el input está vacío
+            $('#search_list').html('');
+        } else {
+
+                    $.ajax({
                     url: "search",
                     type: "GET",
                     data: {
@@ -99,6 +105,10 @@
                         $('#search_list').html(data);
                     }
                 });
+                
+
+            }
+               
                 //end of ajax call
             });
         });

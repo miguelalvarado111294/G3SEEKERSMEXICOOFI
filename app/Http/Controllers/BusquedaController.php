@@ -20,7 +20,6 @@ class BusquedaController extends Controller
     public function search(Request $request)
     {
 
-
         if ($request->ajax()) {
 
             $data = Cliente::where('id', 'like', '%' . $request->search . '%')
@@ -38,7 +37,6 @@ class BusquedaController extends Controller
                     <table class="table">
                     <thead>
                     <tr>
-                        <th scope="col">ID</th>
                         <th scope="col">Nombre</th>
                         <th scope="col">Segundo nombre</th>
                         <th scope="col">Apellidopat</th>
@@ -52,7 +50,6 @@ class BusquedaController extends Controller
                     $output .= '
                             <tr>
                            
-                            <th scope="row">' . '<a href="' . route('cliente.show', $row->id) . '">' .  $row->id . ' </a> ' . '</th> 
                             <td>' .  '<a href="' . route('cliente.show', $row->id) . '">' . $row->nombre . '</td>
                             <td>' .  '<a href="' . route('cliente.show', $row->id) . '">' . $row->segnombre . '</td>
                             <td>' . '<a href="' . route('cliente.show', $row->id) . '">' .  $row->apellidopat . '</td>
