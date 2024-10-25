@@ -92,7 +92,8 @@ Route::get('/autocomplete', [App\Http\Controllers\ProductoController::class, 'au
 
 Route::get("/formsearch",[App\Http\Controllers\BusquedaController::class,'formsearch']);
 
-Route::get("/search",[App\Http\Controllers\BusquedaController::class,'search']);
+Route::get("/formsearch",[App\Http\Controllers\BusquedaController::class,'formsearch'])->name('formsearch');
+Route::get("/search",[App\Http\Controllers\BusquedaController::class,'search'])->name('search');
 
 
 

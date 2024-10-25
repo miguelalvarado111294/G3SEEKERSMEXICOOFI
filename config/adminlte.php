@@ -344,11 +344,18 @@ return [
         ],*/
 
         ['header' => 'Datos del Cliente'],
-        [
+      /*  [
             'text' => 'Clientes',
             'route' => 'cliente.index',
             'icon' => 'fas fa-fw fa-user',
+        ],*/
+        
+        [
+            'text' => 'Buscar Cliente',
+            'route' => 'formsearch',
+            'icon' => 'fas fa-fw fa-user',
         ],
+
         [
             'text' => 'Referencias',
             'route' => 'referencia.index',

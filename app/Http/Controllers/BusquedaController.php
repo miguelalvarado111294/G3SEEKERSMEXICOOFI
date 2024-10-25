@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Cliente;
@@ -38,11 +39,11 @@ class BusquedaController extends Controller
                     <thead>
                     <tr>
                         <th scope="col">ID</th>
-                        <th scope="col">nombre</th>
-                        <th scope="col">segnombre</th>
-                        <th scope="col">apellidopat</th>
-                        <th scope="col">apellidoat</th>
-                        <th scope="col">telefono</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Segundo nombre</th>
+                        <th scope="col">Apellidopat</th>
+                        <th scope="col">Apellidoat</th>
+                        <th scope="col">Telefono</th>
                         <th scope="col">Email</th>
                     </tr>
                     </thead>
@@ -51,14 +52,13 @@ class BusquedaController extends Controller
                     $output .= '
                             <tr>
                            
- 
-                             <th scope="row">' . '<a href="' . route('cliente.show', $row->id) . '">' .  $row->id . $row->nombre .' </a> ' . '</th> 
-                            <td>' . $row->nombre . '</td>
-                            <td>' . $row->segnombre . '</td>
-                            <td>' . $row->apellidopat . '</td>
-                            <td>' . $row->apellidoat . '</td>
-                            <td>' . $row->telefono . '</td>
-                            <td>' . $row->email . '</td>
+                            <th scope="row">' . '<a href="' . route('cliente.show', $row->id) . '">' .  $row->id . ' </a> ' . '</th> 
+                            <td>' .  '<a href="' . route('cliente.show', $row->id) . '">' . $row->nombre . '</td>
+                            <td>' .  '<a href="' . route('cliente.show', $row->id) . '">' . $row->segnombre . '</td>
+                            <td>' . '<a href="' . route('cliente.show', $row->id) . '">' .  $row->apellidopat . '</td>
+                            <td>' .  '<a href="' . route('cliente.show', $row->id) . '">' . $row->apellidoat . '</td>
+                            <td>' . '<a href="' . route('cliente.show', $row->id) . '">' .  $row->telefono . '</td>
+                            <td>' .  '<a href="' . route('cliente.show', $row->id) . '">' . $row->email . '</td>
                             </tr>
                             ';
                 }
@@ -72,3 +72,5 @@ class BusquedaController extends Controller
         }
     }
 }
+
+
