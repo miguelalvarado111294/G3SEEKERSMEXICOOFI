@@ -21,7 +21,6 @@
                 </button>
             </div>
         @endif
-        <br>
 
         {{--
         <form class="d-flex" role="search">
@@ -69,12 +68,11 @@
                             </a>
                         @endforeach
                     </ul>
-                    
+
                 @endif
             </div>
         </div>
     </div>
-    <br>
     {!! $clientes->appends(['busqueda' => $busqueda]) !!}
 @endsection
 
