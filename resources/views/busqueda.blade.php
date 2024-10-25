@@ -19,12 +19,9 @@
                     <input type="text" name="search" id="search" placeholder="Enter search name" class="form-control" onfocus="this.value=''">
                 </div>
 
-                <a href=" {{ route('cliente.show', $cliente->id) }}" class="btn btn-default"
-                    style="text-align: center; display: inline-block; width: 100%;">
-                    {{ $cliente->nombre }} {{ $cliente->segnombre }} {{ $cliente->apellidopat }}
-                    {{ $cliente->apellidomat }}   <div id="search_list"></div>
-                </a>
 
+                
+                <div id="search_list"></div>
             </div>
         <div class="col-lg-3"></div>
     </div>

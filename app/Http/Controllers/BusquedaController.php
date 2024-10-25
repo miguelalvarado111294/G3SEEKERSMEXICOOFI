@@ -19,6 +19,7 @@ class BusquedaController extends Controller
     public function search(Request $request)
     {
 
+
         if ($request->ajax()) {
 
             $data = Cliente::where('id', 'like', '%' . $request->search . '%')
@@ -49,7 +50,9 @@ class BusquedaController extends Controller
                 foreach ($data as $row) {
                     $output .= '
                             <tr>
-                            <th scope="row">' . $row->id . '</th>
+                           
+ 
+                             <th scope="row">' . '<a href="' . route('cliente.show', $row->id) . '">' .  $row->id . $row->nombre .' </a> ' . '</th> 
                             <td>' . $row->nombre . '</td>
                             <td>' . $row->segnombre . '</td>
                             <td>' . $row->apellidopat . '</td>
