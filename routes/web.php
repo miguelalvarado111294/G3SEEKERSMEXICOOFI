@@ -3,98 +3,105 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsuarioController;
-use App\Models\Cliente;
 
 Auth::routes();
 
 Route::group(['middleware' => 'auth'], function () {
 
-  Route::get('/home', [App\Http\Controllers\AdminController::class, 'index'])->name('admin.index');
-  Route::get('/', [App\Http\Controllers\AdminController::class, 'index'])->name('admin.index');
+    Route::get('/', [App\Http\Controllers\AdminController::class, 'index'])->name('admin.index');
+    Route::get('/home', [App\Http\Controllers\AdminController::class, 'index']);
 
-  Route::resource('/user', App\Http\Controllers\UserController::class)->names('admin.users');
+    Route::resource('/user', App\Http\Controllers\UserController::class)->names('admin.users');
 
-  Route::get('/admin/edit/{user}', [App\Http\Controllers\UserController::class, 'edit'])->name('admin.edit');
-  Route::get('/admin/update/{user}', [App\Http\Controllers\UserController::class, 'update'])->name('admin.update');
-  Route::get('/admin/destroy/{user}', [App\Http\Controllers\UserController::class, 'destroy'])->name('admin.destroy');
+    Route::prefix('admin')->group(function () {
+        Route::get('edit/{user}', [App\Http\Controllers\UserController::class, 'edit'])->name('admin.edit');
+        Route::get('update/{user}', [App\Http\Controllers\UserController::class, 'update'])->name('admin.update');
+        Route::delete('destroy/{user}', [App\Http\Controllers\UserController::class, 'destroy'])->name('admin.destroy');
+    });
 
+    Route::resources([
+        'referencia' => App\Http\Controllers\ReferenciaController::class,
+        'cliente' => App\Http\Controllers\ClienteController::class,
+        'vehiculo' => App\Http\Controllers\VehiculoController::class,
+        'linea' => App\Http\Controllers\LineaController::class,
+        'cuenta' => App\Http\Controllers\CuentaController::class,
+        'ctaespejo' => App\Http\Controllers\CtaespejoController::class,
+        'dispositivo' => App\Http\Controllers\DispositivoController::class,
+        'sensor' => App\Http\Controllers\SensorController::class,
+    ]);
 
-  Route::resource('referencia', App\Http\Controllers\ReferenciaController::class);
-  Route::resource('cliente',  App\Http\Controllers\ClienteController::class);
-  Route::get('/cliente/{id}',                 [App\Http\Controllers\ClienteController::class, 'show'])->name('cliente.show');
-  Route::get('cliente/{id}/buscararchivos',   [App\Http\Controllers\ClienteController::class, 'buscararchivos'])->name('buscar.buscararchivos');
-  Route::resource('vehiculo', App\Http\Controllers\VehiculoController::class);
-  Route::resource('linea',    App\Http\Controllers\LineaController::class);
-  Route::resource('cuenta',   App\Http\Controllers\CuentaController::class);
-  Route::resource('ctaespejo', App\Http\Controllers\CtaespejoController::class);
-  Route::resource('dispositivo', App\Http\Controllers\DispositivoController::class);
-  Route::resource('sensor', App\Http\Controllers\SensorController::class);
+    Route::get('/cliente/{id}', [App\Http\Controllers\ClienteController::class, 'show'])->name('cliente.show');
+    Route::get('/cliente/{id}/buscararchivos', [App\Http\Controllers\ClienteController::class, 'buscararchivos'])->name('buscar.buscararchivos');
 
-  Route::get('/cliente/{id}',                 [App\Http\Controllers\ClienteController::class, 'show'])->name('cliente.show');
-  Route::get('cliente/{id}/buscararchivos',   [App\Http\Controllers\ClienteController::class, 'buscararchivos'])->name('buscar.buscararchivos');
+    Route::prefix('referencia')->group(function () {
+        Route::get('crearref/{id}', [App\Http\Controllers\ReferenciaController::class, 'crearref'])->name('referenciaf.crear');
+        Route::post('{id}', [App\Http\Controllers\ReferenciaController::class, 'storef'])->name('referenciap.crear');
+    });
 
-  Route::get('/referencia/crearref/{id}',     [App\Http\Controllers\ReferenciaController::class, 'crearref'])->name('referenciaf.crear');;
-  Route::post('/referencia/{id}',             [App\Http\Controllers\ReferenciaController::class, 'storef'])->name('referenciap.crear');
+    Route::prefix('prueba/{id}')->group(function () {
+        Route::get('buscarVehiculo', [App\Http\Controllers\PruebaController::class, 'buscarVehiculo'])->name('buscar.vehiculo');
+        Route::get('/', [App\Http\Controllers\PruebaController::class, 'buscadorvehiculo'])->name('buscador.vehiculo');
+        Route::get('buscarCuenta', [App\Http\Controllers\PruebaController::class, 'buscarCuenta'])->name('buscar.cuenta');
+        Route::get('buscarLinea', [App\Http\Controllers\PruebaController::class, 'buscarLinea'])->name('buscar.linea');
+        Route::get('buscarDispositivo', [App\Http\Controllers\PruebaController::class, 'buscarDispositivo'])->name('buscar.dispositivo');
+        Route::get('buscarSensor', [App\Http\Controllers\PruebaController::class, 'buscarSensor'])->name('buscar.sensor');
+        Route::get('buscarctaespejo', [App\Http\Controllers\PruebaController::class, 'buscarCtaespejo'])->name('buscar.ctaespejo');
+    });
 
-  Route::get('/prueba/{id}/buscarVehiculo',   [App\Http\Controllers\PruebaController::class, 'buscarVehiculo'])->name('buscar.vehiculo');
+    Route::prefix('vehiculo')->group(function () {
+        Route::get('crearvehi/{id}', [App\Http\Controllers\VehiculoController::class, 'crearvehi'])->name('vehiculof.crear');
+        Route::post('{id}', [App\Http\Controllers\VehiculoController::class, 'stovehi'])->name('vehiculop.crear');
+    });
 
-  Route::get('/prueba/{id}/buscarVehiculo',   [App\Http\Controllers\PruebaController::class, 'buscarVehiculo'])->name('buscar.vehiculo');
-  Route::get('/prueba/{id}/',   [App\Http\Controllers\PruebaController::class, 'buscadorvehiculo'])->name('buscador.vehiculo');
+    Route::prefix('cuenta')->group(function () {
+        Route::get('crearcta/{id}', [App\Http\Controllers\CuentaController::class, 'crearcta'])->name('cuentaf.crear');
+        Route::post('{id}', [App\Http\Controllers\CuentaController::class, 'stocta'])->name('cuentap.crear');
+    });
 
-  Route::get('/vehiculo/crearvehi/{id}',      [App\Http\Controllers\VehiculoController::class, 'crearvehi'])->name('vehiculof.crear');
-  Route::post('/vehiculo/{id}',               [App\Http\Controllers\VehiculoController::class, 'stovehi'])->name('vehiculop.crear');
+    Route::prefix('linea')->group(function () {
+        Route::get('crearlinea/{id}', [App\Http\Controllers\LineaController::class, 'crearlinea'])->name('lineaf.crear');
+        Route::post('{id}', [App\Http\Controllers\LineaController::class, 'storep'])->name('lineap.crear');
+    });
 
-  Route::get('/prueba/{id}/buscarCuenta',     [App\Http\Controllers\PruebaController::class, 'buscarCuenta'])->name('buscar.cuenta');
-  Route::get('/cuenta/crearcta/{id}',         [App\Http\Controllers\CuentaController::class, 'crearcta'])->name('cuentaf.crear');
-  Route::post('/cuenta/{id}',                 [App\Http\Controllers\CuentaController::class, 'stocta'])->name('cuentap.crear');
+    Route::prefix('dispositivo')->group(function () {
+        Route::get('creardisp/{id}', [App\Http\Controllers\DispositivoController::class, 'creardisp'])->name('dispositivof.crear');
+        Route::post('{id}', [App\Http\Controllers\DispositivoController::class, 'stodis'])->name('dispositivop.crear');
+    });
 
-  Route::get('/prueba/{id}/buscarLinea',      [App\Http\Controllers\PruebaController::class, 'buscarLinea'])->name('buscar.linea');
-  Route::get('/linea/crearlinea/{id}',        [App\Http\Controllers\LineaController::class, 'crearlinea'])->name('lineaf.crear');
-  Route::post('/linea/{id}',                  [App\Http\Controllers\LineaController::class, 'storep'])->name('lineap.crear');
+    Route::prefix('sensor')->group(function () {
+        Route::get('crearsens/{id}', [App\Http\Controllers\SensorController::class, 'crearsens'])->name('sensorf.crear');
+        Route::post('{id}', [App\Http\Controllers\SensorController::class, 'stosens'])->name('sensorp.crear');
+    });
 
-  Route::get('/prueba/{id}/buscarDispositivo', [App\Http\Controllers\PruebaController::class, 'buscarDispositivo'])->name('buscar.dispositivo');
-  Route::get('/dispositivo/creardisp/{id}',   [App\Http\Controllers\DispositivoController::class, 'creardisp'])->name('dispositivof.crear');;
-  Route::post('/dispositivo/{id}',            [App\Http\Controllers\DispositivoController::class, 'stodis'])->name('dispositivop.crear');
+    Route::prefix('ctaespejo')->group(function () {
+        Route::get('crearctaespejo/{id}', [App\Http\Controllers\CtaespejoController::class, 'crearctaespejo'])->name('ctaesoejof.crear');
+        Route::post('{id}', [App\Http\Controllers\CtaespejoController::class, 'storectaespejo'])->name('ctaespejop.crear');
+    });
 
-  Route::get('/prueba/{id}/buscarSensor',     [App\Http\Controllers\PruebaController::class, 'buscarSensor'])->name('buscar.sensor');
-  Route::get('/sensor/crearsens/{id}',   [App\Http\Controllers\SensorController::class, 'crearsens'])->name('sensorf.crear');;
-  Route::post('/sensor/{id}',            [App\Http\Controllers\SensorController::class, 'stosens'])->name('sensorp.crear');
+    Route::prefix('clientes')->group(function () {
+        Route::get('crear', [App\Http\Controllers\ClienteController::class, 'crearcliente'])->name('crear.nuevo');
+        Route::post('create', [App\Http\Controllers\ClienteController::class, 'createnuevo'])->name('create.nuevo');
+    });
 
-  Route::get('/prueba/{id}/buscarctaespejo',     [App\Http\Controllers\PruebaController::class, 'buscarCtaespejo'])->name('buscar.ctaespejo');
-  Route::get('/ctaespejo/crearctaespejo/{id}',   [App\Http\Controllers\CtaespejoController::class, 'crearctaespejo'])->name('ctaesoejof.crear');;
-  Route::post('/ctaespejo/{id}',            [App\Http\Controllers\CtaespejoController::class, 'storectaespejo'])->name('ctaespejop.crear');
+    Route::prefix('referencias')->group(function () {
+        Route::get('crearr/{id}', [App\Http\Controllers\ReferenciaController::class, 'crearr'])->name('crear.nuevo.ref');
+        Route::post('create/{id}', [App\Http\Controllers\ReferenciaController::class, 'createnuevoref'])->name('create.nuevo.ref');
+    });
 
-  Route::get('/crear',   [App\Http\Controllers\ClienteController::class, 'crearcliente'])->name('crear.nuevo');
-  Route::post('/create',   [App\Http\Controllers\ClienteController::class, 'createnuevo'])->name('create.nuevo');
+    Route::prefix('cuentas')->group(function () {
+        Route::get('crearc/{id}', [App\Http\Controllers\CuentaController::class, 'crearc'])->name('crear.nuevo.cuenta');
+        Route::post('createc/{id}', [App\Http\Controllers\CuentaController::class, 'createnuevocta'])->name('create.nuevo.cta');
+    });
 
-  Route::get('/crearr/{id}',   [App\Http\Controllers\ReferenciaController::class, 'crearr'])->name('crear.nuevo.ref');
-  Route::post('/create/{id}',   [App\Http\Controllers\ReferenciaController::class, 'createnuevoref'])->name('create.nuevo.ref');
+    Route::get('/crearcita/{vehiculo}', [App\Http\Controllers\ClienteController::class, 'crearcita'])->name('crear.cita');
+    Route::get('/orden/{vehiculoid}', [App\Http\Controllers\ClienteController::class, 'orden'])->name('crear.ordens');
+    Route::get('/orden', [App\Http\Controllers\ClienteController::class, 'orden'])->name('crear.orden');
+    Route::get('/ordeninstalacion', [App\Http\Controllers\ClienteController::class, 'ordeninstalacion'])->name('ordeninstalacion');
+    Route::post('/ordenins', [App\Http\Controllers\ClienteController::class, 'ordenins'])->name('ordenins');
 
-  Route::get('/crearc/{id}',   [App\Http\Controllers\CuentaController::class, 'crearc'])->name('crear.nuevo.cuenta');
-  Route::post('/createc/{id}',   [App\Http\Controllers\CuentaController::class, 'createnuevocta'])->name('create.nuevo.cta');
+    Route::get('/usuarios/create', [UsuarioController::class, 'create'])->name('usuarios.create');
+    Route::post('/usuarios', [UsuarioController::class, 'store'])->name('usuarios.store');
 
-
-  //click hacia seleccionar fecha de servicio
-  Route::get('/crearcita/{vehiculo} ',   [App\Http\Controllers\ClienteController::class, 'crearcita'])->name('crear.cita');
-  //orden de servicio recibe datos del vehiculo
-  Route::get('/orden/{vehiculoid}', [App\Http\Controllers\ClienteController::class, 'orden'])->name('crear.ordens');
-
-  //orden de instalacion
-  Route::get('/orden',      [App\Http\Controllers\ClienteController::class, 'orden'])->name('crear.orden'); //admin envia a form
-  Route::get('/ordeninstalacion',   [App\Http\Controllers\ClienteController::class, 'ordeninstalacion'])->name('ordeninstalacion'); //envia la informacion al store 
-  Route::post('/ordenins',   [App\Http\Controllers\ClienteController::class, 'ordenins'])->name('ordenins'); //generar el pdf con la informacion 
-
-  //crear usuarios desde user
-  Route::get('/usuarios/create', [UsuarioController::class, 'create'])->name('usuarios.create');
-  Route::post('/usuarios', [UsuarioController::class, 'store'])->name('usuarios.store');
-
-Route::get('/autocomplete', [App\Http\Controllers\ProductoController::class, 'autocomplete'])->name('autocomplete');
-
-Route::get("/formsearch",[App\Http\Controllers\BusquedaController::class,'formsearch']);
-
-Route::get("/formsearch",[App\Http\Controllers\BusquedaController::class,'formsearch'])->name('formsearch');
-Route::get("/search",[App\Http\Controllers\BusquedaController::class,'search'])->name('search');
-
-
-
+    Route::get('/formsearch', [App\Http\Controllers\BusquedaController::class, 'formsearch'])->name('formsearch');
+    Route::get('/search', [App\Http\Controllers\BusquedaController::class, 'search'])->name('search');
 });

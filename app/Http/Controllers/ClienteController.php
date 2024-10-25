@@ -30,20 +30,22 @@ class ClienteController extends Controller
     }
 
     public function index(Request $request)
-    {
-        $busqueda = $request->get('busqueda');
-        $clientes = Cliente::where(function ($queryBuilder) use ($busqueda) {
-            $queryBuilder->where('nombre', 'LIKE', "%{$busqueda}%")
-                ->orWhere('segnombre', 'LIKE', "%{$busqueda}%")
-                ->orWhere('apellidopat', 'LIKE', "%{$busqueda}%")
-                ->orWhere('apellidomat', 'LIKE', "%{$busqueda}%")
-                ->orWhere('telefono', 'LIKE', "%{$busqueda}%")
-                ->orWhere('email', 'LIKE', "%{$busqueda}%")
-                ->orWhere('rfc', 'LIKE', "%{$busqueda}%");
-        })->paginate(10);
+{
+    $busqueda = $request->get('busqueda');
+    $clientes = Cliente::where(function ($queryBuilder) use ($busqueda) {
+        $queryBuilder->where('nombre', 'LIKE', "%{$busqueda}%")
+            ->orWhere('segnombre', 'LIKE', "%{$busqueda}%")
+            ->orWhere('apellidopat', 'LIKE', "%{$busqueda}%")
+            ->orWhere('apellidomat', 'LIKE', "%{$busqueda}%")
+            ->orWhere('telefono', 'LIKE', "%{$busqueda}%")
+            ->orWhere('email', 'LIKE', "%{$busqueda}%")
+            ->orWhere('rfc', 'LIKE', "%{$busqueda}%");
+    })->orderBy('id', 'desc') // Ordena por ID de manera descendente
+      ->paginate(10);
 
-        return view('cliente.index', compact('clientes', 'busqueda'));
-    }
+    return view('cliente.index', compact('clientes', 'busqueda'));
+}
+
 
     public function create()
     {
@@ -194,7 +196,7 @@ class ClienteController extends Controller
     public function store(storecliente $request)
     {
         $datosCliente = array_map('strtoupper', $request->except('_token'));
-
+    
         $this->handleFileUpload($request, null, $datosCliente, [
             'actaconstitutiva',
             'consFiscal',
@@ -202,12 +204,13 @@ class ClienteController extends Controller
             'tarjetacirculacion',
             'compPago'
         ]);
-
+    
         Cliente::create($datosCliente);
-
-        return redirect()->route('cliente.index');
+    
+        // Enviar mensaje de sesión
+        return redirect()->route('cliente.index')->with('mensaje', 'Cliente creado exitosamente.');
     }
-
+    
     private function handleFileUpload(Request $request, ?Cliente $cliente, array &$datosCliente, array $archivos)
     {
         foreach ($archivos as $archivo) {

@@ -12,266 +12,148 @@
 </head>
 
 <body>
-    <TABLE BORDER WIDTH="100%">
-        <TR>
-            <TD WIDTH="140">
-                Orden de Instalación
-            </TD>
-            <TD> <b> Fecha de la solicitud : </b>{{ $horaactual }}</TD>
-            <TD><b>Folio : </b> ######</TD>
-            <td>G3 SEEKERS Mx </td>
-        </TR>
-    </TABLE>
-    {{-- formulario de obserbaciones de datos cliente --}}
-
-    <TABLE BORDER WIDTH="100%">
-        <CAPTION ALIGN=top>Datos de Cliente</CAPTION>
-        <TR>
-            <TD>
-                <b>Nombre del Cliente o Empresa : </b> {{ $cliente->nombre }} {{ $cliente->segnombre }}
-                {{ $cliente->apellidopat }} {{ $cliente->apellidomat }}
-            </TD>
-        </TR>
-        <TR>
-            <TD><b>Email : </b> {{ $cliente->email }} <b>Telefono : </b> {{ $cliente->telefono }}</TD>
-        </TR>
-        </TD>
-        <TD> <b>Dirección : </b> {{ $cliente->direccion }}</TD>
-        </TR>
-    </TABLE>
-    {{-- formulario de obserbaciones de datos uni --}}
-    <TABLE BORDER WIDTH="100%">
-        <CAPTION ALIGN=top>Datos de la Unidad</CAPTION>
-        <TH COLSPAN=2>Vehiculo</TH>
-        <TH COLSPAN=2>Datos de la Linea</TH>
-        <TR>
-            <TD><b> Tipo de Vehiculo </b></TD>
-            <TD>{{-- $vehiculo->tipo --}}__________</TD>
-            <TD> <b> Numero</b></TD>
-            <TD>{{ $request->telefono }}</TD>
-        </TR>
-        <TR>
-            <TD> <b> Marca </b></TD>
-            <TD> {{-- $vehiculo->marca --}}</TD>
-            <TD><b> Sim Card:</b> </TD>
-            <TD> {{ $request->simcard }}</TD>
-        </TR>
-        <TR>
-            <TD><b> Modelo </b></TD>
-            <TD>{{-- $vehiculo->modelo --}}</TD>
-            <TH COLSPAN=2>Datos del Dispositivo</TH>
-        </TR>
-        <TR>
-            <TD><b> Numero de Serie </b></TD>
-            <TD>{{-- $vehiculo->noseri --}} </TD>
-
-            <TD><b> Modelo </b></TD>
-            <TD>{{-- $dispositivo->model --}} </TD>
-        </TR>
+    <table class="table table-bordered">
         <tr>
-            <TD><b> Color</b></TD>
-            <TD><b> </b></TD>
-            <TD><b>  Imei</b></TD>
-            <TD><b> </b></TD>
-
-
+            <td width="140">Orden de Instalación</td>
+            <td><strong>Fecha de la solicitud:</strong> {{ $horaactual }}</td>
+            <td><strong>Folio:</strong> ######</td>
+            <td>G3 SEEKERS Mx</td>
         </tr>
-        <TR>
-            <TD><b> Placa </b></TD>
-            <TD>{{-- $vehiculo->plac --}}</TD>
-            <TD><b> Cuenta</b> </TD>
-            <TD> {{-- $dispositivo->imei --}}</TD>
-        </TR>
-        <TR>
-            <TD><b> </b></TD>
-            <TD>{{-- $vehiculo->color --}}</TD>
-            <TD><b> ID Dispositivo</b> </TD>
-            <TD> {{-- $dispositivo->id --}}</TD>
-        </TR>
-    </TABLE>
+    </table>
 
-    <center>
-        Esta orden solo podra usarse para el servicio de un solo equipo
+    <table class="table table-bordered">
+        <caption>Datos de Cliente</caption>
+        <tr>
+            <td><strong>Nombre del Cliente o Empresa:</strong> {{ $cliente->nombre }} {{ $cliente->segnombre }} {{ $cliente->apellidopat }} {{ $cliente->apellidomat }}</td>
+        </tr>
+        <tr>
+            <td><strong>Email:</strong> {{ $cliente->email }} <strong>Teléfono:</strong> {{ $cliente->telefono }}</td>
+        </tr>
+        <tr>
+            <td><strong>Dirección:</strong> {{ $cliente->direccion }}</td>
+        </tr>
+    </table>
 
-        {{-- formulario de obserbaciones de observaciones --}}
+    <table class="table table-bordered">
+        <caption>Datos de la Unidad</caption>
+        <thead>
+            <tr>
+                <th colspan="2">Vehículo</th>
+                <th colspan="2">Datos de la Línea</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Tipo de Vehículo</strong></td>
+                <td>__________</td>
+                <td><strong>Número</strong></td>
+                <td>{{ $request->telefono }}</td>
+            </tr>
+            <tr>
+                <td><strong>Marca</strong></td>
+                <td>__________</td>
+                <td><strong>Sim Card:</strong></td>
+                <td>{{ $request->simcard }}</td>
+            </tr>
+            <tr>
+                <td><strong>Modelo</strong></td>
+                <td>__________</td>
+                <td><strong>Modelo</strong></td>
+                <td>__________</td>
+            </tr>
+            <tr>
+                <td><strong>Número de Serie</strong></td>
+                <td>__________</td>
+                <td><strong>IMEI</strong></td>
+                <td>__________</td>
+            </tr>
+            <tr>
+                <td><strong>Placa</strong></td>
+                <td>__________</td>
+                <td><strong>ID Dispositivo</strong></td>
+                <td>__________</td>
+            </tr>
+        </tbody>
+    </table>
 
-        <TABLE BORDER WIDTH="100%">
+    <div class="text-center">
+        <p>Esta orden solo podrá usarse para el servicio de un solo equipo.</p>
 
-            <TR>
-                <TD><b>Recepcion de la Unidad</b></TD>
-                <TD><b>Bien</b></TD>
-                <TD><b>Mal</b></TD>
-                <TD><b>Observaciones</b></TD>
-            </TR>
-            <TR>
-                <TD><b>Tablero</b></TD>
-                <TD></TD>
-                <TD></TD>
-                <TD></TD>
-            </TR>
-            <TR>
-                <TD><b>Vestiduras</b></TD>
-                <TD></TD>
-                <TD></TD>
-                <TD></TD>
-            </TR>
-            <TR>
-                <TD><b>Molduras</b></TD>
-                <TD></TD>
-                <TD></TD>
-                <TD></TD>
-            </TR>
-            <TR>
-                <TD><b>Toldo</b></TD>
-                <TD></TD>
-                <TD></TD>
-                <TD></TD>
-            </TR>
-            <TR>
-                <TD><b>Asiento Copiloto</b></TD>
-                <TD></TD>
-                <TD></TD>
-                <TD></TD>
-            </TR>
-            <TR>
-                <TD><b>Encendido</b></TD>
-                <TD></TD>
-                <TD></TD>
-                <TD></TD>
-            </TR>
-            <TR>
-                <TD><b>Volts</b></TD>
-                <TD></TD>
-                <TD></TD>
-                <TD></TD>
-            </TR>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Recepción de la Unidad</th>
+                    <th>Bien</th>
+                    <th>Mal</th>
+                    <th>Observaciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (['Tablero', 'Vestiduras', 'Molduras', 'Toldo', 'Asiento Copiloto', 'Encendido', 'Volts'] as $item)
+                    <tr>
+                        <td><strong>{{ $item }}</strong></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
 
-        </TABLE>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Entrega de Unidad</th>
+                    <th>Sí</th>
+                    <th>No</th>
+                    <th>Observaciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (['Queda Encendido el Equipo', 'Queda Conectada la Antena GPS', 'Queda Conectada la Antena GSM', 'Encendido Manual', 'Pánico', 'Posición del Vehículo', 'Paro del Motor'] as $item)
+                    <tr>
+                        <td><strong>{{ $item }}</strong></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
 
-        <TABLE BORDER WIDTH="100%">
+        <h5>Observaciones del Técnico</h5>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th width="300"><strong>Observaciones</strong></th>
+                    <th></th>
+                    <th><strong>Bueno</strong></th>
+                    <th><strong>Regular</strong></th>
+                    <th><strong>Malo</strong></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (['Puntualidad', 'Presentación', 'Atención', 'Léxico', 'Limpieza'] as $item)
+                    <tr>
+                        <td></td>
+                        <td><strong>{{ $item }}</strong></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
 
-            <TR>
-                <TD><b>Entrega de Unidad</b></TD>
-                <TD><b>Si</b></TD>
-                <TD><b>No</b></TD>
-                <TD><b>Observaciones</b></TD>
-            </TR>
-            <TR>
-                <TD><b>Queda Encendido el Equipo</b></TD>
-                <TD></TD>
-                <TD></TD>
-                <TD></TD>
-            </TR>
-
-            <TR>
-                <TD><b>Queda Conectada la Antena GPS</b></TD>
-                <TD></TD>
-                <TD></TD>
-                <TD></TD>
-            </TR>
-            <TR>
-                <TD><b>Queda Conectada la Antena GSM</b></TD>
-                <TD></TD>
-                <TD></TD>
-                <TD></TD>
-            </TR>
-            <TR>
-                <TD><b>Encendido Manual</b></TD>
-                <TD></TD>
-                <TD></TD>
-                <TD></TD>
-            </TR>
-            <TR>
-                <TD><b>Pánico</b></TD>
-                <TD></TD>
-                <TD></TD>
-                <TD></TD>
-            </TR>
-            <TR>
-                <TD><b>Posicion del Vehiculo</b></TD>
-                <TD></TD>
-                <TD></TD>
-                <TD></TD>
-            </TR>
-            <TR>
-                <TD><b>Paro del Motor</b></TD>
-                <TD></TD>
-                <TD></TD>
-                <TD></TD>
-            </TR>
-
-
-        </TABLE>
-
-
-
-        {{-- formulario de obserbaciones de tecnico --}}
-        <CENter>Observaciones del Tecnico</CENter>
-        <TABLE BORDER WIDTH="100%">
-            <TR>
-                <th WIDTH="300"><b>Observaciones</b></th>
-                <TH></TH>
-                <TH><b>Bueno</b></TH>
-                <TH><b>Regular</b></TH>
-                <TH><b>Malo</b></TH>
-            </TR>
-            <TR>
-                <TD> </TD>
-                <TD><b>Puntualidad</b></TD>
-                <td></td>
-                <TD></TD>
-                <TD></TD>
-            </TR>
-            <TR>
-                <TD> </TD>
-                <TD><b>Presentacion</b></TD>
-                <td></td>
-                <TD> </TD>
-                <TD> </TD>
-            </TR>
-            <TR>
-                <TD> </TD>
-                <TD><b>Atencion</b></TD>
-                <td></td>
-                <TD></TD>
-                <TD> </TD>
-            </TR>
-            <TR>
-                <TD> </TD>
-                <TD><b>Lexico</b></TD>
-                <td></td>
-                <TD></TD>
-                <TD> </TD>
-            </TR>
-            <TR>
-                <TD></TD>
-                <TD><b>Limpieza</b></TD>
-                <td></td>
-                <TD></TD>
-                <TD> </TD>
-            </TR>
-        </TABLE>
-        <br>
-        <TABLE BORDER WIDTH="100%">
-            <TR>
-                <TD>
-                    ___________________ <br>
-                    VoBo Vendedor
-                </TD>
-                <TD>
-                    ___________________ <br>
-                    Firma del Instalador
-                </TD>
-                <TD>
-                    ___________________ <br>
-                    Gerente de Operaciones
-                </TD>
-                <TD>
-                    ___________________ <br>
-                    Firma de Cliente
-                </TD>
-            </TR>
-        </TABLE>
+        <table class="table table-bordered">
+            <tr>
+                <td>___________________ <br> VoBo Vendedor</td>
+                <td>___________________ <br> Firma del Instalador</td>
+                <td>___________________ <br> Gerente de Operaciones</td>
+                <td>___________________ <br> Firma de Cliente</td>
+            </tr>
+        </table>
+    </div>
 </body>
 
 </html>

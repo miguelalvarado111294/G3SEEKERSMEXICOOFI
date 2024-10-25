@@ -3,50 +3,42 @@
 @section('title', 'G3SEEKERSMX')
 
 @section('content_header')
-    <h1 class="text-center"><b>G3 Seekers México</b></h1>
+    <h1 class="text-center"><strong>G3 Seekers México</strong></h1>
 @stop
 
 @section('content')
-    <p class="text-center">lista de usuarios </b></p>
-
-    <a href="{{ route('usuarios.create') }}" class="btn btn-success">Alta de Nuevo Usuario</a>
-<br>
-<br>
-
+    <p class="text-center">Lista de usuarios</p>
+    <a href="{{ route('usuarios.create') }}" class="btn btn-success mb-3">Alta de Nuevo Usuario</a>
 
     <div class="card">
         <div class="card-body">
             <table class="table table-light">
                 <thead class="thead-light">
                     <tr>
-                        <th>nombre</th>
-                        <th>correo</th>
-                        <th> Acciones </th>
+                        <th>Nombre</th>
+                        <th>Correo</th>
+                        <th>Acciones</th>
                     </tr>
                 </thead>
-
                 <tbody>
                     @foreach ($users as $user)
                         <tr>
-                            <td> {{ $user->name }} </td>
+                            <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
                             <td>
                                 <a href="{{ route('admin.edit', $user) }}" class="btn btn-warning">Editar</a>
-                                <form action="{{ route('admin.destroy', $user) }}" method="get" class="d-inline">
+                                <form action="{{ route('admin.destroy', $user) }}" method="post" class="d-inline">
                                     @csrf
-                                    {{ method_field('DELETE') }}
-                                    <input class="btn btn-danger" type="submit"
-                                        onclick=" return confirm('seguro quieres eliminar?')" value="Borrar">
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger" onclick="return confirm('¿Seguro quieres eliminar?')">Borrar</button>
                                 </form>
                             </td>
-
                         </tr>
                     @endforeach
                 </tbody>
             </table>
         </div>
     </div>
-
 @stop
 
 @section('css')

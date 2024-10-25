@@ -3,23 +3,19 @@
 @section('title', 'G3SEEKERSMX')
 
 @section('content_header')
-    <h1 class="text-center"><b>G3 Seekers México</b></h1>
+    <h1 class="text-center"><strong>G3 Seekers México</strong></h1>
 @stop
 
 @section('content')
-    <p class="text-center">Bienvenido <b> {{ Auth::user()->name }} al Panel de Control</b></p>
-<br>
-<br>
-<br>
+    <p class="text-center">Bienvenido, <strong>{{ Auth::user()->name }}</strong>, al Panel de Control</p>
 
-    <div class="card">
+    <div class="card my-4">
         <div class="card-body">
             <div class="row justify-content-center">
-                <img src="{{ asset('storage\logo.png') }}" width="600">
+                <img src="{{ asset('storage/logo.png') }}" alt="Logo" width="600">
             </div>
         </div>
     </div>
-
 @stop
 
 @section('css')
@@ -28,7 +24,6 @@
 @stop
 
 @section('js')
-
     <script>
         console.log("Hi, I'm using the Laravel-AdminLTE package!");
     </script>
