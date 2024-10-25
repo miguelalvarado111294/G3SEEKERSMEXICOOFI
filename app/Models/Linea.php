@@ -10,14 +10,13 @@ class linea extends Model
     use HasFactory;
 
     protected $fillable = [
-
         'simcard',
         'telefono',
         'tipolinea',
         'renovacion',
         'comentarios',
         'cliente_id',
-
+        'dispositivo_id'
     ];
 
     public function cliente()
@@ -31,3 +30,4 @@ class linea extends Model
         return $this->hasOne('App\Models\Dispositivo', 'dispositivo_id', 'id');
     }
 }
+

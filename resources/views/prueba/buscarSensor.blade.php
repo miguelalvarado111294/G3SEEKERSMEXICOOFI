@@ -10,23 +10,18 @@
 
     <div class="card">
         <div class="card-body">
-            <p><b>Cliente :</b> {{ $cliente->segnombre }} {{ $cliente->nombre }} {{ $cliente->segnombre }}
-                {{ $cliente->apellidopat }} {{ $cliente->apellidomat }}</p>
-            <p><b>Datos del vehiculo: </b> {{ $vehiculo->marca }} Modelo : {{ $vehiculo->modelo }} Placas :
-                {{ $vehiculo->placa }} color : {{ $vehiculo->color }}</p>
-            <p><b>Dispositivo GPS</b></p>
-            <p><b> Modelo :</b>{{ $dispositivo->modelo }} </p>
-            <p> <b> Imei :</b> {{ $dispositivo->imei }} </p>
-            <p> <b>noeconomico :</b> {{ $dispositivo->noeconomico }} </p>
+            <p><b>Cliente:</b> {{ "{$cliente->segnombre} {$cliente->nombre} {$cliente->apellidopat} {$cliente->apellidomat}" }}</p>
+            <p><b>Datos del Vehículo:</b> {{ "{$vehiculo->marca} Modelo: {$vehiculo->modelo} Placas: {$vehiculo->placa} Color: {$vehiculo->color}" }}</p>
+            <p><b>Dispositivo GPS:</b></p>
+            <p><b>Modelo:</b> {{ $dispositivo->modelo }}</p>
+            <p><b>IMEI:</b> {{ $dispositivo->imei }}</p>
+            <p><b>Número Económico:</b> {{ $dispositivo->noeconomico }}</p>
         </div>
     </div>
 
-
-
-
-    @if (Session::has('mensaje'))
+    @if (session('mensaje'))
         <div class="alert alert-success alert-dismissible" role="alert">
-            {{ Session::get('mensaje') }}
+            {{ session('mensaje') }}
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -34,13 +29,10 @@
     @endif
 
     <br>
-    <br>
     @can('sensor.create')
-        <a href="{{ route('sensorf.crear', $id) }}" class="btn btn-success">Registrar nuevo sensor</a>
+        <a href="{{ route('sensorf.crear', $id) }}" class="btn btn-success">Registrar Nuevo Sensor</a>
     @endcan
-    <br>
-    <br>
-    </br>
+    <br><br>
 
     <div class="card">
         <div class="card-body">
@@ -49,44 +41,39 @@
                     <tr>
                         <th>Marca</th>
                         <th>Modelo</th>
-                        <th>Numero de Serie</th>
+                        <th>Número de Serie</th>
                         <th>Tipo</th>
-                        <th>Dispositivo</th>
+                        <th>Comentarios</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($sensors as $sensor)
                         <tr>
-                            <td>{{ $sensor->marca }} </td>
+                            <td>{{ $sensor->marca }}</td>
                             <td>{{ $sensor->modelo }}</td>
                             <td>{{ $sensor->noserie }}</td>
                             <td>{{ $sensor->tipo }}</td>
                             <td>{{ $sensor->comentarios }}</td>
                             <td>
-
                                 @can('sensor.edit')
-                                    <a href="{{ url('/sensor/' . $sensor->id . '/edit') }}" class="btn btn-warning">Editar</a>
+                                    <a href="{{ route('sensor.edit', $sensor->id) }}" class="btn btn-warning">Editar</a>
                                 @endcan
 
                                 @can('sensor.destroy')
-                                    <form action="{{ url('/sensor/' . $sensor->id) }}" method="post" class="d-inline">
+                                    <form action="{{ route('sensor.destroy', $sensor->id) }}" method="post" class="d-inline">
                                         @csrf
-                                        {{ method_field('DELETE') }}
-                                        <input class="btn btn-danger" type="submit"
-                                            onclick=" return confirm('seguro quieres eliminar?')" value="Borrar">
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger" onclick="return confirm('¿Seguro quieres eliminar?')">Borrar</button>
                                     </form>
                                 @endcan
                             </td>
-
                         </tr>
                     @endforeach
                 </tbody>
             </table>
         </div>
     </div>
-    <a href=" {{ route('buscar.dispositivo', $vehiculo->id) }}" class="btn btn-dark">Regresar</a>
 
-
-
+    <a href="{{ route('buscar.dispositivo', $vehiculo->id) }}" class="btn btn-dark">Regresar</a>
 @endsection

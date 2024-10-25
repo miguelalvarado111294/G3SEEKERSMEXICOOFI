@@ -28,8 +28,8 @@ class UsuarioController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
-$users=User::all();
-        return view('admin.users.index',compact('users'));
+        $users = User::all();
+        return view('admin.users.index', compact('users'));
         return view('users.index');
     }
 }

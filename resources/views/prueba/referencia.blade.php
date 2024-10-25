@@ -3,76 +3,63 @@
 @section('title', 'G3SEEKERSMX')
 
 @section('content_header')
-<h1 class="text-center"><b>G3 Seekers México</b></h1>
-<br>
+    <h1 class="text-center"><strong>G3 Seekers México</strong></h1>
     <h3 class="text-center">Datos Personales</h3>
-<br>
 
-        @if (Session::has('mensaje'))
-            <div class="alert alert-success alert dismissible" role="alert">
-                {{ Session::get('mensaje') }}
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        @endif
+    @if (session('mensaje'))
+        <div class="alert alert-success alert-dismissible" role="alert">
+            {{ session('mensaje') }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Cerrar">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endif
 
-        <br>
+    <a href="{{ url('referencia/create') }}" class="btn btn-success mb-3">Registrar nueva referencia</a>
 
+    <h1>Referencias de Socio</h1>
 
-        <br>
-        <br>
-        <a href="{{ url('referencia/create') }}" class="btn btn-success">Registrar nuevo referencia</a>
-        <br>
-        <br><br>
-        <h1>Referencias de Socio</h1>
-
-        <table class="table table-light">
-            <thead class="thead-light">
+    <table class="table table-light">
+        <thead class="thead-light">
+            <tr>
+                <th>Titular</th>
+                <th>Nombre</th>
+                <th>Segundo Nombre</th>
+                <th>Apellido Paterno</th>
+                <th>Apellido Materno</th>
+                <th>Parentesco</th>
+                <th>Teléfono</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($referencias as $referencia)
                 <tr>
-                    <th>Titular</th>
-                    <th>Nombre</th>
-                    <th>Segundo Nombre</th>
-                    <th>Apellido Paterno</th>
-                    <th>Apellido Paterno</th>
-                    <th>Parentesco</th>
-                    <th>Telefono</th>
-                    <th>Acciones</th>
+                    <td>{{ $referencia->cliente_id }}</td>
+                    <td>{{ $referencia->nombre }}</td>
+                    <td>{{ $referencia->segnombre }}</td>
+                    <td>{{ $referencia->apellidopat }}</td>
+                    <td>{{ $referencia->apellidomat }}</td>
+                    <td>{{ $referencia->parentesco }}</td>
+                    <td>{{ $referencia->telefono }}</td>
+                    <td>
+                        <a href="{{ route('referencia.edit', $referencia->id) }}" class="btn btn-warning">Editar</a>
+                        <form action="{{ route('referencia.destroy', $referencia->id) }}" method="post" class="d-inline">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('¿Seguro quieres eliminar?')">Borrar</button>
+                        </form>
+                    </td>
                 </tr>
-            </thead>
+            @endforeach
+        </tbody>
+    </table>
 
-            <tbody>
-                @foreach ($referencias as $referencia)
-                    <tr>
-                        <td>{{ $referencia->cliente_id }}</td>
-                        <td>{{ $referencia->nombre }}</td>
-                        <td>{{ $referencia->segnombre }}</td>
-                        <td>{{ $referencia->apellidopat }}</td>
-                        <td>{{ $referencia->apellidomat }}</td>
-                        <td>{{ $referencia->parentesco }}</td>
-                        <td>{{ $referencia->telefono }}</td>
-                        <td>
-                            <a href="{{ url('/referencia/' . $referencia->id . '/edit') }}"
-                                class="btn btn-warning">Editar</a>
-                            -
-                            <form action="{{ url('/referencia/' . $referencia->id) }}" method="post" class="d-inline">
-                                @csrf
-                                {{ method_field('DELETE') }}
-                                <input class="btn btn-danger" type="submit"
-                                    onclick=" return confirm('seguro quieres eliminar?')" value="Borrar">
-                            </form>
-
-                        </td>
-                @endforeach
-            </tbody>
-        </table>
-
-
-        <br><br>
-        {{--
-<form action="{{url('/prueba/' .  $referencia->cliente_id . '/buscarPersonales') }}" method="get" class="d-inline">
-    @csrf
-    <input class="btn btn-dark" type="submit" value="Regresar" >
-</form>  --}}
-    </div>
+    <br>
+    {{-- Regresar Formulario (Descomentado si es necesario)
+    <form action="{{ url('/prueba/' . $referencia->cliente_id . '/buscarPersonales') }}" method="get" class="d-inline">
+        @csrf
+        <button type="submit" class="btn btn-dark">Regresar</button>
+    </form> 
+    --}}
 @endsection

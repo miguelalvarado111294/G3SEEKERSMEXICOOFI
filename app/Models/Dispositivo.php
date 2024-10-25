@@ -11,19 +11,16 @@ class dispositivo extends Model
 
 
     protected $fillable = [
-        'id',
         'modelo',
         'noserie',
         'imei',
+        'cliente_id',
+        'vehiculo_id',
         'cuenta',
         'sucursal',
         'fechacompra',
-        'noeconomieco',
-        'comentarios',
-        'sensor_id',
-        'linea_id',
-        'cliente_id'
-
+        'noeconomico',
+        'comentarios'
     ];
     public function cliente()
     {

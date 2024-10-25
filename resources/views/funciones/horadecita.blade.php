@@ -14,46 +14,33 @@
             <div class="alert alert-success alert-dismissible" role="alert">
                 {{ Session::get('mensaje') }}
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true"> &times </span>
+                    <span aria-hidden="true"> &times; </span>
                 </button>
             </div>
         @endif
         <br>
         <div class="card">
-            <div class="card-head">Agregue la fecha y Hora
-                <div class="card-body">
+            <div class="card-header">Agregue la Fecha y Hora</div>
+            <div class="card-body">
+                <form action="{{ route('crear.ordens', $vehiculo) }}" method="get">
+                    @csrf
+                    <div class="form-group">
+                        <label for="fechacita">Ingrese la Fecha</label>
+                        <input type="date" class="form-control" name="fechacita" id="fechacita" required>
+                        @error('fechacita')
+                            <small style="color: red">{{ $message }}</small>
+                        @enderror
+                    </div>
 
-                    <form action="{{ route('crear.ordens',$vehiculo) }}" method="get" >
-                        @csrf
-                        <div class="form-group">
-                            <label for="fechacita">ingrese la fecha </label>
-                            <input type="text" class="form-control" name="fechacita" placeholder="Dia/Mes/año" id="fechacita">
-                            @error('fechacita')
-                                <small style ="color: red"> {{ $message }}</small>
-                            @enderror
-                        </div>
-
-
-                        <div class="row">
-                            <div class="col-sm-7">
-                                <div class="form-group">
-                                    <input class="btn btn-success" type="submit" class="form-control"
-                                        value="Generar Orden de Servicio">
-                                </div>
+                    <div class="row">
+                        <div class="col-sm-7">
+                            <div class="form-group">
+                                <input type="submit" class="btn btn-success" value="Generar Orden de Servicio">
                             </div>
                         </div>
-
-                    </form>
-
-
-
-
-
-                </div>
+                    </div>
+                </form>
             </div>
         </div>
-
-
-
     </div>
 @endsection

@@ -7,12 +7,10 @@ use App\Models\Referencia;
 use App\Models\Vehiculo;
 use App\Models\Dispositivo;
 use App\Models\Linea;
-
-
 use App\Http\Requests\storecliente;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Barryvdh\DomPDF\facade\Pdf;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 
 class ClienteController extends Controller
@@ -20,90 +18,61 @@ class ClienteController extends Controller
     public function buscar(Request $request)
     {
         $query = $request->input('query');
-    
+
         $clientes = Cliente::where(function ($queryBuilder) use ($query) {
             $queryBuilder->where('nombre', 'LIKE', "%{$query}%")
-                         ->orWhere('segnombre', 'LIKE', "%{$query}%")
-                         ->orWhere('apellidopat', 'LIKE', "%{$query}%")
-                         ->orWhere('apellidomat', 'LIKE', "%{$query}%");
+                ->orWhere('segnombre', 'LIKE', "%{$query}%")
+                ->orWhere('apellidopat', 'LIKE', "%{$query}%")
+                ->orWhere('apellidomat', 'LIKE', "%{$query}%");
         })->get();
-    
+
         return response()->json($clientes);
     }
-    
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     public function index(Request $request)
     {
-        //recibe del input de index cliente y lo almacena en una variable 
         $busqueda = $request->get('busqueda');
-        //recuperar todos los clientes
-        $clientes = Cliente::where('nombre', 'LIKE', '%' . $busqueda . '%')
-            ->orWhere('segnombre', 'LIKE', '%' . $busqueda . '%')
-            ->orWhere('apellidopat', 'LIKE', '%' . $busqueda . '%')                         //busqueda 
-            ->orWhere('apellidomat', 'LIKE', '%' . $busqueda . '%')
-            ->orWhere('telefono', 'LIKE', '%' . $busqueda . '%')
-            ->orWhere('email', 'LIKE', '%' . $busqueda . '%')
-            ->orWhere('rfc', 'LIKE', '%' . $busqueda . '%')->paginate(10);
+        $clientes = Cliente::where(function ($queryBuilder) use ($busqueda) {
+            $queryBuilder->where('nombre', 'LIKE', "%{$busqueda}%")
+                ->orWhere('segnombre', 'LIKE', "%{$busqueda}%")
+                ->orWhere('apellidopat', 'LIKE', "%{$busqueda}%")
+                ->orWhere('apellidomat', 'LIKE', "%{$busqueda}%")
+                ->orWhere('telefono', 'LIKE', "%{$busqueda}%")
+                ->orWhere('email', 'LIKE', "%{$busqueda}%")
+                ->orWhere('rfc', 'LIKE', "%{$busqueda}%");
+        })->paginate(10);
 
         return view('cliente.index', compact('clientes', 'busqueda'));
     }
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     public function create()
     {
-        //peticion desde el boton del index
         return view('cliente.create');
     }
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    public function show($id) //recive id de cliente
+    public function show($id)
     {
-        //traer datos de cliente
-        $cliente = cliente::find($id);
-        //traer referencias a la vista show
-        $referencias = Referencia::where('cliente_id', 'LIKE', $id)->get();
-        //unir datos de las consultas en un solo array para enviar a la vista o usar compact q menso : s 
-        $data = [
-            'cliente' => $cliente,
-            'referencias' => $referencias
-        ];
+        $cliente = Cliente::find($id);
+        $referencias = Referencia::where('cliente_id', $id)->get();
 
-        return view('cliente.show')->with($data);
+        return view('cliente.show', compact('cliente', 'referencias'));
     }
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     public function buscararchivos($id)
     {
-        $cliente_id = $id;
-
         $cliente = Cliente::find($id);
-        //return $cliente;
         return view('cliente.archivos', compact('cliente'));
     }
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    public function clienteshow($id)
-    {
-        $cliente = cliente::findOrFail($id);
-        $referencias = referencia::where('cliente_id', 'LIKE', $id)->get();
 
-        $data = [
-            'cliente' => $cliente,
-            'referencias' => $referencias
-        ];
-
-        return view('cliente.show')->with($data);
-    }
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    public function edit($id) //recive el id del cliente para editarlo
+    public function edit($id)
     {
-        $cliente = Cliente::findOrfail($id);
+        $cliente = Cliente::findOrFail($id);
         return view('cliente.edit', compact('cliente'));
     }
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    public function update(Request $request, $id) //atrayendo los datos del cliente form
+
+    public function update(Request $request, $id)
     {
-        //validacion de datos
-        $campos = [
+        $request->validate([
             'nombre' => 'required|alpha|min:2|max:100',
             'segnombre' => 'nullable|alpha',
             'apellidopat' => 'required|alpha|min:2|max:100',
@@ -115,68 +84,39 @@ class ClienteController extends Controller
             'actaconstitutiva' => 'mimes:pdf,jpeg,png,jpg|max:5000',
             'consFiscal' => 'mimes:pdf,jpeg,png,jpg|max:5000',
             'comprDom' => 'mimes:pdf,jpeg,png,jpg|max:5000',
-            'tarjetacirculacion' => 'mimes:pdf,jpeg,png,jpg,pdf|max:5000',
+            'tarjetacirculacion' => 'mimes:pdf,jpeg,png,jpg|max:5000',
             'compPago' => 'mimes:pdf,jpeg,png,jpg|max:5000'
-        ];
+        ]);
 
-        $this->validate($request, $campos/*$mensaje*/);
+        $cliente = Cliente::findOrFail($id);
         $datosCliente = $request->except(['_token', '_method']);
 
-        if ($request->hasFile('actaconstitutiva')) {
-            $cliente = Cliente::findOrFail($id);
-            Storage::delete('public/' . $cliente->actaconstitutiva);
-            $datosCliente['actaconstitutiva'] = $request->file('actaconstitutiva')->store('uploads', 'public');
-        }
+        $this->handleFileUpload($request, $cliente, $datosCliente, [
+            'actaconstitutiva',
+            'consFiscal',
+            'comprDom',
+            'tarjetacirculacion',
+            'compPago'
+        ]);
 
-        if ($request->hasFile('consFiscal')) {
-            $cliente = Cliente::findOrFail($id);
-            $datosCliente['consFiscal'] = $request->file('consFiscal')->store('uploads', 'public');
-            Storage::delete('public/' . $cliente->consFiscal);
-        }
+        $cliente->update($datosCliente);
 
-        if ($request->hasFile('comprDom')) {
-            $cliente = Cliente::findOrFail($id);
-            Storage::delete('public/' . $cliente->comprDom);
-            $datosCliente['comprDom'] = $request->file('comprDom')->store('uploads', 'public');
-        }
-
-        if ($request->hasFile('tarjetacirculacion')) {
-            $cliente = Cliente::findOrFail($id);
-            Storage::delete('public/' . $cliente->tarjetacirculacion);
-            $datosCliente['tarjetacirculacion'] = $request->file('tarjetacirculacion')->store('uploads', 'public');
-        }
-
-        if ($request->hasFile('compPago')) {
-            $cliente = Cliente::findOrFail($id);
-            Storage::delete('public/' . $cliente->compPago);
-            $datosCliente['compPago'] = $request->file('compPago')->store('uploads', 'public');
-        }
-
-        Cliente::where('id', '=', $id)->update($datosCliente);
-        $cliente = Cliente::findOrFail($id);
-
-        return redirect('cliente')->with('mensaje', 'Cliente editado exitosamente ');
+        return redirect('cliente')->with('mensaje', 'Cliente editado exitosamente');
     }
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     public function destroy($id)
     {
         Cliente::destroy($id);
-        return redirect('cliente')->with('mensaje', 'Cliente eliminado exitosamente ');
+        return redirect('cliente')->with('mensaje', 'Cliente eliminado exitosamente');
     }
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //cliente se registre aqui
+
     public function crearcliente()
     {
-        //peticion desde el boton del index
         return view('registroCliente.datoscliente');
     }
 
-    //cliente se registre aqui por si mismo
-    public function createnuevo(Request $request) //form request para validacion
+    public function createnuevo(Request $request)
     {
-        //return $request;
-
         $request->validate([
             'nombre' => 'required|alpha|min:2|max:100',
             'segnombre' => 'nullable|alpha',
@@ -184,96 +124,55 @@ class ClienteController extends Controller
             'apellidomat' => 'required|alpha|min:2|max:100',
             'telefono' => 'required|numeric|digits:10',
             'direccion' => 'required',
-            'email' => 'required|string|min:2|max:100|email|unique:clientes,email,',
-            'rfc' => 'nullable|alpha_num|min:2|max:100|unique:clientes,rfc,',
-            /* 'actaconstitutiva' => 'mimes:pdf,jpeg,png,jpg|max:5000',
+            'email' => 'required|string|min:2|max:100|email|unique:clientes,email',
+            'rfc' => 'nullable|alpha_num|min:2|max:100|unique:clientes,rfc',
+            'actaconstitutiva' => 'mimes:pdf,jpeg,png,jpg|max:5000',
             'consFiscal' => 'mimes:pdf,jpeg,png,jpg|max:5000',
             'comprDom' => 'mimes:pdf,jpeg,png,jpg|max:5000',
-            'tarjetacirculacion' => 'mimes:pdf,jpeg,png,jpg,pdf|max:5000',
-            'compPago' => 'mimes:pdf,jpeg,png,jpg|max:5000'*/
+            'tarjetacirculacion' => 'mimes:pdf,jpeg,png,jpg|max:5000',
+            'compPago' => 'mimes:pdf,jpeg,png,jpg|max:5000',
         ]);
 
+        $datosCliente = array_map('strtoupper', $request->except('_token'));
 
+        $this->handleFileUpload($request, null, $datosCliente, [
+            'actaconstitutiva',
+            'consFiscal',
+            'comprDom',
+            'tarjetacirculacion',
+            'compPago'
+        ]);
 
-        $datosCliente = $request->except('_token');
-        //mayusculas
-        $datosCliente['nombre'] = strtoupper($request->nombre);
-        $datosCliente['segnombre']  = strtoupper($request->segnombre);
-        $datosCliente['apellidopat'] = strtoupper($request->apellidopat);
-        $datosCliente['apellidomat'] = strtoupper($request->apellidomat);
-        $datosCliente['direccion'] = strtoupper($request->direccion);
-        $datosCliente['email'] = strtoupper($request->email);
+        $cliente = Cliente::create($datosCliente);
 
-        $datosCliente['rfc'] = strtoupper($request->rfc);
-        //insertar FILES al store
-        if ($request->hasFile('actaconstitutiva')) {
-            $datosCliente['actaconstitutiva'] = $request->file('actaconstitutiva')->store('public');
-        }
-        if ($request->hasFile('consFiscal')) {
-            $datosCliente['consFiscal'] = $request->file('consFiscal')->store('public');
-        }
-        if ($request->hasFile('comprDom')) {
-            $datosCliente['comprDom'] = $request->file('comprDom')->store('public');
-        }
-        if ($request->hasFile('tarjetacirculacion')) {
-            $datosCliente['tarjetacirculacion'] = $request->file('tarjetacirculacion')->store('public');
-        }
-        if ($request->hasFile('compPago')) {
-            $datosCliente['compPago'] = $request->file('compPago')->store('public');
-        }
-
-        Cliente::insert($datosCliente);
-        $cliente_telefono = $request->telefono;
-
-        $cliente = Cliente::where('telefono', 'like', $cliente_telefono)->get();
-        foreach ($cliente as $client) {
-            $cliente_id = $client->id;
-        }
-        $cliente_id;
-
-        return redirect()->route(('crear.nuevo.ref'), $cliente_id);
+        return redirect()->route('crear.nuevo.ref', $cliente->id)
+            ->with('mensaje', 'Cliente creado exitosamente!');
     }
 
-
-    //orden de servicio
     public function orden($vehiculo_id, Request $request)
     {
-        $fechacita = $request->fechacita;
-
-
-        $horaactual = Carbon::now()->toDateString();
         $vehiculo = Vehiculo::find($vehiculo_id);
+        $cliente = Cliente::find($vehiculo->cliente_id);
+        $dispositivo = Dispositivo::where('vehiculo_id', $vehiculo->id)->first();
+        $linea = Linea::where('dispositivo_id', $dispositivo->id)->first();
 
-        $cliente_id = $vehiculo->cliente_id;
-        $cliente = Cliente::find($cliente_id);
+        $pdf = PDF::loadView('funciones.orden', [
+            'vehiculo' => $vehiculo,
+            'cliente' => $cliente,
+            'dispositivo' => $dispositivo,
+            'linea' => $linea,
+            'horaactual' => Carbon::now()->toDateString(),
+            'fechacita' => $request->fechacita,
+        ]);
 
-        $dispositivo = Dispositivo::where('vehiculo_id', '=', $vehiculo->id)->first();
-        $dispositivo_id = $dispositivo->id;
-        $dispositivo = Dispositivo::find($dispositivo_id);
-
-        $linea = Linea::where('dispositivo_id', '=', $dispositivo_id)->first();
-        $linea_id = $linea->id;
-        $linea = Linea::find($linea_id);
-
-        $pdf = PDF::loadView('funciones.orden', compact('vehiculo', 'cliente', 'dispositivo', 'linea', 'horaactual', 'fechacita'));
         return $pdf->download('OrdenDeServicio.pdf');
     }
 
-
-
     public function crearcita(Vehiculo $vehiculo)
     {
-        $vehiculo_id = $vehiculo->id;
-        return view('funciones.horadecita', compact('vehiculo', 'vehiculo_id'));
+        return view('funciones.horadecita', ['vehiculo' => $vehiculo]);
     }
 
-
-    public function fechaservicio(Request $request)
-    {
-        return $request;
-    }
-
-    //orden de instalacion
     public function ordeninstalacion()
     {
         $clientes = Cliente::all();
@@ -282,45 +181,42 @@ class ClienteController extends Controller
 
     public function ordenins(Request $request)
     {
-        //return $request;
-        $horaactual = Carbon::now()->toDateString();
-        $cliente_id = $request->get('cliente');
-        $cliente = Cliente::find($cliente_id);
+        $cliente = Cliente::find($request->get('cliente'));
+        $pdf = PDF::loadView('funciones.ordendinstalacion', [
+            'cliente' => $cliente,
+            'horaactual' => Carbon::now()->toDateString(),
+            'request' => $request
+        ]);
 
-        $pdf = PDF::loadView('funciones.ordendinstalacion', compact('cliente', 'horaactual', 'request'));
         return $pdf->stream('OrdenDeInstalacion.pdf');
     }
 
-    public function store(storecliente $request) //form request para validacion
+    public function store(storecliente $request)
     {
-        $datosCliente = $request->except('_token');
-        //mayusculas
-        $datosCliente['nombre'] = strtoupper($request->nombre);
-        $datosCliente['segnombre']  = strtoupper($request->segnombre);
-        $datosCliente['apellidopat'] = strtoupper($request->apellidopat);
-        $datosCliente['apellidomat'] = strtoupper($request->apellidomat);
-        $datosCliente['direccion'] = strtoupper($request->direccion);
-        $datosCliente['email'] = strtoupper($request->email);
-        $datosCliente['rfc'] = strtoupper($request->rfc);
-        //insertar FILES al store
-        if ($request->hasFile('actaconstitutiva')) {
-            $datosCliente['actaconstitutiva'] = $request->file('actaconstitutiva')->store('public');
-        }
-        if ($request->hasFile('consFiscal')) {
-            $datosCliente['consFiscal'] = $request->file('consFiscal')->store('public');
-        }
-        if ($request->hasFile('comprDom')) {
-            $datosCliente['comprDom'] = $request->file('comprDom')->store('public');
-        }
-        if ($request->hasFile('tarjetacirculacion')) {
-            $datosCliente['tarjetacirculacion'] = $request->file('tarjetacirculacion')->store('public');
-        }
-        if ($request->hasFile('compPago')) {
-            $datosCliente['compPago'] = $request->file('compPago')->store('public');
-        }
+        $datosCliente = array_map('strtoupper', $request->except('_token'));
 
-        Cliente::insert($datosCliente);
+        $this->handleFileUpload($request, null, $datosCliente, [
+            'actaconstitutiva',
+            'consFiscal',
+            'comprDom',
+            'tarjetacirculacion',
+            'compPago'
+        ]);
 
-        return redirect()->route(route: 'cliente.index');
+        Cliente::create($datosCliente);
+
+        return redirect()->route('cliente.index');
+    }
+
+    private function handleFileUpload(Request $request, ?Cliente $cliente, array &$datosCliente, array $archivos)
+    {
+        foreach ($archivos as $archivo) {
+            if ($request->hasFile($archivo)) {
+                if ($cliente) {
+                    Storage::delete('public/' . $cliente->$archivo);
+                }
+                $datosCliente[$archivo] = $request->file($archivo)->store('public/clientes');
+            }
+        }
     }
 }

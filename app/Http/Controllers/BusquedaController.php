@@ -2,71 +2,74 @@
 
 namespace App\Http\Controllers;
 
-
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Cliente;
 
 class BusquedaController extends Controller
 {
-    //
     public function formsearch()
     {
-
         return view('busqueda');
     }
 
-
     public function search(Request $request)
     {
-
         if ($request->ajax()) {
+            $searchTerm = '%' . $request->search . '%';
 
-            $data = Cliente::where('id', 'like', '%' . $request->search . '%')
-                ->orwhere('nombre', 'like', '%' . $request->search . '%')
-                ->orwhere('segnombre', 'like', '%' . $request->search . '%')
-                ->orwhere('apellidopat', 'like', '%' . $request->search . '%')
-                ->orwhere('apellidomat', 'like', '%' . $request->search . '%')
-                ->orwhere('telefono', 'like', '%' . $request->search . '%')
-                ->orwhere('email', 'like', '%' . $request->search . '%')
-                ->orwhere('rfc', 'like', '%' . $request->search . '%')->get();
+            $data = Cliente::where('id', 'like', $searchTerm)
+                ->orWhere('nombre', 'like', $searchTerm)
+                ->orWhere('segnombre', 'like', $searchTerm)
+                ->orWhere('apellidopat', 'like', $searchTerm)
+                ->orWhere('apellidomat', 'like', $searchTerm)
+                ->orWhere('telefono', 'like', $searchTerm)
+                ->orWhere('email', 'like', $searchTerm)
+                ->orWhere('rfc', 'like', $searchTerm)
+                ->get();
 
-            $output = '';
-            if (count($data) > 0) {
-                $output = '
-                    <table class="table">
-                    <thead>
-                    <tr>
-                        <th scope="col"></th>
-                        <th scope="col">Nombre</th>
-                        <th scope="col">Segundo nombre</th>
-                        <th scope="col">Apellidopat</th>
-                        <th scope="col">Apellidoat</th>
-                        <th scope="col">Telefono</th>
-                        <th scope="col">Email</th>
-                    </tr>
-                    </thead>
-                    <tbody>';
-                foreach ($data as $row) {
-                    $output .= '
-                            <tr>
-                            <td>' .  '<a href="' . route('cliente.show', $row->id) . '" class="btn btn-default">'. "Ir a Detalles". '</a></td>
-                            <td>' .  $row->nombre . '</td>
-                            <td>' .  $row->segnombre . '</td>
-                            <td>' .  $row->apellidopat . '</td>
-                            <td>' .  $row->apellidoat . '</td>
-                            <td>' .   $row->telefono . '</td>
-                            <td>' . $row->email . '</td>
-                            </tr>
-                            ';
-                }
-                $output .= '
-                    </tbody>
-                    </table>';
-            } else {
-                $output .= 'No results';
+            if ($data->isNotEmpty()) {
+                return $this->generateTable($data);
             }
-            return $output;
+
+            return 'No results';
         }
+    }
+
+    private function generateTable($data)
+    {
+        $output = '
+            <table class="table">
+            <thead>
+            <tr>
+                <th scope="col"></th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Segundo nombre</th>
+                <th scope="col">Apellido paterno</th>
+                <th scope="col">Apellido materno</th>
+                <th scope="col">Teléfono</th>
+                <th scope="col">Email</th>
+            </tr>
+            </thead>
+            <tbody>';
+
+        foreach ($data as $row) {
+            $output .= '
+                <tr>
+                <td><a href="' . route('cliente.show', $row->id) . '" class="btn btn-default">Ir a Detalles</a></td>
+                <td>' . e($row->nombre) . '</td>
+                <td>' . e($row->segnombre) . '</td>
+                <td>' . e($row->apellidopat) . '</td>
+                <td>' . e($row->apellidomat) . '</td>
+                <td>' . e($row->telefono) . '</td>
+                <td>' . e($row->email) . '</td>
+                </tr>';
+        }
+
+        $output .= '
+            </tbody>
+            </table>';
+
+        return $output;
     }
 }

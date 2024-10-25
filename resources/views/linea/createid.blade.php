@@ -33,27 +33,24 @@
         <br>
 
         <div class="form-group">
-            <label>Tipo de Linea:</label>
-
-            <select name="tipolinea" class="form-control">
-                <option value="voz">Voz</option>
-                <option value="datos" selected>Datos</option>
-            </select>
-
+            <label for="tipolinea">Tipo de Línea:</label>
+            <input type="text" class="form-control" name="tipolinea" id="tipolinea" required>
         </div>
+        
         @error('tipolinea')
             <small style ="color: red"> {{ $message }}</small>
         @enderror
         <br>
         <br>
         <div class="form-group">
-            <label>Renovación:</label>
-            <input type="text" class="form-control" name="renovacion" value="{{ old('renovacion') }}">
+            <label for="renovacion">Renovación:</label>
+            <input type="date" class="form-control" name="renovacion" id="renovacion" value="{{ old('renovacion') }}">
         </div>
         @error('renovacion')
-            <small style ="color: red"> {{ $message }}</small>
+            <small style="color: red">{{ $message }}</small>
         @enderror
         <br>
+        
         <br>
 
 

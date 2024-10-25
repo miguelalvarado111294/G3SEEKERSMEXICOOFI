@@ -17,48 +17,85 @@ class PruebaController extends Controller
 
     public function buscadorvehiculo(Request $request, $id)
     {
+        $busqueda = trim($request->get('busqueda', '')); // Elimina espacios en blanco
         $cliente_id = $id;
-        $busqueda = $request->get('busqueda');  //recibe del input de index cliente y lo almacena en una variable 
-        $vehiculos = Vehiculo::where('noserie', 'LIKE', '%' . $busqueda . '%')
-            ->orWhere('nomotor', 'LIKE', '%' . $busqueda . '%')
-            ->orWhere('placa', 'LIKE', '%' . $busqueda . '%')->paginate(10);
-
-        return view('prueba.vehiculo', compact('vehiculos', 'id', 'cliente_id'));
-        //se envia a view vehiculo id de cliente
+    
+        // Solo ejecutar la consulta si hay un término de búsqueda
+        $vehiculos = Vehiculo::when($busqueda, function ($query, $busqueda) {
+            return $query->where('noserie', 'LIKE', '%' . $busqueda . '%')
+                         ->orWhere('nomotor', 'LIKE', '%' . $busqueda . '%')
+                         ->orWhere('placa', 'LIKE', '%' . $busqueda . '%');
+        })->paginate(10);
+    
+        return view('prueba.vehiculo', compact('vehiculos', 'cliente_id'));
     }
+    
 
     public function buscarCuenta($id)
-    {
-        $cliente_id = $id;
-        //recibe cliennte id desde show
-        $cliente = Cliente::find($cliente_id);
+{
+    // Busca el cliente solo si es necesario
+    $cliente = Cliente::find($id);
 
-        $cuenta = Cuenta::where('cliente_id', 'LIKE',  $cliente_id)->get();
-        $numerodecuentas = count($cuenta);
+    // Encuentra las cuentas del cliente
+    $cuenta = Cuenta::where('cliente_id', $id)->get();
+    
+    // Contar el número de cuentas
+    $numerodecuentas = $cuenta->count();
 
-        //$cuenta = Cuenta::find($cuenta->id);
-        return view('prueba.buscarCuenta', compact('cuenta', 'cliente_id', 'cliente', 'id', 'numerodecuentas'));
-    }
+    return view('prueba.buscarCuenta', [
+        'cuenta' => $cuenta,
+        'cliente_id' => $id,
+        'cliente' => $cliente, // Asegúrate de pasar el cliente a la vista
+        'numerodecuentas' => $numerodecuentas,
+    ]);
+}
+
 
     public function buscarCtaespejo($id)
-    {
-        $cuenta=Cuenta::find($id);
-        $cliente_id=$cuenta->cliente_id;
-        $ctaespejos = Ctaespejo::where('cuenta_id', 'LIKE', $id)->get();
-        return view('prueba.buscarctaespejo', compact('ctaespejos', 'id','cliente_id'));
+{
+    // Busca la cuenta y verifica si existe
+    $cuenta = Cuenta::find($id);
+    if (!$cuenta) {
+        // Manejo de error, por ejemplo, redirigir o mostrar un mensaje
+        return redirect()->back()->with('error', 'Cuenta no encontrada.');
     }
 
-    public function buscarVehiculo($id)
-    {
-        //recive id cliente desde buscar cta
-        $cliente_id = $id;
-        //obtener vehiculos relacionados con cliente id
-        $vehiculos =    Vehiculo::where('cliente_id', 'LIKE', $cliente_id)->paginate(10); //busca vehiculos ligados a id_cliete
-        $cliente =      Cliente::find($cliente_id); //busca vehiculos ligados a id_cliete
-        $cuenta =      Cuenta::select('usuario')->where('cliente_id', 'LIKE', $cliente_id)->get(); //busca vehiculos ligados a id_cliete
-        return view('prueba.vehiculo', compact('vehiculos', 'id', 'cliente_id', 'cliente', 'cuenta'));
-        //se envia a view vehiculo id de cliente
+    $cliente_id = $cuenta->cliente_id;
+
+    // Encuentra los espejos asociados a la cuenta
+    $ctaespejos = Ctaespejo::where('cuenta_id', $id)->get();
+
+    return view('prueba.buscarctaespejo', [
+        'ctaespejos' => $ctaespejos,
+        'id' => $id,
+        'cliente_id' => $cliente_id,
+    ]);
+}
+
+
+public function buscarVehiculo($id)
+{
+    // Busca el cliente y verifica si existe
+    $cliente = Cliente::find($id);
+    if (!$cliente) {
+        return redirect()->back()->with('error', 'Cliente no encontrado.');
     }
+
+    // Obtener vehículos relacionados con el cliente
+    $vehiculos = Vehiculo::where('cliente_id', $id)->paginate(10);
+
+    // Obtener la cuenta asociada al cliente
+    $cuenta = Cuenta::where('cliente_id', $id)->select('usuario')->get();
+
+    return view('prueba.vehiculo', [
+        'vehiculos' => $vehiculos,
+        'id' => $id,
+        'cliente_id' => $id,
+        'cliente' => $cliente,
+        'cuenta' => $cuenta,
+    ]);
+}
+
 
     public function buscarDispositivo($id)
     { //recibe desde view vehiculos_id de vehiculo

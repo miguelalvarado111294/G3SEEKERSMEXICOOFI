@@ -2,102 +2,95 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\dispositivo;
-use App\Models\vehiculo;
-use App\Models\cliente;
-
+use App\Models\Dispositivo;
+use App\Models\Vehiculo;
+use App\Models\Cliente;
 use Illuminate\Http\Request;
 
 class DispositivoController extends Controller
 {
     public function index(Request $request)
     {
-        $busqueda = $request->get('busqueda');  //recibe del input de index cliente y lo almacena en una variable 
-        $dispositivos = Dispositivo::where('id', 'LIKE',  $busqueda)
-            ->orWhere('imei', 'LIKE', '%' . $busqueda . '%')
-            ->orWhere('cuenta', '=', $busqueda)
-            ->orWhere('noeconomico', 'LIKE', '%' . $busqueda . '%')->paginate(10);
-            
+        $busqueda = $request->get('busqueda');
+        $dispositivos = Dispositivo::where(function ($query) use ($busqueda) {
+            $query->where('id', 'LIKE', "%{$busqueda}%")
+                  ->orWhere('imei', 'LIKE', "%{$busqueda}%")
+                  ->orWhere('cuenta', $busqueda)
+                  ->orWhere('noeconomico', 'LIKE', "%{$busqueda}%");
+        })->paginate(10);
+
         return view('dispositivo.index', compact('dispositivos', 'busqueda'));
     }
 
     public function creardisp($id)
     {
-        return view('dispositivo.createid', ['id' => $id]);
+        return view('dispositivo.createid', compact('id'));
     }
 
     public function stodis(Request $request, $id)
     {
-        $vehiculoid = $id;
-        $vehiculo = Vehiculo::find($vehiculoid);
-        $clienteid = $vehiculo->cliente_id;
+        $vehiculo = Vehiculo::findOrFail($id);
+        
+        $request->validate($this->validationRules($id));
 
-        $request->validate([
-            'modelo' => 'required|alpha_dash|min:2|max:100',
-            'noserie' => 'nullable|alpha_dash|min:20|unique:dispositivos,noserie,' . $id,
-            'imei' => 'required|numeric|min:2|min:18|unique:dispositivos,imei,' . $id,
+        $datosCliente = array_merge($request->except('_token'), [
+            'cliente_id' => $vehiculo->cliente_id,
+            'vehiculo_id' => $id
         ]);
 
-        $datosCliente = $request->except('_token');
-        $datosCliente['cliente_id'] = $clienteid;
-        $datosCliente['vehiculo_id'] = $vehiculoid;
+        Dispositivo::create(array_map('strtoupper', $datosCliente));
 
-        $mArray = array_map('strtoupper', $datosCliente);
-        Dispositivo::insert($mArray);
-
-        return redirect()->route('buscar.dispositivo', $vehiculoid = $id);
+        return redirect()->route('buscar.dispositivo', $id);
     }
 
     public function edit($id)
     {
-        $vehiculos = vehiculo::all();
-        $clientes = cliente::all();
-        $dispositivo = dispositivo::findOrfail($id);
+        $dispositivo = Dispositivo::findOrFail($id);
+        $vehiculos = Vehiculo::all();
+        $clientes = Cliente::all();
+
         return view('dispositivo.edit', compact('dispositivo', 'clientes', 'vehiculos'));
     }
 
     public function update(Request $request, $id)
     {
-        $campos = [
-            'modelo' => 'required|alpha_dash|min:2|max:100',
-            'noserie' => 'nullable|alpha_dash|min:20|unique:dispositivos,noserie,' . $id,
-            'imei' => 'required|numeric|min:2|min:18|unique:dispositivos,imei,' . $id,
-        ];
+        $request->validate($this->validationRules($id));
 
-        $this->validate($request, $campos/*$mensaje*/);
         $datosDispositivo = $request->except(['_token', '_method']);
+        Dispositivo::where('id', $id)->update($datosDispositivo);
 
-        Dispositivo::where('id', '=', $id)->update($datosDispositivo);
-        $dispositivo = Dispositivo::findOrFail($id);
-
-        return redirect()->route('buscar.dispositivo', $dispositivo->vehiculo_id);
+        return redirect()->route('buscar.dispositivo', Dispositivo::findOrFail($id)->vehiculo_id);
     }
 
     public function destroy($id)
     {
         Dispositivo::destroy($id);
-        return redirect()->back();
+        return redirect()->back()->with('mensaje', 'Dispositivo eliminado exitosamente.');
     }
 
     public function create()
     {
-        $vehiculos = vehiculo::all();
-        $clientes = cliente::all();
+        $vehiculos = Vehiculo::all();
+        $clientes = Cliente::all();
+
         return view('dispositivo.create', compact('vehiculos', 'clientes'));
     }
 
-    public function store(Request $request,$id)
+    public function store(Request $request)
     {
-        $campos = [
+        $request->validate($this->validationRules());
+
+        Dispositivo::create($request->except('_token'));
+
+        return redirect()->route('dispositivo.index')->with('mensaje', 'Dispositivo agregado exitosamente.');
+    }
+
+    private function validationRules($id = null)
+    {
+        return [
             'modelo' => 'required|alpha_dash|min:2|max:100',
-            'noserie' => 'nullable|alpha_dash|min:20|unique:dispositivos,noserie,' . $id,
-            'imei' => 'required|numeric|min:2|min:18|unique:dispositivos,imei,' . $id,
+            'noserie' => 'nullable|alpha_dash|min:20|unique:dispositivos,noserie' . ($id ? ",$id" : ''),
+            'imei' => 'required|numeric|min:18|unique:dispositivos,imei' . ($id ? ",$id" : ''),
         ];
-
-        $this->validate($request, $campos/*$mensaje*/);
-        $datosDispositivo = $request->except('_token');
-        Dispositivo::insert($datosDispositivo);
-
-        return redirect('dispositivo')->with('mensaje', 'Dispositivo agregado exitosamente ');
     }
 }

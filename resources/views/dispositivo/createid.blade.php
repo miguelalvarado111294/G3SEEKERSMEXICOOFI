@@ -94,15 +94,15 @@
         </div>
         <br>
 
-
         <div class="form-group">
             <label>Fecha Compra:</label>
-            <input type="text" class="form-control" name="fechacompra"value=" {{ old('fechacompra') }}">
+            <input type="date" class="form-control" name="fechacompra" value="{{ old('fechacompra') }}">
             @error('fechacompra')
-                <small style ="color: red"> {{ $message }}</small>
+                <small style="color: red">{{ $message }}</small>
             @enderror
             <br>
         </div>
+        
         <br>
 
         <div class="form-group">

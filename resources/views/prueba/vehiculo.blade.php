@@ -3,23 +3,10 @@
 @section('title', 'G3SEEKERSMX')
 
 @section('content_header')
-    <h1 class="text-center">
-        <h1 class="text-center"><b>G3 Seekers México</b></h1>
-    </h1>
-    <br>
-
-    <h1 class="text-center">Cliente :
-        {{ $cliente->nombre }} {{ $cliente->segnombre }} {{ $cliente->apellidopat }} {{ $cliente->apellidomat }}
-    </h1>
-
-    <h1 class="text-center">Cuenta :
-        @foreach ($cuenta as $cuent)
-            {{ $cuent->usuario }}
-        @endforeach
-    </h1>
-    <h3 class="text-center">Vehiculo('s')</h3>
-
-    <br>
+    <h1 class="text-center"><b>G3 Seekers México</b></h1>
+    <h1 class="text-center">Cliente: {{ $cliente->nombre }} {{ $cliente->segnombre }} {{ $cliente->apellidopat }} {{ $cliente->apellidomat }}</h1>
+    <h1 class="text-center">Cuenta: {{ $cuenta->pluck('usuario')->implode(', ') }}</h1>
+    <h3 class="text-center">Vehículo(s)</h3>
 
     @if (Session::has('mensaje'))
         <div class="alert alert-success alert dismissible" role="alert">
@@ -30,78 +17,67 @@
         </div>
     @endif
 
-    <br>
     @can('vehiculo.create')
-        <a href="{{ route('vehiculof.crear', $id) }}" class="btn btn-success">Registrar nuevo vehiculo</a>
+        <div class="text-center mb-3">
+            <a href="{{ route('vehiculof.crear', $id) }}" class="btn btn-success">Registrar nuevo vehículo</a>
+        </div>
     @endcan
-<br>
-    <br>
+@endsection
+
+@section('content')
     <div class="card">
         <div class="card-body">
-
             <table class="table table-light">
                 <thead class="thead-light">
                     <tr>
-                        <th>Id del vehiculo</th>
-                        <th>fecha de instalacion</th>
-
+                        <th>Id del vehículo</th>
+                        <th>Fecha de instalación</th>
                         <th>Marca</th>
                         <th>Modelo</th>
                         <th>Color</th>
                         <th>Placa</th>
                         <th>Tipo de Unidad</th>
-                        <th>Numero de Serie</th>
+                        <th>Número de Serie</th>
                         <th>Comentarios</th>
                         <th>Acciones</th>
-                        <th></th>
-
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($vehiculos as $vehiculo)
                         <tr>
                             <td>{{ $vehiculo->id }}</td>
-          {{--                 <td>{{ $vehiculo->Dispositivo->fechacompra }}</td>--}} 
-
-                            <td>{{ $vehiculo->marca }} </td>
+                            <td>{{ $vehiculo->fechacompra ?? 'N/A' }}</td>
+                            <td>{{ $vehiculo->marca }}</td>
                             <td>{{ $vehiculo->modelo }}</td>
-                            <td>{{ $vehiculo->color }} </td>
-                            <td>{{ $vehiculo->placa }} </td>
-                            <td> {{ $vehiculo->tipo }} </td>
+                            <td>{{ $vehiculo->color }}</td>
+                            <td>{{ $vehiculo->placa }}</td>
+                            <td>{{ $vehiculo->tipo }}</td>
                             <td>{{ $vehiculo->noserie }}</td>
-                            <td> {{ $vehiculo->comentarios }} </td>
+                            <td>{{ $vehiculo->comentarios }}</td>
                             <td>
                                 @can('vehiculo.edit')
-                                    <a href="{{ url('/vehiculo/' . $vehiculo->id . '/edit') }}"
-                                        class="btn btn-warning">Editar</a>
+                                    <a href="{{ route('vehiculo.edit', $vehiculo->id) }}" class="btn btn-warning">Editar</a>
                                 @endcan
 
                                 @can('vehiculo.destroy')
-                                    <form action="{{ url('/vehiculo/' . $vehiculo->id) }}" method="post" class="d-inline">
+                                    <form action="{{ route('vehiculo.destroy', $vehiculo->id) }}" method="POST" class="d-inline">
                                         @csrf
-                                        {{ method_field('DELETE') }}
-                                        <input class="btn btn-danger" type="submit"
-                                            onclick=" return confirm('seguro quieres eliminar?')" value="Borrar">
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger" onclick="return confirm('¿Seguro quieres eliminar?')">Borrar</button>
                                     </form>
                                 @endcan
 
+                                <a href="{{ route('buscar.dispositivo', $vehiculo->id) }}" class="btn btn-primary">Dispositivo</a>
                             </td>
-                            <td>
-                                <a href="{{ route('buscar.dispositivo', $vehiculo->id) }}"
-                                    class="btn btn-primary">Dispositivo</a>
-                            </td>
+                        </tr>
                     @endforeach
                 </tbody>
             </table>
-
-
+            {!! $vehiculos->links() !!}
         </div>
-
     </div>
-    {!! $vehiculos->links() !!}
-    <br>
-    <a href=" {{ route('buscar.cuenta', $cliente_id) }}" class="btn btn-dark">Regresar</a>
 
-
+    <div class="text-center mt-3">
+        <a href="{{ route('buscar.cuenta', $cliente_id) }}" class="btn btn-dark">Regresar</a>
     </div>
 @endsection

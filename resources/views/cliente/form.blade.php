@@ -125,7 +125,6 @@
 <div class="form-group">
     <label for="compPago">Comprobante de Pago </label>
     <br>
-   {{--  <img src="{{ asset('storage/') . '/' . $cliente->compPago }}" width="200" alt=""> --}}
     <input type="file" class="form-control" name="compPago"
         value="{{ isset($cliente->compPago) ? $cliente->compPago : old('compPago') }} " id="compPago">
     @error('compPago')
