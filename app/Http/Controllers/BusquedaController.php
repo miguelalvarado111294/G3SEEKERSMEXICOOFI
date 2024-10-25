@@ -37,6 +37,7 @@ class BusquedaController extends Controller
                     <table class="table">
                     <thead>
                     <tr>
+                        <th scope="col"></th>
                         <th scope="col">Nombre</th>
                         <th scope="col">Segundo nombre</th>
                         <th scope="col">Apellidopat</th>
@@ -49,13 +50,13 @@ class BusquedaController extends Controller
                 foreach ($data as $row) {
                     $output .= '
                             <tr>
-                           
-                            <td>' .  '<a href="' . route('cliente.show', $row->id) . '">' . $row->nombre . '</td>
-                            <td>' .  '<a href="' . route('cliente.show', $row->id) . '">' . $row->segnombre . '</td>
-                            <td>' . '<a href="' . route('cliente.show', $row->id) . '">' .  $row->apellidopat . '</td>
-                            <td>' .  '<a href="' . route('cliente.show', $row->id) . '">' . $row->apellidoat . '</td>
-                            <td>' . '<a href="' . route('cliente.show', $row->id) . '">' .  $row->telefono . '</td>
-                            <td>' .  '<a href="' . route('cliente.show', $row->id) . '">' . $row->email . '</td>
+                            <td>' .  '<a href="' . route('cliente.show', $row->id) . '" class="btn btn-default">'. "Ir a Detalles". '</a></td>
+                            <td>' .  $row->nombre . '</td>
+                            <td>' .  $row->segnombre . '</td>
+                            <td>' .  $row->apellidopat . '</td>
+                            <td>' .  $row->apellidoat . '</td>
+                            <td>' .   $row->telefono . '</td>
+                            <td>' . $row->email . '</td>
                             </tr>
                             ';
                 }
@@ -69,5 +70,3 @@ class BusquedaController extends Controller
         }
     }
 }
-
-

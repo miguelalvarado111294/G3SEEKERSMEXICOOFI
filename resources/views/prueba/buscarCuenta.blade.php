@@ -24,8 +24,7 @@
             <a href="{{ route('cuentaf.crear', $cliente_id) }}" class="btn btn-success">Registrar nueva cuenta</a>
         @endcan
     @endif
-    <br>
-    <br>
+   <br>
 
     <div class="card">
         <div class="card-body">
@@ -38,6 +37,7 @@
                         <th>Contraseña de motor</th>
                         <th>Comentarios</th>
                         <th>Vehiculos / Cuentas Espejo</th>
+                        
                         @can('cuenta.edit')
                             <th>Acciones</th>
                         @endcan
@@ -56,7 +56,7 @@
                                 <a href="{{ route('buscar.ctaespejo', $value->id) }}" class="btn btn-primary">Cuenta
                                     Espejo</a>
                                 <a href="{{ route('buscar.vehiculo', $cliente_id) }}"
-                                    class="btn btn-primary ; float-right">Vehiculos</a>
+                                    class="btn btn-primary ;">Vehiculos</a>
                             </td>
                             <td>
                                 @can('cuenta.edit')
@@ -71,15 +71,13 @@
                                     </form>
                                 @endcan
                             </td>
-
                         </tr>
                     @endforeach
                 </tbody>
             </table>
         </div>
     </div>
-    <br>
-    <br>
+  
     <a href=" {{ route('cliente.show', $cliente_id) }}" class="btn btn-dark">Regresar</a>
 
 @endsection

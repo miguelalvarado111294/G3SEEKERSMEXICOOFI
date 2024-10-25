@@ -5,12 +5,12 @@
 @section('content_header')
     <h1 class="text-center"><b>G3 Seekers México</b></h1>
 
-    <br>
+    
     <div class="card">
 
         <div class="card-body">
             <h3 class="text-center">Datos Personales</h3>
-            <hr>
+
             <ul>
                 <b>Nombre :</b> {{ $cliente->nombre }} <br>
                 <b>Segundo Nombre :</b> {{ $cliente->segnombre }}<br>
@@ -54,7 +54,6 @@
             @can('referencia.create')
                 <a href="{{ route('referenciaf.crear', $cliente->id) }}" class="btn btn-success">Registrar Nueva Referencia</a>
             @endcan
-            <hr>
             <table class="table table-light">
                 <thead class="thead-light">
                     <tr>
@@ -104,7 +103,6 @@
             </table>
         </div>
     </div>
-    <br>
 
     <a href="{{ url('cliente') }}" class="btn btn-dark">Regresar</a>
 
