@@ -8,7 +8,6 @@ use App\Models\Vehiculo;
 use App\Models\Dispositivo;
 use App\Models\Linea;
 
-use App\Http\Controllers\fechaservicio;
 
 use App\Http\Requests\storecliente;
 use Illuminate\Http\Request;
@@ -18,6 +17,20 @@ use Carbon\Carbon;
 
 class ClienteController extends Controller
 {
+    public function buscar(Request $request)
+    {
+        $query = $request->input('query');
+    
+        $clientes = Cliente::where(function ($queryBuilder) use ($query) {
+            $queryBuilder->where('nombre', 'LIKE', "%{$query}%")
+                         ->orWhere('segnombre', 'LIKE', "%{$query}%")
+                         ->orWhere('apellidopat', 'LIKE', "%{$query}%")
+                         ->orWhere('apellidomat', 'LIKE', "%{$query}%");
+        })->get();
+    
+        return response()->json($clientes);
+    }
+    
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public function index(Request $request)
     {
@@ -42,7 +55,7 @@ class ClienteController extends Controller
     }
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    
+
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public function show($id) //recive id de cliente
     {
@@ -50,7 +63,7 @@ class ClienteController extends Controller
         $cliente = cliente::find($id);
         //traer referencias a la vista show
         $referencias = Referencia::where('cliente_id', 'LIKE', $id)->get();
-        //unir datos de las consultas en un solo array para enviar a la vista
+        //unir datos de las consultas en un solo array para enviar a la vista o usar compact q menso : s 
         $data = [
             'cliente' => $cliente,
             'referencias' => $referencias
@@ -152,14 +165,14 @@ class ClienteController extends Controller
         return redirect('cliente')->with('mensaje', 'Cliente eliminado exitosamente ');
     }
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//cliente se registre aqui
+    //cliente se registre aqui
     public function crearcliente()
     {
         //peticion desde el boton del index
         return view('registroCliente.datoscliente');
     }
 
-//cliente se registre aqui por si mismo
+    //cliente se registre aqui por si mismo
     public function createnuevo(Request $request) //form request para validacion
     {
         //return $request;
@@ -222,11 +235,11 @@ class ClienteController extends Controller
     }
 
 
-//orden de servicio
-    public function orden($vehiculo_id,Request $request)
+    //orden de servicio
+    public function orden($vehiculo_id, Request $request)
     {
-        $fechacita=$request->fechacita;
-        
+        $fechacita = $request->fechacita;
+
 
         $horaactual = Carbon::now()->toDateString();
         $vehiculo = Vehiculo::find($vehiculo_id);
@@ -242,7 +255,7 @@ class ClienteController extends Controller
         $linea_id = $linea->id;
         $linea = Linea::find($linea_id);
 
-        $pdf = PDF::loadView('funciones.orden', compact('vehiculo', 'cliente', 'dispositivo', 'linea', 'horaactual','fechacita'));
+        $pdf = PDF::loadView('funciones.orden', compact('vehiculo', 'cliente', 'dispositivo', 'linea', 'horaactual', 'fechacita'));
         return $pdf->download('OrdenDeServicio.pdf');
     }
 
@@ -250,21 +263,17 @@ class ClienteController extends Controller
 
     public function crearcita(Vehiculo $vehiculo)
     {
-
         $vehiculo_id = $vehiculo->id;
-
-
         return view('funciones.horadecita', compact('vehiculo', 'vehiculo_id'));
     }
 
-    
+
     public function fechaservicio(Request $request)
     {
-
-        return $request;   
+        return $request;
     }
 
-//orden de instalacion
+    //orden de instalacion
     public function ordeninstalacion()
     {
         $clientes = Cliente::all();
@@ -275,16 +284,12 @@ class ClienteController extends Controller
     {
         //return $request;
         $horaactual = Carbon::now()->toDateString();
-
         $cliente_id = $request->get('cliente');
         $cliente = Cliente::find($cliente_id);
 
         $pdf = PDF::loadView('funciones.ordendinstalacion', compact('cliente', 'horaactual', 'request'));
         return $pdf->stream('OrdenDeInstalacion.pdf');
     }
-
-
-
 
     public function store(storecliente $request) //form request para validacion
     {

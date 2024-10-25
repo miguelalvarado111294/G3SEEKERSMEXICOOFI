@@ -3,8 +3,7 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsuarioController;
-
-
+use App\Models\Cliente;
 
 Auth::routes();
 
@@ -88,4 +87,13 @@ Route::group(['middleware' => 'auth'], function () {
   //crear usuarios desde user
   Route::get('/usuarios/create', [UsuarioController::class, 'create'])->name('usuarios.create');
   Route::post('/usuarios', [UsuarioController::class, 'store'])->name('usuarios.store');
+
+Route::get('/autocomplete', [App\Http\Controllers\ProductoController::class, 'autocomplete'])->name('autocomplete');
+
+Route::get("/formsearch",[App\Http\Controllers\BusquedaController::class,'formsearch']);
+
+Route::get("/search",[App\Http\Controllers\BusquedaController::class,'search']);
+
+
+
 });

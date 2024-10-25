@@ -30,6 +30,10 @@ return new class extends Migration
             $table->bigInteger('cliente_id')->unsigned();
             $table->bigInteger('vehiculo_id')->unsigned();
 
+
+
+            $table->string('fechacompra');
+
             // $table->foreign('sensor_id')->references('id')->on('sensors')->onDelete('cascade')->onUpdate('cascade');
             //$table->foreign('linea_id')->references('id')->on('lineas')->onDelete('cascade');
             $table->foreign('cliente_id')->references('id')->on('clientes')->onDelete('cascade')->onUpdate('cascade');
