@@ -17,7 +17,6 @@
                         {{ __('aqui va una imagen storage/cAioF5G2t75lruqbIHLM1H7czVFsp6rvEqva4cgR.jpg') }}
 
                         <td><img src="'/storage/logo.png') }}" width="200" alt="">
-huevos
                     </div>
                 </div>
             </div>

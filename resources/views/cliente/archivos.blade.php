@@ -32,7 +32,9 @@
 
                         @foreach ($documentos as $campo => $nombre)
                             <td>
-                                <img src="{{ asset('storage/clientes/' . basename($cliente->$campo)) }}" width="400" alt="{{ $nombre }}">
+                                <a href="{{ asset('storage/clientes/' . basename($cliente->$campo)) }}" target="_blank">
+                                    <img src="{{ asset('storage/clientes/' . basename($cliente->$campo)) }}" width="100" alt="{{ $nombre }}" class="img-fluid">
+                                </a>
                             </td>
                         @endforeach
                     </tr>
