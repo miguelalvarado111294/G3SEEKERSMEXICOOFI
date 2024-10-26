@@ -318,21 +318,7 @@ return [
             'icon' => 'fas fa-users',
             'can' => 'admin.index'
         ],
-        ['header' => 'Cliente nuevo'],
 
-        [
-            'text' => 'Registro de Cliente nuevo',
-            'route' => 'crear.nuevo',
-            'icon' => 'fas fa-fw fa-user',
-        ],
-        ['header' => 'Generar Formatos'],
-
-        [
-            'text' => 'Generar Orden de Instalacion',
-            'route' => 'ordeninstalacion',
-            'icon' => 'fas fa-fw fa-user',
-            'can' => 'crear.orden'
-        ],
 
         /*
         
@@ -380,7 +366,7 @@ return [
             'icon' => 'fas fa-fw fa-user',
         ],
 
-
+        /*
         ['header' => 'Inventario'],
         [
             'text' => 'Dispositivos',
@@ -392,7 +378,22 @@ return [
             'route' => 'crear.orden',
             'icon' => 'fas fa-fw fa-user',
         ],
+  */
+        ['header' => 'Cliente nuevo'],
 
+        [
+            'text' => 'Registro de Cliente nuevo',
+            'route' => 'crear.nuevo',
+            'icon' => 'fas fa-fw fa-user',
+        ],
+        ['header' => 'Generar Formatos'],
+
+        [
+            'text' => 'Generar Orden de Instalacion',
+            'route' => 'ordeninstalacion',
+            'icon' => 'fas fa-fw fa-user',
+            'can' => 'crear.orden'
+        ],
 
 
         /*[

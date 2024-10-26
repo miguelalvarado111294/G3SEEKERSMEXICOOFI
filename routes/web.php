@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsuarioController;
 
-Auth::routes();
+Auth::routes(['register'=>false,'reset'=>false]);
 
 Route::group(['middleware' => 'auth'], function () {
 
