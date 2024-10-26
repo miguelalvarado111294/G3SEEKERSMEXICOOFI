@@ -60,7 +60,9 @@ class CuentaController extends Controller
     {
         $this->validateUpdateRequest($request);
         Cuenta::where('id', $id)->update($request->except(['_token', '_method']));
-        return redirect()->route('buscar.cuenta', $id);
+        $cuenta=Cuenta::find($id);
+        return redirect()->route('buscar.cuenta', $cuenta->cliente_id);
+
     }
 
     public function destroy($id)

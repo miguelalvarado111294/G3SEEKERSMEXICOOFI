@@ -32,23 +32,28 @@ class PruebaController extends Controller
     
 
     public function buscarCuenta($id)
-{
-    // Busca el cliente solo si es necesario
-    $cliente = Cliente::find($id);
-
-    // Encuentra las cuentas del cliente
-    $cuenta = Cuenta::where('cliente_id', $id)->get();
+    {
+        // Busca el cliente solo si es necesario
+        $cliente = Cliente::find($id);
     
-    // Contar el número de cuentas
-    $numerodecuentas = $cuenta->count();
-
-    return view('prueba.buscarCuenta', [
-        'cuenta' => $cuenta,
-        'cliente_id' => $id,
-        'cliente' => $cliente, // Asegúrate de pasar el cliente a la vista
-        'numerodecuentas' => $numerodecuentas,
-    ]);
-}
+        // Verifica si el cliente fue encontrado
+        if (!$cliente) {
+            return redirect()->back()->with('error', 'Cliente no encontrado.');
+        }
+    
+        // Encuentra las cuentas del cliente
+        $cuenta = Cuenta::where('cliente_id', $id)->get();
+    
+        // Contar el número de cuentas
+        $numerodecuentas = $cuenta->count();
+        return view('prueba.buscarCuenta', [
+            'cuenta' => $cuenta,
+            'cliente_id' => $id,
+            'cliente' => $cliente,
+            'numerodecuentas' => $numerodecuentas,
+        ]);
+    }
+    
 
 
     public function buscarCtaespejo($id)

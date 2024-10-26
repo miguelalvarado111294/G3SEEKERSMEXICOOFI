@@ -30,26 +30,20 @@ class ClienteController extends Controller
     }
 
     public function index(Request $request)
-{
-    $busqueda = $request->get('busqueda');
-    $clientes = Cliente::where(function ($queryBuilder) use ($busqueda) {
-        $queryBuilder->where('nombre', 'LIKE', "%{$busqueda}%")
-            ->orWhere('segnombre', 'LIKE', "%{$busqueda}%")
-            ->orWhere('apellidopat', 'LIKE', "%{$busqueda}%")
-            ->orWhere('apellidomat', 'LIKE', "%{$busqueda}%")
-            ->orWhere('telefono', 'LIKE', "%{$busqueda}%")
-            ->orWhere('email', 'LIKE', "%{$busqueda}%")
-            ->orWhere('rfc', 'LIKE', "%{$busqueda}%");
-    })->orderBy('id', 'desc') // Ordena por ID de manera descendente
-      ->paginate(10);
-
-    return view('cliente.index', compact('clientes', 'busqueda'));
-}
-
-
-    public function create()
     {
-        return view('cliente.create');
+        $busqueda = $request->get('busqueda');
+        $clientes = Cliente::where(function ($queryBuilder) use ($busqueda) {
+            $queryBuilder->where('nombre', 'LIKE', "%{$busqueda}%")
+                ->orWhere('segnombre', 'LIKE', "%{$busqueda}%")
+                ->orWhere('apellidopat', 'LIKE', "%{$busqueda}%")
+                ->orWhere('apellidomat', 'LIKE', "%{$busqueda}%")
+                ->orWhere('telefono', 'LIKE', "%{$busqueda}%")
+                ->orWhere('email', 'LIKE', "%{$busqueda}%")
+                ->orWhere('rfc', 'LIKE', "%{$busqueda}%");
+        })->orderBy('id', 'desc') // Ordena por ID de manera descendente
+            ->paginate(10);
+
+        return view('cliente.index', compact('clientes', 'busqueda'));
     }
 
     public function show($id)
@@ -60,10 +54,26 @@ class ClienteController extends Controller
         return view('cliente.show', compact('cliente', 'referencias'));
     }
 
-    public function buscararchivos($id)
+    public function store(storecliente $request)
     {
-        $cliente = Cliente::find($id);
-        return view('cliente.archivos', compact('cliente'));
+        // La validación se maneja automáticamente por el Request
+        // Convertir los datos a mayúsculas
+        $datosCliente = array_map('strtoupper', $request->except('_token'));
+
+        // Manejar la carga de archivos
+        $this->handleFileUpload($request, null, $datosCliente, [
+            'actaconstitutiva',
+            'consFiscal',
+            'comprDom',
+            'tarjetacirculacion',
+            'compPago'
+        ]);
+
+        // Crear el cliente
+        Cliente::create($datosCliente);
+
+        // Enviar mensaje de sesión
+        return redirect()->route('cliente.index')->with('mensaje', 'Cliente creado exitosamente.');
     }
 
     public function edit($id)
@@ -106,6 +116,15 @@ class ClienteController extends Controller
         return redirect('cliente')->with('mensaje', 'Cliente editado exitosamente');
     }
 
+    public function create()
+    {
+        return view('cliente.create');
+    }
+
+  
+
+
+
     public function destroy($id)
     {
         Cliente::destroy($id);
@@ -117,26 +136,19 @@ class ClienteController extends Controller
         return view('registroCliente.datoscliente');
     }
 
-    public function createnuevo(Request $request)
+    public function buscararchivos($id)
     {
-        $request->validate([
-            'nombre' => 'required|alpha|min:2|max:100',
-            'segnombre' => 'nullable|alpha',
-            'apellidopat' => 'required|alpha|min:2|max:100',
-            'apellidomat' => 'required|alpha|min:2|max:100',
-            'telefono' => 'required|numeric|digits:10',
-            'direccion' => 'required',
-            'email' => 'required|string|min:2|max:100|email|unique:clientes,email',
-            'rfc' => 'nullable|alpha_num|min:2|max:100|unique:clientes,rfc',
-            'actaconstitutiva' => 'mimes:pdf,jpeg,png,jpg|max:5000',
-            'consFiscal' => 'mimes:pdf,jpeg,png,jpg|max:5000',
-            'comprDom' => 'mimes:pdf,jpeg,png,jpg|max:5000',
-            'tarjetacirculacion' => 'mimes:pdf,jpeg,png,jpg|max:5000',
-            'compPago' => 'mimes:pdf,jpeg,png,jpg|max:5000',
-        ]);
+        $cliente = Cliente::find($id);
+        return view('cliente.archivos', compact('cliente'));
+    }
 
+    public function createnuevo(storecliente $request)
+    {
+        // La validación se maneja automáticamente por el Request
+        // Convertir los datos a mayúsculas
         $datosCliente = array_map('strtoupper', $request->except('_token'));
-
+    
+        // Manejar la carga de archivos
         $this->handleFileUpload($request, null, $datosCliente, [
             'actaconstitutiva',
             'consFiscal',
@@ -144,12 +156,17 @@ class ClienteController extends Controller
             'tarjetacirculacion',
             'compPago'
         ]);
-
+    
+        // Crear el cliente y obtener su ID
         $cliente = Cliente::create($datosCliente);
-
-        return redirect()->route('crear.nuevo.ref', $cliente->id)
-            ->with('mensaje', 'Cliente creado exitosamente!');
+    
+        // Redirigir a la ruta con el cliente ID
+        return redirect()->route('crear.nuevo.ref', ['id' => $cliente->id])
+        ->with('mensaje', 'Cliente creado exitosamente!');
+    
     }
+    
+
 
     public function orden($vehiculo_id, Request $request)
     {
@@ -190,27 +207,11 @@ class ClienteController extends Controller
             'request' => $request
         ]);
 
-        return $pdf->stream('OrdenDeInstalacion.pdf');
+        return $pdf->download('OrdenDeInstalacion.pdf');
     }
 
-    public function store(storecliente $request)
-    {
-        $datosCliente = array_map('strtoupper', $request->except('_token'));
-    
-        $this->handleFileUpload($request, null, $datosCliente, [
-            'actaconstitutiva',
-            'consFiscal',
-            'comprDom',
-            'tarjetacirculacion',
-            'compPago'
-        ]);
-    
-        Cliente::create($datosCliente);
-    
-        // Enviar mensaje de sesión
-        return redirect()->route('cliente.index')->with('mensaje', 'Cliente creado exitosamente.');
-    }
-    
+
+
     private function handleFileUpload(Request $request, ?Cliente $cliente, array &$datosCliente, array $archivos)
     {
         foreach ($archivos as $archivo) {

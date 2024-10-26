@@ -13,11 +13,6 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::resource('/user', App\Http\Controllers\UserController::class)->names('admin.users');
 
-    Route::prefix('admin')->group(function () {
-        Route::get('edit/{user}', [App\Http\Controllers\UserController::class, 'edit'])->name('admin.edit');
-        Route::get('update/{user}', [App\Http\Controllers\UserController::class, 'update'])->name('admin.update');
-        Route::delete('destroy/{user}', [App\Http\Controllers\UserController::class, 'destroy'])->name('admin.destroy');
-    });
 
 
     Route::prefix('admin')->group(function () {
@@ -95,8 +90,12 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::prefix('referencias')->group(function () {
         Route::get('crearr/{id}', [App\Http\Controllers\ReferenciaController::class, 'crearr'])->name('crear.nuevo.ref');
+        
         Route::post('create/{id}', [App\Http\Controllers\ReferenciaController::class, 'createnuevoref'])->name('create.nuevo.ref');
     });
+
+
+
 
     Route::prefix('cuentas')->group(function () {
         Route::get('crearc/{id}', [App\Http\Controllers\CuentaController::class, 'crearc'])->name('crear.nuevo.cuenta');

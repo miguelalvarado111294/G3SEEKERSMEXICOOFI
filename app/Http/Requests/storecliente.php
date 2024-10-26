@@ -42,7 +42,6 @@ class storecliente extends FormRequest
             'compPago' =>                   'mimes:jpeg,png,jpg,png|max:5000'
 
 
-            //'required|mimes:jpg,jpeg,bmp,png',
         ];
     }
 }
