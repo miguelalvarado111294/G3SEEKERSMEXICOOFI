@@ -34,12 +34,17 @@
 
         <div class="form-group">
             <label for="tipolinea">Tipo de Línea:</label>
-            <input type="text" class="form-control" name="tipolinea" id="tipolinea" required>
+            <select class="form-control" name="tipolinea" id="tipolinea" required>
+                <option value="">Selecciona una opción</option>
+                <option value="datos">Datos</option>
+                <option value="voz_y_datos">Voz y Datos</option>
+            </select>
         </div>
         
         @error('tipolinea')
-            <small style ="color: red"> {{ $message }}</small>
+            <small style="color: red">{{ $message }}</small>
         @enderror
+        
         <br>
         <br>
         <div class="form-group">

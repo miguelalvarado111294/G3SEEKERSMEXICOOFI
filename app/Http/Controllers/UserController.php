@@ -16,6 +16,7 @@ class UserController extends Controller
     {
         $users = User::paginate(10);
         return view('admin.users.index', compact('users'));
+        
     }
 
     /**
@@ -56,11 +57,19 @@ class UserController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request, User $user)
-    {
-        //    
-        $user->roles()->sync($request->roles);
-        return "con exito";
-    }
+{
+    // Validar que se envían roles
+    $request->validate([
+        'roles' => 'array',
+        'roles.*' => 'exists:roles,id', // Asegúrate de que los IDs de roles son válidos
+    ]);
+
+    // Sincronizar los roles del usuario
+    $user->roles()->sync($request->roles);
+
+    return redirect()->route('admin.users.index')->with('success', 'Roles actualizados con éxito.');
+}
+
 
     /**
      * Remove the specified resource from storage.

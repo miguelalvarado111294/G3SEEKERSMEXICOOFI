@@ -41,7 +41,6 @@ class CtaespejoController extends Controller
         $ctaespejo = Ctaespejo::findOrFail($id);
         return view('ctaespejo.edit', compact('ctaespejo'));
     }
-
     public function update(Request $request, $id)
     {
         $request->validate([
@@ -49,12 +48,17 @@ class CtaespejoController extends Controller
             'contrasenia' => 'required|alpha_dash|max:15|nullable',
             'comentarios' => 'alpha|max:100|nullable',
         ]);
-
-        $datosctaespejo = $request->except(['_token', '_method']);
-        Ctaespejo::where('id', $id)->update($datosctaespejo);
-
-        return redirect()->route('buscar.ctaespejo', $id);
+    
+        // Encuentra el Ctaespejo y actualiza
+        $ctaespejo = Ctaespejo::findOrFail($id);
+        $ctaespejo->update($request->except(['_token', '_method']));
+    
+        // Obtén el cuenta_id del objeto actualizado
+        $cuenta_id = $ctaespejo->cuenta_id; // Accede a cuenta_id directamente
+    
+        return redirect()->route('buscar.ctaespejo', $cuenta_id)->with('success', 'Datos actualizados con éxito.');
     }
+    
 
     public function destroy($id)
     {

@@ -88,15 +88,16 @@ class LineaController extends Controller
         $request->validate([
             'simcard' => 'required|min:18|max:20',
             'telefono' => 'required|numeric|digits:10',
-            'tipolinea' => 'required|alpha|min:2|max:5',
-            'renovacion' => 'required|alpha'
+            'tipolinea' => 'required|string', // Acepta espacios
+            'renovacion' => 'required|date' // Cambiado a tipo fecha
         ]);
-
+    
         $datosLinea = $request->except(['_token', '_method']);
         Linea::where('id', $id)->update($datosLinea);
-
+    
         return redirect()->route('buscar.linea', Linea::findOrFail($id)->dispositivo_id);
     }
+    
 
     public function destroy($id)
     {

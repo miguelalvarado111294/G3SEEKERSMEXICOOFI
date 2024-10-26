@@ -22,22 +22,27 @@
 
 </div>
 <div class="form-group">
-    <label for="tipolinea">tipolinea</label>
-    <input type="text" class="form-control" name="tipolinea"
-        value="{{ isset($linea->tipolinea) ? $linea->tipolinea : old('tipolinea') }}" id="tipolinea">
-    @error('tipolinea')
-        <small style ="color: red"> {{ $message }}</small>
-    @enderror
-    <br>
+    <label for="tipolinea">Tipo de Línea:</label>
+    <select class="form-control" name="tipolinea" id="tipolinea" required>
+        <option value="">Selecciona una opción</option>
+        <option value="datos">Datos</option>
+        <option value="voz_y_datos">Voz y Datos</option>
+    </select>
+</div>
+
+@error('tipolinea')
+    <small style="color: red">{{ $message }}</small>
+@enderror
+
 
     <div class="form-group">
-        <label for="renovacion">renovacion</label>
-        <input type="text" class="form-control" name="renovacion"
-            value="{{ isset($linea->renovacion) ? $linea->renovacion : old('renovacion') }}" id="renovacion">
-        @error('renovacion')
-            <small style ="color: red"> {{ $message }}</small>
-        @enderror
-        <br>
+        <label for="renovacion">Renovación:</label>
+        <input type="date" class="form-control" name="renovacion" id="renovacion" value="{{ old('renovacion') }}">
+    </div>
+    @error('renovacion')
+        <small style="color: red">{{ $message }}</small>
+    @enderror
+    <br>
 
         <div class="form-group">
             <label for="comentarios">comentarios</label>

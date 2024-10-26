@@ -8,10 +8,12 @@
     <h3 class="text-center">Editar Cuenta Espejo</h3>
 <br>
 
-        <form action="{{ url('/ctaespejo/' . $ctaespejo) }}" method="post"> 
-            @csrf
-            {{ method_field('PATCH') }}
-            @include('/ctaespejo.form', ['modo' => 'Editar'])
-        </form>
+<form action="{{ url('/ctaespejo/' . $ctaespejo->id) }}" method="POST"> 
+    @csrf
+    @method('PUT')
+    @include('/ctaespejo.form', ['modo' => 'Editar'])
+</form>
 
 @endsection
+
+

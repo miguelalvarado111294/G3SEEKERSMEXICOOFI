@@ -86,11 +86,13 @@ class DispositivoController extends Controller
     }
 
     private function validationRules($id = null)
-    {
-        return [
-            'modelo' => 'required|alpha_dash|min:2|max:100',
-            'noserie' => 'nullable|alpha_dash|min:20|unique:dispositivos,noserie' . ($id ? ",$id" : ''),
-            'imei' => 'required|numeric|min:18|unique:dispositivos,imei' . ($id ? ",$id" : ''),
-        ];
-    }
+{
+    return [
+        'modelo' => 'required|string|min:2|max:100',
+        'noserie' => 'nullable|alpha_dash|min:20|unique:dispositivos,noserie' . ($id ? ",$id" : ''),
+        'imei' => 'required|string|min:15|max:20|regex:/^[0-9-]+$/|unique:dispositivos,imei' . ($id ? ",$id" : ''),
+        
+    ];
+}
+
 }

@@ -7,7 +7,7 @@
     <h3 class="text-center">Registre una Referencia en Caso de Emergencia</h3>
     <br>
 
-    <form action="{{ route('create.nuevo.vehiculo', $id) }}" method="post">
+    <form action="" method="post">
         @csrf
        
         <div class="form-group">

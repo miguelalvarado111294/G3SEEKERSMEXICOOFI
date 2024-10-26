@@ -9,6 +9,12 @@
 @section('content')
     <div class="card">
         <div class="card-body">
+            @if (session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
+
             <p class="h5">Nombre:</p>
             <p class="form-control">{{ $user->name }}</p>
 
@@ -18,7 +24,8 @@
 
                 @foreach ($roles as $role)
                     <div class="form-check">
-                        <input type="checkbox" class="form-check-input" name="roles[]" value="{{ $role->id }}" id="role-{{ $role->id }}">
+                        <input type="checkbox" class="form-check-input" name="roles[]" value="{{ $role->id }}" id="role-{{ $role->id }}"
+                            {{ $user->roles->contains($role->id) ? 'checked' : '' }}>
                         <label class="form-check-label" for="role-{{ $role->id }}">{{ $role->name }}</label>
                     </div>
                 @endforeach

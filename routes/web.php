@@ -19,6 +19,15 @@ Route::group(['middleware' => 'auth'], function () {
         Route::delete('destroy/{user}', [App\Http\Controllers\UserController::class, 'destroy'])->name('admin.destroy');
     });
 
+
+    Route::prefix('admin')->group(function () {
+        Route::get('edit/{user}', [App\Http\Controllers\UserController::class, 'edit'])->name('admin.edit');
+        Route::put('update/{user}', [App\Http\Controllers\UserController::class, 'update'])->name('admin.update'); // Cambia GET a PUT
+        Route::delete('destroy/{user}', [App\Http\Controllers\UserController::class, 'destroy'])->name('admin.destroy');
+    });
+    
+
+
     Route::resources([
         'referencia' => App\Http\Controllers\ReferenciaController::class,
         'cliente' => App\Http\Controllers\ClienteController::class,
@@ -49,9 +58,10 @@ Route::group(['middleware' => 'auth'], function () {
     });
 
     Route::prefix('vehiculo')->group(function () {
-        Route::get('crearvehi/{id}', [App\Http\Controllers\VehiculoController::class, 'crearvehi'])->name('vehiculof.crear');
-        Route::post('{id}', [App\Http\Controllers\VehiculoController::class, 'stovehi'])->name('vehiculop.crear');
+        Route::get('crearvehi/{id}', [App\Http\Controllers\VehiculoController::class, 'crearvehi'])->name('vehiculof.crear'); 
+        Route::post('crearvehi/{id}', [App\Http\Controllers\VehiculoController::class, 'createvehiculo'])->name('vehiculop.crear'); // Asegúrate de que esta ruta coincide
     });
+    
 
     Route::prefix('cuenta')->group(function () {
         Route::get('crearcta/{id}', [App\Http\Controllers\CuentaController::class, 'crearcta'])->name('cuentaf.crear');

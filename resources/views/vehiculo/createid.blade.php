@@ -17,7 +17,6 @@
                 <br>
                 <div class="form-group">
                     <label>Tipo de Vehiculo:</label>
-
                     <select name="tipo" class="form-control">
                         <option value="trailer">Trailer</option>
                         <option value="tractocamion">Tractocamion</option>
@@ -28,6 +27,7 @@
                         <option value="maquinaria_pesada">Maquinaria Pesada</option>
                         <option value="otro">Otro</option>
                     </select>
+                    
 
                 </div>
                 <br>
