@@ -24,13 +24,29 @@ class CuentaController extends Controller
         return view('registroCliente.datoscuenta', compact('id'));
     }
 
+
+    
     public function createnuevocta(Request $request, $id)
     {
         $this->validateRequest($request, $id);
+        
+        // Verificar si ya existe una cuenta asociada al cliente
+        $existeCuenta = Cuenta::where('cliente_id', $id)->first();
+    
+        // Si ya existe una cuenta, redirigir con un mensaje de error
+        if ($existeCuenta) {
+            return redirect()->route('confirmation')->with('alert', 'Ya existe una cuenta asociada a este cliente.');
+        }
+        
+        // Si no existe, proceder a crear la nueva cuenta
         $datosCliente = $this->prepareData($request, $id);
         Cuenta::create($datosCliente);
-        return redirect()->route('buscar.cuenta', $id);
+        
+        // Redirigir con un mensaje de éxito
+        return redirect()->route('confirmation')->with('success', 'Cuenta creada exitosamente.');
     }
+    
+    
 
     public function stocta(Request $request, $id)
     {

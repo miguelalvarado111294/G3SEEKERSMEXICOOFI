@@ -71,5 +71,16 @@ class BusquedaController extends Controller
             </table>';
 
         return $output;
+        
     }
+
+
+    public function confirmation (){
+
+
+
+        return view('registroCliente.confirmacion');
+    }
+
+
 }

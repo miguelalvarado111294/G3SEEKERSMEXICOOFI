@@ -36,7 +36,7 @@
                         <th>id</th>
                         <th>cliente</th>
                         <th>modelo</th>
-                        <th>noserie</th>
+                        <th>Numero Economico</th>
                         <th>imei</th>
                         <th>Cuenta</th>
                         <th>Sucursal</th>
@@ -65,7 +65,7 @@
                                 <td> {{ $dispositivo->cliente->nombre }} {{ $dispositivo->cliente->segnombre }}
                                     {{ $dispositivo->cliente->apellidopat }} {{ $dispositivo->cliente->apellidomat }} </td>
                                 <td>{{ $dispositivo->modelo }}</td>
-                                <td>{{ $dispositivo->noserie }}</td>
+                                <td>{{ $dispositivo->noeconomico}}</td>
                                 <td>{{ $dispositivo->imei }}</td>
                                 <td>{{ $dispositivo->cuenta }}</td>
                                 <td>{{ $dispositivo->sucursal }}</td>

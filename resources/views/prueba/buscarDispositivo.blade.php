@@ -52,9 +52,12 @@
                     @foreach ($dispositivo as $value)
                         <tr>
                             <td>{{ $value->id }}</td>
+                            <td>{{ $value->noeconomico }}</td>
+
                             <td>{{ $value->cuenta }}</td>
                             <td>{{ $value->modelo }}</td>
                             <td>{{ $value->imei }}</td>
+
                             <td>{{ $value->fechacompra }}</td>
                             <td>{{ $value->comentarios }}</td>
                             <td>
@@ -87,6 +90,8 @@
             <ul>
                 <b>
                     Vehículo Marca: {{ $vehiculo->marca }}<br>
+                    Vehículo Marca: {{ $vehiculo->marca }}<br>
+
                     Modelo: {{ $vehiculo->modelo }}<br>
                     Número de Motor: {{ $vehiculo->nomotor }}<br>
                     Número de Serie: {{ $vehiculo->noserie }}<br>

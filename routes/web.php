@@ -113,4 +113,10 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/formsearch', [App\Http\Controllers\BusquedaController::class, 'formsearch'])->name('formsearch');
     Route::get('/search', [App\Http\Controllers\BusquedaController::class, 'search'])->name('search');
+
+
+    Route::get('/confirmation', [App\Http\Controllers\BusquedaController::class, 'confirmation'])->name('confirmation');
+
+
+
 });
