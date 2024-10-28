@@ -19,12 +19,12 @@
 
     <br>
     <form class="d-flex" role="search">
-        <input name="busqueda" class="form-control me-2" type="search" value="{{$busqueda}}"
+        <input name="busqueda" class="form-control me-2" type="search" value="{{ $busqueda }}"
             placeholder="Buscar por Sim Card/Numero de telefono / " aria-label="Search">
         <button class="btn btn-outline-success" type="submit">Buscar </button>
     </form>
     <br>
-{{--     <a href="{{ url('linea/create') }}" class="btn btn-success">Registrar Nueva Linea</a>
+    {{--     <a href="{{ url('linea/create') }}" class="btn btn-success">Registrar Nueva Linea</a>
 --}}
 
     <br><br>
@@ -34,12 +34,12 @@
             <table class="table table-light">
                 <thead class="thead-light">
                     <tr>
-                        <th>id</th>
-                        <th>simcard</th>
-                        <th>telefono</th>
-                        <th>tipoLínea</th>
-                        <th>cliente </th>
-                        <th>acciones</th>
+                        <th>Id</th>
+                        <th>Simcard</th>
+                        <th>Telefono</th>
+                        <th>TipoLínea</th>
+                        <th>Cliente </th>
+                        <th>Acciones</th>
 
                     </tr>
                 </thead>
@@ -49,19 +49,18 @@
 
                     @if (count($lineas) <= 0)
                         <tr>
-                            <td colspan="8"> No hay resultados de . {{$busqueda}} </td>
+                            <td colspan="8"> No hay resultados de . {{ $busqueda }} </td>
                         </tr>
                     @else
                         @foreach ($lineas as $linea)
                             <tr>
 
-                                <td> 
-                                    
-                                    
-                                    <a href=" {{ route('buscar.linea', $linea->dispositivo_id) }}"
-                                        class="btn btn-default"
+                                <td>
+
+
+                                    <a href=" {{ route('buscar.linea', $linea->dispositivo_id) }}" class="btn btn-default"
                                         style="text-align: center; display: inline-block; width: 100%;">
-                                       Ver detalles de :  {{ $linea->id }} </a>
+                                        Ver detalles de : {{ $linea->id }} </a>
 
 
                                 </td>
@@ -72,17 +71,19 @@
                                     {{ $linea->cliente->apellidopat }} {{ $linea->cliente->apellidomat }}</td>
 
                                 <td>
-                                    <a href="{{ url('/linea/' . $linea->id . '/edit') }}"
-                                        class="btn btn-warning">Editar</a>
-
-                                    <form action="{{ url('/linea/' . $linea->id) }}" method="post" class="d-inline">
-                                        @csrf
-                                        {{ method_field('DELETE') }}
-                                        <input class="btn btn-danger" type="submit"
-                                            onclick=" return confirm('seguro quieres eliminar?')" value="Borrar">
-                                    </form>
+                                    @can('linea.edit')
+                                        <a href="{{ url('/linea/' . $linea->id . '/edit') }}"
+                                            class="btn btn-warning">Editar</a>
+                                    @endcan
+                                    @can('linea.destroy')
+                                        <form action="{{ url('/linea/' . $linea->id) }}" method="post" class="d-inline">
+                                            @csrf
+                                            {{ method_field('DELETE') }}
+                                            <input class="btn btn-danger" type="submit"
+                                                onclick=" return confirm('seguro quieres eliminar?')" value="Borrar">
+                                        </form>
+                                    @endcan
                                 </td>
-
                             </tr>
                         @endforeach
                     @endif

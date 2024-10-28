@@ -73,9 +73,12 @@
                                 <td>{{ $dispositivo->comentarios }}</td>
 
                                 <td>
+                                    @can('dispositivo.edit')
                                     <a href="{{ url('/dispositivo/' . $dispositivo->id . '/edit') }}"
                                         class="btn btn-warning">Editar</a>
+                                        @endcan
 
+                                    @can('dispositivo.destroy')
                                     <form action="{{ url('/dispositivo/' . $dispositivo->id) }}" method="post"
                                         class="d-inline">
                                         @csrf
@@ -83,6 +86,7 @@
                                         <input class="btn btn-danger" type="submit"
                                             onclick=" return confirm('seguro quieres eliminar?')" value="Borrar">
                                     </form>
+                                    @endcan
                                 </td>
 
                             </tr>

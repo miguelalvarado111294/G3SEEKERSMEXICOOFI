@@ -31,11 +31,7 @@
             </div>
         @endif
 
-        @if(session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-        @endif
+      
 
         <div class="thank-you-message">¡Gracias por tu envío!</div>
         <div class="thank-you-description">

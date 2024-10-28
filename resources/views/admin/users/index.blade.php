@@ -10,6 +10,16 @@
     <p class="text-center">Lista de usuarios</p>
     <a href="{{ route('usuarios.create') }}" class="btn btn-success mb-3">Alta de Nuevo Usuario</a>
 
+    {{-- Mostrar el mensaje de éxito --}}
+    @if(session('success'))
+        <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
+            {{ session('success') }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endif
+
     <div class="card">
         <div class="card-body">
             <table class="table table-light">
@@ -26,12 +36,16 @@
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
                             <td>
-                                <a href="{{ route('admin.edit', $user) }}" class="btn btn-warning">Editar</a>
-                                <form action="{{ route('admin.destroy', $user) }}" method="post" class="d-inline">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger" onclick="return confirm('¿Seguro quieres eliminar?')">Borrar</button>
-                                </form>
+                                @can('admin.index')
+                                    <a href="{{ route('admin.edit', $user) }}" class="btn btn-warning">Editar</a>
+
+                                    <form action="{{ route('admin.destroy', $user) }}" method="post" class="d-inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger"
+                                            onclick="return confirm('¿Seguro quieres eliminar?')">Borrar</button>
+                                    </form>
+                                @endcan
                             </td>
                         </tr>
                     @endforeach
@@ -43,7 +57,6 @@
 
 @section('css')
     {{-- Add here extra stylesheets --}}
-    {{-- <link rel="stylesheet" href="/css/admin_custom.css"> --}}
 @stop
 
 @section('js')

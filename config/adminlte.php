@@ -311,7 +311,10 @@ return [
             'text' => 'search',
         ],*/
 
-        ['header' => 'Panel de Administracion'],
+        [
+            'header' => 'Panel de Administracion',
+            'can' => 'admin.index'
+        ],
         [
             'text' => 'Usuarios',
             'route' => 'admin.users.index',
@@ -379,14 +382,22 @@ return [
             'icon' => 'fas fa-fw fa-user',
         ],
   */
-        ['header' => 'Cliente nuevo'],
+        [
+            'header' => 'Cliente nuevo',
+            'can' => 'admin.index'
+        ],
 
         [
             'text' => 'Registro de Cliente nuevo',
             'route' => 'crear.nuevo',
             'icon' => 'fas fa-fw fa-user',
+            'can' => 'admin.index'
+
         ],
-        ['header' => 'Generar Formatos'],
+        [
+            'header' => 'Generar Formatos',
+            'can' => 'crear.orden'
+        ],
 
         [
             'text' => 'Generar Orden de Instalacion',

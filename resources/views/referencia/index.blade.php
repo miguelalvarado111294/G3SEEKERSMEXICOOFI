@@ -3,8 +3,8 @@
 @section('title', 'G3SEEKERSMX')
 
 @section('content_header')
-<h1 class="text-center"><b>G3 Seekers México</b></h1>
-<br>
+    <h1 class="text-center"><b>G3 Seekers México</b></h1>
+    <br>
     <h3 class="text-center">Referencias</h3>
     <br>
 
@@ -68,17 +68,22 @@
                                 <td>{{ $referencia->telefono }}</td>
                                 <td>{{ $referencia->parentesco }}</td>
 
-                                <td>
-                                    <a href="{{ url('/referencia/' . $referencia->id . '/edit') }}"
-                                        class="btn btn-warning">Editar</a>
+                                <td> 
+                                    @can('referencia.edit')
+                                        <a href="{{ url('/referencia/' . $referencia->id . '/edit') }}"
+                                            class="btn btn-warning">Editar</a>
+                                    @endcan
 
-                                    <form action="{{ url('/referencia/' . $referencia->id) }}" method="post"
-                                        class="d-inline">
-                                        @csrf
-                                        {{ method_field('DELETE') }}
-                                        <input class="btn btn-danger" type="submit"
-                                            onclick=" return confirm('seguro quieres eliminar?')" value="Borrar">
-                                    </form>
+                                    @can('referencia.destroy')
+                                        <form action="{{ url('/referencia/' . $referencia->id) }}" method="post"
+                                            class="d-inline">
+                                            @csrf
+                                            {{ method_field('DELETE') }}
+                                            <input class="btn btn-danger" type="submit"
+                                                onclick=" return confirm('seguro quieres eliminar?')" value="Borrar">
+                                        </form>
+                                    @endcan
+
                                 </td>
 
                             </tr>

@@ -70,15 +70,22 @@
 
 
                                 <td>
+
+                                     @can('vehiculo.edit')
                                     <a href="{{ url('/vehiculo/' . $vehiculo->id . '/edit') }}"
                                         class="btn btn-warning">Editar</a>
+                                        @endcan
 
+                                    
+                                    @can('vehiculo.destroy')
                                     <form action="{{ url('/vehiculo/' . $vehiculo->id) }}" method="post" class="d-inline">
                                         @csrf
                                         {{ method_field('DELETE') }}
                                         <input class="btn btn-danger" type="submit"
                                             onclick=" return confirm('seguro quieres eliminar?')" value="Borrar">
                                     </form>
+                                    @endcan
+
                                 </td>
 
                             </tr>

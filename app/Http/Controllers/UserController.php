@@ -57,19 +57,20 @@ class UserController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request, User $user)
-{
-    // Validar que se envían roles
-    $request->validate([
-        'roles' => 'array',
-        'roles.*' => 'exists:roles,id', // Asegúrate de que los IDs de roles son válidos
-    ]);
-
-    // Sincronizar los roles del usuario
-    $user->roles()->sync($request->roles);
-
-    return redirect()->route('admin.users.index')->with('success', 'Roles actualizados con éxito.');
-}
-
+    {
+        // Validar que se envían roles
+        $request->validate([
+            'roles' => 'array',
+            'roles.*' => 'exists:roles,id',
+        ]);
+    
+        // Sincronizar los roles del usuario
+        $user->roles()->sync($request->roles);
+    
+        // Redirigir con un mensaje de éxito
+        return redirect()->route('admin.users.index')->with('success', 'Roles asignados con éxito.');
+    }
+    
 
     /**
      * Remove the specified resource from storage.

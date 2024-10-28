@@ -3,7 +3,7 @@
 @section('title', 'G3SEEKERSMX')
 
 @section('content_header')
-<h1 class="text-center"><b>G3 Seekers México</b></h1>
+    <h1 class="text-center"><b>G3 Seekers México</b></h1>
     <br>
     <h3 class="text-center">Sensores</h3>
     <br>
@@ -36,10 +36,10 @@
             <table class="table table-light">
                 <thead class="thead-light">
                     <tr>
-                        <th> {{--<a href="{{ route('buscar.sensor', $dispositivo->id) }}"
+                        <th> {{-- <a href="{{ route('buscar.sensor', $dispositivo->id) }}"
                                         class="btn btn-default"
                                         style="text-align: center; display: inline-block; width: 100%;">
-                                       Ver detalles de :  </a>  --}}</th> 
+                                       Ver detalles de :  </a>  --}}</th>
                         <th>Marca</th>
                         <th>Modelo</th>
                         <th>Numero de Serie</th>
@@ -63,15 +63,19 @@
 
 
                                 <td>
-                                    <a href="{{ url('/sensor/' . $sensor->id . '/edit') }}"
-                                        class="btn btn-warning">Editar</a>
+                                    @can('sensor.edit')
+                                        <a href="{{ url('/sensor/' . $sensor->id . '/edit') }}"
+                                            class="btn btn-warning">Editar</a>
+                                    @endcan
+                                    @can('sensor.destroy')
+                                        <form action="{{ url('/sensor/' . $sensor->id) }}" method="post" class="d-inline">
+                                            @csrf
+                                            {{ method_field('DELETE') }}
+                                            <input class="btn btn-danger" type="submit"
+                                                onclick=" return confirm('seguro quieres eliminar?')" value="Borrar">
+                                        </form>
+                                    @endcan
 
-                                    <form action="{{ url('/sensor/' . $sensor->id) }}" method="post" class="d-inline">
-                                        @csrf
-                                        {{ method_field('DELETE') }}
-                                        <input class="btn btn-danger" type="submit"
-                                            onclick=" return confirm('seguro quieres eliminar?')" value="Borrar">
-                                    </form>
                                 </td>
 
                             </tr>

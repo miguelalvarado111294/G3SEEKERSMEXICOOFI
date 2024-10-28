@@ -57,16 +57,21 @@
                                 <td>{{ $cuenta->contrasenia }}</td>
                                 <td>{{ $cuenta->contraseniaParo }}</td>
 
-                                <td>
-                                    <a href="{{ url('/cuenta/' . $cuenta->id . '/edit') }}"
-                                        class="btn btn-warning">Editar</a>
-                                    -
-                                    <form action="{{ url('/cuenta/' . $cuenta->id) }}" method="post" class="d-inline">
-                                        @csrf
-                                        {{ method_field('DELETE') }}
-                                        <input class="btn btn-danger" type="submit"
-                                            onclick=" return confirm('seguro quieres eliminar?')" value="Borrar">
-                                    </form>
+                                <td> @can('cuenta.edit')
+                                        <a href="{{ url('/cuenta/' . $cuenta->id . '/edit') }}"
+                                            class="btn btn-warning">Editar</a>
+                                    @endcan
+
+
+                                    @can('cuenta.destroy')
+                                        <form action="{{ url('/cuenta/' . $cuenta->id) }}" method="post" class="d-inline">
+                                            @csrf
+                                            {{ method_field('DELETE') }}
+                                            <input class="btn btn-danger" type="submit"
+                                                onclick=" return confirm('seguro quieres eliminar?')" value="Borrar">
+                                        </form>
+                                    @endcan
+
                                 </td>
 
                             </tr>
@@ -80,7 +85,7 @@
 
 
     </div>
-<br>
+    <br>
     {!! $cuentas->links() !!}
 
 
