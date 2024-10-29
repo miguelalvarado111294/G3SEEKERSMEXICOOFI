@@ -121,10 +121,6 @@ class ClienteController extends Controller
         return view('cliente.create');
     }
 
-  
-
-
-
     public function destroy($id)
     {
         Cliente::destroy($id);
@@ -166,8 +162,6 @@ class ClienteController extends Controller
     
     }
     
-
-
     public function orden($vehiculo_id, Request $request)
     {
         $vehiculo = Vehiculo::find($vehiculo_id);
@@ -209,8 +203,6 @@ class ClienteController extends Controller
 
         return $pdf->download('OrdenDeInstalacion.pdf');
     }
-
-
 
     private function handleFileUpload(Request $request, ?Cliente $cliente, array &$datosCliente, array $archivos)
     {

@@ -5,7 +5,20 @@
 @section('content_header')
     <h1 class="text-center"><b>G3 Seekers México</b></h1>
     <br>
-    <h3 class="text-center">Datos de Linea</h3>
+    <h3 class="text-center">Datos de Línea</h3>
+    
+    <!-- Cuadro para el contador -->
+    <div class="d-flex justify-content-center mb-4">
+        <div class="card text-center" style="display: inline-block; border: 2px solid #28a745; border-radius: 15px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
+            <div class="card-body" style="padding: 10px;">
+                <h5 class="card-title" style="color: #28a745; font-size: 18px;">Total de Líneas</h5>
+                <p class="card-text" style="font-size: 24px; font-weight: bold; color: #28a745;">
+                    {{ $totalLineas }}
+                </p>
+            </div>
+        </div>
+    </div>
+
     <br>
 
     @if (Session::has('mensaje'))
@@ -20,12 +33,11 @@
     <br>
     <form class="d-flex" role="search">
         <input name="busqueda" class="form-control me-2" type="search" value="{{ $busqueda }}"
-            placeholder="Buscar por Sim Card/Numero de telefono / " aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Buscar </button>
+            placeholder="Buscar por Sim Card/Numero de telefono/" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Buscar</button>
     </form>
     <br>
-    {{--     <a href="{{ url('linea/create') }}" class="btn btn-success">Registrar Nueva Linea</a>
---}}
+    {{-- <a href="{{ url('linea/create') }}" class="btn btn-success">Registrar Nueva Línea</a> --}}
 
     <br><br>
 
@@ -37,50 +49,43 @@
                         <th>Id</th>
                         <th>Simcard</th>
                         <th>Telefono</th>
-                        <th>TipoLínea</th>
-                        <th>Cliente </th>
+                        <th>Tipo Línea</th>
+                        <th>Cliente</th>
                         <th>Acciones</th>
-
                     </tr>
                 </thead>
 
                 <tbody>
-
-
                     @if (count($lineas) <= 0)
                         <tr>
-                            <td colspan="8"> No hay resultados de . {{ $busqueda }} </td>
+                            <td colspan="6">No hay resultados de "{{ $busqueda }}"</td>
                         </tr>
                     @else
                         @foreach ($lineas as $linea)
                             <tr>
-
                                 <td>
-
-
-                                    <a href=" {{ route('buscar.linea', $linea->dispositivo_id) }}" class="btn btn-default"
-                                        style="text-align: center; display: inline-block; width: 100%;">
-                                        Ver detalles de : {{ $linea->id }} </a>
-
-
+                                    <a href="{{ route('buscar.linea', $linea->dispositivo_id) }}" class="btn btn-default"
+                                       style="text-align: center; display: inline-block; width: 100%;">
+                                        Ver detalles de: {{ $linea->id }}
+                                    </a>
                                 </td>
                                 <td>{{ $linea->simcard }}</td>
                                 <td>{{ $linea->telefono }}</td>
                                 <td>{{ $linea->tipolinea }}</td>
-                                <td> {{ $linea->cliente->nombre }} {{ $linea->cliente->segnombre }}
+                                <td>{{ $linea->cliente->nombre }} {{ $linea->cliente->segnombre }}
                                     {{ $linea->cliente->apellidopat }} {{ $linea->cliente->apellidomat }}</td>
 
                                 <td>
                                     @can('linea.edit')
                                         <a href="{{ url('/linea/' . $linea->id . '/edit') }}"
-                                            class="btn btn-warning">Editar</a>
+                                           class="btn btn-warning">Editar</a>
                                     @endcan
                                     @can('linea.destroy')
                                         <form action="{{ url('/linea/' . $linea->id) }}" method="post" class="d-inline">
                                             @csrf
                                             {{ method_field('DELETE') }}
                                             <input class="btn btn-danger" type="submit"
-                                                onclick=" return confirm('seguro quieres eliminar?')" value="Borrar">
+                                                   onclick="return confirm('¿Seguro quieres eliminar?')" value="Borrar">
                                         </form>
                                     @endcan
                                 </td>
@@ -95,6 +100,4 @@
     <br>
 
     {!! $lineas->links() !!}
-
-
 @endsection

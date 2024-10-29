@@ -10,17 +10,21 @@ use Illuminate\Http\Request;
 class DispositivoController extends Controller
 {
     public function index(Request $request)
-    {
-        $busqueda = $request->get('busqueda');
-        $dispositivos = Dispositivo::where(function ($query) use ($busqueda) {
-            $query->where('id', 'LIKE', "%{$busqueda}%")
-                  ->orWhere('imei', 'LIKE', "%{$busqueda}%")
-                  ->orWhere('cuenta', $busqueda)
-                  ->orWhere('noeconomico', 'LIKE', "%{$busqueda}%");
-        })->paginate(10);
+{
+    $busqueda = $request->get('busqueda');
+    $query = Dispositivo::where(function ($query) use ($busqueda) {
+        $query->where('id', 'LIKE', "%{$busqueda}%")
+              ->orWhere('imei', 'LIKE', "%{$busqueda}%")
+              ->orWhere('cuenta', $busqueda)
+              ->orWhere('noeconomico', 'LIKE', "%{$busqueda}%");
+    });
 
-        return view('dispositivo.index', compact('dispositivos', 'busqueda'));
-    }
+    $dispositivos = $query->paginate(10);
+    $totalDispositivos = $query->count(); // Contar los dispositivos
+
+    return view('dispositivo.index', compact('dispositivos', 'busqueda', 'totalDispositivos'));
+}
+
 
     public function creardisp($id)
     {

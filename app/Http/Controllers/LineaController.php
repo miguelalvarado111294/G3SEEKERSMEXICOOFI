@@ -15,9 +15,13 @@ class LineaController extends Controller
         $lineas = Linea::where('simcard', 'LIKE', "%{$busqueda}%")
             ->orWhere('telefono', 'LIKE', "%{$busqueda}%")
             ->paginate(10);
-
-        return view('linea.index', compact('lineas', 'busqueda'));
+            
+        // Contar el número total de líneas
+        $totalLineas = Linea::count();
+    
+        return view('linea.index', compact('lineas', 'busqueda', 'totalLineas'));
     }
+    
 
     public function create()
     {
