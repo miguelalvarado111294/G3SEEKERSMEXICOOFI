@@ -46,7 +46,6 @@ class CuentaController extends Controller
         return redirect()->route('confirmation')->with('success', 'Cuenta creada exitosamente.');
     }
     
-    
 
     public function stocta(Request $request, $id)
     {
