@@ -103,7 +103,7 @@ Route::group(['middleware' => 'auth'], function () {
     });
 
     Route::get('/crearcita/{vehiculo}', [App\Http\Controllers\ClienteController::class, 'crearcita'])->name('crear.cita');
-    Route::get('/orden/{vehiculoid}', [App\Http\Controllers\ClienteController::class, 'orden'])->name('crear.ordens');
+    Route::post('/orden/{vehiculoid}', [App\Http\Controllers\ClienteController::class, 'orden'])->name('crear.ordens');
     Route::get('/orden', [App\Http\Controllers\ClienteController::class, 'orden'])->name('crear.orden');
     Route::get('/ordeninstalacion', [App\Http\Controllers\ClienteController::class, 'ordeninstalacion'])->name('ordeninstalacion');
     Route::post('/ordenins', [App\Http\Controllers\ClienteController::class, 'ordenins'])->name('ordenins');

@@ -36,7 +36,7 @@
             <table class="table table-light">
                 <thead class="thead-light">
                     <tr>
-                        <th>ID</th>
+                        <th>ID en Platadorma</th>
                         <th>Cuenta</th>
                         <th>Modelo</th>
                         <th>IMEI</th>
@@ -51,7 +51,7 @@
                 <tbody>
                     @foreach ($dispositivo as $value)
                         <tr>
-                            <td>{{ $value->id }}</td>
+                            <td>{{ $value->plataforma_id }}</td>
                             <td>{{ $value->noeconomico }}</td>
 
                             <td>{{ $value->cuenta }}</td>
@@ -89,7 +89,6 @@
         <div class="card-body">
             <ul>
                 <b>
-                    Vehículo Marca: {{ $vehiculo->marca }}<br>
                     Vehículo Marca: {{ $vehiculo->marca }}<br>
 
                     Modelo: {{ $vehiculo->modelo }}<br>

@@ -68,7 +68,7 @@
                                     <a href="{{ route('buscar.dispositivo', $dispositivo->vehiculo_id) }}"
                                        class="btn btn-default"
                                        style="text-align: center; display: inline-block; width: 100%;">
-                                        Ver detalles de: {{ $dispositivo->id }}
+                                        Ver detalles de: {{ $dispositivo->plataforma_id }}
                                     </a>
                                 </td>
                                 <td>{{ $dispositivo->cliente->nombre }} {{ $dispositivo->cliente->segnombre }} {{ $dispositivo->cliente->apellidopat }} {{ $dispositivo->cliente->apellidomat }}</td>
