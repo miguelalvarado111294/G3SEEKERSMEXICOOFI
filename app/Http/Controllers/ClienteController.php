@@ -161,6 +161,7 @@ class ClienteController extends Controller
         ->with('mensaje', 'Cliente creado exitosamente!');
     
     }
+
     
     public function orden($vehiculo_id, Request $request)
     {
@@ -168,18 +169,27 @@ class ClienteController extends Controller
         $cliente = Cliente::find($vehiculo->cliente_id);
         $dispositivo = Dispositivo::where('vehiculo_id', $vehiculo->id)->first();
         $linea = Linea::where('dispositivo_id', $dispositivo->id)->first();
-
+    
+        // Guardar la dirección en una variable
+        $direccion = $request->direccion;
+    
+        // Quitar la letra "T" de la fecha
+        $fechacita = str_replace('T', ' ', $request->fechacita);
+    
         $pdf = PDF::loadView('funciones.orden', [
             'vehiculo' => $vehiculo,
             'cliente' => $cliente,
             'dispositivo' => $dispositivo,
             'linea' => $linea,
             'horaactual' => Carbon::now()->toDateString(),
-            'fechacita' => $request->fechacita,
+            'fechacita' => $fechacita,
+            'direccion' => $direccion, // Pasar la dirección al PDF
         ]);
-
+    
         return $pdf->download('OrdenDeServicio.pdf');
     }
+    
+    
 
     public function crearcita(Vehiculo $vehiculo)
     {

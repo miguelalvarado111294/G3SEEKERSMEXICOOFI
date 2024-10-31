@@ -347,6 +347,7 @@ return [
             'text' => 'Usuarios y Contraseñas',
             'route' => 'cuenta.index',
             'icon' => 'fas fa-fw fa-user',
+            'can'=> 'cuenta.index'
         ],
         [
             'text' => 'Vehiculos',

@@ -17,7 +17,7 @@
             <TD WIDTH="140">
                 <b> Orden de Servicio</b>
             </TD>
-            <TD> <b> Fecha del Servicio : </b> {{$fechacita}}   </TD>
+            <TD> <b> Fecha del Servicio : </b> {{$fechacita}} </TD>
             <TD><b>Folio : </b> ######</TD>
             <td>G3 SEEKERS Mx </td>
         </TR>
@@ -34,8 +34,8 @@
         <TR>
             <TD><b>Email : </b> {{ $cliente->email }} <b>Telefono : </b> {{ $cliente->telefono }}</TD>
         </TR>
-        </TD>
-        <TD> <b>Dirección : </b> {{ $cliente->direccion }}</TD>
+        <TR>
+            <TD><b>Dirección de Instalación: </b> {{ $direccion }}</TD> <!-- Cambiado aquí -->
         </TR>
     </TABLE>
 
@@ -82,7 +82,7 @@
     </TABLE>
 
     <center>
-        Esta orden solo podra usarse para el servicio de un solo equipo
+        Esta orden solo podrá usarse para el servicio de un solo equipo
     </center>
 
     <TABLE BORDER WIDTH="100%">
@@ -104,7 +104,6 @@
             <TD></TD>
             <TD></TD>
         </TR>
-        </TR>
         <TR>
             <TD>Encendido de Equipo</TD>
             <TD></TD>
@@ -113,28 +112,26 @@
         </TR>
         <TR>
             <TD>Encendido de motor</TD>
-            <TD> </TD>
             <TD></TD>
             <TD></TD>
-        </TR>
+            <TD></TD>
         </TR>
         <TR>
-            <TD>Conexion AntenaGMS</TD>
-            <TD> </TD>
+            <TD>Conexion Antena GMS</TD>
+            <TD></TD>
             <TD></TD>
             <TD></TD>
         </TR>
         <TR>
             <TD>Boton de Panico</TD>
-            <TD> </TD>
-            <TD> </TD>
+            <TD></TD>
+            <TD></TD>
             <TD></TD>
         </TR>
-        </TR>
         <TR>
-            <TD>Conexion AntenaGPS</TD>
-            <TD> </TD>
-            <TD> </TD>
+            <TD>Conexion Antena GPS</TD>
+            <TD></TD>
+            <TD></TD>
             <TD></TD>
         </TR>
     </TABLE>
@@ -145,19 +142,19 @@
         </CAPTION>
         <TR>
             <TD> <label><input type="checkbox" /> Limpieza de sim</label><br />
-                <label><input type="checkbox" /> Se programo</label><br />
-                <label><input type="checkbox" /> Reemplazo de Modulo</label><br />
+                <label><input type="checkbox" /> Se programó</label><br />
+                <label><input type="checkbox" /> Reemplazo de Módulo</label><br />
                 <label><input type="checkbox" /> Encendido Manual</label><br />
             </TD>
-            <TD> <label><input type="checkbox" /> Se cambio Antena GPS</label><br />
-                <label><input type="checkbox" /> Envio de Mensaje a la Plataforma</label><br />
+            <TD> <label><input type="checkbox" /> Se cambió Antena GPS</label><br />
+                <label><input type="checkbox" /> Envío de Mensaje a la Plataforma</label><br />
                 <label><input type="checkbox" /> Encendido Ope. Normal</label><br />
                 <label><input type="checkbox" /> Paro de Motor</label><br />
             </TD>
             <TD><label><input type="checkbox" /> Se Cambio Antena GPS</label><br />
                 <label><input type="checkbox" /> Reset</label><br />
-                <label><input type="checkbox" /> Ubicacion Correcta</label><br />
-                <label><input type="checkbox" /> Desinstalacion-Reinstalacion</label><br />
+                <label><input type="checkbox" /> Ubicación Correcta</label><br />
+                <label><input type="checkbox" /> Desinstalación-Reinstalación</label><br />
             </TD>
             <TD> <label><input type="checkbox" /> Boton de Panico</label><br />
                 <label><input type="checkbox" /> Retiro Definitivo del Equipo</label><br />
@@ -165,7 +162,7 @@
         </TR>
     </TABLE>
 
-    <CENter>Observaciones del Tecnico</CENter>
+    <center>Observaciones del Técnico</center>
     <TABLE BORDER WIDTH="100%">
         <TR>
             <th WIDTH="300"><b>Observaciones</b></th>
@@ -178,36 +175,36 @@
             <TD> </TD>
             <TD>Puntualidad</TD>
             <td></td>
-            <TD></TD>
-            <TD></TD>
+            <TD></td>
+            <TD></td>
         </TR>
         <TR>
             <TD> </TD>
-            <TD>Presentacion</TD>
+            <TD>Presentación</TD>
             <td></td>
-            <TD> </TD>
-            <TD> </TD>
+            <TD></td>
+            <TD></td>
         </TR>
         <TR>
             <TD> </TD>
-            <TD>Atencion</TD>
+            <TD>Atención</TD>
             <td></td>
-            <TD></TD>
-            <TD> </TD>
+            <TD></td>
+            <TD></td>
         </TR>
         <TR>
             <TD> </TD>
-            <TD>Lexico</TD>
+            <TD> Léxico</TD>
             <td></td>
-            <TD></TD>
-            <TD> </TD>
+            <TD></td>
+            <TD></td>
         </TR>
         <TR>
             <TD></TD>
             <TD>Limpieza</TD>
             <td></td>
-            <TD></TD>
-            <TD> </TD>
+            <TD></td>
+            <TD></td>
         </TR>
     </TABLE>
     <br>

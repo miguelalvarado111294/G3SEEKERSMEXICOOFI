@@ -43,7 +43,7 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'referencia.destroy'])->syncRoles([$role1]);
 
         //cuenta
-        Permission::create(['name' => 'cuenta.index'])->syncRoles([$role1, $role2, $role3, $role4, $role5]); //Cobranza 
+        Permission::create(['name' => 'cuenta.index'])->syncRoles([$role1, $role3,  $role5]); //Cobranza 
         Permission::create(['name' => 'cuenta.create'])->syncRoles([$role1, $role2]); //Cobranza  
         Permission::create(['name' => 'cuenta.edit'])->syncRoles([$role1, $role2]);  //Cobranza  
         Permission::create(['name' => 'cuenta.destroy'])->syncRoles([$role1]);
