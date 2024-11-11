@@ -1,6 +1,3 @@
-requiero q crees dos formularios 
-uno para dispositivo y otro para linea cada uno con su boton de submit 
-y con el selector escoja que formulario deseo llenar 
 @extends('adminlte::page')
 
 @section('title', 'G3SEEKERS MX')
@@ -77,6 +74,9 @@ y con el selector escoja que formulario deseo llenar
             @error('comentarios_dispositivo')
                 <small style="color: red">{{ $message }}</small>
             @enderror
+
+            <!-- Botón de Envío para Dispositivo -->
+            <button type="submit" class="btn btn-success mt-3" id="submitDispositivo">Registrar Dispositivo</button>
         </div>
 
         <!-- Formulario Línea Telefónica (Oculto inicialmente) -->
@@ -111,12 +111,11 @@ y con el selector escoja que formulario deseo llenar
             @error('comentarios_linea')
                 <small style="color: red">{{ $message }}</small>
             @enderror
+
+            <!-- Botón de Envío para Línea -->
+            <button type="submit" class="btn btn-success mt-3" id="submitLinea">Registrar Línea</button>
         </div>
 
-        <!-- Botón de Envío (Oculto inicialmente) -->
-        <div id="submitButton" class="form-group" style="display: none;">
-            <button type="submit" class="btn btn-success">Registrar</button>
-        </div>
     </form>
 
     <div class="form-group">
@@ -132,19 +131,16 @@ y con el selector escoja que formulario deseo llenar
         // Ocultar ambos formularios inicialmente
         document.getElementById('dispositivoForm').style.display = 'none';
         document.getElementById('lineaForm').style.display = 'none';
-        document.getElementById('submitButton').style.display = 'none';  // Ocultar el botón de envío
 
-        // Mostrar el formulario correspondiente y el botón de envío
+        // Mostrar el formulario correspondiente y su botón de submit
         if (tipoRegistro === 'dispositivo') {
             document.getElementById('dispositivoForm').style.display = 'block';
-            document.getElementById('submitButton').style.display = 'block';
-            // Limpiar los campos del otro formulario si se elige una nueva opción
-            document.getElementById('lineaForm').reset();
+            document.getElementById('submitDispositivo').style.display = 'block';
+            document.getElementById('submitLinea').style.display = 'none';  // Ocultar el botón de la línea
         } else if (tipoRegistro === 'linea') {
             document.getElementById('lineaForm').style.display = 'block';
-            document.getElementById('submitButton').style.display = 'block';
-            // Limpiar los campos del otro formulario si se elige una nueva opción
-            document.getElementById('dispositivoForm').reset();
+            document.getElementById('submitLinea').style.display = 'block';
+            document.getElementById('submitDispositivo').style.display = 'none';  // Ocultar el botón del dispositivo
         }
     }
 </script>
