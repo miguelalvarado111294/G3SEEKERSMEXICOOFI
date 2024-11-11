@@ -36,6 +36,7 @@
             <table class="table table-light">
                 <thead class="thead-light">
                     <tr>
+                        <th></th>
                         <th>ID en Platadorma</th>
                         <th>Cuenta</th>
                         <th>Modelo</th>
@@ -53,11 +54,9 @@
                         <tr>
                             <td>{{ $value->plataforma_id }}</td>
                             <td>{{ $value->noeconomico }}</td>
-
                             <td>{{ $value->cuenta }}</td>
                             <td>{{ $value->modelo }}</td>
                             <td>{{ $value->imei }}</td>
-
                             <td>{{ $value->fechacompra }}</td>
                             <td>{{ $value->comentarios }}</td>
                             <td>
@@ -82,7 +81,6 @@
             </table>
         </div>
     </div>
-
     <h3 class="text-center">Datos del Vehículo</h3>
     <br>
     <div class="card">
@@ -90,7 +88,6 @@
             <ul>
                 <b>
                     Vehículo Marca: {{ $vehiculo->marca }}<br>
-
                     Modelo: {{ $vehiculo->modelo }}<br>
                     Número de Motor: {{ $vehiculo->nomotor }}<br>
                     Número de Serie: {{ $vehiculo->noserie }}<br>

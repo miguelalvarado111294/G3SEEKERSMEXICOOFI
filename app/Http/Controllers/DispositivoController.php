@@ -9,6 +9,36 @@ use Illuminate\Http\Request;
 
 class DispositivoController extends Controller
 {
+
+
+    
+    public function index(Request $request)
+    {
+        $busqueda = $request->get('busqueda');
+        $mes = $request->get('mes'); // Obtener el mes seleccionado
+
+        // Construir la consulta
+        $query = Dispositivo::where(function ($query) use ($busqueda) {
+            $query->where('id', 'LIKE', "%{$busqueda}%")
+                  ->orWhere('imei', 'LIKE', "%{$busqueda}%")
+                  ->orWhere('cuenta', $busqueda)
+                  ->orWhere('noeconomico', 'LIKE', "%{$busqueda}%");
+        });
+
+        // Si se selecciona un mes, filtramos por el mes en la columna fechacompra
+        if ($mes) {
+            // Extraemos el mes de la fecha de compra, que está en el formato dd/mm/yyyy
+            $query->whereRaw("MONTH(STR_TO_DATE(fechacompra, '%d/%m/%Y')) = ?", [$mes]);
+        }
+
+        // Ejecutar la consulta
+        $dispositivos = $query->paginate(10);
+        $totalDispositivos = $query->count(); // Contar los dispositivos
+
+        return view('dispositivo.index', compact('dispositivos', 'busqueda', 'totalDispositivos'));
+    }
+    
+    /*
     public function index(Request $request)
 {
     $busqueda = $request->get('busqueda');
@@ -23,7 +53,7 @@ class DispositivoController extends Controller
     $totalDispositivos = $query->count(); // Contar los dispositivos
 
     return view('dispositivo.index', compact('dispositivos', 'busqueda', 'totalDispositivos'));
-}
+}*/
 
 
     public function creardisp($id)

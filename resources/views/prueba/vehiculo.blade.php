@@ -73,7 +73,11 @@
                     @endforeach
                 </tbody>
             </table>
+
+            <div class="d-flex justify-content-center">
             {!! $vehiculos->links() !!}
+
+            </div>
         </div>
     </div>
 
@@ -81,3 +85,6 @@
         <a href="{{ route('buscar.cuenta', $cliente_id) }}" class="btn btn-dark">Regresar</a>
     </div>
 @endsection
+
+
+

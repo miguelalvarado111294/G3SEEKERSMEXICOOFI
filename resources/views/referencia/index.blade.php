@@ -94,7 +94,15 @@
         </div>
 
     </div>
-    {!! $referencias->links() !!}
+
+    <div class="d-flex justify-content-center">
+        {!! $referencias->links() !!}
+    </div>
+
+
+    <div class="d-flex justify-content-center">
+
+    </div>
 
 
     </div>

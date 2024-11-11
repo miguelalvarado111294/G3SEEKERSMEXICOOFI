@@ -83,4 +83,15 @@ class CtaespejoController extends Controller
         $clientes = Cliente::all();
         return view('ctaespejo.create', compact('cuentas', 'clientes'));
     }
+
+    
+    public function ale()
+    {
+        
+        return view('ale');
+    }
+    
+
+    
+
 }

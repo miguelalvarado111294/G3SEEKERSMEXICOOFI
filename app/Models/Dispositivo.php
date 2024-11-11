@@ -17,11 +17,16 @@ class dispositivo extends Model
         'cliente_id',
         'vehiculo_id',
         'cuenta',
+        'precio',
         'sucursal',
         'fechacompra',
         'noeconomico',
         'comentarios'
     ];
+
+
+
+    
     public function cliente()
     {
         return $this->belongsTo('App\Models\Cliente', 'cliente_id', 'id');

@@ -17,9 +17,7 @@
     @error('telefono')
         <small style ="color: red"> {{ $message }}</small>
     @enderror
-
     <br>
-
 </div>
 <div class="form-group">
     <label for="tipolinea">Tipo de Línea:</label>

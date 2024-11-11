@@ -22,10 +22,10 @@
             </div>
         @endif
 
-        {{--
+        {{-- 
         <form class="d-flex" role="search">
             <input name="busqueda" id="busqueda" class="form-control sm me-2 " type="search" value="{{ $busqueda }}"
-                placeholder="Buscar por Nombre / Apellido / Telefono / Email /  RFC" aria-label="Search">
+                placeholder="Buscar por Nombre / Apellido / Telefono / Email / RFC" aria-label="Search">
             <button class="btn btn-outline-primary" type="submit">Buscar </button>
         </form>
         <br>
@@ -43,7 +43,7 @@
             <div class="card-body">
                 <div class="row">
                     <input type="text" name="search" id="search"
-                        placeholder="Para Buscar un Cliente , Ingrese Nombre / Apellido / Telefono / Email / RFC"
+                        placeholder="Para Buscar un Cliente, Ingrese Nombre / Apellido / Telefono / Email / RFC"
                         class="form-control" onfocus="this.value=''">
                     <div id="search_list"></div>
                 </div>
@@ -55,25 +55,27 @@
             <div class="card-body" style="text-align:center; margin:auto">
                 @if (count($clientes) <= 0)
                     <tr>
-                        <td colspan="8"> No hay resultados de . {{ $busqueda }} </td>
+                        <td colspan="8"> No hay resultados de {{ $busqueda }} </td>
                     </tr>
                 @else
-
                     <ul>
                         @foreach ($clientes as $cliente)
-                            <a href=" {{ route('cliente.show', $cliente->id) }}" class="btn btn-default"
+                            <a href="{{ route('cliente.show', $cliente->id) }}" class="btn btn-default"
                                 style="text-align: center; display: inline-block; width: 100%;">
                                 {{ $cliente->nombre }} {{ $cliente->segnombre }} {{ $cliente->apellidopat }}
                                 {{ $cliente->apellidomat }}
                             </a>
                         @endforeach
                     </ul>
-
                 @endif
             </div>
         </div>
     </div>
-    {!! $clientes->appends(['busqueda' => $busqueda]) !!}
+
+    <!-- Añadido para centrar el paginador -->
+    <div class="d-flex justify-content-center">
+        {!! $clientes->appends(['busqueda' => $busqueda]) !!}
+    </div>
 @endsection
 
 
@@ -102,8 +104,6 @@
                             $('#search_list').html(data);
                         }
                     });
-
-
                 }
 
                 //end of ajax call

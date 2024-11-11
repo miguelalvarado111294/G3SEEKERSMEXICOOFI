@@ -41,7 +41,8 @@
         <option value="J">J</option>
     </select>
     @error('cuenta')
-        <small style ="color: red"> {{ $message }}</small>
+        <small style ="color: red"> {{ $message }}</small>;
+        
     @enderror
     <br>
 </div>

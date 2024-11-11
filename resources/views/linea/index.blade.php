@@ -99,5 +99,12 @@
 
     <br>
 
-    {!! $lineas->links() !!}
+
+   
+ 
+    
+    <div class="d-flex justify-content-center">
+        {!! $lineas->links() !!}
+
+    </div>
 @endsection

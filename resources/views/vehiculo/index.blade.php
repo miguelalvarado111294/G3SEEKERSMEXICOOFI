@@ -3,7 +3,7 @@
 @section('title', 'G3SEEKERSMX')
 
 @section('content_header')
-<h1 class="text-center"><b>G3 Seekers México</b></h1>
+    <h1 class="text-center"><b>G3 Seekers México</b></h1>
     <br>
     <h3 class="text-center">Vehiculos</h3>
     <br>
@@ -54,7 +54,7 @@
                         @foreach ($vehiculos as $vehiculo)
                             <tr>
 
-                                <td> 
+                                <td>
                                     <a href=" {{ route('buscar.dispositivo', $vehiculo->id) }}" class="btn btn-default"
                                         style="text-align: center; display: inline-block; width: 100%;"> Ver detalles
                                 </td>
@@ -71,19 +71,19 @@
 
                                 <td>
 
-                                     @can('vehiculo.edit')
-                                    <a href="{{ url('/vehiculo/' . $vehiculo->id . '/edit') }}"
-                                        class="btn btn-warning">Editar</a>
-                                        @endcan
+                                    @can('vehiculo.edit')
+                                        <a href="{{ url('/vehiculo/' . $vehiculo->id . '/edit') }}"
+                                            class="btn btn-warning">Editar</a>
+                                    @endcan
 
-                                    
+
                                     @can('vehiculo.destroy')
-                                    <form action="{{ url('/vehiculo/' . $vehiculo->id) }}" method="post" class="d-inline">
-                                        @csrf
-                                        {{ method_field('DELETE') }}
-                                        <input class="btn btn-danger" type="submit"
-                                            onclick=" return confirm('seguro quieres eliminar?')" value="Borrar">
-                                    </form>
+                                        <form action="{{ url('/vehiculo/' . $vehiculo->id) }}" method="post" class="d-inline">
+                                            @csrf
+                                            {{ method_field('DELETE') }}
+                                            <input class="btn btn-danger" type="submit"
+                                                onclick=" return confirm('seguro quieres eliminar?')" value="Borrar">
+                                        </form>
                                     @endcan
 
                                 </td>
@@ -99,8 +99,11 @@
     </div>
 
 
-    {!! $vehiculos->appends(['busqueda' => $busqueda]) !!}
 
+    <div class="d-flex justify-content-center">
+        {!! $vehiculos->appends(['busqueda' => $busqueda]) !!}
+
+    </div>
 
 
     </div>

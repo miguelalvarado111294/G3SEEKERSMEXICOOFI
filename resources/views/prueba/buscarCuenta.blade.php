@@ -34,8 +34,10 @@
                         @can('cuenta.edit')
                             <th>Acciones</th>
                         @endcan
+                        tito capotito planto un arbol en un clavito 
                     </tr>
                 </thead>
+
                 <tbody>
                     @foreach ($cuenta as $value)
                         <tr>
@@ -48,9 +50,12 @@
                                 <a href="{{ route('buscar.vehiculo', $cliente_id) }}" class="btn btn-primary">Vehículos</a>
                             </td>
                             <td>
+
+
                                 @can('cuenta.edit')
                                     <a href="{{ url('/cuenta/' . $value->id . '/edit') }}" class="btn btn-warning">Editar</a>
                                 @endcan
+
                                 @can('cuenta.destroy')
                                     <form action="{{ url('/cuenta/' . $value->id) }}" method="POST" class="d-inline">
                                         @csrf

@@ -40,6 +40,7 @@ class LineaController extends Controller
             'renovacion' => 'required|alpha'
         ]);
 
+
         Linea::create($request->except('_token'));
         return redirect('linea')->with('mensaje', 'Línea agregada exitosamente.');
     }

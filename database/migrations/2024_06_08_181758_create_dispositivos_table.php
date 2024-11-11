@@ -14,15 +14,16 @@ return new class extends Migration
         Schema::create('dispositivos', function (Blueprint $table) {
             $table->engine = "InnoDB";
             $table->id();
-            $table->string('plataforma_id');
+            $table->string('plataforma_id')->nullable();
             $table->string('modelo');
             $table->string('noserie')->nullable();
             $table->string('imei');
             $table->string('cuenta');
             $table->string('sucursal');
-
+            $table->string('ubicaciondispositivo');
             $table->string('fechacompra');
-
+            $table->string('precio');
+            $table->string('fechadeinstalacion');
             $table->string('noeconomico')->nullable();
             $table->string('comentarios')->nullable();
 

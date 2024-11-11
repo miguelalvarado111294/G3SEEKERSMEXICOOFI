@@ -90,8 +90,10 @@
 
     </div>
 
+    <div class="d-flex justify-content-center">
     {!! $sensors->links() !!}
 
+    </div>
 
     </div>
 @endsection

@@ -369,6 +369,11 @@ return [
             'route' => 'sensor.index',
             'icon' => 'fas fa-fw fa-user',
         ],
+        [
+            'text' => 'Inventario',
+            'route' => 'inventarioadd',
+            'icon' => 'fas fa-fw fa-user',
+        ],
 
         /*
         ['header' => 'Inventario'],

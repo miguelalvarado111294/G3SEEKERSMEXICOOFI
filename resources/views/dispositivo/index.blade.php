@@ -31,11 +31,31 @@
     @endif
 
     <br>
+
+    <!-- Formulario de búsqueda -->
     <form class="d-flex" role="search">
         <input name="busqueda" class="form-control me-2" type="search" value="{{ $busqueda }}"
             placeholder="Buscar por ID / Numero economico / Numero de Serie / Imei" aria-label="Search">
         <button class="btn btn-outline-success" type="submit">Buscar</button>
     </form>
+    <br>
+
+    <!-- Formulario para seleccionar el mes -->
+    <form method="GET" class="d-flex justify-content-center">
+        <!-- Etiqueta que describe el campo de búsqueda por mes -->
+        <label for="mes" class="form-label me-2" style="line-height: 2.5;">Para buscar las renovaciones selecciona el mes: </label>
+        
+        <!-- Campo de selección para los meses -->
+        <select name="mes" id="mes" class="form-control w-25" onchange="this.form.submit()">
+            <option value="">Selecciona un mes</option>
+            @foreach (range(1, 12) as $month)
+                <option value="{{ $month }}" {{ request('mes') == $month ? 'selected' : '' }}>
+                    {{ \Carbon\Carbon::create()->month($month)->locale('es')->format('F') }}
+                </option>
+            @endforeach
+        </select>
+    </form>
+    
     <br>
 
     <div class="card">
@@ -102,6 +122,10 @@
             </table>
         </div>
     </div>
+</div>
+</div>
+<div class="d-flex justify-content-center">
+    {!! $dispositivos->appends(['mes' => request('mes')])->links() !!}
+</div>
 
-    {!! $dispositivos->links() !!}
 @endsection

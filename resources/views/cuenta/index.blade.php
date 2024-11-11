@@ -86,7 +86,10 @@
 
     </div>
     <br>
-    {!! $cuentas->links() !!}
 
+
+    <div class="d-flex justify-content-center">
+    {!! $cuentas->links() !!}
+    </div>
 
 @endsection

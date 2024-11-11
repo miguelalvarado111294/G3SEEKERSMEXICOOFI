@@ -104,6 +104,10 @@ class ReferenciaController extends Controller
             'apellidomat' => 'required|alpha|min:4|max:100',
             'telefono' => 'required|numeric|digits:10|unique:referencias,telefono' . ($id ? ',' . $id : ''),
             'parentesco' => 'required',
+            
+            
+        
+
         ]);
     }
 
