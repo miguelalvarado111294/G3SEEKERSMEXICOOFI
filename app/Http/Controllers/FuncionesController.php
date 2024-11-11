@@ -53,51 +53,38 @@ class FuncionesController extends Controller
 
 
     public function store(Request $request)
-    {
-        return $request;
-        // Validación de los datos según el tipo de registro
-        $validatedData = $request->validate([
-            'tipoRegistro' => 'required|string',
-            // Validaciones comunes
-            'comentarios' => 'nullable|string',
-            // Validaciones específicas para 'dispositivo'
-            'modelo' => 'required_if:tipoRegistro,dispositivo|string',
-            'noserie' => 'required_if:tipoRegistro,dispositivo|string|unique:dispositivos,noserie',
-            'imei' => 'required_if:tipoRegistro,dispositivo|string|unique:dispositivos,imei',
-            'fechacompra' => 'required_if:tipoRegistro,dispositivo|date',
-            // Validaciones específicas para 'linea'
-            'telefono' => 'required_if:tipoRegistro,linea|string|unique:lineas,telefono',
-            'tipolinea' => 'required_if:tipoRegistro,linea|string',
-            'renovacion' => 'required_if:tipoRegistro,linea|date',
-        ]);
+{
+    // Validación de los datos solo para 'dispositivo'
+    $validatedData = $request->validate([
+        'tipoRegistro' => 'required|string|in:dispositivo', // Solo permite 'dispositivo'
+        'comentarios_dispositivo' => 'nullable|string', // Cambié el nombre para que coincida con el campo del formulario
+        // Validaciones específicas para 'dispositivo'
+        'modelo' => 'required|string',
+        'noserie' => 'required|string|unique:dispositivos,noserie',
+        'imei' => 'required|string|unique:dispositivos,imei',
+        'fechacompra' => 'required|date',
+        'precio' => 'required|numeric', // Validación para el precio
+    ]);
 
-        // Comprobamos el tipo de registro y almacenamos los datos en la tabla correspondiente
-        if ($request->tipoRegistro === 'dispositivo') {
-            // Guardamos el dispositivo
-            $dispositivo = new Dispositivo();
-            $dispositivo->modelo = $validatedData['modelo'];
-            $dispositivo->noserie = $validatedData['noserie'];
-            $dispositivo->imei = $validatedData['imei'];
-            $dispositivo->fechacompra = $validatedData['fechacompra'];
-            $dispositivo->comentarios = $validatedData['comentarios'] ?? '';
-            $dispositivo->save();
+    // Guardamos el dispositivo
+    $dispositivo = new Dispositivo();
+    $dispositivo->modelo = $validatedData['modelo'];
+    $dispositivo->noserie = $validatedData['noserie'];
+    $dispositivo->imei = $validatedData['imei'];
+    $dispositivo->fechacompra = $validatedData['fechacompra'];
+    $dispositivo->precio = $validatedData['precio']; // Ahora está validado
+    $dispositivo->comentarios = $validatedData['comentarios_dispositivo'] ?? '';
+    $dispositivo->cliente_id = $validatedData['cliente_id'] ?? '250'; // Aquí también se asigna un valor por defecto
+    $dispositivo->vehiculo_id =$validatedData['vehiculo_id'] ?? '1512'; 
 
-            return redirect()->back()->with('success', 'Dispositivo registrado exitosamente!');
-        } elseif ($request->tipoRegistro === 'linea') {
-            // Guardamos la línea telefónica
-            $linea = new Linea();
-            $linea->telefono = $validatedData['telefono'];
-            $linea->tipolinea = $validatedData['tipolinea'];
-            $linea->renovacion = $validatedData['renovacion'];
-            $linea->comentarios = $validatedData['comentarios'] ?? '';
-            $linea->save();
 
-            return redirect()->back()->with('success', 'Línea telefónica registrada exitosamente!');
-        }
 
-        // Si no se seleccionó un tipo de registro, devolvemos un error
-        return redirect()->back()->with('error', 'Debe seleccionar un tipo de registro.');
-    }
+    $dispositivo->save();
+
+    return redirect()->back()->with('success', 'Dispositivo registrado exitosamente!');
+}
+
+    
 }
     
     

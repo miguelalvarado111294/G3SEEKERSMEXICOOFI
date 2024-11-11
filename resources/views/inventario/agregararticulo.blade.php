@@ -79,42 +79,7 @@
             <button type="submit" class="btn btn-success mt-3" id="submitDispositivo">Registrar Dispositivo</button>
         </div>
 
-        <!-- Formulario Línea Telefónica (Oculto inicialmente) -->
-        <div id="lineaForm" class="form-group" style="display: none;">
-            <label for="telefono">Teléfono</label>
-            <input type="text" class="form-control" name="telefono" id="telefono">
-            @error('telefono')
-                <small style="color: red">{{ $message }}</small>
-            @enderror
-            <br>
-
-            <label for="tipolinea">Tipo de Línea:</label>
-            <select class="form-control" name="tipolinea" id="tipolinea" required>
-                <option value="">Selecciona una opción</option>
-                <option value="datos">Datos</option>
-                <option value="voz_y_datos">Voz y Datos</option>
-            </select>
-            @error('tipolinea')
-                <small style="color: red">{{ $message }}</small>
-            @enderror
-            <br>
-
-            <label for="renovacion">Renovación:</label>
-            <input type="date" class="form-control" name="renovacion" id="renovacion">
-            @error('renovacion')
-                <small style="color: red">{{ $message }}</small>
-            @enderror
-            <br>
-
-            <label for="comentarios_linea">Comentarios</label>
-            <input type="text" class="form-control" name="comentarios_linea" id="comentarios_linea">
-            @error('comentarios_linea')
-                <small style="color: red">{{ $message }}</small>
-            @enderror
-
-            <!-- Botón de Envío para Línea -->
-            <button type="submit" class="btn btn-success mt-3" id="submitLinea">Registrar Línea</button>
-        </div>
+        <!-- El formulario para Línea Telefónica se ha eliminado, pero la opción permanece en el select -->
 
     </form>
 
@@ -128,19 +93,12 @@
     function toggleForms() {
         const tipoRegistro = document.getElementById('tipoRegistro').value;
 
-        // Ocultar ambos formularios inicialmente
+        // Ocultar el formulario de dispositivo inicialmente
         document.getElementById('dispositivoForm').style.display = 'none';
-        document.getElementById('lineaForm').style.display = 'none';
 
-        // Mostrar el formulario correspondiente y su botón de submit
+        // Si se selecciona "dispositivo", mostrar el formulario correspondiente
         if (tipoRegistro === 'dispositivo') {
             document.getElementById('dispositivoForm').style.display = 'block';
-            document.getElementById('submitDispositivo').style.display = 'block';
-            document.getElementById('submitLinea').style.display = 'none';  // Ocultar el botón de la línea
-        } else if (tipoRegistro === 'linea') {
-            document.getElementById('lineaForm').style.display = 'block';
-            document.getElementById('submitLinea').style.display = 'block';
-            document.getElementById('submitDispositivo').style.display = 'none';  // Ocultar el botón del dispositivo
         }
     }
-</script>
+</script>  
