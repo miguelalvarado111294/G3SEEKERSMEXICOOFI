@@ -41,27 +41,35 @@ class ReferenciaController extends Controller
 
         return redirect()->route('cliente.show', $id);
     }
-    public function createnuevoref(Request $request, $id)
-    {
-        // Validación de los datos del request
-        $request->validate([
-            'nombre' => 'required|alpha|min:2|max:100',
-            'segnombre' => 'nullable|alpha',
-            'apellidopat' => 'required|alpha|min:4|max:100',
-            'apellidomat' => 'required|alpha|min:4|max:100',
-            'telefono' => 'required|numeric|digits:10|unique:referencias,telefono,' . $id,
-            'parentesco' => 'required'
-        ]);
+
     
-        // Crear referencia utilizando el método fill para mayor claridad
-        Referencia::create(array_merge($request->only(['nombre', 'segnombre', 'apellidopat', 'apellidomat', 'telefono', 'parentesco']), [
-            'cliente_id' => $id,
-        ]));
-    
-        // Redirigir a la ruta deseada
-        return redirect()->route('crear.nuevo.cuenta', $id);
-    }
-    
+    public function createnuevoref(Request $request, $cliente_id)
+{
+    // Validación de los datos del formulario
+    $request->validate([
+        'nombre' => 'required|string|max:255',
+        'apellidopat' => 'required|string|max:255',
+        'telefono' => 'required|numeric',
+        // Agregar las demás validaciones necesarias
+    ]);
+
+    // Crear la referencia
+    $referencia = new Referencia([
+        'nombre' => $request->nombre,
+        'segnombre' => $request->segnombre,
+        'apellidopat' => $request->apellidopat,
+        'apellidomat' => $request->apellidomat,
+        'telefono' => $request->telefono,
+        'parentesco' => $request->parentesco,
+        'cliente_id' => $cliente_id,
+    ]);
+
+    $referencia->save();
+
+    // Redirigir con mensaje de éxito
+    return redirect()->route('crear.nuevo.ref', $cliente_id)->with('mensaje', 'Referencia registrada con éxito!');
+}
+
 
     public function edit($id)
     {
