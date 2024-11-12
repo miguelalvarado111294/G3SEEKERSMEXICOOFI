@@ -70,7 +70,7 @@
                 <div class="form-group">
                     <label for="parentesco">Parentesco</label>
                     <input type="text" class="form-control" name="parentesco"
-                           value="{{ isset($referencia->parentesco) ? $referencia->parentesco : old('parentesco') }}"
+                           value="{{ isset($referencia->parentesco) ? $referencia->parentesco : old('parentesco') }} "
                            id="parentesco">
                     @error('parentesco')
                         <small class="text-danger">{{ $message }}</small>
@@ -79,6 +79,9 @@
 
                 <div class="form-group text-center">
                     <button class="btn btn-success btn-lg" type="submit">Registrar Referencia</button>
+                    <!-- Botón para finalizar -->
+                    <a href="{{ route('confirmation') }}" class="btn btn-secondary btn-lg ml-3">Finalizar</a>
+                    <!-- Botón para agregar otra referencia -->
                 </div>
             </form>
         </div>
