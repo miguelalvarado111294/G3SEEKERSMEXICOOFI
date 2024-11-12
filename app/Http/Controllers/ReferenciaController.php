@@ -57,7 +57,6 @@ class ReferenciaController extends Controller
         'parentesco' => 'required',
 
 
-
     ]);
 
     // Crear la referencia
