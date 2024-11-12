@@ -24,7 +24,7 @@
 
         {{-- 
         <form class="d-flex" role="search">
-            <input name="busqueda" id="busqueda" class="form-control sm me-2 " type="search" value="{{ $busqueda }}"
+            <input name="busqueda" id="busqueda" class="form-control sm me-2 " type="search" value="{{ $busqueda }} "
                 placeholder="Buscar por Nombre / Apellido / Telefono / Email / RFC" aria-label="Search">
             <button class="btn btn-outline-primary" type="submit">Buscar </button>
         </form>
@@ -60,7 +60,7 @@
                 @else
                     <ul>
                         @foreach ($clientes as $cliente)
-                            <a href="{{ route('cliente.show', $cliente->id) }}" class="btn btn-default"
+                            <a href="{{ route('cliente.show', $cliente->id) }}" class="btn {{ $cliente->has_vehicle ? 'btn-default' : 'btn-warning' }}"
                                 style="text-align: center; display: inline-block; width: 100%;">
                                 {{ $cliente->nombre }} {{ $cliente->segnombre }} {{ $cliente->apellidopat }}
                                 {{ $cliente->apellidomat }}

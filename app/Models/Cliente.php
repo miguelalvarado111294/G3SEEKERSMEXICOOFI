@@ -37,6 +37,8 @@ class Cliente extends Model
         return $this->hasMany('App\Models\Vehiculo', 'cliente_id', 'id');
     }
 
+    
+
     public function dispositivos()
     {
         return $this->hasMany('App\Models\Dispositivo', 'cliente_id', 'id');

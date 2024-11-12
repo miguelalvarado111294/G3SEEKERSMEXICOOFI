@@ -40,11 +40,16 @@ class ClienteController extends Controller
                 ->orWhere('telefono', 'LIKE', "%{$busqueda}%")
                 ->orWhere('email', 'LIKE', "%{$busqueda}%")
                 ->orWhere('rfc', 'LIKE', "%{$busqueda}%");
-        })->orderBy('id', 'desc') // Ordena por ID de manera descendente
-            ->paginate(10);
-
+        })->orderBy('id', 'desc')->paginate(10);
+    
+        // Marcar clientes sin vehículo asignado
+        foreach ($clientes as $cliente) {
+            $cliente->has_vehicle = $cliente->vehiculos()->count() > 0;  // Verifica si tiene vehículos asignados
+        }
+    
         return view('cliente.index', compact('clientes', 'busqueda'));
     }
+    
 
     public function show($id)
     {
