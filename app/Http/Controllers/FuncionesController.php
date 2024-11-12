@@ -46,8 +46,11 @@ class FuncionesController extends Controller
         // Pasar el total de dispositivos al view
         return view('dispositivo.index', compact('dispositivos', 'busqueda', 'totalDispositivos', 'totalDispositivosSinFiltro'));
     }
+   
+
     public function store(Request $request)
     {
+        //return $request;
         // Valida los campos basados en el tipo de registro
         if ($request->tipoRegistro === 'dispositivo') {
             // Validación específica para 'dispositivo'
@@ -93,10 +96,7 @@ class FuncionesController extends Controller
             $linea->renovacion = $validatedData['renovacion'];
             $linea->comentarios = $validatedData['comentarios'] ?? '';
             $linea->cliente_id = $validatedData['cliente_id'] ?? '250';
-            $linea->dispositivo_id = $validatedData['dispositivo_id'] ?? '1512';
-
-
-        
+            $linea->dispositivo_id = $validatedData['dispositivo_id'] ?? '1512';    
             $linea->save();
     
             return redirect()->back()->with('success', 'Línea telefónica registrada exitosamente!');

@@ -152,36 +152,34 @@
         if (tipoRegistro === 'dispositivo') {
             document.getElementById('dispositivoForm').style.display = 'block';
             document.getElementById('lineaForm').style.display = 'none';
+
+            // Deshabilitar los campos de línea
+            document.querySelectorAll('#lineaForm input, #lineaForm select').forEach(function (input) {
+                input.disabled = true;
+            });
+
+            // Habilitar los campos de dispositivo
+            document.querySelectorAll('#dispositivoForm input').forEach(function (input) {
+                input.disabled = false;
+            });
         } else if (tipoRegistro === 'linea') {
             document.getElementById('lineaForm').style.display = 'block';
             document.getElementById('dispositivoForm').style.display = 'none';
-        }
-    }
 
-    // Función para eliminar los campos no visibles del formulario antes de enviarlo
-    document.getElementById('registroForm').onsubmit = function () {
-        const tipoRegistro = document.getElementById('tipoRegistro').value;
-
-        // Si es dispositivo, eliminamos los campos de línea
-        if (tipoRegistro === 'linea') {
-            // Eliminar los campos de dispositivo
-            const dispositivoFields = [
-                'modelo', 'noserie', 'imei', 'fechacompra', 'precio', 'comentarios_dispositivo'
-            ];
-            dispositivoFields.forEach(function (field) {
-                const element = document.getElementById(field);
-                if (element) element.remove();
+            // Deshabilitar los campos de dispositivo
+            document.querySelectorAll('#dispositivoForm input').forEach(function (input) {
+                input.disabled = true;
             });
-        }
 
-        // Si es línea, eliminamos los campos de dispositivo
-        if (tipoRegistro === 'dispositivo') {
-            // Eliminar los campos de línea
-            const lineaFields = ['simcard', 'telefono', 'tipolinea', 'renovacion', 'comentarios'];
-            lineaFields.forEach(function (field) {
-                const element = document.getElementById(field);
-                if (element) element.remove();
+            // Habilitar los campos de línea
+            document.querySelectorAll('#lineaForm input, #lineaForm select').forEach(function (input) {
+                input.disabled = false;
             });
         }
     }
+
+    // Inicializar el formulario con la opción de tipoRegistro que el usuario haya seleccionado
+    document.addEventListener('DOMContentLoaded', function () {
+        toggleForms();
+    });
 </script>
