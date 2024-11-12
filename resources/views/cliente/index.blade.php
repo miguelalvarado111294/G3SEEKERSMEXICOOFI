@@ -22,14 +22,6 @@
             </div>
         @endif
 
-        {{-- 
-        <form class="d-flex" role="search">
-            <input name="busqueda" id="busqueda" class="form-control sm me-2 " type="search" value="{{ $busqueda }} "
-                placeholder="Buscar por Nombre / Apellido / Telefono / Email / RFC" aria-label="Search">
-            <button class="btn btn-outline-primary" type="submit">Buscar </button>
-        </form>
-        <br>
-        --}}
         @can('cliente.create')
             <div style="text-align:center; margin:auto; width: 100%;">
                 <a href="{{ url('cliente/create') }}" class="btn btn-success">Alta de Nuevo Usuario</a>
@@ -60,7 +52,13 @@
                 @else
                     <ul>
                         @foreach ($clientes as $cliente)
-                            <a href="{{ route('cliente.show', $cliente->id) }}" class="btn {{ $cliente->has_vehicle ? 'btn-default' : 'btn-warning' }}"
+                            <!-- Mostrar alerta solo si el perfil está incompleto -->
+                            @if ($cliente->profile_incomplete)
+                                <div class="alert alert-warning" role="alert">
+                                    <strong>Advertencia:</strong> El perfil de {{ $cliente->nombre }} {{ $cliente->apellidopat }} está incompleto. Falta completar su cuenta.
+                                </div>
+                            @endif
+                            <a href="{{ route('cliente.show', $cliente->id) }}" class="btn {{ $cliente->has_account ? 'btn-default' : 'btn-primary' }}"
                                 style="text-align: center; display: inline-block; width: 100%;">
                                 {{ $cliente->nombre }} {{ $cliente->segnombre }} {{ $cliente->apellidopat }}
                                 {{ $cliente->apellidomat }}
@@ -77,7 +75,6 @@
         {!! $clientes->appends(['busqueda' => $busqueda]) !!}
     </div>
 @endsection
-
 
 @section('js')
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>

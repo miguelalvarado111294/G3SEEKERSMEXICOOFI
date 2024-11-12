@@ -43,7 +43,7 @@ class Cliente extends Model
     {
         return $this->hasMany('App\Models\Dispositivo', 'cliente_id', 'id');
     }
-    public function cuenta()
+    public function cuentas()
     {
         return $this->hasOne('App\Models\Cuenta', 'cliente_id', 'id');
     }

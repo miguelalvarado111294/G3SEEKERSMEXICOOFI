@@ -42,13 +42,19 @@ class ClienteController extends Controller
                 ->orWhere('rfc', 'LIKE', "%{$busqueda}%");
         })->orderBy('id', 'desc')->paginate(10);
     
-        // Marcar clientes sin vehículo asignado
+        // Verificar si falta completar perfil
         foreach ($clientes as $cliente) {
-            $cliente->has_vehicle = $cliente->vehiculos()->count() > 0;  // Verifica si tiene vehículos asignados
+            // Verificar si el cliente tiene cuentas asociadas
+            $cliente->has_account = $cliente->cuentas()->count() > 0;
+    
+            // Marcar como incompleto si el cliente no tiene cuentas asociadas
+            $cliente->profile_incomplete = !$cliente->has_account;
         }
     
         return view('cliente.index', compact('clientes', 'busqueda'));
     }
+    
+
     
 
     public function show($id)

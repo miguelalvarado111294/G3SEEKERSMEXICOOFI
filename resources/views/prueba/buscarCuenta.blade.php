@@ -34,7 +34,6 @@
                         @can('cuenta.edit')
                             <th>Acciones</th>
                         @endcan
-                        tito capotito planto un arbol en un clavito 
                     </tr>
                 </thead>
 
