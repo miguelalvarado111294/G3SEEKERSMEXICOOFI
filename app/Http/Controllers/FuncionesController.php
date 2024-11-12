@@ -93,7 +93,7 @@ class FuncionesController extends Controller
             $linea->renovacion = $validatedData['renovacion'];
             $linea->comentarios = $validatedData['comentarios'] ?? '';
             $linea->cliente_id = $validatedData['cliente_id'] ?? '250';
-            $linea->dispositivo_id = $validatedData['dispositivo_id'] ?? '1513';
+            $linea->dispositivo_id = $validatedData['dispositivo_id'] ?? '1512';
 
 
         
@@ -107,5 +107,3 @@ class FuncionesController extends Controller
     }
     
 }
-
-
