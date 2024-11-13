@@ -8,7 +8,7 @@
     <h3 class="text-center">Datos de Sensores Instalados</h3>
     <br>
 
-    <div class="card">
+    <div class="card shadow-sm rounded mb-4 mx-auto" style="max-width: 600px;">
         <div class="card-body">
             <p><b>Cliente:</b> {{ "{$cliente->segnombre} {$cliente->nombre} {$cliente->apellidopat} {$cliente->apellidomat}" }}</p>
             <p><b>Datos del Vehículo:</b> {{ "{$vehiculo->marca} Modelo: {$vehiculo->modelo} Placas: {$vehiculo->placa} Color: {$vehiculo->color}" }}</p>
@@ -28,13 +28,13 @@
         </div>
     @endif
 
-    <br>
     @can('sensor.create')
-        <a href="{{ route('sensorf.crear', $id) }}" class="btn btn-success">Registrar Nuevo Sensor</a>
+        <div class="text-center">
+            <a href="{{ route('sensorf.crear', $id) }}" class="btn btn-success">Registrar Nuevo Sensor</a>
+        </div>
     @endcan
-    <br><br>
-
-    <div class="card">
+<br>
+    <div class="card shadow-sm rounded mb-4 mx-auto" style="max-width: 600px;">
         <div class="card-body">
             <table class="table table-light">
                 <thead class="thead-light">

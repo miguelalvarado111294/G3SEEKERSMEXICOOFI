@@ -4,13 +4,14 @@
 
 @section('content_header')
     <h1 class="text-center"><b>G3 Seekers México</b></h1>
+    <h3 class="text-center">Datos Personales</h3>
+
 @endsection
 
 @section('content')
     <div class="container">
         <div class="card">
             <div class="card-body">
-                <h3 class="text-center">Datos Personales</h3>
 
                 <!-- Usar divs para los datos, en lugar de una lista con puntos -->
                 <div class="row">
@@ -32,7 +33,7 @@
                 <hr>
                 <div class="d-flex justify-content-center">
                     <a href="{{ route('buscar.buscararchivos', $cliente->id) }}" class="btn btn-primary m-2" style="width: 17%;">Documentos electrónicos</a>
-                    <a href="{{ route('buscar.cuenta', $cliente->id) }}" class="btn btn-primary m-2" style="width: 17%;">Cuenta</a>
+                    <a href="{{ route('buscar.cuenta', $cliente->id) }}" class="btn btn-primary m-2" style="width: 17%;">Datos Adicionales</a>
                 </div>
 
                 <br>

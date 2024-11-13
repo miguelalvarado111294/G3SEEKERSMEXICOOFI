@@ -4,9 +4,9 @@
 
 @section('content_header')
     <h1 class="text-center"><b>G3 Seekers México</b></h1>
-    <h3 class="text-center">
-        Cuenta de Socio: {{ $cliente->nombre }} {{ $cliente->segnombre }} {{ $cliente->apellidopat }} {{ $cliente->apellidomat }}
-    </h3>
+    <h4 class="text-center">
+        {{ $cliente->nombre }} {{ $cliente->segnombre }} {{ $cliente->apellidopat }} {{ $cliente->apellidomat }}
+    </h4>
 
     @if (Session::has('mensaje'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -30,14 +30,18 @@
                         <!-- Card for each account -->
                         <div class="card">
                             <div class="card-header bg-primary text-white">
-                                <h5 class="card-title">{{ $value->usuario }}</h5>
+                                <h5 class="card-title">Credenciales de Acceso</h5>
                             </div>
-                            <div class="card-body">
+                            <div class="card-body text-center" >
+                                
+                                <p><strong>Contraseña:</strong> {{ $value->contrasenia }}</p>
                                 <p><strong>Contraseña:</strong> {{ $value->contrasenia }}</p>
                                 <p><strong>Contraseña de motor:</strong> {{ $value->contraseniaParo }}</p>
                                 <p><strong>Comentarios:</strong> {{ $value->comentarios }}</p>
 
                                 <!-- Actions: Links to Vehículos and Cuentas Espejo -->
+                           
+                           
                                 <a href="{{ route('buscar.ctaespejo', $value->id) }}" class="btn btn-primary btn-sm">Cuenta Espejo</a>
                                 <a href="{{ route('buscar.vehiculo', $cliente_id) }}" class="btn btn-primary btn-sm">Vehículos</a>
                             </div>
