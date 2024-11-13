@@ -4,104 +4,99 @@
 
 @section('content_header')
     <h1 class="text-center"><b>G3 Seekers México</b></h1>
+    <br>
+    <h1 class="text-center">Cliente: {{ "{$cliente->nombre} {$cliente->segnombre} {$cliente->apellidopat} {$cliente->apellidomat}" }}</h1>
 
-    @if (Session::has('mensaje'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            {{ Session::get('mensaje') }}
+    @if (session('mensaje'))
+        <div class="alert alert-success alert-dismissible text-center" role="alert">
+            {{ session('mensaje') }}
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
     @endif
 
-    {{-- Condicional para mostrar botón "Asignar dispositivo" --}}
-    @if ($numerodedispositivos <= 0)
-        @can('dispositivo.create')
-            <a href="{{ route('dispositivof.crear', $vehiculoid) }}" class="btn btn-warning">Asignar dispositivo</a>
-        @endcan
-    @endif
-
-    {{-- Botón para generar orden --}}
-    @can('crear.cita')
-        <a href="{{ route('crear.cita', $vehiculo) }}" class="btn btn-warning">Generar orden</a>
+    @can('dispositivo.create')
+        @if ($numerodedispositivos <= 0)
+            <div class="text-center">
+                <a href="{{ route('dispositivof.crear', $vehiculoid) }}" class="btn btn-warning">Asignar dispositivo</a>
+            </div>
+        @endif
     @endcan
 
-    <br><br>
-@endsection
+    @can('crear.cita')
+        <div class="text-center">
+            <a href="{{ route('crear.cita', $vehiculo) }}" class="btn btn-warning">Generar orden</a>
+        </div>
+    @endcan
 
-@section('content')
-<h4 class="text-center">
-    {{ $cliente->nombre }} {{ $cliente->segnombre }} {{ $cliente->apellidopat }} {{ $cliente->apellidomat }}
-</h4>
-{{-- Fila para los dispositivos instalados y los datos del vehículo --}}
-<div class="row justify-content-center">
-    {{-- Card de dispositivos instalados --}}
-    <div class="col-md-6 mb-3">
-        <div class="card">
-            <div class="card-header bg-primary text-white">
-                <h3 class="text-center"><strong>Datos de GPS instalado</strong></h3>
-            </div>
-            <div class="card-body">
-                <div class="row justify-content-center">
-                    @foreach ($dispositivo as $value)
-                        <div class="col-md-12 mb-3">
-                                
-                                <div class="card-body">
-                                    <p><strong>plataforma_id:</strong> {{ $value->plataforma_id }}</p>
-                                    <p><strong>Cuenta:</strong> {{ $value->cuenta }}</p>
-                                    <p><strong>Modelo:</strong> {{ $value->modelo }}</p>
-                                    <p><strong>IMEI:</strong> {{ $value->imei }}</p>
-                                    <p><strong>Fecha de Instalación:</strong> {{ $value->fechacompra }}</p>
-                                    <p><strong>Comentarios:</strong> {{ $value->comentarios }}</p>
-                                
-                                    {{-- Ajustando el espaciado de los botones --}}
-                                    <div class="d-flex justify-content-center">
-                                        <a href="{{ route('buscar.linea', $value->id) }}" class="btn btn-primary btn-sm mr-2">Linea</a>
-                                        <a href="{{ route('buscar.sensor', $value->id) }}" class="btn btn-primary btn-sm">Sensor</a>
-                                    </div>
-                                </div>
-                                
+    <br>
 
-                                <div class="card-footer text-center">
-                                    @can('dispositivo.edit')
-                                        <a href="{{ url('/dispositivo/' . $value->id . '/edit') }}" class="btn btn-warning btn-sm">Editar</a>
-                                    @endcan
+    <!-- Contenedor con flexbox para centrar las tarjetas -->
+    <div class="row justify-content-center">
+        @foreach ($dispositivo as $value)
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-header bg-primary text-white text-center">
+                        <b>Dispositivo Instalado</b>
+                    </div>
+                    <div class="card-body">
+                        <p><strong>platadorma_id:</strong> {{ $value->plataforma_id }}</p>
 
-                                    @can('dispositivo.destroy')
-                                        <form action="{{ url('/dispositivo/' . $value->id) }}" method="POST" class="d-inline">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Seguro quieres eliminar?')">Borrar</button>
-                                        </form>
-                                    @endcan
-                                </div>
+                        <p><strong>noeconomico:</strong> {{ $value->noeconomico }}</p>
+                        <p><strong>Cuenta:</strong> {{ $value->cuenta }}</p>
+                        <p><strong>Modelo:</strong> {{ $value->modelo }}</p>
+                        <p><strong>IMEI:</strong> {{ $value->imei }}</p>
+                        <p><strong>Fecha de Instalación:</strong> {{ $value->fechacompra }}</p>
+                        <p><strong>ubicaciondispositivo:</strong> {{ $value->ubicaciondispositivo }}</p>
+                        <p><strong>Sucursal:</strong> {{ $value->sucursal }}</p>
+                        
+                        <p><strong>Observaciones:</strong> {{ $value->comentarios }}</p>
+                        <br>
+                        <div class ="text-center"> 
+                            <a href="{{ route('buscar.linea', $value->id) }}" class="btn btn-primary btn-sm">Linea</a>
+                            <a href="{{ route('buscar.sensor', $value->id) }}" class="btn btn-primary btn-sm">Sensor</a>
                         </div>
-                    @endforeach
+                    </div>
+                    <div class="card-footer text-center">
+                        @can('dispositivo.edit')
+                            <a href="{{ route('dispositivo.edit', $value->id) }}" class="btn btn-warning btn-sm">Editar</a>
+                        @endcan
+                        @can('dispositivo.destroy')
+                            <form action="{{ route('dispositivo.destroy', $value->id) }}" method="post" class="d-inline">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de eliminar?')">Borrar</button>
+                            </form>
+                        @endcan
+                    </div>
+                </div>
+            </div>
+        @endforeach
+    </div>
+    <br>
+    <!-- Contenedor para centrar los datos del vehículo -->
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-primary text-white text-center">
+                    <b>Detalles del Vehículo</b>
+                </div>
+                <div class="card-body text-center">
+                    <ul class="list-unstyled">
+                        <li><b>Vehículo Marca:</b> {{ $vehiculo->marca }}</li>
+                        <li><b>Modelo:</b> {{ $vehiculo->modelo }}</li>
+                        <li><b>Número de Motor:</b> {{ $vehiculo->nomotor }}</li>
+                        <li><b>Número de Serie:</b> {{ $vehiculo->noserie }}</li>
+                        <li><b>Placa:</b> {{ $vehiculo->placa }}</li>
+                        <li><b>Color:</b> {{ $vehiculo->color }}</li>
+                    </ul>
                 </div>
             </div>
         </div>
     </div>
-
-    {{-- Card de Datos del Vehículo --}}
-    <div class="col-md-6 mb-3">
-        <div class="card">
-            <div class="card-header bg-success text-white">
-                <h3 class="text-center"><strong>Datos del Vehículo</strong></h3>
-            </div>
-            <div class="card-body text-center">
-                <p><strong>Marca:</strong> {{ $vehiculo->marca }}</p>
-                <p><strong>Modelo:</strong> {{ $vehiculo->modelo }}</p>
-                <p><strong>Número de Motor:</strong> {{ $vehiculo->nomotor }}</p>
-                <p><strong>Número de Serie:</strong> {{ $vehiculo->noserie }}</p>
-                <p><strong>Placa:</strong> {{ $vehiculo->placa }}</p>
-                <p><strong>Color:</strong> {{ $vehiculo->color }}</p>
-            </div>
-        </div>
+    <br>
+    <div class="text-center">
+        <a href="{{ route('buscar.vehiculo', $cliente_id) }}" class="btn btn-dark">Regresar</a>
     </div>
-</div>
-
-<br>
-
-{{-- Botón de Regresar --}}
-<a href="{{ route('buscar.vehiculo', $cliente_id) }}" class="btn btn-dark">Regresar</a>
 @endsection

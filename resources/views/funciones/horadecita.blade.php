@@ -18,10 +18,9 @@
                 </button>
             </div>
         @endif
-        
+
         <br>
         <div class="card">
-            <div class="card-header">Agregue la Fecha y Hora</div>
             <div class="card-body">
                 <form action="{{ route('crear.ordens', $vehiculo) }}" method="POST">
                     @csrf
@@ -41,15 +40,15 @@
                         @enderror
                     </div>
 
-                    <div class="row">
-                        <div class="col-sm-7">
-                            <div class="form-group">
-                                <input type="submit" class="btn btn-success" value="Generar Orden de Servicio">
-                            </div>
-                        </div>
+                    <div class="text-center">
+
+                        <input type="submit" class="btn btn-success" value="Generar Orden de Servicio">
+
                     </div>
-                </form>
+
             </div>
+            </form>
         </div>
+    </div>
     </div>
 @endsection

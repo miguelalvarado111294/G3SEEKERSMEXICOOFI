@@ -133,7 +133,7 @@
 
 
         <div class="form-group">
-            <label> Comentarios:</label>
+            <label> Observaciones:</label>
             <input type="text" class="form-control" name="comentarios" value=" {{ old('comentarios') }}">
             @error('comentarios')
                 <small style ="color: red"> {{ $message }}</small>
