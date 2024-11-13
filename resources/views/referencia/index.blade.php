@@ -4,10 +4,9 @@
 
 @section('content_header')
     <h1 class="text-center"><b>G3 Seekers México</b></h1>
-    <br>
     <h3 class="text-center">Referencias</h3>
-    <br>
-
+    
+<br>
 
     @if (Session::has('mensaje'))
         <div class="alert alert-success alert-dismissible" role="alert">
@@ -17,19 +16,19 @@
             </button>
         </div>
     @endif
-    <br>
+    
     <form class="d-flex" role="search">
         <input name="busqueda" class="form-control sm me-2" type="search"
             placeholder="Buscar por Nombre /Segundo Nombre/Apellido Paterno/Apellido Materno/Telefono"
             value="{{ $busqueda }}" aria-label="Search">
         <button class="btn btn-outline-success" type="submit">Buscar </button>
     </form>
-    <br>
-    <br>
+    
+    
     {{--     <a href="{{ url('referencia/create') }}" class="btn btn-success">Registrar nuevo referencia</a>
 --}}
 
-    <br><br>
+    <br>
     <div class="card">
         <div class="card-body">
 

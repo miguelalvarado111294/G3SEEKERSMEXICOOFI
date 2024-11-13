@@ -4,8 +4,7 @@
 
 @section('content_header')
     <h1 class="text-center"><b>G3 Seekers México</b></h1>
-    <br>
-    <h3 class="text-center">Datos de Línea</h3>
+    <h3 class="text-center">Lineas</h3>
     
     <!-- Cuadro para el contador -->
     <div class="d-flex justify-content-center mb-4">
@@ -19,8 +18,6 @@
         </div>
     </div>
 
-    <br>
-
     @if (Session::has('mensaje'))
         <div class="alert alert-success alert dismissible" role="alert">
             {{ Session::get('mensaje') }}
@@ -30,17 +27,13 @@
         </div>
     @endif
 
-    <br>
     <form class="d-flex" role="search">
         <input name="busqueda" class="form-control me-2" type="search" value="{{ $busqueda }}"
             placeholder="Buscar por Sim Card/Numero de telefono/" aria-label="Search">
         <button class="btn btn-outline-success" type="submit">Buscar</button>
     </form>
     <br>
-    {{-- <a href="{{ url('linea/create') }}" class="btn btn-success">Registrar Nueva Línea</a> --}}
-
-    <br><br>
-
+    
     <div class="card">
         <div class="card-body">
             <table class="table table-light">

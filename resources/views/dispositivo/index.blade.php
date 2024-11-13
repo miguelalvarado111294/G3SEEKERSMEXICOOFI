@@ -4,7 +4,6 @@
 
 @section('content_header')
     <h1 class="text-center"><b>G3 Seekers México</b></h1>
-    <br>
     <h3 class="text-center">Dispositivos</h3>
 
     <!-- Cuadro para el contador -->
@@ -19,8 +18,7 @@
         </div>
     </div>
 
-    <br>
-
+    
     @if (Session::has('mensaje'))
         <div class="alert alert-success alert dismissible" role="alert">
             {{ Session::get('mensaje') }}
