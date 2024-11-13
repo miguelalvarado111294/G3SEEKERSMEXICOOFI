@@ -23,50 +23,42 @@
 
     <div class="card mt-3">
         <div class="card-body">
-            <table class="table table-light">
-                <thead class="thead-light">
-                    <tr>
-                        <th>Usuario</th>
-                        <th>Contraseña</th>
-                        <th>Contraseña de motor</th>
-                        <th>Comentarios</th>
-                        <th>Vehículos / Cuentas Espejo</th>
-                        @can('cuenta.edit')
-                            <th>Acciones</th>
-                        @endcan
-                    </tr>
-                </thead>
+            <!-- Centrar las tarjetas usando d-flex y justify-content-center -->
+            <div class="row justify-content-center">
+                @foreach ($cuenta as $value)
+                    <div class="col-md-4 mb-3">
+                        <!-- Card for each account -->
+                        <div class="card">
+                            <div class="card-header bg-primary text-white">
+                                <h5 class="card-title">{{ $value->usuario }}</h5>
+                            </div>
+                            <div class="card-body">
+                                <p><strong>Contraseña:</strong> {{ $value->contrasenia }}</p>
+                                <p><strong>Contraseña de motor:</strong> {{ $value->contraseniaParo }}</p>
+                                <p><strong>Comentarios:</strong> {{ $value->comentarios }}</p>
 
-                <tbody>
-                    @foreach ($cuenta as $value)
-                        <tr>
-                            <td>{{ $value->usuario }}</td>
-                            <td>{{ $value->contrasenia }}</td>
-                            <td>{{ $value->contraseniaParo }}</td>
-                            <td>{{ $value->comentarios }}</td>
-                            <td>
-                                <a href="{{ route('buscar.ctaespejo', $value->id) }}" class="btn btn-primary">Cuenta Espejo</a>
-                                <a href="{{ route('buscar.vehiculo', $cliente_id) }}" class="btn btn-primary">Vehículos</a>
-                            </td>
-                            <td>
+                                <!-- Actions: Links to Vehículos and Cuentas Espejo -->
+                                <a href="{{ route('buscar.ctaespejo', $value->id) }}" class="btn btn-primary btn-sm">Cuenta Espejo</a>
+                                <a href="{{ route('buscar.vehiculo', $cliente_id) }}" class="btn btn-primary btn-sm">Vehículos</a>
+                            </div>
 
-
+                            <div class="card-footer text-center">
                                 @can('cuenta.edit')
-                                    <a href="{{ url('/cuenta/' . $value->id . '/edit') }}" class="btn btn-warning">Editar</a>
+                                    <a href="{{ url('/cuenta/' . $value->id . '/edit') }}" class="btn btn-warning btn-sm">Editar</a>
                                 @endcan
 
                                 @can('cuenta.destroy')
                                     <form action="{{ url('/cuenta/' . $value->id) }}" method="POST" class="d-inline">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-danger" onclick="return confirm('¿Seguro quieres eliminar?')">Borrar</button>
+                                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Seguro quieres eliminar?')">Borrar</button>
                                     </form>
                                 @endcan
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
         </div>
     </div>
 

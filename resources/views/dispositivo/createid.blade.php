@@ -14,6 +14,15 @@
         @csrf
 
         <div class="form-group">
+            <label>Id en Platadorma:</label>
+            <input type="text" class="form-control" name="plataforma_id" value=" {{ old('plataforma_id') }}">
+        </div>
+        @error('platadorma_id')
+            <small style ="color: red"> {{ $message }}</small>
+        @enderror
+        <br>
+
+        <div class="form-group">
             <label>Modelo:</label>
             <input type="text" class="form-control" name="modelo" value=" {{ old('modelo') }}">
         </div>
@@ -82,11 +91,6 @@
                     <option value="Ahuzastepec">huzastepec</option>
        
                 </select>
-
-
-
-
-
             @error('sucursal')
                 <small style ="color: red"> {{ $message }}</small>
             @enderror
@@ -102,7 +106,18 @@
             @enderror
             <br>
         </div>
-        
+    
+
+
+        <div class="form-group">
+            <label>Precio</label>
+            <input type="text" class="form-control" name="precio" value="{{ old('precio') }}">
+            @error('precio')
+                <small style="color: red">{{ $message }}</small>
+            @enderror
+            <br>
+        </div>
+
         <br>
 
         <div class="form-group">

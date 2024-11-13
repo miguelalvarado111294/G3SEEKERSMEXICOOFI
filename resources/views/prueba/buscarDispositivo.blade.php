@@ -3,15 +3,14 @@
 @section('title', 'G3SEEKERSMX')
 
 @section('content_header')
-    <h1 class="text-center"><b>G3 Seekers México</b></h1>
-    <br>
-    <h1 class="text-center">Cliente: {{ "{$cliente->nombre} {$cliente->segnombre} {$cliente->apellidopat} {$cliente->apellidomat}" }}</h1>
-    <br>
-    <h3 class="text-center">Dispositivos Instalados en el Vehículo</h3>
-    <br>
+    <div class="text-center mb-4">
+        <h1 class="display-4"><b>G3 Seekers México</b></h1>
+        <h2 class="text-muted">Cliente: {{ "{$cliente->nombre} {$cliente->segnombre} {$cliente->apellidopat} {$cliente->apellidomat}" }}</h2>
+        <h3 class="font-weight-bold text-primary">Dispositivos Instalados en el Vehículo</h3>
+    </div>
 
     @if (session('mensaje'))
-        <div class="alert alert-success alert-dismissible" role="alert">
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
             {{ session('mensaje') }}
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -21,23 +20,28 @@
 
     @can('dispositivo.create')
         @if ($numerodedispositivos <= 0)
-            <a href="{{ route('dispositivof.crear', $vehiculoid) }}" class="btn btn-warning">Asignar dispositivo</a>
+            <a href="{{ route('dispositivof.crear', $vehiculoid) }}" class="btn btn-warning btn-lg">
+                <i class="fas fa-plus-circle"></i> Asignar dispositivo
+            </a>
         @endif
     @endcan
 
     @can('crear.cita')
-        <a href="{{ route('crear.cita', $vehiculo) }}" class="btn btn-warning">Generar orden</a>
+        <a href="{{ route('crear.cita', $vehiculo) }}" class="btn btn-warning btn-lg">
+            <i class="fas fa-calendar-plus"></i> Generar orden
+        </a>
     @endcan
-
     <br><br>
+@endsection
 
-    <div class="card">
+@section('content')
+    <!-- Tabla de Dispositivos -->
+    <div class="card shadow-sm rounded">
         <div class="card-body">
-            <table class="table table-light">
+            <table class="table table-hover table-responsive-sm">
                 <thead class="thead-light">
                     <tr>
-                        <th></th>
-                        <th>ID en Platadorma</th>
+                        <th>ID en Plataforma</th>
                         <th>Cuenta</th>
                         <th>Modelo</th>
                         <th>IMEI</th>
@@ -60,18 +64,26 @@
                             <td>{{ $value->fechacompra }}</td>
                             <td>{{ $value->comentarios }}</td>
                             <td>
-                                <a href="{{ route('buscar.linea', $value->id) }}" class="btn btn-primary">Linea</a>
-                                <a href="{{ route('buscar.sensor', $value->id) }}" class="btn btn-primary">Sensor</a>
+                                <a href="{{ route('buscar.linea', $value->id) }}" class="btn btn-info btn-sm">
+                                    <i class="fas fa-link"></i> Línea
+                                </a>
+                                <a href="{{ route('buscar.sensor', $value->id) }}" class="btn btn-info btn-sm">
+                                    <i class="fas fa-sensor"></i> Sensor
+                                </a>
                             </td>
-                            <td>
+                            <td class="text-center">
                                 @can('dispositivo.edit')
-                                    <a href="{{ route('dispositivo.edit', $value->id) }}" class="btn btn-warning">Editar</a>
+                                    <a href="{{ route('dispositivo.edit', $value->id) }}" class="btn btn-warning btn-sm">
+                                        <i class="fas fa-edit"></i> Editar
+                                    </a>
                                 @endcan
                                 @can('dispositivo.destroy')
                                     <form action="{{ route('dispositivo.destroy', $value->id) }}" method="post" class="d-inline">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-danger" onclick="return confirm('¿Estás seguro de eliminar?')">Borrar</button>
+                                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de eliminar?')">
+                                            <i class="fas fa-trash-alt"></i> Borrar
+                                        </button>
                                     </form>
                                 @endcan
                             </td>
@@ -81,9 +93,10 @@
             </table>
         </div>
     </div>
-    <h3 class="text-center">Datos del Vehículo</h3>
-    <br>
-    <div class="card">
+
+    <!-- Datos del Vehículo -->
+    <h3 class="text-center font-weight-bold text-primary">Datos del Vehículo</h3>
+    <div class="card shadow-sm rounded">
         <div class="card-body">
             <ul>
                 <b>
@@ -97,6 +110,9 @@
             </ul>
         </div>
     </div>
+
     <br>
-    <a href="{{ route('buscar.vehiculo', $cliente_id) }}" class="btn btn-dark">Regresar</a>
+    <a href="{{ route('buscar.vehiculo', $cliente_id) }}" class="btn btn-dark btn-lg">
+        <i class="fas fa-arrow-left"></i> Regresar
+    </a>
 @endsection

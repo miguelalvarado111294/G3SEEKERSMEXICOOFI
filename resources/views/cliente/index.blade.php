@@ -4,7 +4,7 @@
 
 @section('content_header')
     <h1 class="text-center"><b>G3 Seekers México</b></h1>
-    <h3 class="text-center">Clientes</h3>
+
 @stop
 
 @section('css')
@@ -30,17 +30,29 @@
 
         <br>
         <div class="card">
-            <div class="card-head">
-            </div>
             <div class="card-body">
                 <div class="row">
                     <input type="text" name="search" id="search"
-                        placeholder="Para Buscar un Cliente, Ingrese Nombre / Apellido / Telefono / Email / RFC"
+                        placeholder="Para Buscar un Cliente, Ingrese Nombre / Apellido / Teléfono / Email / RFC"
                         class="form-control" onfocus="this.value=''">
+        
                     <div id="search_list"></div>
                 </div>
             </div>
         </div>
+        
+        <style>
+            /* Centrar el texto del placeholder */
+            #search::placeholder {
+                text-align: center;
+            }
+        
+            /* Opcional: puedes personalizar también el estilo del input */
+            #search {
+                text-align: center; /* Centrar el texto ingresado */
+            }
+        </style>
+        
 
         <br>
         <div class="card">

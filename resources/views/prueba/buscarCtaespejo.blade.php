@@ -21,40 +21,38 @@
 
     <div class="card">
         <div class="card-body">
-            <table class="table table-light">
-                <thead class="thead-light">
-                    <tr>
-                        <th>ID</th>
-                        <th>Usuario</th>
-                        <th>Contraseña</th>
-                        <th>Comentarios</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($ctaespejos as $ctaespejo)
-                        <tr>
-                            <td>{{ $ctaespejo->id }}</td>
-                            <td>{{ $ctaespejo->usuario }}</td>
-                            <td>{{ $ctaespejo->contrasenia }}</td>
-                            <td>{{ $ctaespejo->comentarios }}</td>
-                            <td>
+            <!-- Centrar las tarjetas usando d-flex y justify-content-center -->
+            <div class="row justify-content-center">
+                @foreach ($ctaespejos as $ctaespejo)
+                    <div class="col-md-4 mb-3">
+                        <!-- Card for each cuenta espejo -->
+                        <div class="card">
+                            <div class="card-header bg-primary text-white">
+                                <h5 class="card-title">{{ $ctaespejo->usuario }}</h5>
+                            </div>
+                            <div class="card-body">
+                                <p><strong>ID:</strong> {{ $ctaespejo->id }}</p>
+                                <p><strong>Contraseña:</strong> {{ $ctaespejo->contrasenia }}</p>
+                                <p><strong>Comentarios:</strong> {{ $ctaespejo->comentarios }}</p>
+                            </div>
+
+                            <div class="card-footer text-center">
                                 @can('ctaespejo.edit')
-                                    <a href="{{ route('ctaespejo.edit', $ctaespejo->id) }}" class="btn btn-warning">Editar</a>
+                                    <a href="{{ route('ctaespejo.edit', $ctaespejo->id) }}" class="btn btn-warning btn-sm">Editar</a>
                                 @endcan
 
                                 @can('ctaespejo.destroy')
                                     <form action="{{ route('ctaespejo.destroy', $ctaespejo->id) }}" method="POST" class="d-inline">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-danger" onclick="return confirm('¿Seguro quieres eliminar?')">Borrar</button>
+                                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Seguro quieres eliminar?')">Borrar</button>
                                     </form>
                                 @endcan
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
         </div>
     </div>
 

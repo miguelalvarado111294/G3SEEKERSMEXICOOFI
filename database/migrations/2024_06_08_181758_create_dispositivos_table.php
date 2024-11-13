@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('dispositivos', function (Blueprint $table) {
             $table->engine = "InnoDB";
             $table->id();
-            $table->string('platadorma_id')->nullable();
+            $table->string('plataforma_id')->nullable();
             $table->string('modelo');
             $table->string('noserie');
             $table->string('imei');

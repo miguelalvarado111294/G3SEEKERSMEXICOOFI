@@ -51,4 +51,28 @@ class Cliente extends Model
     {
         return $this->hasMany('App\Models\Linea', 'cliente_id', 'id');
     }
+
+    public function getAlertsAttribute()
+    {
+        $alerts = [];
+
+        // Verificar si el cliente tiene cuentas, vehículos, dispositivos y líneas asociadas
+        if ($this->cuentas_count == 0) {
+            $alerts[] = ['type' => 'danger', 'message' => 'El cliente no tiene cuentas asociadas.'];
+        }
+        if ($this->vehiculos_count == 0) {
+            $alerts[] = ['type' => 'warning', 'message' => 'El cliente no tiene vehículos asignados.'];
+        }
+        if ($this->dispositivos_count == 0) {
+            $alerts[] = ['type' => 'info', 'message' => 'El cliente no tiene dispositivos asignados.'];
+        }
+        if ($this->lineas_count == 0) {
+            $alerts[] = ['type' => 'primary', 'message' => 'El cliente no tiene líneas asignadas.'];
+        }
+
+        return $alerts;
+    }
+
+
+
 }
