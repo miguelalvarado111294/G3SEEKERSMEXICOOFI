@@ -124,26 +124,33 @@ class FuncionesController extends Controller
  
     public function renovacionessearch(Request $request)
     {
-        // Obtener el mes del request
+        // Obtener mes y año del request
         $mes = $request->input('mes');
+        $año = $request->input('año');
         
-        // Verificar si el mes fue proporcionado
+        // Filtrar dispositivos por mes y año
+        $dispositivos = Dispositivo::query();
+    
         if ($mes) {
-            // Filtrar dispositivos donde el mes de 'fechacompra' coincida con el mes seleccionado
-            $dispositivos = Dispositivo::with(['cliente', 'vehiculo']) // Cargar las relaciones 'cliente' y 'vehiculo'
-                ->whereRaw("MONTH(fechacompra) = ?", [$mes])
-                ->whereRaw("fechacompra REGEXP '^[0-9]{4}-[0-9]{2}-[0-9]{2}$'") // Asegurarse de que 'fechacompra' esté en formato 'Y-m-d'
-                ->get();
-        } else {
-            // Si no se selecciona mes, obtener todos los dispositivos con fecha válida
-            $dispositivos = Dispositivo::with(['cliente', 'vehiculo']) // Cargar las relaciones 'cliente' y 'vehiculo'
-                ->whereRaw("fechacompra REGEXP '^[0-9]{4}-[0-9]{2}-[0-9]{2}$'") // Filtramos registros con formato correcto de fecha
-                ->get();
+            // Filtrar por mes si se proporcionó
+            $dispositivos->whereRaw("MONTH(fechacompra) = ?", [$mes]);
         }
+    
+        if ($año) {
+            // Filtrar por año si se proporcionó
+            $dispositivos->whereRaw("YEAR(fechacompra) = ?", [$año]);
+        }
+    
+        // Verificar que 'fechacompra' esté en formato 'Y-m-d'
+        $dispositivos->whereRaw("fechacompra REGEXP '^[0-9]{4}-[0-9]{2}-[0-9]{2}$'");
+    
+        // Obtener los resultados
+        $dispositivos = $dispositivos->get();
         
         // Retornar la vista con los dispositivos obtenidos
         return view('funciones.renovaciones', compact('dispositivos'));
     }
+    
     
     
     
