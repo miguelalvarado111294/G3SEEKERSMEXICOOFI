@@ -354,6 +354,11 @@ return [
         'route' => 'inventarioadd',
         'icon' => 'fas fa-warehouse', // Icono adecuado para "Inventario"
     ],
+    [
+        'text' => 'Renovaciones',
+        'route' => 'renovaciones',
+        'icon' => 'fas fa-warehouse', // Icono adecuado para "Inventario"
+    ],
 
     [
         'header' => 'Cliente nuevo',

@@ -125,6 +125,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/vehiculo/{vehiculo_id}/historial', [App\Http\Controllers\DispositivoController::class, 'historial'])->name('historial');
 
     Route::post('/vehiculo/{vehiculo_id}/savehistorial', [App\Http\Controllers\DispositivoController::class, 'historialregister'])->name('historialregister');
+   
+   
+    Route::get('renovaciones', [App\Http\Controllers\FuncionesController::class, 'renovaciones'])->name('renovaciones');
 
+    Route::get('/renovacionessearch', [App\Http\Controllers\FuncionesController::class, 'renovacionessearch'])->name('renovacionessearch');
 
 });

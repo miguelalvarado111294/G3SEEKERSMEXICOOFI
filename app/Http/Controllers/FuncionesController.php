@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\linea;
-use App\Models\dispositivo;
+
+use App\Models\Dispositivo;
+use Carbon\Carbon;
 
 class FuncionesController extends Controller
 {
@@ -105,5 +107,43 @@ class FuncionesController extends Controller
         // Si el tipo de registro no es válido, redirigir con error
         return redirect()->back()->with('error', 'Tipo de registro inválido');
     }
+
+
+
+
+
+    public function renovaciones(){
+
+        $dispositivos =dispositivo ::all();
+
+
+
+        return view('funciones.renovaciones', compact('dispositivos'));
+    }
+
+
+
+public function renovacionessearch(Request $request)
+{
+    // Validar el mes recibido
+    $mesSeleccionado = $request->input('mes');
+    
+    // Si el mes no está seleccionado, mostrar todos los dispositivos
+    if ($mesSeleccionado) {
+        // Convertir el mes seleccionado a un rango de fechas (primer y último día del mes)
+        $fechaInicio = Carbon::create()->month($mesSeleccionado)->startOfMonth()->startOfDay();
+        $fechaFin = Carbon::create()->month($mesSeleccionado)->endOfMonth()->endOfDay();
+
+        // Buscar dispositivos que tienen fecha_compra dentro del mes seleccionado
+        $dispositivos = Dispositivo::whereBetween('fecha_compra', [$fechaInicio, $fechaFin])->get();
+    } else {
+        // Si no se selecciona un mes, mostrar todos los dispositivos
+        $dispositivos = Dispositivo::all();
+    }
+
+    // Retornar la vista con los dispositivos encontrados
+    return view('ruta.de.la.vista', compact('dispositivos'));
+}
+
     
 }
