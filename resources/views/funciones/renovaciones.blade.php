@@ -59,6 +59,8 @@
                             <th>ID</th>
                             <th>Fecha de Compra</th>
                             <th>Dispositivo</th>
+                            <th>Cliente</th>
+                            <th>Vehículo</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -66,7 +68,29 @@
                             <tr>
                                 <td>{{ $dispositivo->id }}</td>
                                 <td>{{ $dispositivo->fechacompra }}</td>
-                                <td>{{ $dispositivo->nombre }}</td>
+                                <td>{{ $dispositivo->modelo }}</td>
+                                <td>
+                                    {{-- Concatenar nombre completo del cliente --}}
+                                    @if($dispositivo->cliente)
+                                        {{ $dispositivo->cliente->nombre }} 
+                                        @if($dispositivo->cliente->segundo_nombre) 
+                                            {{ $dispositivo->cliente->segundo_nombre }} 
+                                        @endif
+                                        {{ $dispositivo->cliente->apellidopat }} 
+                                        {{ $dispositivo->cliente->apellidomat }}
+                                    @else
+                                        N/A
+                                    @endif
+                                </td>
+                                <td>
+                                    {{-- Mostrar marca y modelo del vehículo --}}
+                                    @if($dispositivo->vehiculo)
+                                        {{ $dispositivo->vehiculo->marca }} 
+                                        {{ $dispositivo->vehiculo->modelo }}
+                                    @else
+                                        N/A
+                                    @endif
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>

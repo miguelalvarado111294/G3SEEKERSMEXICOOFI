@@ -32,6 +32,7 @@ class dispositivo extends Model
     {
         return $this->belongsTo('App\Models\Cliente', 'cliente_id', 'id');
     }
+    
 
     public function lineas()
     {
@@ -41,7 +42,7 @@ class dispositivo extends Model
 
     public function vehiculo()
     {
-        return $this->hasOne ('App\Models\Vehiculo', 'vehiculo_id', 'id');
+        return $this->belongsTo ('App\Models\Vehiculo', 'vehiculo_id', 'id');
     }
 
     public function sensors()

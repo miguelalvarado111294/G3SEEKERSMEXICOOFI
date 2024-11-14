@@ -30,7 +30,7 @@ class Vehiculo extends Model
     }
     public function Dispositivo()
     {
-        return $this->belongsTo('App\Models\Dispositivo', 'dispositivo_id', 'id');
+        return $this->hasMany('App\Models\Dispositivo', 'dispositivo_id', 'id');
     }
     
     public function historials()
