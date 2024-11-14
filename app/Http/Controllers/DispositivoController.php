@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Dispositivo;
 use App\Models\Vehiculo;
 use App\Models\Cliente;
+use App\Models\Historial;
 use Illuminate\Http\Request;
 
 class DispositivoController extends Controller
@@ -128,5 +129,38 @@ class DispositivoController extends Controller
         
     ];
 }
+
+
+public function historial($vehiculo_id)
+{
+    
+    $historial =Historial::all();
+    
+    
+    
+    
+    return view('vehiculo.historial',compact('vehiculo_id','historial'));
+   
+}
+
+public function historialregister(Request $request, $vehiculo_id)
+{
+    // Validación de los datos
+    $request->validate([
+        'descripcion' => 'required|string|max:255', // Modifica las reglas según sea necesario
+    ]);
+
+    // Crear el historial en la base de datos
+    Historial::create([
+        'vehiculo_id' => $vehiculo_id,   // Relacionamos el historial con el vehículo
+        'descripcion' => $request->descripcion,  // Almacenamos la descripción proporcionada
+        'fecha' => now(),  // Puedes agregar una fecha, por ejemplo, la fecha actual
+    ]);
+
+    // Redirigir a donde sea necesario (por ejemplo, a la lista de vehículos o al historial)
+    return redirect()->route('historial',$vehiculo_id)->with('success', 'Descripción registrada correctamente.');
+}
+
+
 
 }

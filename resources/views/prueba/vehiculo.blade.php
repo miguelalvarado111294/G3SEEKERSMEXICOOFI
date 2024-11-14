@@ -42,7 +42,6 @@
                         <th>Placa</th>
                         <th>Tipo de Unidad</th>
                         <th>Número de Serie</th>
-                        <th>Comentarios</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -57,7 +56,6 @@
                             <td>{{ $vehiculo->placa }}</td>
                             <td>{{ $vehiculo->tipo }}</td>
                             <td>{{ $vehiculo->noserie }}</td>
-                            <td>{{ $vehiculo->comentarios }}</td>
                             <td class="text-center">
                                 @can('vehiculo.edit')
                                     <a href="{{ route('vehiculo.edit', $vehiculo->id) }}" class="btn btn-warning btn-sm">

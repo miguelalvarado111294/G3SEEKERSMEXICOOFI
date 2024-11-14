@@ -32,4 +32,12 @@ class Vehiculo extends Model
     {
         return $this->belongsTo('App\Models\Dispositivo', 'dispositivo_id', 'id');
     }
+    
+    public function historials()
+    {
+        return $this->hasMany(Historial::class);
+    }
+
+
+    
 }

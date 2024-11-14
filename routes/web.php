@@ -122,5 +122,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/inventarioadd', [App\Http\Controllers\FuncionesController::class, 'inventarioadd'])->name('inventarioadd');
     Route::post('/inventario', [App\Http\Controllers\FuncionesController::class, 'store'])->name('store.inventario');
 
+    Route::get('/vehiculo/{vehiculo_id}/historial', [App\Http\Controllers\DispositivoController::class, 'historial'])->name('historial');
+
+    Route::post('/vehiculo/{vehiculo_id}/savehistorial', [App\Http\Controllers\DispositivoController::class, 'historialregister'])->name('historialregister');
+
 
 });
