@@ -12,7 +12,6 @@ class DispositivoController extends Controller
 {
 
 
-    
     public function index(Request $request)
     {
         $busqueda = $request->get('busqueda');
@@ -39,22 +38,8 @@ class DispositivoController extends Controller
         return view('dispositivo.index', compact('dispositivos', 'busqueda', 'totalDispositivos'));
     }
     
-    /*
-    public function index(Request $request)
-{
-    $busqueda = $request->get('busqueda');
-    $query = Dispositivo::where(function ($query) use ($busqueda) {
-        $query->where('id', 'LIKE', "%{$busqueda}%")
-              ->orWhere('imei', 'LIKE', "%{$busqueda}%")
-              ->orWhere('cuenta', $busqueda)
-              ->orWhere('noeconomico', 'LIKE', "%{$busqueda}%");
-    });
+    
 
-    $dispositivos = $query->paginate(10);
-    $totalDispositivos = $query->count(); // Contar los dispositivos
-
-    return view('dispositivo.index', compact('dispositivos', 'busqueda', 'totalDispositivos'));
-}*/
 
 
     public function creardisp($id)
@@ -65,7 +50,7 @@ class DispositivoController extends Controller
     public function stodis(Request $request, $id)
     {
         $vehiculo = Vehiculo::findOrFail($id);
-        
+
         $request->validate($this->validationRules($id));
 
         $datosCliente = array_merge($request->except('_token'), [
@@ -121,45 +106,41 @@ class DispositivoController extends Controller
     }
 
     private function validationRules($id = null)
-{
-    return [
-        'modelo' => 'required|string|min:2|max:100',
-        'noserie' => 'nullable|alpha_dash|min:20|unique:dispositivos,noserie' . ($id ? ",$id" : ''),
-        'imei' => 'required|string|min:15|max:20|regex:/^[0-9-]+$/|unique:dispositivos,imei' . ($id ? ",$id" : ''),
-        
-    ];
-}
+    {
+        return [
+            'modelo' => 'required|string|min:2|max:100',
+            'noserie' => 'nullable|alpha_dash|min:20|unique:dispositivos,noserie' . ($id ? ",$id" : ''),
+            'imei' => 'required|string|min:15|max:20|regex:/^[0-9-]+$/|unique:dispositivos,imei' . ($id ? ",$id" : ''),
 
-public function historial($vehiculo_id)
-{
-    // Pagina el historial de vehículos, 10 registros por página
-    $historial = Historial::where('vehiculo_id', $vehiculo_id)
-                          ->paginate(10);  // Paginación de 10 resultados por página
-    
-    // Retorna la vista con los datos del vehículo y el historial paginado
-    return view('vehiculo.historial', compact('vehiculo_id', 'historial'));
-}
+        ];
+    }
 
+    public function historial($vehiculo_id)
+    {
+        // Pagina el historial de vehículos, 10 registros por página
+        $historial = Historial::where('vehiculo_id', $vehiculo_id)
+            ->paginate(10);  // Paginación de 10 resultados por página
 
-public function historialregister(Request $request, $vehiculo_id)
-{
-    // Validación de los datos
-    $request->validate([
-        'descripcion' => 'required|string|max:255', // Modifica las reglas según sea necesario
-    ]);
-
-    // Crear el historial en la base de datos
-    Historial::create([
-        'vehiculo_id' => $vehiculo_id,   // Relacionamos el historial con el vehículo
-        'descripcion' => $request->descripcion,  // Almacenamos la descripción proporcionada
-        'fecha' => now('America/Mexico_City'),  // Establecemos la zona horaria de México
-    ]);
-
-    // Redirigir a donde sea necesario (por ejemplo, a la lista de vehículos o al historial)
-    return redirect()->route('historial', $vehiculo_id)->with('success', 'Descripción registrada correctamente.');
-}
+        // Retorna la vista con los datos del vehículo y el historial paginado
+        return view('vehiculo.historial', compact('vehiculo_id', 'historial'));
+    }
 
 
+    public function historialregister(Request $request, $vehiculo_id)
+    {
+        // Validación de los datos
+        $request->validate([
+            'descripcion' => 'required|string|max:255', // Modifica las reglas según sea necesario
+        ]);
 
+        // Crear el historial en la base de datos
+        Historial::create([
+            'vehiculo_id' => $vehiculo_id,   // Relacionamos el historial con el vehículo
+            'descripcion' => $request->descripcion,  // Almacenamos la descripción proporcionada
+            'fecha' => now('America/Mexico_City'),  // Establecemos la zona horaria de México
+        ]);
 
+        // Redirigir a donde sea necesario (por ejemplo, a la lista de vehículos o al historial)
+        return redirect()->route('historial', $vehiculo_id)->with('success', 'Descripción registrada correctamente.');
+    }
 }

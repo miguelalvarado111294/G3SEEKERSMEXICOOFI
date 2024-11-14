@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class dispositivo extends Model
 {
     use HasFactory;
+    protected $dates = ['fechacompra'];
 
 
     protected $fillable = [

@@ -8,6 +8,7 @@ use App\Models\linea;
 
 use App\Models\Dispositivo;
 use Carbon\Carbon;
+use PhpParser\Node\Stmt\Return_;
 
 class FuncionesController extends Controller
 {
@@ -121,29 +122,28 @@ class FuncionesController extends Controller
         return view('funciones.renovaciones', compact('dispositivos'));
     }
 
-
-
-public function renovacionessearch(Request $request)
-{
-    // Validar el mes recibido
-    $mesSeleccionado = $request->input('mes');
-    
-    // Si el mes no está seleccionado, mostrar todos los dispositivos
-    if ($mesSeleccionado) {
-        // Convertir el mes seleccionado a un rango de fechas (primer y último día del mes)
-        $fechaInicio = Carbon::create()->month($mesSeleccionado)->startOfMonth()->startOfDay();
-        $fechaFin = Carbon::create()->month($mesSeleccionado)->endOfMonth()->endOfDay();
-
-        // Buscar dispositivos que tienen fecha_compra dentro del mes seleccionado
-        $dispositivos = Dispositivo::whereBetween('fecha_compra', [$fechaInicio, $fechaFin])->get();
-    } else {
-        // Si no se selecciona un mes, mostrar todos los dispositivos
-        $dispositivos = Dispositivo::all();
+    public function renovacionessearch(Request $request)
+    {
+        // Obtener el mes del request
+        $mes = $request->input('mes');
+        
+        // Verificar si el mes fue proporcionado
+        if ($mes) {
+            // Filtrar dispositivos donde el mes de 'fechacompra' coincida con el mes seleccionado
+            $dispositivos = Dispositivo::whereRaw("MONTH(fechacompra) = ?", [$mes])
+                ->whereRaw("fechacompra REGEXP '^[0-9]{4}-[0-9]{2}-[0-9]{2}$'") // Asegurarse de que 'fechacompra' esté en formato 'Y-m-d'
+                ->get();
+        } else {
+            // Si no se selecciona mes, obtener todos los dispositivos con fecha válida
+            $dispositivos = Dispositivo::whereRaw("fechacompra REGEXP '^[0-9]{4}-[0-9]{2}-[0-9]{2}$'") // Filtramos registros con formato correcto de fecha
+                ->get();
+        }
+        
+        // Retornar la vista con los dispositivos obtenidos
+        return view('funciones.renovaciones', compact('dispositivos'));
     }
-
-    // Retornar la vista con los dispositivos encontrados
-    return view('ruta.de.la.vista', compact('dispositivos'));
-}
-
+    
+    
+    
     
 }
