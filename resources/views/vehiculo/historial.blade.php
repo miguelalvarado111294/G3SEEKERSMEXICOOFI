@@ -7,7 +7,7 @@
     <h3 class="text-center">Crear Descripción y Fecha</h3>
     <br>
 
-    <form action=" {{route('historialregister',$vehiculo_id)}} " method="post">
+    <form action=" {{ route('historialregister', $vehiculo_id) }} " method="post">
         @csrf
 
         <div class="form-group">
@@ -19,7 +19,6 @@
         @enderror
         <br>
 
-
         <div class="form-group text-center">
             <input type="submit" class="btn btn-success" value="Guardar Datos">
         </div>
@@ -27,13 +26,13 @@
 
     <div class="text-center">
         <h3>Historial del Vehículo</h3>
-    
+
         <!-- Empezamos la card de Bootstrap -->
         <div class="card mt-4">
             <div class="card-header">
                 <h5 class="card-title">Descripción y Fecha</h5>
             </div>
-    
+
             <div class="card-body">
                 <!-- Empezamos la tabla de Bootstrap -->
                 <table class="table table-bordered">
@@ -49,7 +48,7 @@
                             <tr>
                                 <!-- Descripción -->
                                 <td>{{ $value->descripcion }}</td>
-    
+
                                 <!-- Fecha -->
                                 <td>{{ \Carbon\Carbon::parse($value->fecha)->format('d/m/Y H:i') }}</td>
                             </tr>
@@ -59,10 +58,17 @@
             </div>
         </div>
     </div>
-    
+
+    <!-- Paginación centrada -->
+    <div class="text-center mt-4">
+        <!-- Agregamos la clase pagination-centered o text-center para centrar los enlaces -->
+        <div class="pagination justify-content-center">
+            {{ $historial->links() }}
+        </div>
+    </div>
 
     <div class="text-center">
         <a href="{{ route('buscar.dispositivo', $vehiculo_id) }}" class="btn btn-dark">Regresar</a>
     </div>
-
+    
 @endsection

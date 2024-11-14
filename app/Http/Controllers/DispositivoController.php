@@ -130,18 +130,16 @@ class DispositivoController extends Controller
     ];
 }
 
-
 public function historial($vehiculo_id)
 {
+    // Pagina el historial de vehículos, 10 registros por página
+    $historial = Historial::where('vehiculo_id', $vehiculo_id)
+                          ->paginate(10);  // Paginación de 10 resultados por página
     
-    $historial =Historial::all();
-    
-    
-    
-    
-    return view('vehiculo.historial',compact('vehiculo_id','historial'));
-   
+    // Retorna la vista con los datos del vehículo y el historial paginado
+    return view('vehiculo.historial', compact('vehiculo_id', 'historial'));
 }
+
 
 public function historialregister(Request $request, $vehiculo_id)
 {
@@ -154,12 +152,13 @@ public function historialregister(Request $request, $vehiculo_id)
     Historial::create([
         'vehiculo_id' => $vehiculo_id,   // Relacionamos el historial con el vehículo
         'descripcion' => $request->descripcion,  // Almacenamos la descripción proporcionada
-        'fecha' => now(),  // Puedes agregar una fecha, por ejemplo, la fecha actual
+        'fecha' => now('America/Mexico_City'),  // Establecemos la zona horaria de México
     ]);
 
     // Redirigir a donde sea necesario (por ejemplo, a la lista de vehículos o al historial)
-    return redirect()->route('historial',$vehiculo_id)->with('success', 'Descripción registrada correctamente.');
+    return redirect()->route('historial', $vehiculo_id)->with('success', 'Descripción registrada correctamente.');
 }
+
 
 
 

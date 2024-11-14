@@ -16,10 +16,7 @@
         </div>
     @endif
 
-    <div class="text-center mb-4">
-        <!-- Botón Historial -->
-        <a href="{{ route('historial', $vehiculo->id) }}" class="btn btn-info">Historial</a>
-    </div>
+
 
     @can('dispositivo.create')
         @if ($numerodedispositivos <= 0)
@@ -97,7 +94,12 @@
                         <li><b>Color:</b> {{ $vehiculo->color }}</li>
                     </ul>
                 </div>
+                <div class="text-center mb-4">
+                    <!-- Botón Historial -->
+                    <a href="{{ route('historial', $vehiculo->id) }}" class="btn btn-info">Historial</a>
+                </div>
             </div>
+
         </div>
     </div>
     <br>
