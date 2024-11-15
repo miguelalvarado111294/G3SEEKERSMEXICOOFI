@@ -27,7 +27,12 @@ class linea extends Model
     public function dispositivo()
     {
 
-        return $this->hasOne('App\Models\Dispositivo', 'dispositivo_id', 'id');
+        return $this->belongsTo('App\Models\Dispositivo', 'dispositivo_id', 'id');
     }
+
+
+    
+
+    
 }
 

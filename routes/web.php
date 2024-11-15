@@ -118,7 +118,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/confirmation', [App\Http\Controllers\BusquedaController::class, 'confirmation'])->name('confirmation');
     Route::get('/ale', [App\Http\Controllers\CtaespejoController::class, 'ale'])->name('ale');
 
-    
+    Route::get('/inventariostok', [App\Http\Controllers\FuncionesController::class, 'stok'])->name('inventario.stok');
+
     Route::get('/inventarioadd', [App\Http\Controllers\FuncionesController::class, 'inventarioadd'])->name('inventarioadd');
     Route::post('/inventario', [App\Http\Controllers\FuncionesController::class, 'store'])->name('store.inventario');
 

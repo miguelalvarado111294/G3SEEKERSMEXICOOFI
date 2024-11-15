@@ -36,8 +36,14 @@ class dispositivo extends Model
 
     public function lineas()
     {
-        return $this->belongsTo('App\Models\Linea', 'linea_id', 'id');
+        return $this->hasMany('App\Models\Linea', 'linea_id', 'id');
     }
+    
+    public function linea()
+    {
+        return $this->hasOne('App\Models\Linea', 'dispositivo_id', 'id'); // Relación uno a uno
+    }
+    
 
 
     public function vehiculo()

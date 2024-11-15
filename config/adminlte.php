@@ -351,7 +351,7 @@ return [
     ],
     [
         'text' => 'Inventario',
-        'route' => 'inventarioadd',
+        'route' => 'inventario.stok',
         'icon' => 'fas fa-warehouse', // Icono adecuado para "Inventario"
     ],
     [

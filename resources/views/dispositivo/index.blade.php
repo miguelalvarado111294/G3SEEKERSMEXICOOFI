@@ -37,7 +37,7 @@
         <button class="btn btn-outline-success" type="submit">Buscar</button>
     </form>
     <br>
-
+{{--
     <!-- Formulario para seleccionar el mes -->
     <form method="GET" class="d-flex justify-content-center">
         <!-- Etiqueta que describe el campo de búsqueda por mes -->
@@ -55,7 +55,7 @@
     </form>
     
     <br>
-
+--}}
     <div class="card">
         <div class="card-body">
             <table class="table table-light">

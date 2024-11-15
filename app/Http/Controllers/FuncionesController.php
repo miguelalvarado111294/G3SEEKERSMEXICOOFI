@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\linea;
+use App\Models\Cliente;
 
 use App\Models\Dispositivo;
 use Carbon\Carbon;
@@ -12,6 +13,30 @@ use PhpParser\Node\Stmt\Return_;
 
 class FuncionesController extends Controller
 {
+
+    
+
+    public function stok()
+    {
+        $usuarioAlmacen = 250; // ID del cliente auxiliar
+        $aux = Cliente::find($usuarioAlmacen);
+    
+        // Verificamos si el cliente existe
+        if (!$aux) {
+            return redirect()->back()->with('error', 'Cliente no encontrado.');
+        }
+    
+        // Obtener los dispositivos y las líneas relacionadas con el cliente
+        $dispositivos = $aux->dispositivos;
+        $lineas = $aux->lineas;
+    
+        // Devolver la vista con los datos
+        return view('inventario.stok', compact('aux', 'dispositivos', 'lineas'));
+    }
+    
+    
+    
+
     public function inventarioadd()
     {
 
@@ -51,17 +76,18 @@ class FuncionesController extends Controller
     }
    
 
+
+
+
     public function store(Request $request)
     {
-        //return $request;
-        // Valida los campos basados en el tipo de registro
+        // Validación de tipo de registro
         if ($request->tipoRegistro === 'dispositivo') {
-            // Validación específica para 'dispositivo'
             $validatedData = $request->validate([
                 'tipoRegistro' => 'required|string|in:dispositivo',
                 'modelo' => 'required|string',
-                'noserie' => 'required|string|unique:dispositivos,noserie',
-                'imei' => 'required|string|unique:dispositivos,imei',
+                'noserie' => 'required|string',
+                'imei' => 'required|string',
                 'fechacompra' => 'required|date',
                 'precio' => 'required|numeric',
                 'comentarios_dispositivo' => 'nullable|string',
@@ -79,9 +105,8 @@ class FuncionesController extends Controller
             $dispositivo->vehiculo_id = $validatedData['vehiculo_id'] ?? '1512'; // Default vehicle_id
             $dispositivo->save();
     
-            return redirect()->back()->with('success', 'Dispositivo registrado exitosamente!');
+            return redirect()->route('inventario.stok')->with('success', 'Dispositivo registrado exitosamente!');
         } elseif ($request->tipoRegistro === 'linea') {
-            // Validación específica para 'linea'
             $validatedData = $request->validate([
                 'tipoRegistro' => 'required|string|in:linea',
                 'simcard' => 'required|string',
@@ -99,16 +124,17 @@ class FuncionesController extends Controller
             $linea->renovacion = $validatedData['renovacion'];
             $linea->comentarios = $validatedData['comentarios'] ?? '';
             $linea->cliente_id = $validatedData['cliente_id'] ?? '250';
-            $linea->dispositivo_id = $validatedData['dispositivo_id'] ?? '1512';    
+            $linea->dispositivo_id = $validatedData['dispositivo_id'] ?? '1512';
             $linea->save();
     
-            return redirect()->back()->with('success', 'Línea telefónica registrada exitosamente!');
+            return redirect()->route('inventario.stok')->with('success', 'Línea telefónica registrada exitosamente!');
         }
     
-        // Si el tipo de registro no es válido, redirigir con error
+        // Si el tipo de registro no es válido
         return redirect()->back()->with('error', 'Tipo de registro inválido');
     }
-
+    
+    
 
 
 

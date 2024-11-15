@@ -30,8 +30,6 @@
                     <tr>
                         <th>Cliente</th>
                         <th>usuario</th>
-                        <th>contrasenia</th>
-                        <th>contraseniaParo</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -53,8 +51,7 @@
                                 </td>
 
                                 <td>{{ $cuenta->usuario }}</td>
-                                <td>{{ $cuenta->contrasenia }}</td>
-                                <td>{{ $cuenta->contraseniaParo }}</td>
+
 
                                 <td> @can('cuenta.edit')
                                         <a href="{{ url('/cuenta/' . $cuenta->id . '/edit') }}"
@@ -88,7 +85,7 @@
 
 
     <div class="d-flex justify-content-center">
-    {!! $cuentas->links() !!}
+        {!! $cuentas->links() !!}
     </div>
 
 @endsection
