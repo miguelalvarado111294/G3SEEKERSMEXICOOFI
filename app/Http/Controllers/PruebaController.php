@@ -7,7 +7,8 @@ use App\Models\Ctaespejo;
 use App\Models\Cuenta;
 use App\Models\Dispositivo;
 use App\Models\Vehiculo;
-use App\Models\linea;
+use App\Models\Linea;
+
 use App\Models\Sensor;
 
 use Illuminate\Http\Request;

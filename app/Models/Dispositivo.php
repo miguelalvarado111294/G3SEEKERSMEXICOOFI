@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class dispositivo extends Model
+class Dispositivo extends Model
 {
     use HasFactory;
     protected $dates = ['fechacompra'];
