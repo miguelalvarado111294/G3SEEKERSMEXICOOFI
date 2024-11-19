@@ -40,97 +40,100 @@
                             <label for="año">Año</label>
                             <select name="año" id="año" class="form-control">
                                 <option value="">Seleccione un año</option>
-                                <!-- Generar los últimos 10 años -->
                                 @for ($i = 2020; $i <= now()->year; $i++)
                                     <option value="{{ $i }}" {{ request('año') == $i ? 'selected' : '' }}>{{ $i }}</option>
                                 @endfor
                             </select>
                         </div>
+
+                        <!-- Botón de Buscar -->
+                        <button type="submit" id="buscarBtn" class="btn btn-success w-100" disabled>Buscar</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Mostrar los resultados -->
-    @if ($dispositivos->isEmpty())
-        <div class="alert alert-warning mt-4">
-            <p>No se encontraron dispositivos para este mes y año.</p>
-        </div>
-    @else
-        <div class="card mt-4">
-            <div class="card-header bg-success text-white">
-                <h5 class="card-title">Resultados de Selección</h5>
+    <!-- Mostrar los resultados (ocultar inicialmente) -->
+    <div id="resultados" style="display: none;">
+        @if ($dispositivos->isEmpty())
+            <div class="alert alert-warning mt-4">
+                <p>No se encontraron dispositivos para este mes y año.</p>
             </div>
-            <div class="card-body">
-                <table class="table table-striped table-bordered">
-                    <thead>
-                        <tr>
-                            <th>Plataforma ID</th>
-                            <th>Fecha de Compra</th>
-                            <th>Dispositivo</th>
-                            <th>Cliente</th>
-                            <th>Vehículo</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($dispositivos as $dispositivo)
+        @else
+            <div class="card mt-4">
+                <div class="card-header bg-success text-white">
+                    <h5 class="card-title">Resultados de Selección</h5>
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped table-bordered">
+                        <thead>
                             <tr>
-                                <td>{{ $dispositivo->plataforma_id }}</td>
-                                <td>{{ $dispositivo->fechacompra }}</td>
-                                <td>{{ $dispositivo->modelo }}</td>
-                                <td>
-                                    {{-- Concatenar nombre completo del cliente --}}
-                                    @if($dispositivo->cliente)
-                                        {{ $dispositivo->cliente->nombre }} 
-                                        @if($dispositivo->cliente->segundo_nombre) 
-                                            {{ $dispositivo->cliente->segundo_nombre }} 
-                                        @endif
-                                        {{ $dispositivo->cliente->apellidopat }} 
-                                        {{ $dispositivo->cliente->apellidomat }}
-                                    @else
-                                        N/A
-                                    @endif
-                                </td>
-                                <td>
-                                    {{-- Mostrar marca y modelo del vehículo --}}
-                                    @if($dispositivo->vehiculo)
-                                        {{ $dispositivo->vehiculo->marca }} 
-                                        {{ $dispositivo->vehiculo->modelo }}
-                                    @else
-                                        N/A
-                                    @endif
-                                </td>
+                                <th>Plataforma ID</th>
+                                <th>Fecha de Compra</th>
+                                <th>Dispositivo</th>
+                                <th>Cliente</th>
+                                <th>Vehículo</th>
                             </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            @foreach ($dispositivos as $dispositivo)
+                                <tr>
+                                    <td>{{ $dispositivo->plataforma_id }}</td>
+                                    <td>{{ $dispositivo->fechacompra }}</td>
+                                    <td>{{ $dispositivo->modelo }}</td>
+                                    <td>
+                                        @if($dispositivo->cliente)
+                                            {{ $dispositivo->cliente->nombre }} 
+                                            @if($dispositivo->cliente->segundo_nombre) 
+                                                {{ $dispositivo->cliente->segundo_nombre }} 
+                                            @endif
+                                            {{ $dispositivo->cliente->apellidopat }} 
+                                            {{ $dispositivo->cliente->apellidomat }}
+                                        @else
+                                            N/A
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if($dispositivo->vehiculo)
+                                            {{ $dispositivo->vehiculo->marca }} 
+                                            {{ $dispositivo->vehiculo->modelo }}
+                                        @else
+                                            N/A
+                                        @endif
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
-        </div>
-    @endif
+        @endif
+    </div>
 @endsection
 
 @push('js')
 <script>
-    // Script para asegurarse que se envíe el formulario solo cuando ambos campos (mes y año) estén seleccionados
-    document.getElementById('mes').addEventListener('change', function () {
+    // Función que habilita el botón de "Buscar" cuando mes y año son seleccionados
+    function checkSelection() {
         var mes = document.getElementById('mes').value;
         var año = document.getElementById('año').value;
         
-        // Si ambos campos tienen valor, enviamos el formulario
+        // Si ambos están seleccionados, habilitar el botón
         if (mes && año) {
-            document.getElementById('mesAñoForm').submit();
+            document.getElementById('buscarBtn').disabled = false;
+        } else {
+            document.getElementById('buscarBtn').disabled = true;
         }
-    });
+    }
 
-    document.getElementById('año').addEventListener('change', function () {
-        var mes = document.getElementById('mes').value;
-        var año = document.getElementById('año').value;
-        
-        // Si ambos campos tienen valor, enviamos el formulario
-        if (mes && año) {
-            document.getElementById('mesAñoForm').submit();
-        }
-    });
+    // Detectar cambios en los selects y ejecutar checkSelection
+    document.getElementById('mes').addEventListener('change', checkSelection);
+    document.getElementById('año').addEventListener('change', checkSelection);
+
+    // Mostrar los resultados una vez que se haya enviado el formulario
+    @if(request('mes') && request('año'))
+        document.getElementById('resultados').style.display = 'block';
+    @endif
 </script>
 @endpush

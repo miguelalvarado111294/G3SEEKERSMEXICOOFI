@@ -29,7 +29,7 @@
         <a href="{{route('inventarioadd')}}" class="btn btn-success">Añadir articulo al inventario </a>
     </div>
 
-
+<h3>Dispositivos Disponibles</h3>
     <!-- Dispositivos Asociados -->
     @if($dispositivos->isEmpty())
         <p class="text-center">No hay dispositivos relacionados con este cliente.</p>
@@ -62,6 +62,8 @@
             </table>
         </div>
     @endif
+
+    <h3>Lineas Disponibles</h3>
 
     <!-- Líneas Asociadas -->
     @if($lineas->isEmpty())

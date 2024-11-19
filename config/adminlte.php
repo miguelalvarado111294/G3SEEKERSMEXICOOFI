@@ -357,7 +357,7 @@ return [
     [
         'text' => 'Renovaciones',
         'route' => 'renovaciones',
-        'icon' => 'fas fa-warehouse', // Icono adecuado para "Inventario"
+        'icon' => 'fas fa-sync', // Icono adecuado para "Inventario"
     ],
 
     [
