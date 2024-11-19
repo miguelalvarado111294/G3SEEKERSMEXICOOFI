@@ -10,10 +10,7 @@
 @section('css')
     <link rel="stylesheet" href="{{ asset('vendor/jquery-ui/jquery-ui.min.css') }}">
 
-    <!-- Estilos de AdminLTE -->
-    <link rel="stylesheet" href="{{ asset('adminlte/css/adminlte.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}">
-
+    
 
 
 @endsection
@@ -102,7 +99,6 @@
     </script>
 
     <!-- Scripts de AdminLTE -->
-    <script src="{{ asset('adminlte/js/adminlte.min.js') }}"></script>
     <script>
         $(document).ready(function() {
             $('#search').on('keyup', function() {

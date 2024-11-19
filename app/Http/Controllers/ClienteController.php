@@ -1,5 +1,5 @@
 <?php
-
+//controller
 namespace App\Http\Controllers;
 
 use App\Models\Cliente;
