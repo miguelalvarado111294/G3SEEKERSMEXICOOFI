@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\cliente;
-use App\Models\ctaespejo;
-use App\Models\cuenta;
-use App\Models\dispositivo;
-use App\Models\vehiculo;
+use App\Models\Cliente;
+use App\Models\Ctaespejo;
+use App\Models\Cuenta;
+use App\Models\Dispositivo;
+use App\Models\Vehiculo;
 use App\Models\linea;
-use App\Models\sensor;
+use App\Models\Sensor;
 
 use Illuminate\Http\Request;
 
