@@ -22,13 +22,6 @@
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.min.css">
 @endsection
 
-
-
-
-
-
-
-
 @section('content')
     <div class="container">
         <div class="card">
