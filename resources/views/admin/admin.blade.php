@@ -31,7 +31,20 @@
             </div>
         </div>
     </div>
+
+    @auth
+    <form method="POST" action="{{ route('logout') }}">
+        @csrf
+        <div class="mt-3 text-center">
+            <button type="submit" class="btn btn-danger">
+                {{ __('Cerrar sesión') }}
+            </button>
+        </div>
+    </form>
+@endauth
 @stop
+
+
 
 @section('js')
     <!-- jQuery -->
