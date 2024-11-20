@@ -77,4 +77,3 @@
 <!-- Bootstrap JS and Popper.js CDN -->
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-z8XDLpWxM1spzJHQp8q3RKSd4Ns8eIWQEPf2zj5VnTOc1XfOFm4tJT3c0UOd53Qo" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-QHNfgYYBbuVgq9DpMZFtKpUJNr2UhT1zggD4oQW9HNsGrIc3J8nE9r9UQK3LAXAQ" crossorigin="anonymous"></script>
-@endsection
