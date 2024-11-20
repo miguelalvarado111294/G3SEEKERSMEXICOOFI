@@ -8,11 +8,7 @@
 @stop
 
 @section('css')
-    <link rel="stylesheet" href="{{ asset('vendor/jquery-ui/jquery-ui.min.css') }}">
-
-    
-
-
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.min.css">
 @endsection
 
 @section('content')

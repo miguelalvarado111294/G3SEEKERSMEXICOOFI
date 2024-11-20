@@ -41,21 +41,21 @@ class ClienteController extends Controller
                 ->orWhere('email', 'LIKE', "%{$busqueda}%")
                 ->orWhere('rfc', 'LIKE', "%{$busqueda}%");
         })->orderBy('id', 'desc')->paginate(10);
-    
+
         // Verificar si falta completar perfil
         foreach ($clientes as $cliente) {
             // Verificar si el cliente tiene cuentas asociadas
             $cliente->has_account = $cliente->cuentas()->count() > 0;
-    
+
             // Marcar como incompleto si el cliente no tiene cuentas asociadas
             $cliente->profile_incomplete = !$cliente->has_account;
         }
-    
+
         return view('cliente.index', compact('clientes', 'busqueda'));
     }
-    
 
-    
+
+
 
     public function show($id)
     {
@@ -154,7 +154,7 @@ class ClienteController extends Controller
         // La validación se maneja automáticamente por el Request
         // Convertir los datos a mayúsculas
         $datosCliente = array_map('strtoupper', $request->except('_token'));
-    
+
         // Manejar la carga de archivos
         $this->handleFileUpload($request, null, $datosCliente, [
             'actaconstitutiva',
@@ -163,30 +163,29 @@ class ClienteController extends Controller
             'tarjetacirculacion',
             'compPago'
         ]);
-    
+
         // Crear el cliente y obtener su ID
         $cliente = Cliente::create($datosCliente);
-    
+
         // Redirigir a la ruta con el cliente ID
         return redirect()->route('crear.nuevo.ref', ['id' => $cliente->id])
-        ->with('mensaje', 'Cliente creado exitosamente!');
-    
+            ->with('mensaje', 'Cliente creado exitosamente!');
     }
 
-    
+
     public function orden($vehiculo_id, Request $request)
     {
         $vehiculo = Vehiculo::find($vehiculo_id);
         $cliente = Cliente::find($vehiculo->cliente_id);
         $dispositivo = Dispositivo::where('vehiculo_id', $vehiculo->id)->first();
         $linea = Linea::where('dispositivo_id', $dispositivo->id)->first();
-    
+
         // Guardar la dirección en una variable
         $direccion = $request->direccion;
-    
+
         // Quitar la letra "T" de la fecha
         $fechacita = str_replace('T', ' ', $request->fechacita);
-    
+
         $pdf = PDF::loadView('funciones.orden', [
             'vehiculo' => $vehiculo,
             'cliente' => $cliente,
@@ -196,11 +195,11 @@ class ClienteController extends Controller
             'fechacita' => $fechacita,
             'direccion' => $direccion, // Pasar la dirección al PDF
         ]);
-    
+
         return $pdf->download('OrdenDeServicio.pdf');
     }
-    
-    
+
+
 
     public function crearcita(Vehiculo $vehiculo)
     {
