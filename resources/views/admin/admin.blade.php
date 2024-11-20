@@ -21,7 +21,8 @@
 @endsection
 
 @section('content')
-    <p class="text-center">Bienvenido, <strong>{{ Auth::check() ? Auth::user()->name : 'Invitado' }}</strong>, al Panel de Control</p>
+    <p class="text-center">Bienvenido, <strong>{{ Auth::check() ? Auth::user()->name : 'Invitado' }}</strong>, al Panel de
+        Control</p>
 
     <div class="card my-4">
         <div class="card-body">
@@ -37,7 +38,7 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
 
     <!-- Popper.js (necesario para Bootstrap) -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
         integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous">
     </script>
 

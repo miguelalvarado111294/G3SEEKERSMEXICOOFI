@@ -15,7 +15,7 @@
     <!-- Bootstrap CSS (dependencia para la estructura y componentes) -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 
-  
+
 @endsection
 
 @section('content')
@@ -44,8 +44,8 @@
 
                         @foreach ($roles as $role)
                             <div class="form-check mb-3">
-                                <input type="checkbox" class="form-check-input" name="roles[]" value="{{ $role->id }}" id="role-{{ $role->id }}"
-                                    {{ $user->roles->contains($role->id) ? 'checked' : '' }}>
+                                <input type="checkbox" class="form-check-input" name="roles[]" value="{{ $role->id }}"
+                                    id="role-{{ $role->id }}" {{ $user->roles->contains($role->id) ? 'checked' : '' }}>
                                 <label class="form-check-label" for="role-{{ $role->id }}" style="font-weight: 500;">
                                     {{ $role->name }}
                                 </label>
@@ -53,7 +53,8 @@
                         @endforeach
                     </div>
 
-                    <button type="submit" class="btn btn-primary mt-4 px-4 py-2 rounded-lg shadow-sm">Actualizar Roles</button>
+                    <button type="submit" class="btn btn-primary mt-4 px-4 py-2 rounded-lg shadow-sm">Actualizar
+                        Roles</button>
                 </form>
             </div>
         </div>
@@ -124,19 +125,18 @@
 
 
 @section('js')
-<!-- jQuery y Popper por CDN -->
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <!-- jQuery y Popper por CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
 
-<!-- Popper.js (necesario para Bootstrap) -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-    integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous">
-</script>
+    <!-- Popper.js (necesario para Bootstrap) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous">
+    </script>
 
-<!-- Bootstrap JS (para interactividad de componentes como botones, menús, etc.) -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap JS (para interactividad de componentes como botones, menús, etc.) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 
-<!-- AdminLTE JS (funcionalidad para los elementos de AdminLTE) -->
-<script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/js/adminlte.min.js"></script>
+    <!-- AdminLTE JS (funcionalidad para los elementos de AdminLTE) -->
+    <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/js/adminlte.min.js"></script>
 
 @stop
-

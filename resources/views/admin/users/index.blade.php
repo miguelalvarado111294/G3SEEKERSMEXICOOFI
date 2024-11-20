@@ -15,17 +15,18 @@
     <!-- Bootstrap CSS (dependencia para la estructura y componentes) -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 
-  
+
 @endsection
 
 
 @section('content')
     <div class="container py-4">
         <p class="text-center h4 mb-4">Lista de Usuarios</p>
-        <a href="{{ route('usuarios.create') }}" class="btn btn-success mb-3 px-4 py-2 rounded-lg shadow-sm">Alta de Nuevo Usuario</a>
+        <a href="{{ route('usuarios.create') }}" class="btn btn-success mb-3 px-4 py-2 rounded-lg shadow-sm">Alta de Nuevo
+            Usuario</a>
 
         {{-- Mostrar el mensaje de éxito --}}
-        @if(session('success'))
+        @if (session('success'))
             <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
                 {{ session('success') }}
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -51,7 +52,8 @@
                                 <td>{{ $user->email }}</td>
                                 <td>
                                     @can('admin.index')
-                                        <a href="{{ route('admin.edit', $user) }}" class="btn btn-warning rounded-lg shadow-sm">Editar</a>
+                                        <a href="{{ route('admin.edit', $user) }}"
+                                            class="btn btn-warning rounded-lg shadow-sm">Editar</a>
 
                                         <form action="{{ route('admin.destroy', $user) }}" method="post" class="d-inline">
                                             @csrf
@@ -103,7 +105,8 @@
         }
 
         /* Estilo de la tabla */
-        .table th, .table td {
+        .table th,
+        .table td {
             padding: 15px;
             text-align: center;
         }
@@ -166,18 +169,18 @@
 
 
 @section('js')
-<!-- jQuery y Popper por CDN -->
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <!-- jQuery y Popper por CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
 
-<!-- Popper.js (necesario para Bootstrap) -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-    integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous">
-</script>
+    <!-- Popper.js (necesario para Bootstrap) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous">
+    </script>
 
-<!-- Bootstrap JS (para interactividad de componentes como botones, menús, etc.) -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap JS (para interactividad de componentes como botones, menús, etc.) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 
-<!-- AdminLTE JS (funcionalidad para los elementos de AdminLTE) -->
-<script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/js/adminlte.min.js"></script>
+    <!-- AdminLTE JS (funcionalidad para los elementos de AdminLTE) -->
+    <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/js/adminlte.min.js"></script>
 
 @stop

@@ -14,8 +14,12 @@
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
 
-    <!-- Scripts -->
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    <!-- Styles (Bootstrap CSS from CDN) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ENjdO4Dr2bkBIFxQpeo6KzMtvH5LRZ9blyG7CX5c2z1pCsIq2V3eD4a3eNfTfIfg" crossorigin="anonymous">
+
+    <!-- Scripts (Bootstrap JS and Popper.js from CDN) -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-z8XDLpWxM1spzJHQp8q3RKSd4Ns8eIWQEPf2zj5VnTOc1XfOFm4tJT3c0UOd53Qo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-QHNfgYYBbuVgq9DpMZFtKpUJNr2UhT1zggD4oQW9HNsGrIc3J8nE9r9UQK3LAXAQ" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -70,8 +74,6 @@
                                     @can('admin.index')
                                         <a class="nav-link" href="{{ route('admin.index') }}">Dashboard</a>
                                     @endcan
-
-
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
