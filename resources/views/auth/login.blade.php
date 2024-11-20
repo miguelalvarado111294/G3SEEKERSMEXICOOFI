@@ -1,94 +1,82 @@
-<!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+@extends('layouts.app')
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+@section('content')
+<!-- Bootstrap CSS CDN -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ENjdO4Dr2bkBIFxQpeo6KzMtvH5LRZ9blyG7CX5c2z1pCsIq2V3eD4a3eNfTfIfg" crossorigin="anonymous">
 
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+<div class="container">
+    <div class="row justify-content-center align-items-center" style="min-height: 100vh;">
+        <div class="col-md-6">
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-primary text-white text-center">
+                    <h4 class="mb-0">{{ __('Login') }}</h4>
+                </div>
+                <div class="card-body p-4">
+                    <form method="POST" action="{{ route('login') }}">
+                        @csrf
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+                        <!-- Email -->
+                        <div class="form-floating mb-3">
+                            <input id="email" type="email" 
+                                   class="form-control @error('email') is-invalid @enderror" 
+                                   name="email" value="{{ old('email') }}" 
+                                   required autocomplete="email" autofocus placeholder="Email">
+                            <label for="email">{{ __('Email Address') }}</label>
 
-    <!-- Fonts -->
-    <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+                            @error('email')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
 
-    <!-- Styles (Bootstrap CSS desde CDN) -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" 
-          integrity="sha384-ENjdO4Dr2bkBIFxQpeo6KzMtvH5LRZ9blyG7CX5c2z1pCsIq2V3eD4a3eNfTfIfg" crossorigin="anonymous">
-</head>
+                        <!-- Password -->
+                        <div class="form-floating mb-3">
+                            <input id="password" type="password" 
+                                   class="form-control @error('password') is-invalid @enderror" 
+                                   name="password" required autocomplete="current-password" 
+                                   placeholder="Password">
+                            <label for="password">{{ __('Password') }}</label>
 
-<body>
-    <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="{{ route('cliente.index') }}">
-                    Home
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
-                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" 
-                        aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+                            @error('password')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto">
-                        <!-- Puedes añadir más enlaces aquí -->
-                    </ul>
+                        <!-- Remember Me -->
+                        <div class="mb-3 form-check">
+                            <input class="form-check-input" type="checkbox" name="remember" 
+                                   id="remember" {{ old('remember') ? 'checked' : '' }}>
+                            <label class="form-check-label" for="remember">
+                                {{ __('Remember Me') }}
+                            </label>
+                        </div>
 
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ms-auto">
-                        @guest
-                            @if (Route::has('login'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                </li>
-                            @endif
+                        <!-- Submit Button and Links -->
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                {{ __('Login') }}
+                            </button>
+                        </div>
 
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                                   data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
+                        @if (Route::has('password.request'))
+                            <div class="mt-3 text-center">
+                                <a class="btn btn-link" href="{{ route('password.request') }}">
+                                    {{ __('Forgot Your Password?') }}
                                 </a>
-
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault(); 
-                                                document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-                                    @can('admin.index')
-                                        <a class="dropdown-item" href="{{ route('admin.index') }}">Dashboard</a>
-                                    @endcan
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                        @endguest
-                    </ul>
+                            </div>
+                        @endif
+                    </form>
                 </div>
             </div>
-        </nav>
-
-        <main class="py-4">
-            @yield('content')
-        </main>
+        </div>
     </div>
+</div>
 
-    <!-- Scripts (Bootstrap JS y Popper.js desde CDN) -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" 
-            integrity="sha384-z8XDLpWxM1spzJHQp8q3RKSd4Ns8eIWQEPf2zj5VnTOc1XfOFm4tJT3c0UOd53Qo" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" 
-            integrity="sha384-QHNfgYYBbuVgq9DpMZFtKpUJNr2UhT1zggD4oQW9HNsGrIc3J8nE9r9UQK3LAXAQ" crossorigin="anonymous"></script>
-</body>
+<!-- Bootstrap JS CDN -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-z8XDLpWxM1spzJHQp8q3RKSd4Ns8eIWQEPf2zj5VnTOc1XfOFm4tJT3c0UOd53Qo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-QHNfgYYBbuVgq9DpMZFtKpUJNr2UhT1zggD4oQW9HNsGrIc3J8nE9r9UQK3LAXAQ" crossorigin="anonymous"></script>
 
-</html>
+@endsection
