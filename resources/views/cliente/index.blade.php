@@ -6,9 +6,6 @@
     <h1 class="text-center"><b>G3 Seekers México</b></h1>
 @stop
 
-
-
-
 @section('css')
     <!-- AdminLTE CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/css/adminlte.min.css">
@@ -22,8 +19,6 @@
     <!-- jQuery UI CSS (opcional, si usas componentes interactivos) -->
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.min.css">
 @endsection
-
-
 
 @section('content')
     <div class="container">
@@ -54,18 +49,6 @@
                 </div>
             </div>
         </div>
-
-        <style>
-            /* Centrar el texto del placeholder */
-            #search::placeholder {
-                text-align: center;
-            }
-
-            /* Opcional: puedes personalizar también el estilo del input */
-            #search {
-                text-align: center; /* Centrar el texto ingresado */
-            }
-        </style>
 
         <br>
         <div class="card">
@@ -99,11 +82,20 @@
     <div class="d-flex justify-content-center">
         {!! $clientes->appends(['busqueda' => $busqueda]) !!}
     </div>
+
+    <!-- Cerrar sesión -->
+    @auth
+        <form method="POST" action="{{ route('logout') }}">
+            @csrf
+            <div class="mt-3 text-center">
+                <button type="submit" class="btn btn-danger">
+                    {{ __('Cerrar sesión') }}
+                </button>
+            </div>
+        </form>
+    @endauth
+
 @endsection
-
-
-
-
 
 @section('js')
     <!-- jQuery y Popper por CDN -->
@@ -118,7 +110,6 @@
     
     <!-- AdminLTE JS (funcionalidad para los elementos de AdminLTE) -->
     <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/js/adminlte.min.js"></script>
-
 
     <!-- Scripts adicionales -->
     <script>
