@@ -2,6 +2,20 @@
 
 @section('title', 'G3SEEKERS MX')
 
+@section('css')
+    <!-- AdminLTE CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/css/adminlte.min.css">
+
+    <!-- Font Awesome (iconos) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+
+    <!-- jQuery UI CSS -->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.min.css">
+@endsection
+
 @section('content_header')
     <h1 class="text-center"><b>G3 Seekers México</b></h1>
     <h3 class="text-center">Stock</h3>
@@ -99,4 +113,67 @@
     <div class="form-group mt-4 text-center">
         <a href="{{ URL::previous() }}" class="btn btn-secondary">Regresar</a>
     </div>
+@stop
+
+@section('js')
+    <!-- jQuery -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+
+    <!-- Popper.js (necesario para Bootstrap) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous">
+    </script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- AdminLTE JS -->
+    <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/js/adminlte.min.js"></script>
+
+ 
+<script>
+    // Función para mostrar u ocultar formularios dependiendo de la selección
+    function toggleForms() {
+        const tipoRegistro = document.getElementById('tipoRegistro').value;
+
+        // Ocultar ambos formularios inicialmente
+        document.getElementById('dispositivoForm').style.display = 'none';
+        document.getElementById('lineaForm').style.display = 'none';
+
+        // Mostrar el formulario correspondiente según la selección
+        if (tipoRegistro === 'dispositivo') {
+            document.getElementById('dispositivoForm').style.display = 'block';
+            document.getElementById('lineaForm').style.display = 'none';
+
+            // Deshabilitar los campos de línea
+            document.querySelectorAll('#lineaForm input, #lineaForm select').forEach(function (input) {
+                input.disabled = true;
+            });
+
+            // Habilitar los campos de dispositivo
+            document.querySelectorAll('#dispositivoForm input').forEach(function (input) {
+                input.disabled = false;
+            });
+        } else if (tipoRegistro === 'linea') {
+            document.getElementById('lineaForm').style.display = 'block';
+            document.getElementById('dispositivoForm').style.display = 'none';
+
+            // Deshabilitar los campos de dispositivo
+            document.querySelectorAll('#dispositivoForm input').forEach(function (input) {
+                input.disabled = true;
+            });
+
+            // Habilitar los campos de línea
+            document.querySelectorAll('#lineaForm input, #lineaForm select').forEach(function (input) {
+                input.disabled = false;
+            });
+        }
+    }
+
+    // Inicializar el formulario con la opción de tipoRegistro que el usuario haya seleccionado
+    document.addEventListener('DOMContentLoaded', function () {
+        toggleForms();
+    });
+</script>
+
 @stop
