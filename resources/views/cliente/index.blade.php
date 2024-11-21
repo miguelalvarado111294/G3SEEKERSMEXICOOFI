@@ -3,7 +3,7 @@
 @section('title', 'G3SEEKERS MX')
 
 @section('content_header')
-    <h1 class="text-center"><b>G3 Seekers México</b></h1>
+    <h1 class="text-center"><b>Bienvenido luis</b></h1>
 @stop
 
 @section('css')
