@@ -33,7 +33,7 @@
 
         @can('cliente.create')
             <div style="text-align:center; margin:auto; width: 100%;">
-                <a href="{{ url('cliente/create') }}" class="btn btn-success">Alta de Nuevo Usuario</a>
+                <a href="{{ url('cliente/create') }}" class="btn btn-success">Alta de Nuevo Usuario -> </a>
             </div>
         @endcan
 
