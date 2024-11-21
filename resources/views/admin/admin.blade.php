@@ -32,7 +32,7 @@
         </div>
     </div>
 
-    @auth
+    @auth,
     <form method="POST" action="{{ route('logout') }}">
         @csrf
         <div class="mt-3 text-center">
