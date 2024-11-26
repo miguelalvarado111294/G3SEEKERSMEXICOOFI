@@ -19,10 +19,9 @@
 @section('content_header')
     <h1 class="text-center"><b>G3 Seekers México</b></h1>
     <br>
-    <h3 class="text-center">Datos Personales</h3>
+    <h3 class="text-center">Asignar dispositivo</h3>
     <br>
 
-    <h1>Asignar Dispositivo</h1>
     <br>
     <form action=" {{ route('dispositivop.crear', $id) }} " method="post">
         @csrf
@@ -113,7 +112,7 @@
         <br>
 
         <div class="form-group">
-            <label>Fecha Compra:</label>
+            <label>Fecha Instalacion:</label>
             <input type="date" class="form-control" name="fechacompra" value="{{ old('fechacompra') }}">
             @error('fechacompra')
                 <small style="color: red">{{ $message }}</small>
@@ -124,9 +123,9 @@
 
 
         <div class="form-group">
-            <label>Precio</label>
-            <input type="text" class="form-control" name="precio" value="{{ old('precio') }}">
-            @error('precio')
+            <label>Ubicacion Dispositivo</label>
+            <input type="text" class="form-control" name="ubicaciondispositivo" value="{{ old('ubicaciondispositivo') }}">
+            @error('ubicaciondispositivo')
                 <small style="color: red">{{ $message }}</small>
             @enderror
             <br>

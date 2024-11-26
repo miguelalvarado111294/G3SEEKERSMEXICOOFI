@@ -71,7 +71,7 @@ class PruebaController extends Controller
     // Encuentra los espejos asociados a la cuenta
     $ctaespejos = Ctaespejo::where('cuenta_id', $id)->get();
 
-    return view('prueba.buscarctaespejo', [
+    return view('prueba.buscarCtaespejo', [
         'ctaespejos' => $ctaespejos,
         'id' => $id,
         'cliente_id' => $cliente_id,

@@ -22,6 +22,7 @@ class Dispositivo extends Model
         'sucursal',
         'fechacompra',
         'noeconomico',
+        'ubicaciondispositivo',
         'comentarios'
     ];
 

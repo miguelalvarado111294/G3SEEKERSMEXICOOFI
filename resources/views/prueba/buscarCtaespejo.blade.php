@@ -46,6 +46,7 @@
                             </div>
                             <div class="card-body">
                                 <p><strong>ID:</strong> {{ $ctaespejo->id }}</p>
+                                <p><strong>Usuario:</strong> {{ $ctaespejo->usuario }}</p>
                                 <p><strong>Contraseña:</strong> {{ $ctaespejo->contrasenia }}</p>
                                 <p><strong>Comentarios:</strong> {{ $ctaespejo->comentarios }}</p>
                             </div>

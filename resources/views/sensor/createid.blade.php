@@ -19,7 +19,7 @@
 @section('content_header')
 <h1 class="text-center"><b>G3 Seekers México</b></h1>
     <br>
-    <h3 class="text-center">Datos Personales</h3>
+    <h3 class="text-center">Agregar Sensor</h3>
     <br>
 
     <form action="{{ route('sensorp.crear', $id) }}" method="post">

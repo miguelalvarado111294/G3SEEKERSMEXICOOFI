@@ -19,7 +19,8 @@
 @section('content_header')
     <h1 class="text-center"><b>G3 Seekers México</b></h1>
     <br>
-    <h1 class="text-center">Cliente: {{ "{$cliente->nombre} {$cliente->segnombre} {$cliente->apellidopat} {$cliente->apellidomat}" }}</h1>
+    <h1 class="text-center">Cliente:
+        {{ "{$cliente->nombre} {$cliente->segnombre} {$cliente->apellidopat} {$cliente->apellidomat}" }}</h1>
 
     @if (session('mensaje'))
         <div class="alert alert-success alert-dismissible text-center" role="alert">
@@ -64,12 +65,12 @@
                         <p><strong>Modelo:</strong> {{ $value->modelo }}</p>
                         <p><strong>IMEI:</strong> {{ $value->imei }}</p>
                         <p><strong>Fecha de Instalación:</strong> {{ $value->fechacompra }}</p>
-                        <p><strong>ubicaciondispositivo:</strong> {{ $value->ubicaciondispositivo }}</p>
+                        <p><strong>Ubicacion Dispositivo:</strong> {{ $value->ubicaciondispositivo }}</p>
                         <p><strong>Sucursal:</strong> {{ $value->sucursal }}</p>
-                        
+
                         <p><strong>Observaciones:</strong> {{ $value->comentarios }}</p>
                         <br>
-                        <div class ="text-center"> 
+                        <div class ="text-center">
                             <a href="{{ route('buscar.linea', $value->id) }}" class="btn btn-primary btn-sm">Linea</a>
                             <a href="{{ route('buscar.sensor', $value->id) }}" class="btn btn-primary btn-sm">Sensor</a>
                         </div>
@@ -82,7 +83,8 @@
                             <form action="{{ route('dispositivo.destroy', $value->id) }}" method="post" class="d-inline">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de eliminar?')">Borrar</button>
+                                <button type="submit" class="btn btn-danger btn-sm"
+                                    onclick="return confirm('¿Estás seguro de eliminar?')">Borrar</button>
                             </form>
                         @endcan
                     </div>

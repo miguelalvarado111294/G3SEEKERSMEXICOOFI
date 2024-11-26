@@ -55,7 +55,11 @@ class DispositivoController extends Controller
 
         $datosCliente = array_merge($request->except('_token'), [
             'cliente_id' => $vehiculo->cliente_id,
-            'vehiculo_id' => $id
+            'vehiculo_id' => $id,
+            'ubicaciondispositivo' => $request->ubicaciondispositivo,
+
+            'precio' => 0 // Valor predeterminado para el campo precio
+
         ]);
 
         Dispositivo::create(array_map('strtoupper', $datosCliente));

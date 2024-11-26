@@ -74,6 +74,7 @@
                                         {{ $referencia->cliente->apellidomat }}
                                     </a>
                                 </td>{{-- campo para el cliente --}}
+
                                 <td>{{ $referencia->nombre }}</td>
                                 <td>{{ $referencia->segnombre }}</td>
                                 <td>{{ $referencia->apellidopat }}</td>
@@ -96,7 +97,6 @@
                                                 onclick=" return confirm('seguro quieres eliminar?')" value="Borrar">
                                         </form>
                                     @endcan
-
                                 </td>
 
                             </tr>
