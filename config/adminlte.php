@@ -353,11 +353,15 @@ return [
         'text' => 'Inventario',
         'route' => 'inventario.stok',
         'icon' => 'fas fa-warehouse', // Icono adecuado para "Inventario"
+        'can' => 'inventario'
+
     ],
     [
         'text' => 'Renovaciones',
         'route' => 'renovaciones',
         'icon' => 'fas fa-sync', // Icono adecuado para "Inventario"
+        'can' => 'renovaciones'
+
     ],
 
     [

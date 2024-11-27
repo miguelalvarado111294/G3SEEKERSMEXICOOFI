@@ -18,21 +18,26 @@
 
     <!-- jQuery UI CSS -->
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.min.css">
+
+    <style>
+        .logo-image {
+            display: block;
+            margin: 20px auto;
+            max-width: 100%;
+            height: auto;
+            width: 800px; /* Define un ancho predeterminado */
+        }
+    </style>
 @endsection
 
 @section('content')
     <p class="text-center">Bienvenido, <strong>{{ Auth::check() ? Auth::user()->name : 'Invitado' }}</strong>, al Panel de
         Control</p>
 
-    <div class="card my-4">
-        <div class="card-body">
-            <div class="row justify-content-center">
-                <img src="{{ asset('storage/logo.png') }}" alt="Logo" width="600">
-            </div>
-        </div>
-    </div>
+    <!-- Imagen centrada y más grande -->
+    <img src="{{ asset('storage/logo.png') }}" alt="Logo" class="logo-image">
 
-    @auth,
+    @auth
     <form method="POST" action="{{ route('logout') }}">
         @csrf
         <div class="mt-3 text-center">
@@ -41,10 +46,8 @@
             </button>
         </div>
     </form>
-@endauth
+    @endauth
 @stop
-
-
 
 @section('js')
     <!-- jQuery -->

@@ -73,7 +73,7 @@
                                 <td>
                                     <a href="{{ route('buscar.linea', $linea->dispositivo_id) }}" class="btn btn-default"
                                        style="text-align: center; display: inline-block; width: 100%;">
-                                        Ver detalles de: {{ $linea->id }}
+                                        Ver detalles 
                                     </a>
                                 </td>
                                 <td>{{ $linea->simcard }}</td>

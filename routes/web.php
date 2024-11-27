@@ -6,8 +6,8 @@ use App\Http\Controllers\UsuarioController;
 
 Auth::routes(['register'=>false,'reset'=>false]);
 
-Route::group(['middleware' => 'auth'], function () {
 
+Route::group(['middleware' => 'auth'], function () {
     Route::get('/', [App\Http\Controllers\AdminController::class, 'index'])->name('admin.index');
     Route::get('/home', [App\Http\Controllers\AdminController::class, 'index']);
 

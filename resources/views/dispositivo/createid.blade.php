@@ -16,11 +16,18 @@
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.min.css">
 @endsection
 
+
+
+
 @section('content_header')
     <h1 class="text-center"><b>G3 Seekers México</b></h1>
     <br>
     <h3 class="text-center">Asignar dispositivo</h3>
     <br>
+
+    <a href="" class="btn btn-primary btn-sm">Asignar Desde Inventario</a>
+
+
 
     <br>
     <form action=" {{ route('dispositivop.crear', $id) }} " method="post">

@@ -83,5 +83,12 @@ class RoleSeeder extends Seeder
         //generar documentos
         Permission::create(['name' => 'crear.orden'])->syncRoles([$role1, $role3]);
         Permission::create(['name' => 'crear.cita'])->syncRoles([$role1, $role3]);
+
+
+        Permission::create(['name' => 'inventario'])->syncRoles([$role1, $role4]);
+
+        Permission::create(['name' => 'renovaciones'])->syncRoles([$role1, $role2]);
+
+
     }
 }

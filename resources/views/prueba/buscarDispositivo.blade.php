@@ -32,7 +32,7 @@
     @endif
 
 
-
+<br>
     @can('dispositivo.create')
         @if ($numerodedispositivos <= 0)
             <div class="text-center">
@@ -40,7 +40,7 @@
             </div>
         @endif
     @endcan
-
+<br>
     @can('crear.cita')
         <div class="text-center">
             <a href="{{ route('crear.cita', $vehiculo) }}" class="btn btn-warning">Generar orden</a>
