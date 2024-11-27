@@ -35,7 +35,7 @@
         Control</p>
 
     <!-- Imagen centrada y más grande -->
-    <img src="{{ asset('storage/logo.png') }}" alt="Logo" class="logo-image">
+    <img src="{{ asset('logo.png') }}" alt="Logo" class="logo-image">
 
     @auth
     <form method="POST" action="{{ route('logout') }}">
