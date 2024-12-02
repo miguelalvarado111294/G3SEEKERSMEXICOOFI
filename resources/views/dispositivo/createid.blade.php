@@ -3,8 +3,12 @@
 @section('title', 'G3SEEKERSMX')
 
 @section('css')
-    <!-- Agregar estilos si es necesario -->
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Estilos de AdminLTE -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.0.5/dist/css/adminlte.min.css">
 @endsection
+
 
 @section('content_header')
     <h1 class="text-center"><b>G3 Seekers México</b></h1>
@@ -17,14 +21,13 @@
         <label for="tipoRegistro">Seleccione una opción:</label>
         <select id="tipoRegistro" class="form-control" onchange="toggleForms()">
             <option value="">Seleccione...</option>
-           
-           
-            @can('cliente.create')
 
-            <option value="inventario">Agregar desde Inventario</option>
+
+            @can('cliente.create')
+                <option value="inventario">Agregar desde Inventario</option>
             @endcan
 
-           
+
             <option value="manual">Agregar Manualmente</option>
         </select>
     </div>
@@ -183,7 +186,12 @@
 @stop
 
 @section('js')
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Bootstrap JS CDN -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <!-- AdminLTE JS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.0.5/dist/js/adminlte.min.js"></script>
+    <!-- Script adicional para el formulario -->
 
     <script>
         function toggleForms() {
