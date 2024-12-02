@@ -52,20 +52,19 @@ class DispositivoController extends Controller
         return response()->json($dispositivo);
     }
 
-
     public function stodis(Request $request, $id)
     {
         // Busca el vehículo por ID
         $vehiculo = Vehiculo::findOrFail($id);
-
+    
         // Valida los datos del formulario
         $request->validate($this->validationRules($id));
-
+    
         // Busca un dispositivo existente con el mismo `noserie` o `imei` (según tus reglas de negocio)
         $dispositivoExistente = Dispositivo::where('imei', $request->imei)
             ->orWhere('noserie', $request->noserie)
             ->first();
-
+    
         if ($dispositivoExistente) {
             // Fusiona los datos del dispositivo existente con los datos enviados en el formulario
             $datosActualizados = array_merge(
@@ -75,31 +74,37 @@ class DispositivoController extends Controller
                     'cliente_id' => $vehiculo->cliente_id, // Asegúrate de asignar cliente y vehículo correctos
                     'vehiculo_id' => $id,
                     'ubicaciondispositivo' => $request->ubicaciondispositivo,
-
-                    'precio' => $request->precio ?? $dispositivoExistente->precio, // Mantén precio si no se envía
+                    'precio' => $dispositivoExistente->precio, // Conserva el precio existente
                 ]
             );
-
+    
+            // Si el precio es proporcionado en el formulario, actualízalo
+            if ($request->filled('precio')) {
+                $datosActualizados['precio'] = $request->precio;
+            }
+    
             // Actualiza el dispositivo con los datos combinados
             $dispositivoExistente->update($datosActualizados);
+    
         } else {
             // Si no existe, crea un nuevo dispositivo combinando datos del formulario y valores por defecto
             $datosCliente = array_merge(
-                $request->except('_token'),
+                $request->except('_token'), 
                 [
                     'cliente_id' => $vehiculo->cliente_id,
                     'vehiculo_id' => $id,
                     'ubicaciondispositivo' => $request->ubicaciondispositivo,
-                    'precio' => $request->precio ?? 0,
+                    'precio' => $request->precio ?? 0, // Usa el precio proporcionado o 0 por defecto
                 ]
             );
-
+    
             Dispositivo::create(array_map('strtoupper', $datosCliente));
         }
-
+    
         // Redirige a la vista de búsqueda de dispositivos para el vehículo actual
         return redirect()->route('buscar.dispositivo', $id);
     }
+    
 
 
 

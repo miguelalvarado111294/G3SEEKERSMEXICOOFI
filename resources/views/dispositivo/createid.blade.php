@@ -151,9 +151,9 @@
 
                     <div class="form-group">
                         <label>Fecha Instalación:</label>
-                        <input type="date" class="form-control" name="fechacompra" id="fechacompra"
-                            value="{{ old('fechacompra') }}">
-                        @error('fechacompra')
+                        <input type="date" class="form-control" name="fechadeinstalacion" id="fechadeinstalacion"
+                            value="{{ old('fechadeinstalacion') }}">
+                        @error('fechadeinstalacion')
                             <small style="color: red">{{ $message }}</small>
                         @enderror
                     </div>
