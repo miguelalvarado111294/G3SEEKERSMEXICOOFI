@@ -36,6 +36,7 @@
 
     <!-- Imagen centrada y más grande -->
     <img src="{{ asset('logo.png') }}" alt="Logo" class="logo-image">
+<br><br><br><br>
 
     @auth
     <form method="POST" action="{{ route('logout') }}">

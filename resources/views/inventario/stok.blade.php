@@ -40,17 +40,18 @@
     @endif
 
     <div class="form-group mt-4">
-        <a href="{{route('inventarioadd')}}" class="btn btn-success">Añadir articulo al inventario </a>
+        <a href="{{ route('inventarioadd') }}" class="btn btn-success">Añadir articulo al inventario </a>
     </div>
 
-<h3>Dispositivos Disponibles</h3>
+    <h3>Dispositivos Disponibles</h3>
     <!-- Dispositivos Asociados -->
-    @if($dispositivos->isEmpty())
+    @if ($dispositivos->isEmpty())
         <p class="text-center">No hay dispositivos relacionados con este cliente.</p>
     @else
         <!-- Tabla de Dispositivos -->
         <div class="table-responsive">
-            <table class="table table-striped table-hover table-bordered mx-auto" style="max-width: 95%; background-color: #f8f9fa;">
+            <table class="table table-striped table-hover table-bordered mx-auto"
+                style="max-width: 95%; background-color: #f8f9fa;">
                 <thead class="thead-light">
                     <tr>
                         <th>Modelo</th>
@@ -58,18 +59,18 @@
                         <th>IMEI</th>
                         <th>Fecha de Compra</th>
                         <th>Precio</th>
-                        <th>Comentarios</th>
+                        <th>vehiculo_id</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($dispositivos as $dispositivo)
+                    @foreach ($dispositivos as $dispositivo)
                         <tr>
                             <td>{{ $dispositivo->modelo }}</td>
                             <td>{{ $dispositivo->noserie }}</td>
                             <td>{{ $dispositivo->imei }}</td>
                             <td>{{ $dispositivo->fechacompra }}</td>
                             <td>${{ $dispositivo->precio }}</td>
-                            <td>{{ $dispositivo->comentarios }}</td>
+                            <td>{{ $dispositivo->vehiculo_id }}</td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -80,12 +81,13 @@
     <h3>Lineas Disponibles</h3>
 
     <!-- Líneas Asociadas -->
-    @if($lineas->isEmpty())
+    @if ($lineas->isEmpty())
         <p class="text-center">No hay líneas asociadas a este cliente.</p>
     @else
         <!-- Tabla de Líneas -->
         <div class="table-responsive mt-4">
-            <table class="table table-striped table-hover table-bordered mx-auto" style="max-width: 95%; background-color: #f8f9fa;">
+            <table class="table table-striped table-hover table-bordered mx-auto"
+                style="max-width: 95%; background-color: #f8f9fa;">
                 <thead class="thead-light">
                     <tr>
                         <th>Simcard</th>
@@ -96,7 +98,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($lineas as $linea)
+                    @foreach ($lineas as $linea)
                         <tr>
                             <td>{{ $linea->simcard }}</td>
                             <td>{{ $linea->telefono }}</td>
@@ -130,50 +132,50 @@
     <!-- AdminLTE JS -->
     <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/js/adminlte.min.js"></script>
 
- 
-<script>
-    // Función para mostrar u ocultar formularios dependiendo de la selección
-    function toggleForms() {
-        const tipoRegistro = document.getElementById('tipoRegistro').value;
 
-        // Ocultar ambos formularios inicialmente
-        document.getElementById('dispositivoForm').style.display = 'none';
-        document.getElementById('lineaForm').style.display = 'none';
+    <script>
+        // Función para mostrar u ocultar formularios dependiendo de la selección
+        function toggleForms() {
+            const tipoRegistro = document.getElementById('tipoRegistro').value;
 
-        // Mostrar el formulario correspondiente según la selección
-        if (tipoRegistro === 'dispositivo') {
-            document.getElementById('dispositivoForm').style.display = 'block';
+            // Ocultar ambos formularios inicialmente
+            document.getElementById('dispositivoForm').style.display = 'none';
             document.getElementById('lineaForm').style.display = 'none';
 
-            // Deshabilitar los campos de línea
-            document.querySelectorAll('#lineaForm input, #lineaForm select').forEach(function (input) {
-                input.disabled = true;
-            });
+            // Mostrar el formulario correspondiente según la selección
+            if (tipoRegistro === 'dispositivo') {
+                document.getElementById('dispositivoForm').style.display = 'block';
+                document.getElementById('lineaForm').style.display = 'none';
 
-            // Habilitar los campos de dispositivo
-            document.querySelectorAll('#dispositivoForm input').forEach(function (input) {
-                input.disabled = false;
-            });
-        } else if (tipoRegistro === 'linea') {
-            document.getElementById('lineaForm').style.display = 'block';
-            document.getElementById('dispositivoForm').style.display = 'none';
+                // Deshabilitar los campos de línea
+                document.querySelectorAll('#lineaForm input, #lineaForm select').forEach(function(input) {
+                    input.disabled = true;
+                });
 
-            // Deshabilitar los campos de dispositivo
-            document.querySelectorAll('#dispositivoForm input').forEach(function (input) {
-                input.disabled = true;
-            });
+                // Habilitar los campos de dispositivo
+                document.querySelectorAll('#dispositivoForm input').forEach(function(input) {
+                    input.disabled = false;
+                });
+            } else if (tipoRegistro === 'linea') {
+                document.getElementById('lineaForm').style.display = 'block';
+                document.getElementById('dispositivoForm').style.display = 'none';
 
-            // Habilitar los campos de línea
-            document.querySelectorAll('#lineaForm input, #lineaForm select').forEach(function (input) {
-                input.disabled = false;
-            });
+                // Deshabilitar los campos de dispositivo
+                document.querySelectorAll('#dispositivoForm input').forEach(function(input) {
+                    input.disabled = true;
+                });
+
+                // Habilitar los campos de línea
+                document.querySelectorAll('#lineaForm input, #lineaForm select').forEach(function(input) {
+                    input.disabled = false;
+                });
+            }
         }
-    }
 
-    // Inicializar el formulario con la opción de tipoRegistro que el usuario haya seleccionado
-    document.addEventListener('DOMContentLoaded', function () {
-        toggleForms();
-    });
-</script>
+        // Inicializar el formulario con la opción de tipoRegistro que el usuario haya seleccionado
+        document.addEventListener('DOMContentLoaded', function() {
+            toggleForms();
+        });
+    </script>
 
 @stop

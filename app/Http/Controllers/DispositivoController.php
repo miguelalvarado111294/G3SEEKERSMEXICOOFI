@@ -11,7 +11,6 @@ use Illuminate\Http\Request;
 class DispositivoController extends Controller
 {
 
-
     public function index(Request $request)
     {
         $busqueda = $request->get('busqueda');
@@ -20,9 +19,9 @@ class DispositivoController extends Controller
         // Construir la consulta
         $query = Dispositivo::where(function ($query) use ($busqueda) {
             $query->where('id', 'LIKE', "%{$busqueda}%")
-                  ->orWhere('imei', 'LIKE', "%{$busqueda}%")
-                  ->orWhere('cuenta', $busqueda)
-                  ->orWhere('noeconomico', 'LIKE', "%{$busqueda}%");
+                ->orWhere('imei', 'LIKE', "%{$busqueda}%")
+                ->orWhere('cuenta', $busqueda)
+                ->orWhere('noeconomico', 'LIKE', "%{$busqueda}%");
         });
 
         // Si se selecciona un mes, filtramos por el mes en la columna fechacompra
@@ -37,35 +36,47 @@ class DispositivoController extends Controller
 
         return view('dispositivo.index', compact('dispositivos', 'busqueda', 'totalDispositivos'));
     }
-    
-    
-
-
 
     public function creardisp($id)
     {
-        return view('dispositivo.createid', compact('id'));
+        $vehiculoinventarioid = 1512;
+        $dispositivosinventario = Dispositivo::where('vehiculo_id', $vehiculoinventarioid)->get();
+        $vehiculo = Vehiculo::findOrFail($id);
+        return view('dispositivo.createid', compact('id','dispositivosinventario'));
     }
+
+    public function obtenerDispositivo($id)
+    {
+        $dispositivo = Dispositivo::findOrFail($id);
+    
+        return response()->json($dispositivo);
+    }
+    
+
 
     public function stodis(Request $request, $id)
     {
+
+        // Verifica que la variable esté obteniendo datos
+    
         $vehiculo = Vehiculo::findOrFail($id);
-
         $request->validate($this->validationRules($id));
-
+    
         $datosCliente = array_merge($request->except('_token'), [
             'cliente_id' => $vehiculo->cliente_id,
             'vehiculo_id' => $id,
             'ubicaciondispositivo' => $request->ubicaciondispositivo,
-
-            'precio' => 0 // Valor predeterminado para el campo precio
-
+            'precio' => 0
         ]);
-
-        Dispositivo::create(array_map('strtoupper', $datosCliente));
-
-        return redirect()->route('buscar.dispositivo', $id);
+    
+        $dispositivo = Dispositivo::create(array_map('strtoupper', $datosCliente));
+    
+        // Asegúrate de que la variable se pasa correctamente
+        return view('buscar.dispositivo', compact('id', 'dispositivo', 'vehiculo', 'dispositivosinventario'));
     }
+    
+    
+
 
     public function edit($id)
     {

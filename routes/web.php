@@ -71,7 +71,16 @@ Route::group(['middleware' => 'auth'], function () {
     Route::prefix('dispositivo')->group(function () {
         Route::get('creardisp/{id}', [App\Http\Controllers\DispositivoController::class, 'creardisp'])->name('dispositivof.crear');
         Route::post('{id}', [App\Http\Controllers\DispositivoController::class, 'stodis'])->name('dispositivop.crear');
+
+
+
+        
     });
+
+    Route::get('/ruta/a/tu/controlador/{id}', [App\Http\Controllers\DispositivoController::class, 'obtenerDispositivo']);
+
+    Route::get('/dispositivo/{id}', [App\Http\Controllers\DispositivoController::class, 'getDispositivo']);
+
 
     Route::prefix('sensor')->group(function () {
         Route::get('crearsens/{id}', [App\Http\Controllers\SensorController::class, 'crearsens'])->name('sensorf.crear');
