@@ -13,6 +13,8 @@ class Dispositivo extends Model
 
     protected $fillable = [
         'modelo',
+        'plataforma_id',
+        'fechainstalacion',
         'noserie',
         'imei',
         'cliente_id',

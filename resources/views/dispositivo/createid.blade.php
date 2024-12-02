@@ -50,6 +50,7 @@
             @enderror
         </div>
 
+
         <!-- Botón para cargar los datos del dispositivo seleccionado -->
         <button type="button" class="btn btn-primary" id="mostrarFormulario" style="display: none;">Editar
             Dispositivo</button>
@@ -64,6 +65,7 @@
             <div class="card-body">
                 <form action="{{ route('dispositivop.crear', $id) }}" method="post">
                     @csrf
+                    <input type="hidden" name="vehiculo_id" id="vehiculo_id" value="{{ old('vehiculo_id', $id) }}">
 
                     <!-- Campos del formulario -->
                     <div class="form-group">

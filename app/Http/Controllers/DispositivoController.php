@@ -42,40 +42,67 @@ class DispositivoController extends Controller
         $vehiculoinventarioid = 1512;
         $dispositivosinventario = Dispositivo::where('vehiculo_id', $vehiculoinventarioid)->get();
         $vehiculo = Vehiculo::findOrFail($id);
-        return view('dispositivo.createid', compact('id','dispositivosinventario'));
+        return view('dispositivo.createid', compact('id', 'dispositivosinventario'));
     }
 
     public function obtenerDispositivo($id)
     {
         $dispositivo = Dispositivo::findOrFail($id);
-    
+
         return response()->json($dispositivo);
     }
-    
 
 
     public function stodis(Request $request, $id)
     {
-
-        // Verifica que la variable esté obteniendo datos
-    
+        // Busca el vehículo por ID
         $vehiculo = Vehiculo::findOrFail($id);
+
+        // Valida los datos del formulario
         $request->validate($this->validationRules($id));
-    
-        $datosCliente = array_merge($request->except('_token'), [
-            'cliente_id' => $vehiculo->cliente_id,
-            'vehiculo_id' => $id,
-            'ubicaciondispositivo' => $request->ubicaciondispositivo,
-            'precio' => 0
-        ]);
-    
-        $dispositivo = Dispositivo::create(array_map('strtoupper', $datosCliente));
-    
-        // Asegúrate de que la variable se pasa correctamente
-        return view('buscar.dispositivo', compact('id', 'dispositivo', 'vehiculo', 'dispositivosinventario'));
+
+        // Busca un dispositivo existente con el mismo `noserie` o `imei` (según tus reglas de negocio)
+        $dispositivoExistente = Dispositivo::where('imei', $request->imei)
+            ->orWhere('noserie', $request->noserie)
+            ->first();
+
+        if ($dispositivoExistente) {
+            // Fusiona los datos del dispositivo existente con los datos enviados en el formulario
+            $datosActualizados = array_merge(
+                $dispositivoExistente->toArray(), // Datos existentes
+                $request->except('_token'), // Datos ingresados en el formulario
+                [
+                    'cliente_id' => $vehiculo->cliente_id, // Asegúrate de asignar cliente y vehículo correctos
+                    'vehiculo_id' => $id,
+                    'ubicaciondispositivo' => $request->ubicaciondispositivo,
+
+                    'precio' => $request->precio ?? $dispositivoExistente->precio, // Mantén precio si no se envía
+                ]
+            );
+
+            // Actualiza el dispositivo con los datos combinados
+            $dispositivoExistente->update($datosActualizados);
+        } else {
+            // Si no existe, crea un nuevo dispositivo combinando datos del formulario y valores por defecto
+            $datosCliente = array_merge(
+                $request->except('_token'),
+                [
+                    'cliente_id' => $vehiculo->cliente_id,
+                    'vehiculo_id' => $id,
+                    'ubicaciondispositivo' => $request->ubicaciondispositivo,
+                    'precio' => $request->precio ?? 0,
+                ]
+            );
+
+            Dispositivo::create(array_map('strtoupper', $datosCliente));
+        }
+
+        // Redirige a la vista de búsqueda de dispositivos para el vehículo actual
+        return redirect()->route('buscar.dispositivo', $id);
     }
-    
-    
+
+
+
 
 
     public function edit($id)
@@ -124,9 +151,8 @@ class DispositivoController extends Controller
     {
         return [
             'modelo' => 'required|string|min:2|max:100',
-            'noserie' => 'nullable|alpha_dash|min:20|unique:dispositivos,noserie' . ($id ? ",$id" : ''),
-            'imei' => 'required|string|min:15|max:20|regex:/^[0-9-]+$/|unique:dispositivos,imei' . ($id ? ",$id" : ''),
-
+            'noserie' => 'nullable|alpha_dash|min:20',
+            'imei' => 'required|string|min:15|max:20',
         ];
     }
 

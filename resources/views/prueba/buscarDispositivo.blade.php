@@ -32,7 +32,7 @@
     @endif
 
 
-<br>
+    <br>
     @can('dispositivo.create')
         @if ($numerodedispositivos <= 0)
             <div class="text-center">
@@ -40,7 +40,7 @@
             </div>
         @endif
     @endcan
-<br>
+    <br>
     @can('crear.cita')
         <div class="text-center">
             <a href="{{ route('crear.cita', $vehiculo) }}" class="btn btn-warning">Generar orden</a>
@@ -59,12 +59,11 @@
                     </div>
                     <div class="card-body">
                         <p><strong>platadorma_id:</strong> {{ $value->plataforma_id }}</p>
-
                         <p><strong>noeconomico:</strong> {{ $value->noeconomico }}</p>
                         <p><strong>Cuenta:</strong> {{ $value->cuenta }}</p>
                         <p><strong>Modelo:</strong> {{ $value->modelo }}</p>
                         <p><strong>IMEI:</strong> {{ $value->imei }}</p>
-                        <p><strong>Fecha de Instalación:</strong> {{ $value->fechacompra }}</p>
+                        <p><strong>Fecha de Instalación:</strong> {{ $value->fechadeinstalacion }}</p>
                         <p><strong>Ubicacion Dispositivo:</strong> {{ $value->ubicaciondispositivo }}</p>
                         <p><strong>Sucursal:</strong> {{ $value->sucursal }}</p>
 
