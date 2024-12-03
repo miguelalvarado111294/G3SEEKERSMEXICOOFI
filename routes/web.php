@@ -72,10 +72,10 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('creardisp/{id}', [App\Http\Controllers\DispositivoController::class, 'creardisp'])->name('dispositivof.crear');
         Route::post('{id}', [App\Http\Controllers\DispositivoController::class, 'stodis'])->name('dispositivop.crear');
 
-
-
         
     });
+
+    Route::put('/linea/{linea}', [App\Http\Controllers\LineaController::class, 'updateLinea'])->name('linea.update');
 
     Route::get('/ruta/a/tu/controlador/{id}', [App\Http\Controllers\DispositivoController::class, 'obtenerDispositivo']);
 

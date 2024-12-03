@@ -15,13 +15,13 @@ class LineaController extends Controller
         $lineas = Linea::where('simcard', 'LIKE', "%{$busqueda}%")
             ->orWhere('telefono', 'LIKE', "%{$busqueda}%")
             ->paginate(10);
-            
+
         // Contar el número total de líneas
         $totalLineas = Linea::count();
-    
+
         return view('linea.index', compact('lineas', 'busqueda', 'totalLineas'));
     }
-    
+
 
     public function create()
     {
@@ -47,37 +47,64 @@ class LineaController extends Controller
 
     public function crearlinea($id)
     {
-        return view('linea.createid', ['id' => $id]);
+        //id es id de dispositivo
+        $dispositivoinventario = 1512;
+        $lineasinventario = Linea::where('dispositivo_id', $dispositivoinventario)->get();
+        return view('linea.createid', compact('id', 'lineasinventario'));
     }
 
-    public function storep(Request $request, $dispositivoid)
-{
-    // Asegúrate de que el dispositivo existe
-    $dispositivo = Dispositivo::findOrFail($dispositivoid);
 
-    // Validación de los datos de entrada
-    $request->validate([
-        'simcard' => 'required|alpha_dash|min:3|max:18',
-        'telefono' => 'required|numeric|digits:10',
-        'comentarios' => 'nullable|alpha|min:10|max:100'
-    ]);
 
-    // Prepara los datos para la creación de la línea
-    $datosLinea = [
-        'simcard' => strtoupper($request->simcard),
-        'telefono' => $request->telefono,
-        'tipolinea' => $request->tipolinea, // Asegúrate de incluir esto
-        'renovacion' => $request->renovacion,
-        'comentarios' => $request->comentarios,
-        'cliente_id' => $dispositivo->cliente_id,
-        'dispositivo_id' => $dispositivo->id
-    ];
-    // Crea la línea
-    Linea::create($datosLinea);
 
-    // Redirecciona al usuario a la vista de búsqueda de líneas
-    return redirect()->route('buscar.linea', $dispositivoid);
-}
+    public function storep(Request $request, $lineaId)
+    {
+        $dispostivo_id = $lineaId;
+        $dispositivo = Dispositivo::find($dispostivo_id);
+        $cliente_id = $dispositivo->cliente_id;
+        // Verifica si el origen es "manual" o "desde inventario"
+        if ($request->origen == 'manual') {
+
+
+
+            $request->validate([
+                'simcard' => 'required|alpha_dash|min:3|max:18',
+                'telefono' => 'required|numeric|digits:10',
+                'tipolinea' => 'required',
+                'renovacion' => 'required|date',
+                'comentarios' => 'nullable'
+                // Verifica que el cliente exista
+            ]);
+            // Crear nueva línea en la base de datos
+            $linea = new Linea();
+            $linea->simcard = $request->simcard;
+            $linea->telefono = $request->telefono;
+            $linea->tipolinea = $request->tipolinea;
+            $linea->renovacion = $request->renovacion;
+            $linea->comentarios = $request->comentarios;
+            $linea->dispositivo_id = $dispostivo_id;
+            $linea->cliente_id = $cliente_id;         // Asocia al cliente
+            $linea->save();  // Guarda la nueva línea en la base de datos
+
+            // Redirige a una vista o retorna una respuesta
+            return redirect()->route('buscar.linea', $linea->dispositivo_id)
+                ->with('mensaje', 'Línea creada exitosamente.');
+        } else if ($request->origen == 'inventario' && $request->inventario) {
+            // Si viene de inventario, actualizamos el dispositivo_id
+            $linea = Linea::findOrFail($request->inventario); // Encuentra la línea por su ID en inventario
+            $linea->cliente_id = $cliente_id; // Asocia al dispositivo
+            $linea->dispositivo_id = $dispostivo_id; // Asocia al dispositivo
+            $linea->save(); // Guarda los cambios
+
+            // Redirige con mensaje de éxito
+            return redirect()->route('buscar.linea', $linea->dispositivo_id)
+                ->with('mensaje', 'Línea actualizada exitosamente.');
+        } else {
+            // Si no se selecciona un origen válido
+            return redirect()->back()->with('error', 'Origen no válido o línea no encontrada.');
+        }
+    }
+
+
 
     public function edit($id)
     {
@@ -96,13 +123,13 @@ class LineaController extends Controller
             'tipolinea' => 'required|string', // Acepta espacios
             'renovacion' => 'required|date' // Cambiado a tipo fecha
         ]);
-    
+
         $datosLinea = $request->except(['_token', '_method']);
         Linea::where('id', $id)->update($datosLinea);
-    
+
         return redirect()->route('buscar.linea', Linea::findOrFail($id)->dispositivo_id);
     }
-    
+
 
     public function destroy($id)
     {

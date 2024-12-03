@@ -19,6 +19,9 @@ class Linea extends Model
         'dispositivo_id'
     ];
 
+
+
+    
     public function cliente()
     {
 
