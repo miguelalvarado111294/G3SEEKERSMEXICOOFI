@@ -57,52 +57,45 @@ class LineaController extends Controller
 
 
     public function storep(Request $request, $lineaId)
-    {
-        $dispostivo_id = $lineaId;
-        $dispositivo = Dispositivo::find($dispostivo_id);
-        $cliente_id = $dispositivo->cliente_id;
-        // Verifica si el origen es "manual" o "desde inventario"
-        if ($request->origen == 'manual') {
+{
+    $dispostivo_id = $lineaId;
+    $dispositivo = Dispositivo::find($dispostivo_id);
+    $cliente_id = $dispositivo->cliente_id;
 
+    if ($request->origen == 'manual') {
 
+        $request->validate([
+            'simcard' => 'required|numeric|min:3|max:18',
+            'telefono' => 'required|numeric|digits:10',
+            'tipolinea' => 'required',
+            'renovacion' => 'required|date',
+            'comentarios' => 'nullable'
+        ]);
 
-            $request->validate([
-                'simcard' => 'required|alpha_dash|min:3|max:18',
-                'telefono' => 'required|numeric|digits:10',
-                'tipolinea' => 'required',
-                'renovacion' => 'required|date',
-                'comentarios' => 'nullable'
-                // Verifica que el cliente exista
-            ]);
-            // Crear nueva línea en la base de datos
-            $linea = new Linea();
-            $linea->simcard = $request->simcard;
-            $linea->telefono = $request->telefono;
-            $linea->tipolinea = $request->tipolinea;
-            $linea->renovacion = $request->renovacion;
-            $linea->comentarios = $request->comentarios;
-            $linea->dispositivo_id = $dispostivo_id;
-            $linea->cliente_id = $cliente_id;         // Asocia al cliente
-            $linea->save();  // Guarda la nueva línea en la base de datos
+        $linea = new Linea();
+        $linea->simcard = $request->simcard;
+        $linea->telefono = $request->telefono;
+        $linea->tipolinea = $request->tipolinea;
+        $linea->renovacion = $request->renovacion;
+        $linea->comentarios = $request->comentarios;
+        $linea->dispositivo_id = $dispostivo_id;
+        $linea->cliente_id = $cliente_id;
+        $linea->save();
 
-            // Redirige a una vista o retorna una respuesta
-            return redirect()->route('buscar.linea', $linea->dispositivo_id)
-                ->with('mensaje', 'Línea creada exitosamente.');
-        } else if ($request->origen == 'inventario' && $request->inventario) {
-            // Si viene de inventario, actualizamos el dispositivo_id
-            $linea = Linea::findOrFail($request->inventario); // Encuentra la línea por su ID en inventario
-            $linea->cliente_id = $cliente_id; // Asocia al dispositivo
-            $linea->dispositivo_id = $dispostivo_id; // Asocia al dispositivo
-            $linea->save(); // Guarda los cambios
+        return redirect()->route('buscar.linea', $linea->dispositivo_id)
+            ->with('mensaje', 'Línea creada exitosamente.');
+    } else if ($request->origen == 'inventario' && $request->inventario) {
+        $linea = Linea::findOrFail($request->inventario);
+        $linea->cliente_id = $cliente_id;
+        $linea->dispositivo_id = $dispostivo_id;
+        $linea->save();
 
-            // Redirige con mensaje de éxito
-            return redirect()->route('buscar.linea', $linea->dispositivo_id)
-                ->with('mensaje', 'Línea actualizada exitosamente.');
-        } else {
-            // Si no se selecciona un origen válido
-            return redirect()->back()->with('error', 'Origen no válido o línea no encontrada.');
-        }
+        return redirect()->route('buscar.linea', $linea->dispositivo_id)
+            ->with('mensaje', 'Línea actualizada exitosamente.');
+    } else {
+        return redirect()->back()->with('error', 'Origen no válido o línea no encontrada.');
     }
+}
 
 
 
