@@ -79,13 +79,16 @@
             <label>Seleccione Cuenta:</label>
 
             <select name="cuenta" class="form-control">
-                <option value="A">A</option>
                 <option value="E">E</option>
                 <option value="E2">E2</option>
                 <option value="F">F</option>
                 <option value="G">G</option>
-                <option value="H">H</option>
                 <option value="J">J</option>
+                <option value="K">K</option>
+                <option value="Tijuani">Tijuani</option>
+
+                
+
             </select>
             @error('cuenta')
                 <small style ="color: red"> {{ $message }}</small>
