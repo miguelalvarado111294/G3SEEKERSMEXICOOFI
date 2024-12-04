@@ -145,15 +145,17 @@
             });
 
             $('#dispositivo_inventario').change(function() {
-                var dispositivo = $(this).find(':selected');
-                $('#modelo').val(dispositivo.data('modelo'));
-                $('#noserie').val(dispositivo.data('noserie'));
-                $('#imei').val(dispositivo.data('imei'));
-                $('#fechacompra').val(dispositivo.data('fechacompra'));
-                $('#precio').val(dispositivo.data('precio'));
-                $('#dispositivo_id').val(dispositivo.val());
-                $('#formulario-manual').show();
-            });
+    var dispositivo = $(this).find(':selected');
+    $('#modelo').val(dispositivo.data('modelo'));
+    $('#noserie').val(dispositivo.data('noserie'));
+    $('#imei').val(dispositivo.data('imei'));
+    $('#fechacompra').val(dispositivo.data('fechacompra'));
+    $('#precio').val(dispositivo.data('precio'));
+    $('#dispositivo_id').val(dispositivo.val());
+    $('#formulario-inventario').hide();
+    $('#formulario-manual').show();
+});
+
         });
     </script>
 @endsection
