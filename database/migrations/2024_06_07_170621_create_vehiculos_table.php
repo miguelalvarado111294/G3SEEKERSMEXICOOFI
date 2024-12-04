@@ -25,12 +25,8 @@ return new class extends Migration
 
 
             $table->bigInteger('cliente_id')->unsigned();
-            //  $table->bigInteger('dispositivo_id')->unsigned()->nullable();;
-            //            $table->bigInteger('cuenta_id')     ->unsigned();
-
-            //    $table->foreign('dispositivo_id')	->references('id')->on('dispositivos')	->onDelete('cascade')->onUpdate('cascade');
+            
             $table->foreign('cliente_id')->references('id')->on('clientes')->onDelete('cascade')->onUpdate('cascade');
-            //	        $table->foreign('cuenta_id')        ->references('id')->on('cuentas')       ->onDelete('cascade')->onUpdate('cascade');
 
             $table->timestamps();
         });

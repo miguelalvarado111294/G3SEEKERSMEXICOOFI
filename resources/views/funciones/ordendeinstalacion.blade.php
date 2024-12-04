@@ -3,16 +3,9 @@
 @section('title', 'G3SEEKERS MX')
 
 @section('css')
-    <!-- AdminLTE CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/css/adminlte.min.css">
-
-    <!-- Font Awesome (iconos) -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
-
-    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-
-    <!-- jQuery UI CSS -->
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.min.css">
 @endsection
 
@@ -25,62 +18,73 @@
     <form action="{{ route('ordenins') }}" method="post">
         @csrf
 
+        <!-- Selector de Cliente -->
         <div class="form-group">
-            <label>Tipo de Línea:</label>
-            <select name="cliente" class="form-control">
+            <label>Seleccione al Cliente:</label>
+            <select id="cliente" name="cliente" class="form-control">
                 <option value="">--Seleccione al Cliente--</option>
                 @foreach ($clientes as $cliente)
-                    <option value="{{ $cliente->id }}">{{ $cliente->nombre }} {{ $cliente->segnombre }} {{ $cliente->apellidopat }} {{ $cliente->apellidomat }}</option>
+                    <option value="{{ $cliente->id }}">{{ $cliente->nombre }} {{ $cliente->segnombre }}
+                        {{ $cliente->apellidopat }} {{ $cliente->apellidomat }}</option>
                 @endforeach
             </select>
         </div>
 
-        <h3>Datos del Dispositivo</h3>
-
-        @foreach (['modelo' => 'Modelo', 'imei' => 'IMEI', 'noeconomico' => 'Número Económico'] as $name => $label)
-            <div class="form-group">
-                <label>{{ $label }}:</label>
-                <input type="text" class="form-control" name="{{ $name }}" value="{{ old($name) }}">
-                @error($name)
-                    <small class="text-danger">{{ $message }}</small>
-                @enderror
-            </div>
-        @endforeach
-
-        <h3>Datos de la Línea</h3>
-
-        @foreach (['telefono' => 'Teléfono', 'simcard' => 'Sim Card'] as $name => $label)
-            <div class="form-group">
-                <label>{{ $label }}:</label>
-                <input type="text" class="form-control" name="{{ $name }}" value="{{ old($name) }}">
-                @error($name)
-                    <small class="text-danger">{{ $message }}</small>
-                @enderror
-            </div>
-        @endforeach
-
+        <!-- Selector de Vehículo -->
+        <div class="form-group">
+            <label>Seleccione el Vehículo:</label>
+            <select id="vehiculo" name="vehiculo" class="form-control" disabled>
+                <option value="">--Seleccione un Vehículo--</option>
+            </select>
+        </div>
+        {{--
         <div class="form-group">
             <input type="submit" class="btn btn-success" value="Enviar Datos">
         </div>
+    --}}
     </form>
 @stop
 
 @section('js')
-    <!-- jQuery -->
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
-
-    <!-- Popper.js (necesario para Bootstrap) -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous">
-    </script>
-
-    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!-- AdminLTE JS -->
     <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/js/adminlte.min.js"></script>
 
     <script>
-        console.log("Hi, I'm using the Laravel-AdminLTE package!");
+        $(document).ready(function() {
+            $('#cliente').change(function() {
+                let clienteId = $(this).val();
+                let vehiculoSelect = $('#vehiculo');
+
+                vehiculoSelect.prop('disabled', true).html(
+                    '<option value="">Cargando vehículos...</option>');
+
+                if (clienteId) {
+                    $.ajax({
+                        url: `/obtener-vehiculos/${clienteId}`,
+                        type: 'GET',
+                        success: function(vehiculos) {
+                            vehiculoSelect.prop('disabled', false).html(
+                                '<option value="">--Seleccione un Vehículo--</option>');
+
+                            vehiculos.forEach(function(vehiculo) {
+                                vehiculoSelect.append(
+                                    `<option value="${vehiculo.id}">${vehiculo.marca} ${vehiculo.modelo} (${vehiculo.placa})</option>`
+                                );
+                            });
+                        },
+                        error: function() {
+                            vehiculoSelect.html(
+                                '<option value="">No se pudieron cargar los vehículos</option>'
+                                );
+                        }
+                    });
+                } else {
+                    vehiculoSelect.prop('disabled', true).html(
+                        '<option value="">--Seleccione un Vehículo--</option>');
+                }
+            });
+        });
     </script>
 @stop

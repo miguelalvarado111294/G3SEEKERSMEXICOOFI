@@ -46,8 +46,6 @@ class Dispositivo extends Model
     {
         return $this->hasOne('App\Models\Linea', 'dispositivo_id', 'id'); // Relación uno a uno
     }
-    
-
 
     public function vehiculo()
     {

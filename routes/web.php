@@ -117,6 +117,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/ordeninstalacion', [App\Http\Controllers\ClienteController::class, 'ordeninstalacion'])->name('ordeninstalacion');
     Route::post('/ordenins', [App\Http\Controllers\ClienteController::class, 'ordenins'])->name('ordenins');
 
+    Route::get('/obtener-vehiculos/{clienteId}', [App\Http\Controllers\ClienteController::class, 'obtenerVehiculos']);
+    Route::get('/obtener-dispositivo-linea/{vehiculoId}', [App\Http\Controllers\ClienteController::class, 'obtenerDispositivoYLinea']);
+
+    
+
+
+
     Route::get('/usuarios/create', [UsuarioController::class, 'create'])->name('usuarios.create');
     Route::post('/usuarios', [UsuarioController::class, 'store'])->name('usuarios.store');
 

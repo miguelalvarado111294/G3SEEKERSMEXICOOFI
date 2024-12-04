@@ -205,12 +205,30 @@ class ClienteController extends Controller
     {
         return view('funciones.horadecita', ['vehiculo' => $vehiculo]);
     }
-
     public function ordeninstalacion()
     {
         $clientes = Cliente::all();
         return view('funciones.ordendeinstalacion', compact('clientes'));
     }
+
+    public function obtenerVehiculos($clienteId)
+    {
+        // Obtener el cliente con los vehículos relacionados
+        $cliente = Cliente::with('vehiculos')->find($clienteId);
+    
+        // Verificar si el cliente existe
+        if (!$cliente) {
+            return response()->json(['error' => 'Cliente no encontrado'], 404);
+        }
+    
+        // Retornar los vehículos asociados al cliente
+        return response()->json($cliente->vehiculos);
+    }
+
+   
+    
+
+
 
     public function ordenins(Request $request)
     {

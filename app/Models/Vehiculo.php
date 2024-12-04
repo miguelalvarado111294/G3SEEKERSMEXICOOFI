@@ -28,9 +28,9 @@ class Vehiculo extends Model
     {
         return $this->belongsTo('App\Models\Cliente', 'cliente_id', 'id');
     }
-    public function Dispositivo()
+    public function dispositivo()
     {
-        return $this->hasMany('App\Models\Dispositivo', 'dispositivo_id', 'id');
+        return $this->hasOne('App\Models\Dispositivo', 'dispositivo_id', 'id');
     }
     
     public function historials()
