@@ -6,6 +6,7 @@ use App\Models\Dispositivo;
 use App\Models\Vehiculo;
 use App\Models\Cliente;
 use App\Models\Historial;
+
 use Illuminate\Http\Request;
 
 class DispositivoController extends Controller
@@ -20,9 +21,9 @@ class DispositivoController extends Controller
         // Construir la consulta
         $query = Dispositivo::where(function ($query) use ($busqueda) {
             $query->where('id', 'LIKE', "%{$busqueda}%")
-                  ->orWhere('imei', 'LIKE', "%{$busqueda}%")
-                  ->orWhere('cuenta', $busqueda)
-                  ->orWhere('noeconomico', 'LIKE', "%{$busqueda}%");
+                ->orWhere('imei', 'LIKE', "%{$busqueda}%")
+                ->orWhere('cuenta', $busqueda)
+                ->orWhere('noeconomico', 'LIKE', "%{$busqueda}%");
         });
 
         // Si se selecciona un mes, filtramos por el mes en la columna fechacompra
@@ -37,35 +38,80 @@ class DispositivoController extends Controller
 
         return view('dispositivo.index', compact('dispositivos', 'busqueda', 'totalDispositivos'));
     }
-    
-    
+
+
 
 
 
     public function creardisp($id)
     {
-        return view('dispositivo.createid', compact('id'));
+
+        $vehiculo_id = 1512;
+        $dispositivoseninventario = Dispositivo::where('vehiculo_id', $vehiculo_id)->get();
+
+        return view('dispositivo.createid', compact('id', 'dispositivoseninventario'));
     }
 
     public function stodis(Request $request, $id)
     {
-        $vehiculo = Vehiculo::findOrFail($id);
 
-        $request->validate($this->validationRules($id));
+        $vehiculo_id = $id;
+        $vehiculo = Vehiculo::findOrFail($vehiculo_id);
+        $cliente_id = $vehiculo->cliente_id;
 
-        $datosCliente = array_merge($request->except('_token'), [
-            'cliente_id' => $vehiculo->cliente_id,
-            'vehiculo_id' => $id,
-            'ubicaciondispositivo' => $request->ubicaciondispositivo,
+        if ($request->tipo_asignacion == 'manual') {
 
-            'precio' => 0 // Valor predeterminado para el campo precio
+            $dispositivo = new Dispositivo();
+            $dispositivo->cliente_id = $cliente_id;
+            $dispositivo->vehiculo_id = $vehiculo_id;
+            $dispositivo->plataforma_id = $request->plataforma_id;
+            $dispositivo->modelo = $request->modelo;
+            $dispositivo->noserie = $request->noserie;
+            $dispositivo->imei = $request->imei;
+            $dispositivo->cuenta = $request->cuenta;
+            $dispositivo->sucursal = $request->sucursal;
+            $dispositivo->fechadeinstalacion = $request->fechadeinstalacion;
+            $dispositivo->fechacompra = $request->fechacompra ?: '2000-01-01';
+            $dispositivo->precio = $request->precio ?: '0';
+            $dispositivo->ubicaciondispositivo = $request->ubicaciondispositivo;
+            $dispositivo->noeconomico = $request->noeconomico;
+            $dispositivo->comentarios = $request->comentarios;
+            $dispositivo->comentarios = $request->precio;
 
-        ]);
+            $dispositivo->save();
 
-        Dispositivo::create(array_map('strtoupper', $datosCliente));
+            return redirect()->route('buscar.dispositivo', $vehiculo_id)->with('success', 'Dispositivo asignado correctamente');
+        }
 
-        return redirect()->route('buscar.dispositivo', $id);
+        if ($request->tipo_asignacion == 'inventario') {
+
+            $dispositivo_id = $request->dispositivo_id;
+            $dispositivo = Dispositivo::findOrFail($dispositivo_id);
+            //return $dispositivo;
+            // Actualizamos los campos con los datos del request
+            $dispositivo->cliente_id = $cliente_id;
+            $dispositivo->vehiculo_id = $vehiculo_id;
+            $dispositivo->plataforma_id = $request->plataforma_id;
+            $dispositivo->modelo = $request->modelo;
+            $dispositivo->noserie = $request->noserie;
+            $dispositivo->imei = $request->imei;
+            $dispositivo->cuenta = $request->cuenta;
+            $dispositivo->sucursal = $request->sucursal;
+            $dispositivo->fechadeinstalacion = $request->fechadeinstalacion;
+            $dispositivo->fechacompra = $request->fechacompra ?: '2000-01-01';
+            $dispositivo->precio = $request->precio ?: '0';
+            $dispositivo->ubicaciondispositivo = $request->ubicaciondispositivo;
+            $dispositivo->noeconomico = $request->noeconomico;
+            $dispositivo->comentarios = $request->comentarios;
+
+            // Guardamos los cambios
+            $dispositivo->save();
+
+            return redirect()->route('buscar.dispositivo', $vehiculo_id)->with('success', 'Dispositivo actualizado correctamente');
+        }
     }
+
+
 
     public function edit($id)
     {
