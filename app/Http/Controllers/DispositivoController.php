@@ -80,7 +80,7 @@ class DispositivoController extends Controller
 
             $dispositivo->save();
 
-            return redirect()->route('buscar.dispositivo', $vehiculo_id)->with('success', 'Dispositivo asignado correctamente');
+            return redirect()->route('buscar.dispositivo', $vehiculo_id)->with('mensaje', 'Dispositivo asignado correctamente');
         }
 
         if ($request->tipo_asignacion == 'inventario') {
@@ -107,7 +107,7 @@ class DispositivoController extends Controller
             // Guardamos los cambios
             $dispositivo->save();
 
-            return redirect()->route('buscar.dispositivo', $vehiculo_id)->with('success', 'Dispositivo actualizado correctamente');
+            return redirect()->route('buscar.dispositivo', $vehiculo_id)->with('mensaje', 'Dispositivo actualizado correctamente');
         }
     }
 

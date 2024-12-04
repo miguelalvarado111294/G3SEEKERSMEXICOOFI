@@ -109,7 +109,7 @@
             </div>
         </div>
 
-        <button type="submit" class="btn btn-success">Confirmar</button>
+        <button type="submit" class="btn btn-success">Guardar </button>
     </form>
 @endsection
 

@@ -65,7 +65,7 @@ class LineaController extends Controller
     if ($request->origen == 'manual') {
 
         $request->validate([
-            'simcard' => 'required|numeric|min:3|max:18',
+            'simcard' => 'required|numeric',
             'telefono' => 'required|numeric|digits:10',
             'tipolinea' => 'required',
             'renovacion' => 'required|date',
@@ -82,8 +82,7 @@ class LineaController extends Controller
         $linea->cliente_id = $cliente_id;
         $linea->save();
 
-        return redirect()->route('buscar.linea', $linea->dispositivo_id)
-            ->with('mensaje', 'Línea creada exitosamente.');
+        return redirect()->route('buscar.linea', $linea->dispositivo_id)->with('mensaje', 'Línea creada exitosamente.');
     } else if ($request->origen == 'inventario' && $request->inventario) {
         $linea = Linea::findOrFail($request->inventario);
         $linea->cliente_id = $cliente_id;
