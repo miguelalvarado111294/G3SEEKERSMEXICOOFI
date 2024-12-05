@@ -213,7 +213,7 @@ class ClienteController extends Controller
 
     public function obtenerVehiculos($clienteId)
     {
-        // Obtener el cliente con los vehículos relacionados
+        // Obtener el cliente con sus vehículos relacionados
         $cliente = Cliente::with('vehiculos')->find($clienteId);
     
         // Verificar si el cliente existe
@@ -221,25 +221,59 @@ class ClienteController extends Controller
             return response()->json(['error' => 'Cliente no encontrado'], 404);
         }
     
-        // Retornar los vehículos asociados al cliente
+        // Verificar si tiene vehículos asociados
+        if ($cliente->vehiculos->isEmpty()) {
+            return response()->json(['error' => 'No se encontraron vehículos asociados a este cliente'], 404);
+        }
+    
+        // Retornar los vehículos como respuesta JSON
         return response()->json($cliente->vehiculos);
     }
+    
 
+    public function obtenerDispositivo($vehiculoId)
+    {
+return view ('funciones.ordendeinstalacion',compact('vehiculoId'));
+        $vehiculo = Vehiculo::with('dispositivo')->find($vehiculoId);
+
+        return $vehiculo;
+
+
+
+        if (!$vehiculo) {
+            return response()->json(['error' => 'Vehículo no encontrado'], 404);
+        }
+    
+        if (!$vehiculo->dispositivo) {
+            return response()->json(['error' => 'No se encontró un dispositivo asociado a este vehículo'], 404);
+        }
+        return $vehiculo->dispositivo;
+        return response()->json($vehiculo->dispositivo);
+    }
+    
    
     
 
 
-
     public function ordenins(Request $request)
     {
-        $cliente = Cliente::find($request->get('cliente'));
+        $vehiculo_id=$request->get('vehiculo');
+        $cliente_id=$request->get('cliente');
+        $vehiculo=Vehiculo::findOrFail($vehiculo_id);
+
+        $cliente = Cliente::find($cliente_id);        
+
+        $dispositivo=Dispositivo::where('vehiculo_id' , 'LIKE' , $vehiculo_id)->first();
+        
         $pdf = PDF::loadView('funciones.ordendinstalacion', [
             'cliente' => $cliente,
+            'vehiculo'=> $vehiculo,
+            'dispositivo'=> $dispositivo,
             'horaactual' => Carbon::now()->toDateString(),
             'request' => $request
         ]);
 
-        return $pdf->download('OrdenDeInstalacion.pdf');
+        return $pdf->stream('OrdenDeInstalacion.pdf');
     }
 
     private function handleFileUpload(Request $request, ?Cliente $cliente, array &$datosCliente, array $archivos)

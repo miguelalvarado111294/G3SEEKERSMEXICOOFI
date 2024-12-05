@@ -37,54 +37,51 @@
                 <option value="">--Seleccione un Vehículo--</option>
             </select>
         </div>
-        {{--
+
         <div class="form-group">
-            <input type="submit" class="btn btn-success" value="Enviar Datos">
+            <button type="submit" class="btn btn-primary" id="enviar" disabled>Generar Orden</button>
         </div>
-    --}}
     </form>
 @stop
 
 @section('js')
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/js/adminlte.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // Evento para cargar vehículos asociados al cliente seleccionado
+        $('#cliente').change(function() {
+            let clienteId = $(this).val();
+            let vehiculoSelect = $('#vehiculo');
+            $('#enviar').prop('disabled', true); // Deshabilitar el botón al cambiar cliente
 
-    <script>
-        $(document).ready(function() {
-            $('#cliente').change(function() {
-                let clienteId = $(this).val();
-                let vehiculoSelect = $('#vehiculo');
+            // Reiniciar estado del selector de vehículos
+            vehiculoSelect.prop('disabled', true).html('<option value="">Cargando vehículos...</option>');
 
-                vehiculoSelect.prop('disabled', true).html(
-                    '<option value="">Cargando vehículos...</option>');
+            if (clienteId) {
+                $.ajax({
+                    url: `/obtener-vehiculos/${clienteId}`,
+                    type: 'GET',
+                    success: function(vehiculos) {
+                        vehiculoSelect.prop('disabled', false).html('<option value="">--Seleccione un Vehículo--</option>');
 
-                if (clienteId) {
-                    $.ajax({
-                        url: `/obtener-vehiculos/${clienteId}`,
-                        type: 'GET',
-                        success: function(vehiculos) {
-                            vehiculoSelect.prop('disabled', false).html(
-                                '<option value="">--Seleccione un Vehículo--</option>');
-
-                            vehiculos.forEach(function(vehiculo) {
-                                vehiculoSelect.append(
-                                    `<option value="${vehiculo.id}">${vehiculo.marca} ${vehiculo.modelo} (${vehiculo.placa})</option>`
-                                );
-                            });
-                        },
-                        error: function() {
-                            vehiculoSelect.html(
-                                '<option value="">No se pudieron cargar los vehículos</option>'
-                                );
-                        }
-                    });
-                } else {
-                    vehiculoSelect.prop('disabled', true).html(
-                        '<option value="">--Seleccione un Vehículo--</option>');
-                }
-            });
+                        vehiculos.forEach(function(vehiculo) {
+                            vehiculoSelect.append(
+                                `<option value="${vehiculo.id}">${vehiculo.marca} ${vehiculo.modelo} (${vehiculo.placa})</option>`
+                            );
+                        });
+                    },
+                    error: function() {
+                        vehiculoSelect.html('<option value="">No se pudieron cargar los vehículos</option>');
+                    }
+                });
+            } else {
+                vehiculoSelect.prop('disabled', true).html('<option value="">--Seleccione un Vehículo--</option>');
+            }
         });
-    </script>
-@stop
+
+        // Habilitar el botón de enviar al seleccionar un vehículo
+        $('#vehiculo').change(function() {
+            $('#enviar').prop('disabled', !$(this).val());
+        });
+    });
+</script>
+@endsection

@@ -46,47 +46,47 @@
         <TH COLSPAN=2>Datos de la Linea</TH>
         <TR>
             <TD><b> Tipo de Vehiculo </b></TD>
-            <TD>{{-- $vehiculo->tipo --}}__________</TD>
+            <TD>{{ $vehiculo->tipo }}</TD>
             <TD> <b> Numero</b></TD>
             <TD>{{ $request->telefono }}</TD>
         </TR>
         <TR>
             <TD> <b> Marca </b></TD>
-            <TD> {{-- $vehiculo->marca --}}</TD>
+            <TD> {{ $vehiculo->marca }}</TD>
             <TD><b> Sim Card:</b> </TD>
             <TD> {{ $request->simcard }}</TD>
         </TR>
         <TR>
             <TD><b> Modelo </b></TD>
-            <TD>{{-- $vehiculo->modelo --}}</TD>
+            <TD>{{ $vehiculo->modelo }}</TD>
             <TH COLSPAN=2>Datos del Dispositivo</TH>
         </TR>
         <TR>
             <TD><b> Numero de Serie </b></TD>
-            <TD>{{-- $vehiculo->noseri --}} </TD>
+            <TD>{{ $vehiculo->noserie }} </TD>
 
             <TD><b> Modelo </b></TD>
-            <TD>{{-- $dispositivo->model --}} </TD>
+            <TD>{{ $dispositivo->modelo }} </TD>
         </TR>
         <tr>
             <TD><b> Color</b></TD>
-            <TD><b> </b></TD>
+            <TD> {{ $vehiculo->color }}</TD>
             <TD><b>  Imei</b></TD>
-            <TD><b> </b></TD>
+            <TD><b>{{ $dispositivo->imei }} </b></TD>
 
 
         </tr>
         <TR>
             <TD><b> Placa </b></TD>
-            <TD>{{-- $vehiculo->plac --}}</TD>
+            <TD>{{ $vehiculo->placa }}</TD>
             <TD><b> Cuenta</b> </TD>
-            <TD> {{-- $dispositivo->imei --}}</TD>
+            <TD> </TD>
         </TR>
         <TR>
             <TD><b> </b></TD>
-            <TD>{{-- $vehiculo->color --}}</TD>
+            <TD></TD>
             <TD><b> ID Dispositivo</b> </TD>
-            <TD> {{-- $dispositivo->id --}}</TD>
+            <TD> {{ $dispositivo->id }}</TD>
         </TR>
     </TABLE>
 
