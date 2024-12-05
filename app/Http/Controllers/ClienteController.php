@@ -218,25 +218,25 @@ class ClienteController extends Controller
     {
         // Obtener el cliente con sus vehículos relacionados
         $cliente = Cliente::with('vehiculos')->find($clienteId);
-    
+
         // Verificar si el cliente existe
         if (!$cliente) {
             return response()->json(['error' => 'Cliente no encontrado'], 404);
         }
-    
+
         // Verificar si tiene vehículos asociados
         if ($cliente->vehiculos->isEmpty()) {
             return response()->json(['error' => 'No se encontraron vehículos asociados a este cliente'], 404);
         }
-    
+
         // Retornar los vehículos como respuesta JSON
         return response()->json($cliente->vehiculos);
     }
-    
+
 
     public function obtenerDispositivo($vehiculoId)
     {
-return view ('funciones.ordendeinstalacion',compact('vehiculoId'));
+        return view('funciones.ordendeinstalacion', compact('vehiculoId'));
         $vehiculo = Vehiculo::with('dispositivo')->find($vehiculoId);
 
         return $vehiculo;
@@ -246,47 +246,40 @@ return view ('funciones.ordendeinstalacion',compact('vehiculoId'));
         if (!$vehiculo) {
             return response()->json(['error' => 'Vehículo no encontrado'], 404);
         }
-    
+
         if (!$vehiculo->dispositivo) {
             return response()->json(['error' => 'No se encontró un dispositivo asociado a este vehículo'], 404);
         }
         return $vehiculo->dispositivo;
         return response()->json($vehiculo->dispositivo);
     }
-    
-   
-    
-
-
+//comentario para hacer push 
     public function ordenins(Request $request)
     {
 
-        $vehiculo_id=$request->get('vehiculo');
-        $cliente_id=$request->get('cliente');
-        $vehiculo=Vehiculo::findOrFail($vehiculo_id);
-        $cliente = Cliente::find($cliente_id);        
-        $dispositivo=Dispositivo::where('vehiculo_id' , '=' , $vehiculo_id)->first();
-        $dispositivo_id=$dispositivo->id;
-        $linea=Linea::where('dispositivo_id','=',$dispositivo_id)->first();
-        $cuenta=Cuenta::where('cliente_id','=',$cliente_id)->first();
-        $direccion_instalacion=$request->get('direccion_instalacion');
+        $vehiculo_id = $request->get('vehiculo');
+        $cliente_id = $request->get('cliente');
+        $vehiculo = Vehiculo::findOrFail($vehiculo_id);
+        $cliente = Cliente::find($cliente_id);
+        $dispositivo = Dispositivo::where('vehiculo_id', '=', $vehiculo_id)->first();
+        $dispositivo_id = $dispositivo->id;
+        $linea = Linea::where('dispositivo_id', '=', $dispositivo_id)->first();
+        $cuenta = Cuenta::where('cliente_id', '=', $cliente_id)->first();
+        $direccion_instalacion = $request->get('direccion_instalacion');
         $fecha_instalacion = str_replace('T', ' ', $request->get('fecha_instalacion'));
-
-
-
 
         $pdf = PDF::loadView('funciones.ordendinstalacion', [
             'cliente' => $cliente,
-            'cuenta'=> $cuenta,
-            'vehiculo'=> $vehiculo,
-            'dispositivo'=> $dispositivo,
-            'direccion_instalacion'=>$direccion_instalacion,
-            'fecha_instalacion'=>$fecha_instalacion,
-            'linea'=> $linea,
+            'cuenta' => $cuenta,
+            'vehiculo' => $vehiculo,
+            'dispositivo' => $dispositivo,
+            'direccion_instalacion' => $direccion_instalacion,
+            'fecha_instalacion' => $fecha_instalacion,
+            'linea' => $linea,
             'request' => $request
         ]);
 
-        return $pdf->stream('OrdenDeInstalacion.pdf');
+        return $pdf->download('OrdenDeInstalacion.pdf');
     }
 
     private function handleFileUpload(Request $request, ?Cliente $cliente, array &$datosCliente, array $archivos)
