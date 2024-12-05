@@ -15,9 +15,9 @@
     <TABLE BORDER WIDTH="100%">
         <TR>
             <TD WIDTH="140">
-                Orden de Instalación
+                Orden Instalación
             </TD>
-            <TD> <b> Fecha de la solicitud : </b>{{ $horaactual }}</TD>
+            <TD> <b> Fecha de Instalacion : </b>{{ $fecha_instalacion }}</TD>
             <TD><b>Folio : </b> ######</TD>
             <td>G3 SEEKERS Mx </td>
         </TR>
@@ -36,7 +36,7 @@
             <TD><b>Email : </b> {{ $cliente->email }} <b>Telefono : </b> {{ $cliente->telefono }}</TD>
         </TR>
         </TD>
-        <TD> <b>Dirección : </b> {{ $cliente->direccion }}</TD>
+        <TD> <b>Dirección de Instalacion: </b> {{$direccion_instalacion}}</TD>
         </TR>
     </TABLE>
     {{-- formulario de obserbaciones de datos uni --}}
@@ -48,13 +48,13 @@
             <TD><b> Tipo de Vehiculo </b></TD>
             <TD>{{ $vehiculo->tipo }}</TD>
             <TD> <b> Numero</b></TD>
-            <TD>{{ $request->telefono }}</TD>
+            <TD>{{ $linea->telefono }}</TD>
         </TR>
         <TR>
             <TD> <b> Marca </b></TD>
             <TD> {{ $vehiculo->marca }}</TD>
             <TD><b> Sim Card:</b> </TD>
-            <TD> {{ $request->simcard }}</TD>
+            <TD> {{ $linea->simcard }}</TD>
         </TR>
         <TR>
             <TD><b> Modelo </b></TD>
@@ -72,7 +72,7 @@
             <TD><b> Color</b></TD>
             <TD> {{ $vehiculo->color }}</TD>
             <TD><b>  Imei</b></TD>
-            <TD><b>{{ $dispositivo->imei }} </b></TD>
+            <TD>{{ $dispositivo->imei }} </TD>
 
 
         </tr>
@@ -80,13 +80,13 @@
             <TD><b> Placa </b></TD>
             <TD>{{ $vehiculo->placa }}</TD>
             <TD><b> Cuenta</b> </TD>
-            <TD> </TD>
+            <TD> {{$dispositivo->cuenta}}  </TD>
         </TR>
         <TR>
             <TD><b> </b></TD>
             <TD></TD>
             <TD><b> ID Dispositivo</b> </TD>
-            <TD> {{ $dispositivo->id }}</TD>
+            <TD> {{ $dispositivo->plataforma_id }}</TD>
         </TR>
     </TABLE>
 
@@ -206,7 +206,6 @@
 
 
         {{-- formulario de obserbaciones de tecnico --}}
-        <CENter>Observaciones del Tecnico</CENter>
         <TABLE BORDER WIDTH="100%">
             <TR>
                 <th WIDTH="300"><b>Observaciones</b></th>

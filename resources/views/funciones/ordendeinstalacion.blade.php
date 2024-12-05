@@ -18,7 +18,6 @@
     <form action="{{ route('ordenins') }}" method="post">
         @csrf
 
-        <!-- Selector de Cliente -->
         <div class="form-group">
             <label>Seleccione al Cliente:</label>
             <select id="cliente" name="cliente" class="form-control">
@@ -30,13 +29,24 @@
             </select>
         </div>
 
-        <!-- Selector de Vehículo -->
         <div class="form-group">
             <label>Seleccione el Vehículo:</label>
             <select id="vehiculo" name="vehiculo" class="form-control" disabled>
                 <option value="">--Seleccione un Vehículo--</option>
             </select>
         </div>
+
+       
+
+        <div class="form-group">
+            <label>Dirección de Instalación:</label>
+            <input type="text" id="direccion_instalacion" name="direccion_instalacion" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>Fecha y Hora de Instalación:</label>
+            <input type="datetime-local" id="fecha_instalacion" name="fecha_instalacion" class="form-control">
+        </div>
+        
 
         <div class="form-group">
             <button type="submit" class="btn btn-primary" id="enviar" disabled>Generar Orden</button>
@@ -47,14 +57,13 @@
 @section('js')
 <script>
     $(document).ready(function() {
-        // Evento para cargar vehículos asociados al cliente seleccionado
         $('#cliente').change(function() {
             let clienteId = $(this).val();
             let vehiculoSelect = $('#vehiculo');
-            $('#enviar').prop('disabled', true); // Deshabilitar el botón al cambiar cliente
+            $('#enviar').prop('disabled', true);
 
-            // Reiniciar estado del selector de vehículos
             vehiculoSelect.prop('disabled', true).html('<option value="">Cargando vehículos...</option>');
+            $('#resultadoDispositivo').empty();
 
             if (clienteId) {
                 $.ajax({
@@ -78,7 +87,6 @@
             }
         });
 
-        // Habilitar el botón de enviar al seleccionar un vehículo
         $('#vehiculo').change(function() {
             $('#enviar').prop('disabled', !$(this).val());
         });

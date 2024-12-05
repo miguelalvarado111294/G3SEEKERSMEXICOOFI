@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Cliente;
 use App\Models\Referencia;
 use App\Models\Vehiculo;
+
+use App\Models\Cuenta;
+
 use App\Models\Dispositivo;
 use App\Models\Linea;
 use App\Http\Requests\storecliente;
@@ -257,19 +260,29 @@ return view ('funciones.ordendeinstalacion',compact('vehiculoId'));
 
     public function ordenins(Request $request)
     {
+
         $vehiculo_id=$request->get('vehiculo');
         $cliente_id=$request->get('cliente');
         $vehiculo=Vehiculo::findOrFail($vehiculo_id);
-
         $cliente = Cliente::find($cliente_id);        
+        $dispositivo=Dispositivo::where('vehiculo_id' , '=' , $vehiculo_id)->first();
+        $dispositivo_id=$dispositivo->id;
+        $linea=Linea::where('dispositivo_id','=',$dispositivo_id)->first();
+        $cuenta=Cuenta::where('cliente_id','=',$cliente_id)->first();
+        $direccion_instalacion=$request->get('direccion_instalacion');
+        $fecha_instalacion = str_replace('T', ' ', $request->get('fecha_instalacion'));
 
-        $dispositivo=Dispositivo::where('vehiculo_id' , 'LIKE' , $vehiculo_id)->first();
-        
+
+
+
         $pdf = PDF::loadView('funciones.ordendinstalacion', [
             'cliente' => $cliente,
+            'cuenta'=> $cuenta,
             'vehiculo'=> $vehiculo,
             'dispositivo'=> $dispositivo,
-            'horaactual' => Carbon::now()->toDateString(),
+            'direccion_instalacion'=>$direccion_instalacion,
+            'fecha_instalacion'=>$fecha_instalacion,
+            'linea'=> $linea,
             'request' => $request
         ]);
 
