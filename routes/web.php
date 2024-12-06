@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsuarioController;
 
-Auth::routes(['register'=>false,'reset'=>false]);
+Auth::routes(['register' => false, 'reset' => false]);
 
 
 Route::group(['middleware' => 'auth'], function () {
@@ -20,7 +20,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::put('update/{user}', [App\Http\Controllers\UserController::class, 'update'])->name('admin.update'); // Cambia GET a PUT
         Route::delete('destroy/{user}', [App\Http\Controllers\UserController::class, 'destroy'])->name('admin.destroy');
     });
-    
+
 
 
     Route::resources([
@@ -53,10 +53,10 @@ Route::group(['middleware' => 'auth'], function () {
     });
 
     Route::prefix('vehiculo')->group(function () {
-        Route::get('crearvehi/{id}', [App\Http\Controllers\VehiculoController::class, 'crearvehi'])->name('vehiculof.crear'); 
+        Route::get('crearvehi/{id}', [App\Http\Controllers\VehiculoController::class, 'crearvehi'])->name('vehiculof.crear');
         Route::post('crearvehi/{id}', [App\Http\Controllers\VehiculoController::class, 'createvehiculo'])->name('vehiculop.crear'); // Asegúrate de que esta ruta coincide
     });
-    
+
 
     Route::prefix('cuenta')->group(function () {
         Route::get('crearcta/{id}', [App\Http\Controllers\CuentaController::class, 'crearcta'])->name('cuentaf.crear');
@@ -71,8 +71,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::prefix('dispositivo')->group(function () {
         Route::get('creardisp/{id}', [App\Http\Controllers\DispositivoController::class, 'creardisp'])->name('dispositivof.crear');
         Route::post('{id}', [App\Http\Controllers\DispositivoController::class, 'stodis'])->name('dispositivop.crear');
-
-        
     });
 
     Route::put('/linea/{linea}', [App\Http\Controllers\LineaController::class, 'updateLinea'])->name('linea.update');
@@ -99,7 +97,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::prefix('referencias')->group(function () {
         Route::get('crearr/{id}', [App\Http\Controllers\ReferenciaController::class, 'crearr'])->name('crear.nuevo.ref');
-        
+
         Route::post('create/{id}', [App\Http\Controllers\ReferenciaController::class, 'createnuevoref'])->name('create.nuevo.ref');
     });
 
@@ -118,14 +116,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/ordenins', [App\Http\Controllers\ClienteController::class, 'ordenins'])->name('ordenins');
 
 
-    Route::get('/obtener-vehiculos/{clienteId}', [App\Http\Controllers\ClienteController::class, 'obtenerVehiculos']);
-Route::get('/obtener-dispositivo/{vehiculoId}', [App\Http\Controllers\ClienteController::class, 'obtenerDispositivo']);
 
 
     Route::get('/obtener-vehiculos/{clienteId}', [App\Http\Controllers\ClienteController::class, 'obtenerVehiculos']);
     Route::get('/obtener-dispositivo-linea/{vehiculoId}', [App\Http\Controllers\ClienteController::class, 'obtenerDispositivoYLinea']);
 
-    
+
 
 
 
@@ -147,10 +143,9 @@ Route::get('/obtener-dispositivo/{vehiculoId}', [App\Http\Controllers\ClienteCon
     Route::get('/vehiculo/{vehiculo_id}/historial', [App\Http\Controllers\DispositivoController::class, 'historial'])->name('historial');
 
     Route::post('/vehiculo/{vehiculo_id}/savehistorial', [App\Http\Controllers\DispositivoController::class, 'historialregister'])->name('historialregister');
-   
-   
+
+
     Route::get('renovaciones', [App\Http\Controllers\FuncionesController::class, 'renovaciones'])->name('renovaciones');
 
     Route::get('/renovacionessearch', [App\Http\Controllers\FuncionesController::class, 'renovacionessearch'])->name('renovacionessearch');
-
 });

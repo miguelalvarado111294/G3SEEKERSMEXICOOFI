@@ -239,7 +239,6 @@ class ClienteController extends Controller
         return view('funciones.ordendeinstalacion', compact('vehiculoId'));
         $vehiculo = Vehiculo::with('dispositivo')->find($vehiculoId);
 
-        return $vehiculo;
 
 
 
