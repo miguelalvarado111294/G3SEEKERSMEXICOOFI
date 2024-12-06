@@ -196,7 +196,7 @@ class ClienteController extends Controller
             'linea' => $linea,
             'horaactual' => Carbon::now()->toDateString(),
             'fechacita' => $fechacita,
-            'direccion' => $direccion, // Pasar la dirección al PDF
+            'direccion' => $direccion, 
         ]);
 
         return $pdf->download('OrdenDeServicio.pdf');
