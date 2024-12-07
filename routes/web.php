@@ -6,27 +6,18 @@ use App\Http\Controllers\UsuarioController;
 
 Auth::routes(['register' => false, 'reset' => false]);
 
-// Rutas públicas: Accesibles sin autenticación
-Route::prefix('clientes')->group(function () {
-    Route::get('crear', [App\Http\Controllers\ClienteController::class, 'crearcliente'])->name('crear.nuevo');
-    Route::post('create', [App\Http\Controllers\ClienteController::class, 'createnuevo'])->name('create.nuevo');
-});
 
-Route::prefix('referencias')->group(function () {
-    Route::get('crearr/{id}', [App\Http\Controllers\ReferenciaController::class, 'crearr'])->name('crear.nuevo.ref');
-    Route::post('create/{id}', [App\Http\Controllers\ReferenciaController::class, 'createnuevoref'])->name('create.nuevo.ref');
-});
-
-// Grupo de rutas protegidas (requieren autenticación)
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/', [App\Http\Controllers\AdminController::class, 'index'])->name('admin.index');
     Route::get('/home', [App\Http\Controllers\AdminController::class, 'index']);
 
     Route::resource('/user', App\Http\Controllers\UserController::class)->names('admin.users');
 
+
+
     Route::prefix('admin')->group(function () {
         Route::get('edit/{user}', [App\Http\Controllers\UserController::class, 'edit'])->name('admin.edit');
-        Route::put('update/{user}', [App\Http\Controllers\UserController::class, 'update'])->name('admin.update');
+        Route::put('update/{user}', [App\Http\Controllers\UserController::class, 'update'])->name('admin.update'); // Cambia GET a PUT
         Route::delete('destroy/{user}', [App\Http\Controllers\UserController::class, 'destroy'])->name('admin.destroy');
     });
 
@@ -61,8 +52,9 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::prefix('vehiculo')->group(function () {
         Route::get('crearvehi/{id}', [App\Http\Controllers\VehiculoController::class, 'crearvehi'])->name('vehiculof.crear');
-        Route::post('crearvehi/{id}', [App\Http\Controllers\VehiculoController::class, 'createvehiculo'])->name('vehiculop.crear');
+        Route::post('crearvehi/{id}', [App\Http\Controllers\VehiculoController::class, 'createvehiculo'])->name('vehiculop.crear'); // Asegúrate de que esta ruta coincide
     });
+
 
     Route::prefix('cuenta')->group(function () {
         Route::get('crearcta/{id}', [App\Http\Controllers\CuentaController::class, 'crearcta'])->name('cuentaf.crear');
@@ -74,10 +66,75 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('{id}', [App\Http\Controllers\LineaController::class, 'storep'])->name('lineap.crear');
     });
 
+    Route::prefix('dispositivo')->group(function () {
+        Route::get('creardisp/{id}', [App\Http\Controllers\DispositivoController::class, 'creardisp'])->name('dispositivof.crear');
+        Route::post('{id}', [App\Http\Controllers\DispositivoController::class, 'stodis'])->name('dispositivop.crear');
+    });
+
+    Route::put('/linea/{linea}', [App\Http\Controllers\LineaController::class, 'updateLinea'])->name('linea.update');
+
+    Route::get('/ruta/a/tu/controlador/{id}', [App\Http\Controllers\DispositivoController::class, 'obtenerDispositivo']);
+
+    Route::get('/dispositivo/{id}', [App\Http\Controllers\DispositivoController::class, 'getDispositivo']);
+
+
+    Route::prefix('sensor')->group(function () {
+        Route::get('crearsens/{id}', [App\Http\Controllers\SensorController::class, 'crearsens'])->name('sensorf.crear');
+        Route::post('{id}', [App\Http\Controllers\SensorController::class, 'stosens'])->name('sensorp.crear');
+    });
+
+    Route::prefix('ctaespejo')->group(function () {
+        Route::get('crearctaespejo/{id}', [App\Http\Controllers\CtaespejoController::class, 'crearctaespejo'])->name('ctaesoejof.crear');
+        Route::post('{id}', [App\Http\Controllers\CtaespejoController::class, 'storectaespejo'])->name('ctaespejop.crear');
+    });
+
+    Route::prefix('clientes')->group(function () {
+        Route::get('crear', [App\Http\Controllers\ClienteController::class, 'crearcliente'])->name('crear.nuevo');
+        Route::post('create', [App\Http\Controllers\ClienteController::class, 'createnuevo'])->name('create.nuevo');
+    });
+
+    Route::prefix('referencias')->group(function () {
+        Route
+        ::get('crearr/{id}', [App\Http\Controllers\ReferenciaController::class, 'crearr'])->name('crear.nuevo.ref');
+
+        Route::post('create/{id}', [App\Http\Controllers\ReferenciaController::class, 'createnuevoref'])->name('create.nuevo.ref');
+    });
+
+
+
+
+    Route::prefix('cuentas')->group(function () {
+        Route::get('crearc/{id}', [App\Http\Controllers\CuentaController::class, 'crearc'])->name('crear.nuevo.cuenta');
+        Route::post('createc/{id}', [App\Http\Controllers\CuentaController::class, 'createnuevocta'])->name('create.nuevo.cta');
+    });
+
+    Route::get('/crearcita/{vehiculo}', [App\Http\Controllers\ClienteController::class, 'crearcita'])->name('crear.cita');
+    Route::post('/orden/{vehiculoid}', [App\Http\Controllers\ClienteController::class, 'orden'])->name('crear.ordens');
+    Route::get('/orden', [App\Http\Controllers\ClienteController::class, 'orden'])->name('crear.orden');
+    Route::get('/ordeninstalacion', [App\Http\Controllers\ClienteController::class, 'ordeninstalacion'])->name('ordeninstalacion');
+    Route::post('/ordenins', [App\Http\Controllers\ClienteController::class, 'ordenins'])->name('ordenins');
+    Route::get('/obtener-vehiculos/{clienteId}', [App\Http\Controllers\ClienteController::class, 'obtenerVehiculos']);
+    Route::get('/obtener-dispositivo-linea/{vehiculoId}', [App\Http\Controllers\ClienteController::class, 'obtenerDispositivoYLinea']);
+
+    Route::get('/usuarios/create', [UsuarioController::class, 'create'])->name('usuarios.create');
+    Route::post('/usuarios', [UsuarioController::class, 'store'])->name('usuarios.store');
+
+    Route::get('/formsearch', [App\Http\Controllers\BusquedaController::class, 'formsearch'])->name('formsearch');
+    Route::get('/search', [App\Http\Controllers\BusquedaController::class, 'search'])->name('search');
+
+
+    Route::get('/confirmation', [App\Http\Controllers\BusquedaController::class, 'confirmation'])->name('confirmation');
+    Route::get('/ale', [App\Http\Controllers\CtaespejoController::class, 'ale'])->name('ale');
+
     Route::get('/inventariostok', [App\Http\Controllers\FuncionesController::class, 'stok'])->name('inventario.stok');
     Route::get('/inventarioadd', [App\Http\Controllers\FuncionesController::class, 'inventarioadd'])->name('inventarioadd');
     Route::post('/inventario', [App\Http\Controllers\FuncionesController::class, 'store'])->name('store.inventario');
-});
 
-Route::get('/usuarios/create', [UsuarioController::class, 'create'])->name('usuarios.create');
-Route::post('/usuarios', [UsuarioController::class, 'store'])->name('usuarios.store');
+    Route::get('/vehiculo/{vehiculo_id}/historial', [App\Http\Controllers\DispositivoController::class, 'historial'])->name('historial');
+    Route::post('/vehiculo/{vehiculo_id}/savehistorial', [App\Http\Controllers\DispositivoController::class, 'historialregister'])->name('historialregister');
+
+
+    Route::get('renovaciones', [App\Http\Controllers\FuncionesController::class, 'renovaciones'])->name('renovaciones');
+    Route::get('/renovaciones/search', [App\Http\Controllers\FuncionesController::class, 'renovacionessearch'])->name('renovacionessearch');
+
+});
