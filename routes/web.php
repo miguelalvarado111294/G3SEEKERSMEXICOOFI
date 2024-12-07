@@ -5,7 +5,12 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsuarioController;
 
 Auth::routes(['register' => false, 'reset' => false]);
-
+Route::get('/clientes/crear', [App\Http\Controllers\ClienteController::class, 'crearcliente'])->name('crear.nuevo');
+    Route::post('/clientes/create', [App\Http\Controllers\ClienteController::class, 'createnuevo'])->name('create.nuevo');
+    
+    Route::get('/referencias/crearr/{id}', [App\Http\Controllers\ReferenciaController::class, 'crearr'])->name('crear.nuevo.ref');
+    Route::post('/referencias/create/{id}', [App\Http\Controllers\ReferenciaController::class, 'createnuevoref'])->name('create.nuevo.ref');
+    
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/', [App\Http\Controllers\AdminController::class, 'index'])->name('admin.index');
@@ -88,18 +93,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('{id}', [App\Http\Controllers\CtaespejoController::class, 'storectaespejo'])->name('ctaespejop.crear');
     });
 
-    Route::prefix('clientes')->group(function () {
-        Route::get('crear', [App\Http\Controllers\ClienteController::class, 'crearcliente'])->name('crear.nuevo');
-        Route::post('create', [App\Http\Controllers\ClienteController::class, 'createnuevo'])->name('create.nuevo');
-    });
-
-    Route::prefix('referencias')->group(function () {
-        Route
-        ::get('crearr/{id}', [App\Http\Controllers\ReferenciaController::class, 'crearr'])->name('crear.nuevo.ref');
-
-        Route::post('create/{id}', [App\Http\Controllers\ReferenciaController::class, 'createnuevoref'])->name('create.nuevo.ref');
-    });
-
+    
 
 
 
