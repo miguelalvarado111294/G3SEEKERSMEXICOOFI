@@ -240,9 +240,6 @@ class ClienteController extends Controller
         return view('funciones.ordendeinstalacion', compact('vehiculoId'));
         $vehiculo = Vehiculo::with('dispositivo')->find($vehiculoId);
 
-
-
-
         if (!$vehiculo) {
             return response()->json(['error' => 'Vehículo no encontrado'], 404);
         }

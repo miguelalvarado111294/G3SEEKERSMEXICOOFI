@@ -5,12 +5,14 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsuarioController;
 
 Auth::routes(['register' => false, 'reset' => false]);
+
 Route::get('/clientes/crear', [App\Http\Controllers\ClienteController::class, 'crearcliente'])->name('crear.nuevo');
-    Route::post('/clientes/create', [App\Http\Controllers\ClienteController::class, 'createnuevo'])->name('create.nuevo');
-    
-    Route::get('/referencias/crearr/{id}', [App\Http\Controllers\ReferenciaController::class, 'crearr'])->name('crear.nuevo.ref');
-    Route::post('/referencias/create/{id}', [App\Http\Controllers\ReferenciaController::class, 'createnuevoref'])->name('create.nuevo.ref');
-    
+Route::post('/clientes/create', [App\Http\Controllers\ClienteController::class, 'createnuevo'])->name('create.nuevo');
+
+Route::get('/referencias/crearr/{id}', [App\Http\Controllers\ReferenciaController::class, 'crearr'])->name('crear.nuevo.ref');
+Route::post('/referencias/create/{id}', [App\Http\Controllers\ReferenciaController::class, 'createnuevoref'])->name('create.nuevo.ref');
+Route::get('/confirmation', [App\Http\Controllers\BusquedaController::class, 'confirmation'])->name('confirmation');
+
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/', [App\Http\Controllers\AdminController::class, 'index'])->name('admin.index');
@@ -93,7 +95,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('{id}', [App\Http\Controllers\CtaespejoController::class, 'storectaespejo'])->name('ctaespejop.crear');
     });
 
-    
+
 
 
 
@@ -117,8 +119,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/search', [App\Http\Controllers\BusquedaController::class, 'search'])->name('search');
 
 
-    Route::get('/confirmation', [App\Http\Controllers\BusquedaController::class, 'confirmation'])->name('confirmation');
-    Route::get('/ale', [App\Http\Controllers\CtaespejoController::class, 'ale'])->name('ale');
 
     Route::get('/inventariostok', [App\Http\Controllers\FuncionesController::class, 'stok'])->name('inventario.stok');
     Route::get('/inventarioadd', [App\Http\Controllers\FuncionesController::class, 'inventarioadd'])->name('inventarioadd');
@@ -130,5 +130,4 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('renovaciones', [App\Http\Controllers\FuncionesController::class, 'renovaciones'])->name('renovaciones');
     Route::get('/renovaciones/search', [App\Http\Controllers\FuncionesController::class, 'renovacionessearch'])->name('renovacionessearch');
-
 });
