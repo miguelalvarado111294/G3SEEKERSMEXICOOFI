@@ -14,28 +14,28 @@ use PhpParser\Node\Stmt\Return_;
 class FuncionesController extends Controller
 {
 
-    
+
 
     public function stok()
     {
         $usuarioAlmacen = 250; // ID del cliente auxiliar
         $aux = Cliente::find($usuarioAlmacen);
-    
+
         // Verificamos si el cliente existe
         if (!$aux) {
             return redirect()->back()->with('error', 'Cliente no encontrado.');
         }
-    
+
         // Obtener los dispositivos y las líneas relacionadas con el cliente
         $dispositivos = $aux->dispositivos;
         $lineas = $aux->lineas;
-    
+
         // Devolver la vista con los datos
         return view('inventario.stok', compact('aux', 'dispositivos', 'lineas'));
     }
-    
-    
-    
+
+
+
 
     public function inventarioadd()
     {
@@ -74,7 +74,7 @@ class FuncionesController extends Controller
         // Pasar el total de dispositivos al view
         return view('dispositivo.index', compact('dispositivos', 'busqueda', 'totalDispositivos', 'totalDispositivosSinFiltro'));
     }
-   
+
 
 
 
@@ -92,7 +92,7 @@ class FuncionesController extends Controller
                 'precio' => 'required|numeric',
                 'comentarios_dispositivo' => 'nullable|string',
             ]);
-    
+
             // Guardamos el dispositivo
             $dispositivo = new Dispositivo();
             $dispositivo->modelo = $validatedData['modelo'];
@@ -104,7 +104,7 @@ class FuncionesController extends Controller
             $dispositivo->cliente_id = $validatedData['cliente_id'] ?? '250'; // Default client_id
             $dispositivo->vehiculo_id = $validatedData['vehiculo_id'] ?? '1512'; // Default vehicle_id
             $dispositivo->save();
-    
+
             return redirect()->route('inventario.stok')->with('success', 'Dispositivo registrado exitosamente!');
         } elseif ($request->tipoRegistro === 'linea') {
             $validatedData = $request->validate([
@@ -115,7 +115,7 @@ class FuncionesController extends Controller
                 'renovacion' => 'required|date',
                 'comentarios' => 'nullable|string',
             ]);
-    
+
             // Guardamos la línea telefónica
             $linea = new Linea();
             $linea->simcard = $validatedData['simcard'];
@@ -126,59 +126,48 @@ class FuncionesController extends Controller
             $linea->cliente_id = $validatedData['cliente_id'] ?? '250';
             $linea->dispositivo_id = $validatedData['dispositivo_id'] ?? '1512';
             $linea->save();
-    
+
             return redirect()->route('inventario.stok')->with('success', 'Línea telefónica registrada exitosamente!');
         }
-    
+
         // Si el tipo de registro no es válido
         return redirect()->back()->with('error', 'Tipo de registro inválido');
     }
-    
-    
+
+    public function renovaciones()
+{
+    $dispositivos = dispositivo::paginate(10);
+
+    return view('funciones.renovaciones', compact('dispositivos'));
+}
+
+public function renovacionessearch(Request $request)
+{
 
 
+    $mes = $request->get('mes'); // Mes seleccionado
+    $año = $request->get('año'); // Año seleccionado
 
-
-    public function renovaciones(){
-
-        $dispositivos =dispositivo ::all();
-
-
-
-        return view('funciones.renovaciones', compact('dispositivos'));
-    }
- 
-    public function renovacionessearch(Request $request)
-    {
-        // Obtener mes y año del request
-        $mes = $request->input('mes');
-        $año = $request->input('año');
-        
-        // Filtrar dispositivos por mes y año
-        $dispositivos = Dispositivo::query();
-    
-        if ($mes) {
-            // Filtrar por mes si se proporcionó
-            $dispositivos->whereRaw("MONTH(fechacompra) = ?", [$mes]);
-        }
-    
-        if ($año) {
-            // Filtrar por año si se proporcionó
-            $dispositivos->whereRaw("YEAR(fechacompra) = ?", [$año]);
-        }
-    
-        // Verificar que 'fechacompra' esté en formato 'Y-m-d'
-        $dispositivos->whereRaw("fechacompra REGEXP '^[0-9]{4}-[0-9]{2}-[0-9]{2}$'");
-    
-        // Obtener los resultados
-        $dispositivos = $dispositivos->get();
-        
-        // Retornar la vista con los dispositivos obtenidos
-        return view('funciones.renovaciones', compact('dispositivos'));
+    if (!$mes || !$año) {
+        return redirect()->back()->with('error', 'Por favor seleccione el mes y el año para buscar.');
     }
     
-    
-    
-    
-    
+
+    // Construir la consulta base
+    $query = Dispositivo::query();
+
+    // Aplicar el filtro por mes y año usando STR_TO_DATE para analizar la fecha
+    $query->whereRaw("MONTH(STR_TO_DATE(fechacompra, '%d/%m/%Y')) = ?", [$mes])
+          ->whereRaw("YEAR(STR_TO_DATE(fechacompra, '%d/%m/%Y')) = ?", [$año]);
+
+    // Paginación de resultados
+    $dispositivos = $query->paginate(10);
+
+    // Pasar resultados a la vista
+    return view('funciones.renovaciones', compact('dispositivos', 'mes', 'año'));
+}
+
+
+
+
 }

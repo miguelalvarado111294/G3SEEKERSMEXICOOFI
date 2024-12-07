@@ -21,8 +21,6 @@ Route::group(['middleware' => 'auth'], function () {
         Route::delete('destroy/{user}', [App\Http\Controllers\UserController::class, 'destroy'])->name('admin.destroy');
     });
 
-
-
     Route::resources([
         'referencia' => App\Http\Controllers\ReferenciaController::class,
         'cliente' => App\Http\Controllers\ClienteController::class,
@@ -114,16 +112,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/orden', [App\Http\Controllers\ClienteController::class, 'orden'])->name('crear.orden');
     Route::get('/ordeninstalacion', [App\Http\Controllers\ClienteController::class, 'ordeninstalacion'])->name('ordeninstalacion');
     Route::post('/ordenins', [App\Http\Controllers\ClienteController::class, 'ordenins'])->name('ordenins');
-
-
-
-
     Route::get('/obtener-vehiculos/{clienteId}', [App\Http\Controllers\ClienteController::class, 'obtenerVehiculos']);
     Route::get('/obtener-dispositivo-linea/{vehiculoId}', [App\Http\Controllers\ClienteController::class, 'obtenerDispositivoYLinea']);
-
-
-
-
 
     Route::get('/usuarios/create', [UsuarioController::class, 'create'])->name('usuarios.create');
     Route::post('/usuarios', [UsuarioController::class, 'store'])->name('usuarios.store');
@@ -147,5 +137,9 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('renovaciones', [App\Http\Controllers\FuncionesController::class, 'renovaciones'])->name('renovaciones');
 
-    Route::get('/renovacionessearch', [App\Http\Controllers\FuncionesController::class, 'renovacionessearch'])->name('renovacionessearch');
+
+
+
+    Route::get('/renovaciones/search', [App\Http\Controllers\FuncionesController::class, 'renovacionessearch'])->name('renovacionessearch');
+
 });
