@@ -126,20 +126,14 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/ale', [App\Http\Controllers\CtaespejoController::class, 'ale'])->name('ale');
 
     Route::get('/inventariostok', [App\Http\Controllers\FuncionesController::class, 'stok'])->name('inventario.stok');
-
     Route::get('/inventarioadd', [App\Http\Controllers\FuncionesController::class, 'inventarioadd'])->name('inventarioadd');
     Route::post('/inventario', [App\Http\Controllers\FuncionesController::class, 'store'])->name('store.inventario');
 
     Route::get('/vehiculo/{vehiculo_id}/historial', [App\Http\Controllers\DispositivoController::class, 'historial'])->name('historial');
-
     Route::post('/vehiculo/{vehiculo_id}/savehistorial', [App\Http\Controllers\DispositivoController::class, 'historialregister'])->name('historialregister');
 
 
     Route::get('renovaciones', [App\Http\Controllers\FuncionesController::class, 'renovaciones'])->name('renovaciones');
-
-
-
-
     Route::get('/renovaciones/search', [App\Http\Controllers\FuncionesController::class, 'renovacionessearch'])->name('renovacionessearch');
 
 });

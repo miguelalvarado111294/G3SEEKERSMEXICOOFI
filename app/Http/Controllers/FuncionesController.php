@@ -18,23 +18,24 @@ class FuncionesController extends Controller
 
     public function stok()
     {
-        $usuarioAlmacen = 250; // ID del cliente auxiliar
+        $usuarioAlmacen = 250;
         $aux = Cliente::find($usuarioAlmacen);
-
-        // Verificamos si el cliente existe
+    
         if (!$aux) {
             return redirect()->back()->with('error', 'Cliente no encontrado.');
         }
-
-        // Obtener los dispositivos y las líneas relacionadas con el cliente
-        $dispositivos = $aux->dispositivos;
-        $lineas = $aux->lineas;
-
-        // Devolver la vista con los datos
+    
+        $dispositivos = $aux->dispositivos->filter(function ($dispositivo) {
+            return $dispositivo->id != 1512;
+        });
+    
+        $lineas = $aux->lineas->filter(function ($linea) {
+            return $linea->id != 1512;
+        });
+    
         return view('inventario.stok', compact('aux', 'dispositivos', 'lineas'));
     }
-
-
+    
 
 
     public function inventarioadd()
@@ -74,8 +75,6 @@ class FuncionesController extends Controller
         // Pasar el total de dispositivos al view
         return view('dispositivo.index', compact('dispositivos', 'busqueda', 'totalDispositivos', 'totalDispositivosSinFiltro'));
     }
-
-
 
 
 
@@ -151,7 +150,7 @@ public function renovacionessearch(Request $request)
     if (!$mes || !$año) {
         return redirect()->back()->with('error', 'Por favor seleccione el mes y el año para buscar.');
     }
-    
+
 
     // Construir la consulta base
     $query = Dispositivo::query();
