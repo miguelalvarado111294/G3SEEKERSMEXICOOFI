@@ -23,7 +23,8 @@
 
         <div class="card mt-4">
             <div class="card-body">
-                <form id="registroForm" action="{{ route('create.nuevo') }}" method="post" enctype="multipart/form-data">
+                <form action="{{ route('create.nuevo') }}" method="post" enctype="multipart/form-data">
+                    
                     @csrf
 
                     @php
@@ -72,23 +73,15 @@
                     @endforeach
 
                     <div class="form-group text-center">
-                        <button class="btn btn-success btn-lg" type="submit">Enviar</button>
+                        <button class="btn btn-success btn-lg" type="submit">Registrar </button>
                     </div>
+
                 </form>
             </div>
         </div>
     </div>
 
-    <!-- Cargar Bootstrap JS -->
+    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!-- JavaScript para corregir el método en tiempo de envío -->
-    <script>
-        document.getElementById('registroForm').addEventListener('submit', function (e) {
-            // Asegurar que el formulario siempre utilice el método POST
-            this.method = 'POST';
-            console.log("Enviando formulario con método:", this.method);
-        });
-    </script>
 </body>
 </html>

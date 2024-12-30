@@ -48,7 +48,7 @@ class LineaController extends Controller
     public function crearlinea($id)
     {
         //id es id de dispositivo
-        $dispositivoinventario = 1512;
+        $dispositivoinventario = 1401;
         $lineasinventario = Linea::where('dispositivo_id', $dispositivoinventario)->get();
         return view('linea.createid', compact('id', 'lineasinventario'));
     }

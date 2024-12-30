@@ -18,7 +18,7 @@ class FuncionesController extends Controller
 
     public function stok()
     {
-        $usuarioAlmacen = 250;
+        $usuarioAlmacen = 253;
         $aux = Cliente::find($usuarioAlmacen);
     
         if (!$aux) {
@@ -26,11 +26,11 @@ class FuncionesController extends Controller
         }
     
         $dispositivos = $aux->dispositivos->filter(function ($dispositivo) {
-            return $dispositivo->id != 1512;
+            return $dispositivo->id != 1401;
         });
     
         $lineas = $aux->lineas->filter(function ($linea) {
-            return $linea->id != 1512;
+            return $linea->id != 1401;
         });
     
         return view('inventario.stok', compact('aux', 'dispositivos', 'lineas'));
@@ -100,8 +100,8 @@ class FuncionesController extends Controller
             $dispositivo->fechacompra = $validatedData['fechacompra'];
             $dispositivo->precio = $validatedData['precio'];
             $dispositivo->comentarios = $validatedData['comentarios_dispositivo'] ?? '';
-            $dispositivo->cliente_id = $validatedData['cliente_id'] ?? '250'; // Default client_id
-            $dispositivo->vehiculo_id = $validatedData['vehiculo_id'] ?? '1512'; // Default vehicle_id
+            $dispositivo->cliente_id = $validatedData['cliente_id'] ?? '253'; // Default client_id
+            $dispositivo->vehiculo_id = $validatedData['vehiculo_id'] ?? '1401'; // Default vehicle_id
             $dispositivo->save();
 
             return redirect()->route('inventario.stok')->with('success', 'Dispositivo registrado exitosamente!');
@@ -122,8 +122,8 @@ class FuncionesController extends Controller
             $linea->tipolinea = $validatedData['tipolinea'];
             $linea->renovacion = $validatedData['renovacion'];
             $linea->comentarios = $validatedData['comentarios'] ?? '';
-            $linea->cliente_id = $validatedData['cliente_id'] ?? '250';
-            $linea->dispositivo_id = $validatedData['dispositivo_id'] ?? '1512';
+            $linea->cliente_id = $validatedData['cliente_id'] ?? '253';
+            $linea->dispositivo_id = $validatedData['dispositivo_id'] ?? '1401';
             $linea->save();
 
             return redirect()->route('inventario.stok')->with('success', 'Línea telefónica registrada exitosamente!');

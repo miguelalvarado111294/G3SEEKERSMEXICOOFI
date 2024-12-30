@@ -48,7 +48,7 @@
                             </div>
                             <div class="card-body text-center" >
                                 
-                                <p><strong>Contraseña:</strong> {{ $value->contrasenia }}</p>
+                                <p><strong>Contraseña:</strong> {{ $value->usuario }}</p>
                                 <p><strong>Contraseña:</strong> {{ $value->contrasenia }}</p>
                                 <p><strong>Contraseña de motor:</strong> {{ $value->contraseniaParo }}</p>
                                 <p><strong>Comentarios:</strong> {{ $value->comentarios }}</p>

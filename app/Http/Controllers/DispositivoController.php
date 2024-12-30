@@ -46,7 +46,7 @@ class DispositivoController extends Controller
     public function creardisp($id)
     {
 
-        $vehiculo_id = 1512;
+        $vehiculo_id = 1401;
         $dispositivoseninventario = Dispositivo::where('vehiculo_id', $vehiculo_id)->get();
 
         return view('dispositivo.createid', compact('id', 'dispositivoseninventario'));

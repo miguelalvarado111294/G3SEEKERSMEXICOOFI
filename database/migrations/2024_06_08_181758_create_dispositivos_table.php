@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('precio');
             $table->string('fechadeinstalacion')->nullable();
             $table->string('noeconomico')->nullable();
-            $table->string('comentarios')->nullable();
+            $table->text('comentarios')->nullable();
 
             $table->bigInteger('cliente_id')->unsigned();
             $table->bigInteger('vehiculo_id')->unsigned();
