@@ -15,7 +15,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
-
+//requiere un count en clientes
 class ClienteController extends Controller
 {
     public function buscar(Request $request)
