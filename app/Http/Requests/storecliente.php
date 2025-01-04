@@ -35,11 +35,11 @@ class storecliente extends FormRequest
             'direccion' =>                  'required',
             'email' =>                      'required|string|min:2|max:100|unique:clientes,email' . $cliente->id,
             'rfc' =>                        'nullable|alpha_num|min:2|max:100|unique:clientes,rfc'. $cliente->id,
-            'actaconstitutiva' =>           'mimes:jpeg,png,jpg,png|max:5000',
-            'consFiscal' =>                 'mimes:jpeg,png,jpg,png|max:5000',
-            'comprDom' =>                   'mimes:jpeg,png,jpg,png|max:5000',
-            'tarjetacirculacion' =>         'mimes:jpeg,png,jpg,png|max:5000',
-            'compPago' =>                   'mimes:jpeg,png,jpg,png|max:5000'
+            'actaconstitutiva' =>           'mimes:jpeg,png,jpg,png,pdf|max:5000',
+            'consFiscal' =>                 'mimes:jpeg,png,jpg,png,pdf|max:5000',
+            'comprDom' =>                   'mimes:jpeg,png,jpg,png,pdf|max:5000',
+            'tarjetacirculacion' =>         'mimes:jpeg,png,jpg,png,pdf|max:5000',
+            'compPago' =>                   'mimes:jpeg,png,jpg,png,pdf|max:5000'
 
 
         ];
