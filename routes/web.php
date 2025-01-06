@@ -43,7 +43,7 @@ Route::group(['middleware' => 'auth'], function () {
         'sensor' => App\Http\Controllers\SensorController::class,
     ]);
 
-    Route::get('/cliente/{id}', [App\Http\Controllers\ClienteController::class, 'show'])->name('cliente.show');
+    Route::get('/cliente/{id}', [App\Http\Controllers\ClienteController::class, 'show'])->name('cliente.showw');
     Route::get('/cliente/{id}/buscararchivos', [App\Http\Controllers\ClienteController::class, 'buscararchivos'])->name('buscar.buscararchivos');
 
     Route::prefix('referencia')->group(function () {
