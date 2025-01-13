@@ -10,7 +10,6 @@ class Cliente extends Model
     use HasFactory;
 
     protected $fillable = [
-
         'nombre',
         'segnombre',
         'apellidopat',
@@ -24,9 +23,9 @@ class Cliente extends Model
         'comprDom',
         'tarjetacirculacion',
         'compPago',
-        'comentarios'
-
     ];
+
+
     public function referencias()
     {
         return $this->hasMany('App\Models\Referencia', 'cliente_id', 'id');

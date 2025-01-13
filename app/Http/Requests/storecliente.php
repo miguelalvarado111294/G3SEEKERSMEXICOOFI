@@ -26,22 +26,20 @@ class storecliente extends FormRequest
         $cliente = new Cliente;
 
         return [
-
             'nombre' =>                     'required|alpha|min:2|max:100',
             'segnombre' =>                  'nullable|alpha',
             'apellidopat' =>                'required|alpha|min:3|max:100',
             'apellidomat' =>                'required|alpha|min:3|max:100',
-            'telefono' =>                   'required|numeric|digits:10|unique:clientes,telefono,' . $cliente->id,
-            'direccion' =>                  'required',
-            'email' =>                      'required|string|min:2|max:100|unique:clientes,email' . $cliente->id,
-            'rfc' =>                        'nullable|alpha_num|min:2|max:100|unique:clientes,rfc'. $cliente->id,
-            'actaconstitutiva' =>           'mimes:jpeg,png,jpg,png,pdf|max:5000',
-            'consFiscal' =>                 'mimes:jpeg,png,jpg,png,pdf|max:5000',
-            'comprDom' =>                   'mimes:jpeg,png,jpg,png,pdf|max:5000',
-            'tarjetacirculacion' =>         'mimes:jpeg,png,jpg,png,pdf|max:5000',
-            'compPago' =>                   'mimes:jpeg,png,jpg,png,pdf|max:5000'
-
-
+            'telefono' =>                   'required|numeric|digits:10|unique:clientes,telefono,' . ($cliente->id ?? 'NULL') . ',id',
+            'direccion' =>                  'required|string|max:255',
+            'email' =>                      'required|string|email|max:100|unique:clientes,email,' . ($cliente->id ?? 'NULL') . ',id',
+            'rfc' =>                        'nullable|alpha_num|min:2|max:13|unique:clientes,rfc,' . ($cliente->id ?? 'NULL') . ',id',
+            'actaconstitutiva' =>           'nullable|mimes:jpeg,png,jpg,pdf|max:5000',
+            'consFiscal' =>                 'nullable|mimes:jpeg,png,jpg,pdf|max:5000',
+            'comprDom' =>                   'nullable|mimes:jpeg,png,jpg,pdf|max:5000',
+            'tarjetacirculacion' =>         'nullable|mimes:jpeg,png,jpg,pdf|max:5000',
+            'compPago' =>                   'nullable|mimes:jpeg,png,jpg,pdf|max:5000',
         ];
+        
     }
 }

@@ -10,7 +10,7 @@ Route::get('/clientes/crear', [App\Http\Controllers\ClienteController::class, 'c
 Route::post('/clientes/create', [App\Http\Controllers\ClienteController::class, 'createnuevo'])->name('create.nuevo');
 
 
-Route::post('clientes/create', [App\Http\Controllers\ClienteController::class, 'crearcliente'])->name('create.nuevo');
+
 
 
 Route::get('/referencias/crearr/{id}', [App\Http\Controllers\ReferenciaController::class, 'crearr'])->name('crear.nuevo.ref');

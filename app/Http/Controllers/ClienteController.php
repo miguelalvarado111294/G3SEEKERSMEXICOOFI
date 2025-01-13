@@ -52,6 +52,7 @@ class ClienteController extends Controller
             // Marcar como incompleto si el cliente no tiene cuentas asociadas
             $cliente->profile_incomplete = !$cliente->has_account;
         }
+        
 
         return view('cliente.index', compact('clientes', 'busqueda'));
     }
@@ -168,6 +169,7 @@ class ClienteController extends Controller
 
         // Crear el cliente y obtener su ID
         $cliente = Cliente::create($datosCliente);
+
 
         // Redirigir a la ruta con el cliente ID
         return redirect()->route('crear.nuevo.ref', ['id' => $cliente->id])
