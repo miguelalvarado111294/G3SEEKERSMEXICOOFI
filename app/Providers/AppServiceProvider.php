@@ -3,8 +3,6 @@
 namespace App\Providers;
 
 use Illuminate\Pagination\Paginator;
-
-
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -22,7 +20,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
-        Paginator::useBootstrap();    //
+        // Forzar el uso de HTTPS
+        if (env('APP_ENV') !== 'local') {
+            \URL::forceScheme('https');
+        }
+
+        // Configurar la paginación con Bootstrap
+        Paginator::useBootstrap();
     }
 }
