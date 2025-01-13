@@ -62,15 +62,16 @@
                         ];
                     @endphp
 
-                    @foreach ($fileFields as $field => $label)
-                        <div class="form-group">
-                            <label for="{{ $field }}">{{ $label }}</label><br>
-                            <input type="file" class="form-control" name="{{ $field }}" id="{{ $field }}" accept="image/*">
-                            @error($field)
-                                <small class="text-danger">{{ $message }}</small>
-                            @enderror
-                        </div>
-                    @endforeach
+@foreach ($fileFields as $field => $label)
+<div class="form-group">
+    <label for="{{ $field }}">{{ $label }}</label><br>
+    <input type="file" class="form-control" name="{{ $field }}" id="{{ $field }}" accept="image/*">
+    <small class="form-text text-muted">Imágenes no mayores a 3 MB.</small>
+    @error($field)
+        <small class="text-danger">{{ $message }}</small>
+    @enderror
+</div>
+@endforeach
 
                     <div class="form-group text-center">
                         <button class="btn btn-success btn-lg" type="submit">Registrar </button>
