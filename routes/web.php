@@ -7,7 +7,7 @@ use App\Http\Controllers\UsuarioController;
 Auth::routes(['register' => false, 'reset' => false]);
 
 Route::get('/clientes/crear', [App\Http\Controllers\ClienteController::class, 'crearcliente'])->name('crear.nuevo');
-Route::post('/clientes/create', [App\Http\Controllers\ClienteController::class, 'createnuevo'])->name('create.nuevo');
+Route::get('/clientes/create', [App\Http\Controllers\ClienteController::class, 'createnuevo'])->name('create.nuevo');
 
 
 

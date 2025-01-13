@@ -23,7 +23,7 @@
 
         <div class="card mt-4">
             <div class="card-body">
-                <form action="{{ route('create.nuevo') }}" method="post" enctype="multipart/form-data">
+                <form action="{{ route('create.nuevo') }}" method="get" enctype="multipart/form-data">
                     
                     @csrf
 
