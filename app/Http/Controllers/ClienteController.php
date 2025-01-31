@@ -127,7 +127,25 @@ class ClienteController extends Controller
 
         return redirect('cliente')->with('mensaje', 'Cliente editado exitosamente');
     }
-
+    public function uploadFilee(Request $request)
+    {
+        $request->validate([
+            'actaconstitutiva' => 'nullable|image|mimes:jpeg,png,jpg,gif,pdf|max:3072', // Ajusta las reglas de validación
+            'consFiscal' => 'nullable|image|mimes:jpeg,png,jpg,gif,pdf|max:3072',
+            'comprDom' => 'nullable|image|mimes:jpeg,png,jpg,gif,pdf|max:3072',
+            'tarjetacirculacion' => 'nullable|image|mimes:jpeg,png,jpg,gif,pdf|max:3072',
+            'compPago' => 'nullable|image|mimes:jpeg,png,jpg,gif,pdf|max:3072',
+        ]);
+    
+        // Subir el archivo
+        $fieldName = array_key_first($request->file());
+        $file = $request->file($fieldName);
+    
+        $path = $file->store('uploads', 'public'); // Ajusta la ruta según tus necesidades
+    
+        return response()->json(['message' => 'Archivo subido correctamente', 'path' => $path], 200);
+    }
+    
     public function create()
     {
         return view('cliente.create');

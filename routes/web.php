@@ -98,6 +98,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 
     Route::post('/upload-file', [App\Http\Controllers\ClienteController::class, 'uploadFile'])->name('upload.file');
+    Route::post('/upload-file', [App\Http\Controllers\ClienteController::class, 'uploadFilee'])->name('upload.filee');
 
 
 

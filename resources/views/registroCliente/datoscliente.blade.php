@@ -27,8 +27,7 @@
 
         <div class="card mt-4">
             <div class="card-body">
-                <form action="{{ route('create.nuevo') }}" method="post" enctype="multipart/form-data">
-
+                <form id="form-general" action="{{ route('create.nuevo') }}" method="post" enctype="multipart/form-data">
                     @csrf
 
                     @php
@@ -47,9 +46,7 @@
                     @foreach ($fields as $field => $label)
                         <div class="form-group">
                             <label for="{{ $field }}">{{ $label }}</label>
-                            <input type="text" class="form-control" name="{{ $field }}"
-                                value="{{ old($field, isset($cliente) ? $cliente->$field : '') }}"
-                                id="{{ $field }}" placeholder="{{ $label }}">
+                            <input type="text" class="form-control" name="{{ $field }}" value="{{ old($field, isset($cliente) ? $cliente->$field : '') }}" id="{{ $field }}" placeholder="{{ $label }}">
                             @error($field)
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
@@ -69,9 +66,9 @@
                     @foreach ($fileFields as $field => $label)
                         <div class="form-group">
                             <label for="{{ $field }}">{{ $label }}</label><br>
-                            <input type="file" class="form-control" name="{{ $field }}"
-                                id="{{ $field }}" accept="image/*,.pdf">
+                            <input type="file" class="form-control upload-file" name="{{ $field }}" id="{{ $field }}" accept="image/*,.pdf">
                             <small class="form-text text-muted">Imágenes no mayores a 3 MB.</small>
+                            <small id="status-{{ $field }}" class="form-text text-muted"></small>
                             @error($field)
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
@@ -79,7 +76,7 @@
                     @endforeach
 
                     <div class="form-group text-center">
-                        <button class="btn btn-success btn-lg" type="submit">Registrar </button>
+                        <button class="btn btn-success btn-lg" type="submit" id="submit-form">Registrar </button>
                     </div>
 
                 </form>
@@ -89,6 +86,49 @@
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            // Función para manejar la carga de cada archivo
+            $('.upload-file').on('change', function () {
+                let fileInput = $(this);
+                let fieldName = fileInput.attr('name');
+                let file = fileInput[0].files[0];
+                let formData = new FormData();
+                formData.append(fieldName, file);
+                formData.append('_token', $('meta[name="csrf-token"]').attr('content'));
+
+                // Mostrar estado de carga
+                $('#status-' + fieldName).text('Subiendo...');
+
+                // Hacer la petición AJAX
+                $.ajax({
+                    url: "{{ route('upload.filee') }}", // Aquí se define la ruta para manejar la subida de archivos
+                    type: "POST",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        $('#status-' + fieldName).text('Subida exitosa ✔');
+                    },
+                    error: function (xhr) {
+                        $('#status-' + fieldName).text('Error al subir el archivo ❌');
+                    }
+                });
+            });
+
+            // Prevenir que el formulario se envíe antes de completar las subidas
+            $('#form-general').on('submit', function (e) {
+                e.preventDefault();
+
+                // Aquí puedes agregar un chequeo de que los archivos ya se hayan subido
+                $(this).unbind('submit').submit(); // Si todo está listo, se envía el formulario
+            });
+        });
+    </script>
 </body>
 
 </html>
