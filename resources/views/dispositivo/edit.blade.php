@@ -22,7 +22,7 @@
     <h3 class="text-center">Editar Dispositivos</h3>
 <br>
 
-        <form action="{{ url('/dispositivo/' . $dispositivo->id) }}" method="post"> 
+        <form action="{{ url('/dispositivo/' . $dispositivo->id) }}" method="post" enctype="multipart/form-data">
             @csrf
             {{ method_field('PATCH') }}
             @include('/dispositivo.form', ['modo' => 'Editar'])

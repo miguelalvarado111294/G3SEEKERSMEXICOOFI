@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\Cliente;
@@ -52,7 +53,7 @@ class ClienteController extends Controller
             // Marcar como incompleto si el cliente no tiene cuentas asociadas
             $cliente->profile_incomplete = !$cliente->has_account;
         }
-        
+
 
         return view('cliente.index', compact('clientes', 'busqueda'));
     }
@@ -79,8 +80,7 @@ class ClienteController extends Controller
             'actaconstitutiva',
             'consFiscal',
             'comprDom',
-            'tarjetacirculacion',
-            'compPago'
+            'ine'
         ]);
 
         // Crear el cliente
@@ -110,8 +110,7 @@ class ClienteController extends Controller
             'actaconstitutiva' => 'mimes:pdf,jpeg,png,jpg|max:5000',
             'consFiscal' => 'mimes:pdf,jpeg,png,jpg|max:5000',
             'comprDom' => 'mimes:pdf,jpeg,png,jpg|max:5000',
-            'tarjetacirculacion' => 'mimes:pdf,jpeg,png,jpg|max:5000',
-            'compPago' => 'mimes:pdf,jpeg,png,jpg|max:5000'
+            'ine'
         ]);
 
         $cliente = Cliente::findOrFail($id);
@@ -121,8 +120,7 @@ class ClienteController extends Controller
             'actaconstitutiva',
             'consFiscal',
             'comprDom',
-            'tarjetacirculacion',
-            'compPago'
+            'ine'
         ]);
 
         $cliente->update($datosCliente);
@@ -163,8 +161,7 @@ class ClienteController extends Controller
             'actaconstitutiva',
             'consFiscal',
             'comprDom',
-            'tarjetacirculacion',
-            'compPago'
+            'ine'
         ]);
 
         // Crear el cliente y obtener su ID
@@ -197,7 +194,7 @@ class ClienteController extends Controller
             'linea' => $linea,
             'horaactual' => Carbon::now()->toDateString(),
             'fechacita' => $fechacita,
-            'direccion' => $direccion, 
+            'direccion' => $direccion,
         ]);
 
         return $pdf->download('OrdenDeServicio.pdf');
@@ -251,7 +248,7 @@ class ClienteController extends Controller
         return $vehiculo->dispositivo;
         return response()->json($vehiculo->dispositivo);
     }
-//comentario para hacer push 
+    //comentario para hacer push 
     public function ordenins(Request $request)
     {
 

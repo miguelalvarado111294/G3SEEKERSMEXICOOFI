@@ -19,15 +19,14 @@
                         'actaconstitutiva' => 'Acta Constitutiva',
                         'consFiscal' => 'Constancia de Situación Fiscal',
                         'comprDom' => 'Comprobante de Domicilio',
-                        'tarjetacirculacion' => 'Tarjeta de Circulación',
-                        'compPago' => 'Comprobante de Pago',
+                        'ine' => 'Ine'
                     ];
                 @endphp
 
                 @foreach ($fields as $name => $label)
                     <div class="form-group">
                         <label for="{{ $name }}">{{ $label }}</label>
-                        @if (in_array($name, ['actaconstitutiva', 'consFiscal', 'comprDom', 'tarjetacirculacion', 'compPago']))
+                        @if (in_array($name, ['actaconstitutiva', 'consFiscal', 'comprDom', 'ine']))
                             <input type="file" class="form-control" name="{{ $name }}" id="{{ $name }}" accept="image/*">
                         @else
                             <input type="text" class="form-control" name="{{ $name }}"

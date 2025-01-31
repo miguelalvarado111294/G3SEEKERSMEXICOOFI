@@ -71,5 +71,27 @@
 </div>
 
 <div class="form-group">
+    <label for="tarjetacirculacion">Tarjeta de Circulación</label>
+    <input type="file" class="form-control" name="tarjetacirculacion" id="tarjetacirculacion">
+    
+    @if (isset($vehiculo->tarjetacirculacion) && $vehiculo->tarjetacirculacion)
+        <div class="mt-2">
+            <label>Archivo actual:</label><br>
+            <a href="{{ asset('storage/' . $vehiculo->tarjetacirculacion) }}" target="_blank">
+                Ver Tarjeta de Circulación
+            </a>
+        </div>
+    @endif
+
+    @error('tarjetacirculacion')
+        <small style="color: red"> {{ $message }}</small>
+    @enderror
+    <br>
+</div>
+
+
+
+
+<div class="form-group">
     <input class="btn btn-success" type="submit" class="form-control" value="{{ $modo }} datos">
 </div>

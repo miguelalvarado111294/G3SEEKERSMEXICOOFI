@@ -16,7 +16,7 @@
     <br>
     <br>
 
-    <form action="{{ route('dispositivop.crear', $id) }}" method="post">
+    <form action="{{ route('dispositivop.crear', $id) }}" method="post" enctype="multipart/form-data">
         @csrf
         <input type="hidden" id="fechacompra" name="fechacompra" value="0">
         <input type="hidden" id="precio" name="precio" value="0">
@@ -88,6 +88,11 @@
             <div class="form-group">
                 <label>Id en Plataforma:</label>
                 <input type="text" class="form-control" name="plataforma_id">
+            </div>
+
+            <div class="form-group">
+                <label for="compPago">Recibo de Pago:</label>
+                <input type="file" class="form-control" name="compPago" id="compPago" accept="image/*,application/pdf">
             </div>
 
             <div class="form-group">

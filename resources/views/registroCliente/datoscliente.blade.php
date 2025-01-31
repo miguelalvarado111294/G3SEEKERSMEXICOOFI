@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>G3 Seekers México</title>
-    
+
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -13,9 +14,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
     <style>
-        .font-weight-bold { font-weight: bold; }
+        .font-weight-bold {
+            font-weight: bold;
+        }
     </style>
 </head>
+
 <body>
     <div class="container mt-5">
         <h1 class="text-center font-weight-bold">G3 Seekers México</h1>
@@ -24,7 +28,7 @@
         <div class="card mt-4">
             <div class="card-body">
                 <form action="{{ route('create.nuevo') }}" method="post" enctype="multipart/form-data">
-                    
+
                     @csrf
 
                     @php
@@ -44,8 +48,8 @@
                         <div class="form-group">
                             <label for="{{ $field }}">{{ $label }}</label>
                             <input type="text" class="form-control" name="{{ $field }}"
-                                   value="{{ old($field, isset($cliente) ? $cliente->$field : '') }}" id="{{ $field }}"
-                                   placeholder="{{ $label }}">
+                                value="{{ old($field, isset($cliente) ? $cliente->$field : '') }}"
+                                id="{{ $field }}" placeholder="{{ $label }}">
                             @error($field)
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
@@ -62,16 +66,17 @@
                         ];
                     @endphp
 
-@foreach ($fileFields as $field => $label)
-<div class="form-group">
-    <label for="{{ $field }}">{{ $label }}</label><br>
-    <input type="file" class="form-control" name="{{ $field }}" id="{{ $field }}" accept="image/*">
-    <small class="form-text text-muted">Imágenes no mayores a 3 MB.</small>
-    @error($field)
-        <small class="text-danger">{{ $message }}</small>
-    @enderror
-</div>
-@endforeach
+                    @foreach ($fileFields as $field => $label)
+                        <div class="form-group">
+                            <label for="{{ $field }}">{{ $label }}</label><br>
+                            <input type="file" class="form-control" name="{{ $field }}"
+                                id="{{ $field }}" accept="image/*,.pdf">
+                            <small class="form-text text-muted">Imágenes no mayores a 3 MB.</small>
+                            @error($field)
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+                    @endforeach
 
                     <div class="form-group text-center">
                         <button class="btn btn-success btn-lg" type="submit">Registrar </button>
@@ -85,4 +90,5 @@
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

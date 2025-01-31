@@ -42,7 +42,6 @@
     </select>
     @error('cuenta')
         <small style ="color: red"> {{ $message }}</small>;
-        
     @enderror
     <br>
 </div>
@@ -57,43 +56,65 @@
 
     </select>
 
-<div class="form-group">
-    <label for="fechacompra">Fecha de Compra</label>
-    <input type="date" class="form-control" name="fechacompra"
-        value="{{ old('fechacompra', isset($dispositivo->fechacompra) ? $dispositivo->fechacompra : '') }}"
-        id="fechacompra">
-    @error('fechacompra')
-        <small style="color: red">{{ $message }}</small>
-    @enderror
+    <div class="form-group">
+        <label for="fechacompra">Fecha de Compra</label>
+        <input type="date" class="form-control" name="fechacompra"
+            value="{{ old('fechacompra', isset($dispositivo->fechacompra) ? $dispositivo->fechacompra : '') }}"
+            id="fechacompra">
+        @error('fechacompra')
+            <small style="color: red">{{ $message }}</small>
+        @enderror
+        <br>
+    </div>
+
+
+    <div class="form-group">
+        <label for="noeconomico">Número Económico</label>
+        <input type="text" class="form-control" name="noeconomico"
+            value="{{ old('noeconomico', isset($dispositivo->noeconomico) ? $dispositivo->noeconomico : '') }}"
+            id="noeconomico">
+        @error('noeconomico')
+            <small style="color: red">{{ $message }}</small>
+        @enderror
+        <br>
+    </div>
+
+    <div class="form-group">
+        <label for="compPago">Recibo de Pago</label>
+        <input type="file" class="form-control" name="compPago" id="compPago">
+
+        @if (isset($dispositivo->compPago) && $dispositivo->compPago)
+            <div class="mt-2">
+                <label>Archivo actual:</label><br>
+                <a href="{{ asset('storage/' . $dispositivo->compPago) }}" target="_blank">
+                    Ver Recibo de Pago
+                </a>
+            </div>
+        @endif
+
+        @error('recibo_pago')
+            <small style="color: red">{{ $message }}</small>
+        @enderror
+        <br>
+    </div>
+
+
+    <div class="form-group">
+        <label for="comentarios">Comentarios</label>
+        <input type="text" class="form-control" name="comentarios"
+            value="{{ old('comentarios', isset($cuenta->comentarios) ? $cuenta->comentarios : '') }}" id="comentarios">
+        @error('comentarios')
+            <small style="color: red">{{ $message }}</small>
+        @enderror
+        <br>
+    </div>
+
+
+
+    <div class="form-group">
+        <input class="btn btn-success" type="submit" class="form-control" value="{{ $modo }} datos">
+    </div>
+
     <br>
-</div>
-
-
-<div class="form-group">
-    <label for="noeconomico">Número Económico</label>
-    <input type="text" class="form-control" name="noeconomico"
-        value="{{ old('noeconomico', isset($dispositivo->noeconomico) ? $dispositivo->noeconomico : '') }}"
-        id="noeconomico">
-    @error('noeconomico')
-        <small style="color: red">{{ $message }}</small>
-    @enderror
-    <br>
-</div>
-
-<div class="form-group">
-    <label for="comentarios">Comentarios</label>
-    <input type="text" class="form-control" name="comentarios"
-        value="{{ old('comentarios', isset($cuenta->comentarios) ? $cuenta->comentarios : '') }}" id="comentarios">
-    @error('comentarios')
-        <small style="color: red">{{ $message }}</small>
-    @enderror
-    <br>
-</div>
-
-<div class="form-group">
-    <input class="btn btn-success" type="submit" class="form-control" value="{{ $modo }} datos">
-</div>
-
-<br>
-<a href="{{ URL::previous() }}" class="btn btn-dark">Regresar</a>
-<br><br>
+    <a href="{{ URL::previous() }}" class="btn btn-dark">Regresar</a>
+    <br><br>

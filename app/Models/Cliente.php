@@ -18,11 +18,11 @@ class Cliente extends Model
         'direccion',
         'email',
         'rfc',
+        'ine',
         'actaconstitutiva',
         'consFiscal',
-        'comprDom',
-        'tarjetacirculacion',
-        'compPago',
+        'comprDom'
+
     ];
 
 

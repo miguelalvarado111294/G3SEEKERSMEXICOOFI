@@ -21,6 +21,8 @@ return new class extends Migration
             $table->string('placa');
             $table->string('color');
             $table->string('tipo');
+            $table->string('tarjetacirculacion')->nullable();
+
             $table->string('comentarios')->nullable();
 
 

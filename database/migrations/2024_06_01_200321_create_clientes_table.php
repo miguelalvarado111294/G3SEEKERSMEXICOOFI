@@ -21,12 +21,13 @@ return new class extends Migration
             $table->string('telefono');
             $table->string('direccion');
             $table->string('email');
+
+            $table->string('ine')->nullable();
             $table->string('rfc')->nullable();
             $table->string('actaconstitutiva')->nullable();
             $table->string('consFiscal')->nullable();
             $table->string('comprDom')->nullable();
-            $table->string('tarjetacirculacion')->nullable();
-            $table->string('compPago')->nullable();
+
             $table->string('comentarios')->nullable();
             $table->timestamps();
         });

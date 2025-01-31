@@ -10,9 +10,6 @@ Route::get('/clientes/crear', [App\Http\Controllers\ClienteController::class, 'c
 Route::post('/clientes/create', [App\Http\Controllers\ClienteController::class, 'createnuevo'])->name('create.nuevo');
 
 
-
-
-
 Route::get('/referencias/crearr/{id}', [App\Http\Controllers\ReferenciaController::class, 'crearr'])->name('crear.nuevo.ref');
 Route::post('/referencias/create/{id}', [App\Http\Controllers\ReferenciaController::class, 'createnuevoref'])->name('create.nuevo.ref');
 Route::get('/confirmation', [App\Http\Controllers\BusquedaController::class, 'confirmation'])->name('confirmation');

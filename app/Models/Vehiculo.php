@@ -20,7 +20,9 @@ class Vehiculo extends Model
         'comentarios',
         'cliente_id',
         'cuenta_id',
-        'dispositivo_id'
+        'dispositivo_id',
+        'tarjetacirculacion'
+
 
     ];
 

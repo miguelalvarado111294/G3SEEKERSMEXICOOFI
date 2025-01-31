@@ -29,8 +29,7 @@
                     <th>Acta Constitutiva</th>
                     <th>Constancia de Situación Fiscal</th>
                     <th>Comprobante Domicilio</th>
-                    <th>Tarjeta Circulación</th>
-                    <th>Comprobante Pago</th>
+                    <th>Ine</th>
                 </tr>
             </thead>
             <tbody>
@@ -40,8 +39,7 @@
                             'actaconstitutiva' => 'Acta Constitutiva',
                             'consFiscal' => 'Constancia de Situación Fiscal',
                             'comprDom' => 'Comprobante Domicilio',
-                            'tarjetacirculacion' => 'Tarjeta Circulación',
-                            'compPago' => 'Comprobante Pago',
+                            'ine' => 'Ine'
                         ];
                     @endphp
 

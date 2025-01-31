@@ -6,6 +6,8 @@ use App\Models\Dispositivo;
 use App\Models\Vehiculo;
 use App\Models\Cliente;
 use App\Models\Historial;
+use Illuminate\Support\Facades\Storage;
+
 
 use Illuminate\Http\Request;
 
@@ -21,6 +23,7 @@ class DispositivoController extends Controller
         // Construir la consulta
         $query = Dispositivo::where(function ($query) use ($busqueda) {
             $query->where('id', 'LIKE', "%{$busqueda}%")
+                ->orWhere('plataforma_id', 'LIKE', "%{$busqueda}%")
                 ->orWhere('imei', 'LIKE', "%{$busqueda}%")
                 ->orWhere('cuenta', $busqueda)
                 ->orWhere('noeconomico', 'LIKE', "%{$busqueda}%");
@@ -51,7 +54,7 @@ class DispositivoController extends Controller
 
         return view('dispositivo.createid', compact('id', 'dispositivoseninventario'));
     }
-
+/*
     public function stodis(Request $request, $id)
     {
 
@@ -109,7 +112,91 @@ class DispositivoController extends Controller
 
             return redirect()->route('buscar.dispositivo', $vehiculo_id)->with('mensaje', 'Dispositivo actualizado correctamente');
         }
+    }*/
+
+
+    public function stodis(Request $request, $id)
+{
+    $vehiculo_id = $id;
+    $vehiculo = Vehiculo::findOrFail($vehiculo_id);
+    $cliente_id = $vehiculo->cliente_id;
+
+    // Validar el archivo si es necesario
+    $request->validate([
+        'compPago' => 'nullable|mimes:jpg,jpeg,png,pdf|max:5000',  // Validación para el recibo
+    ]);
+
+    // Asignación manual
+    if ($request->tipo_asignacion == 'manual') {
+        $dispositivo = new Dispositivo();
+        $dispositivo->cliente_id = $cliente_id;
+        $dispositivo->vehiculo_id = $vehiculo_id;
+        $dispositivo->plataforma_id = $request->plataforma_id;
+        $dispositivo->modelo = $request->modelo;
+        $dispositivo->noserie = $request->noserie;
+        $dispositivo->imei = $request->imei;
+        $dispositivo->cuenta = $request->cuenta;
+        $dispositivo->sucursal = $request->sucursal;
+        $dispositivo->fechadeinstalacion = $request->fechadeinstalacion;
+        $dispositivo->fechacompra = $request->fechacompra ?: '2000-01-01';
+        $dispositivo->precio = $request->precio ?: '0';
+        $dispositivo->ubicaciondispositivo = $request->ubicaciondispositivo;
+        $dispositivo->noeconomico = $request->noeconomico;
+        $dispositivo->comentarios = $request->comentarios;
+
+        // Manejar el archivo del recibo de pago
+        if ($request->hasFile('compPago')) {
+            $archivo = $request->file('compPago');
+            $rutaRecibo = $archivo->store('compPago', 'public');  // Guardar en la carpeta public/recibos_pago
+            $dispositivo->compPago = $rutaRecibo;  // Almacenar la ruta en el campo recibo_pago
+        }
+
+        $dispositivo->save();  // Guardar el dispositivo
+
+        return redirect()->route('buscar.dispositivo', $vehiculo_id)->with('mensaje', 'Dispositivo asignado correctamente');
     }
+
+    // Asignación desde inventario
+    if ($request->tipo_asignacion == 'inventario') {
+        $dispositivo_id = $request->dispositivo_id;
+        $dispositivo = Dispositivo::findOrFail($dispositivo_id);
+
+        // Actualizamos los campos con los datos del request
+        $dispositivo->cliente_id = $cliente_id;
+        $dispositivo->vehiculo_id = $vehiculo_id;
+        $dispositivo->plataforma_id = $request->plataforma_id;
+        $dispositivo->modelo = $request->modelo;
+        $dispositivo->noserie = $request->noserie;
+        $dispositivo->imei = $request->imei;
+        $dispositivo->cuenta = $request->cuenta;
+        $dispositivo->sucursal = $request->sucursal;
+        $dispositivo->fechadeinstalacion = $request->fechadeinstalacion;
+        $dispositivo->fechacompra = $request->fechacompra ?: '2000-01-01';
+        $dispositivo->precio = $request->precio ?: '0';
+        $dispositivo->ubicaciondispositivo = $request->ubicaciondispositivo;
+        $dispositivo->noeconomico = $request->noeconomico;
+        $dispositivo->comentarios = $request->comentarios;
+
+        // Manejar el archivo del recibo de pago
+        if ($request->hasFile('compPago')) {
+            // Si el dispositivo ya tiene un archivo de recibo, lo eliminamos
+            if ($dispositivo->compPago) {
+                Storage::disk('public')->delete($dispositivo->compPago);
+            }
+
+            $archivo = $request->file('compPago');
+            $rutaRecibo = $archivo->store('compPago', 'public');  // Guardar en la carpeta public/recibos_pago
+            $dispositivo->compPago = $rutaRecibo;  // Almacenar la ruta en el campo recibo_pago
+        }
+
+        $dispositivo->save();  // Guardar los cambios en el dispositivo
+
+        return redirect()->route('buscar.dispositivo', $vehiculo_id)->with('mensaje', 'Dispositivo actualizado correctamente');
+    }
+}
+
+
+
 
 
 
@@ -121,7 +208,7 @@ class DispositivoController extends Controller
 
         return view('dispositivo.edit', compact('dispositivo', 'clientes', 'vehiculos'));
     }
-
+/*
     public function update(Request $request, $id)
     {
         $request->validate($this->validationRules($id));
@@ -131,6 +218,51 @@ class DispositivoController extends Controller
 
         return redirect()->route('buscar.dispositivo', Dispositivo::findOrFail($id)->vehiculo_id);
     }
+        */
+
+        public function update(Request $request, $id)
+        {
+            $request->validate($this->validationRules($id));
+        
+            $datosDispositivo = $request->except(['_token', '_method', 'compPago']); // Excluir el campo del archivo
+        
+            // Obtener el dispositivo
+            $dispositivo = Dispositivo::findOrFail($id);
+        
+            // Manejar la carga del archivo si existe (como en la función de vehículo)
+            $this->handleFileUpload($request, $dispositivo, $datosDispositivo, ['compPago']); // 'compPago' es el campo para el archivo
+        
+            // Actualizar los datos del dispositivo
+            $dispositivo->update($datosDispositivo);
+        
+            // Redireccionar a la página de búsqueda del dispositivo
+            return redirect()->route('buscar.dispositivo', $dispositivo->vehiculo_id)->with('mensaje', 'Dispositivo actualizado exitosamente');
+        }
+        
+        protected function handleFileUpload(Request $request, $model, &$datos, $fields)
+        {
+            foreach ($fields as $field) {
+                if ($request->hasFile($field)) {
+                    // Eliminar archivo anterior si existe
+                    if ($model->{$field}) {
+                        Storage::disk('public')->delete($model->{$field});
+                    }
+        
+                    // Procesar y guardar el nuevo archivo
+                    $archivo = $request->file($field);
+                    $ruta = $archivo->store('compPago', 'public'); // Guardar archivo en la carpeta correspondiente
+        
+                    // Actualizar el campo del modelo con la nueva ruta del archivo
+                    $datos[$field] = $ruta;
+                }
+            }
+        }
+        
+
+
+
+
+
 
     public function destroy($id)
     {

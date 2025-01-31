@@ -25,7 +25,10 @@ class Dispositivo extends Model
         'fechacompra',
         'noeconomico',
         'ubicaciondispositivo',
-        'comentarios'
+        'comentarios',
+        'compPago'
+
+
     ];
 
 

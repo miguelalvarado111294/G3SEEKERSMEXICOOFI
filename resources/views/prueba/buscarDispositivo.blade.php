@@ -58,6 +58,10 @@
                         <b>Dispositivo Instalado</b>
                     </div>
                     <div class="card-body">
+                       
+                       
+                        
+
                         <p><strong>platadorma_id:</strong> {{ $value->plataforma_id }}</p>
                         <p><strong>noeconomico:</strong> {{ $value->noeconomico }}</p>
                         <p><strong>Cuenta:</strong> {{ $value->cuenta }}</p>
@@ -66,7 +70,16 @@
                         <p><strong>Fecha de Instalación:</strong> {{ $value->fechadeinstalacion }}</p>
                         <p><strong>Ubicacion Dispositivo:</strong> {{ $value->ubicaciondispositivo }}</p>
                         <p><strong>Sucursal:</strong> {{ $value->sucursal }}</p>
-
+                        <p>
+                            <strong>Comprobante de pago: </strong>  <br>
+                            @if ($value->compPago)
+                                <a href="{{ asset('storage/' . $value->compPago) }}" target="_blank">
+                                    <img src="{{ asset('storage/' . $value->compPago) }}" width="100" alt="Recibo de pago" class="img-fluid">
+                                </a>
+                            @else
+                                <span class="text-muted">No disponible</span>
+                            @endif
+                        </p>
                         <p><strong>Observaciones:</strong> {{ $value->comentarios }}</p>
                         <br>
                         <div class ="text-center">
@@ -107,6 +120,9 @@
                         <li><b>Número de Serie:</b> {{ $vehiculo->noserie }}</li>
                         <li><b>Placa:</b> {{ $vehiculo->placa }}</li>
                         <li><b>Color:</b> {{ $vehiculo->color }}</li>
+
+                        <li><b>Tarjeta de Circulacion:</b> {{ $vehiculo->tarjetadecirculacion }}</li>
+
                     </ul>
                 </div>
                 <div class="text-center mb-4">

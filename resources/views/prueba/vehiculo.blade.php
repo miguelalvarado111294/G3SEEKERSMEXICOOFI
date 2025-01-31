@@ -19,7 +19,8 @@
 @section('content_header')
     <div class="text-center mb-4">
         <h1 class="display-4"><b>G3 Seekers México</b></h1>
-        <h2 class="text-muted">Cliente: {{ $cliente->nombre }} {{ $cliente->segnombre }} {{ $cliente->apellidopat }} {{ $cliente->apellidomat }}</h2>
+        <h2 class="text-muted">Cliente: {{ $cliente->nombre }} {{ $cliente->segnombre }} {{ $cliente->apellidopat }}
+            {{ $cliente->apellidomat }}</h2>
         <h4 class="text-muted">Cuenta: {{ $cuenta->pluck('usuario')->implode(', ') }}</h4>
         <h3 class="font-weight-bold text-primary">Vehículo(s)</h3>
     </div>
@@ -54,6 +55,8 @@
                         <th>Modelo</th>
                         <th>Color</th>
                         <th>Placa</th>
+                        <th>Tarjeta Circulacion</th>
+
                         <th>Tipo de Unidad</th>
                         <th>Número de Serie</th>
                         <th>Acciones</th>
@@ -68,6 +71,19 @@
                             <td>{{ $vehiculo->modelo }}</td>
                             <td>{{ $vehiculo->color }}</td>
                             <td>{{ $vehiculo->placa }}</td>
+                            <td>
+                                @if ($vehiculo->tarjetacirculacion)
+                                    <a href="{{ asset('storage/tarjetas_circulacion/' . basename($vehiculo->tarjetacirculacion)) }}"
+                                        target="_blank">
+                                        <img src="{{ asset('storage/tarjetas_circulacion/' . basename($vehiculo->tarjetacirculacion)) }}"
+                                            width="100" alt="Tarjeta de circulación" class="img-fluid">
+                                    </a>
+                                @else
+                                    <span class="text-muted">No disponible</span>
+                                @endif
+                            </td>
+
+
                             <td>{{ $vehiculo->tipo }}</td>
                             <td>{{ $vehiculo->noserie }}</td>
                             <td class="text-center">
@@ -78,10 +94,12 @@
                                 @endcan
 
                                 @can('vehiculo.destroy')
-                                    <form action="{{ route('vehiculo.destroy', $vehiculo->id) }}" method="POST" class="d-inline">
+                                    <form action="{{ route('vehiculo.destroy', $vehiculo->id) }}" method="POST"
+                                        class="d-inline">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Seguro quieres eliminar?')">
+                                        <button type="submit" class="btn btn-danger btn-sm"
+                                            onclick="return confirm('¿Seguro quieres eliminar?')">
                                             <i class="fas fa-trash-alt"></i> Borrar
                                         </button>
                                     </form>
@@ -125,6 +143,6 @@
     <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/js/adminlte.min.js"></script>
 
     <script>
-        console.log("Hi, I'm using the Laravel-AdminLTE package!");
+        console.log("thi8s shit its fucking working");
     </script>
 @stop
