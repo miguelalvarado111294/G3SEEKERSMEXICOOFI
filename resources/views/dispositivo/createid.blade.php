@@ -95,6 +95,11 @@
                 <input type="file" class="form-control" name="compPago" id="compPago" accept="image/*,application/pdf">
             </div>
 
+
+
+
+            
+
             <div class="form-group">
                 <label>Comentarios:</label>
                 <input type="text" class="form-control" name="comentarios">

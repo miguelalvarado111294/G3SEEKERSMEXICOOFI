@@ -104,9 +104,6 @@ class VehiculoController extends Controller
 }
 
 
-
-
-
     public function store(Request $request, $id)
     {
         $this->validateRequest($request, $id);

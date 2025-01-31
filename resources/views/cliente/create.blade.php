@@ -49,4 +49,34 @@
     <script>
         console.log("Hi, I'm using the Laravel-AdminLTE package!");
     </script>
+
+    <script>
+        $(document).ready(function () {
+            $('.upload-file').on('change', function () {
+                let fileInput = $(this);
+                let file = fileInput[0].files[0];
+                let fieldName = fileInput.data('field');
+                let formData = new FormData();
+                formData.append(fieldName, file);
+                formData.append('_token', '{{ csrf_token() }}'); // CSRF Token para seguridad en Laravel
+
+                // Mostrar estado de carga
+                $('#status-' + fieldName).text('Subiendo...');
+
+                $.ajax({
+                    url: "{{ route('upload.file') }}", // Ruta para manejar la subida en Laravel
+                    type: "POST",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        $('#status-' + fieldName).text('Subida exitosa ✔');
+                    },
+                    error: function (xhr) {
+                        $('#status-' + fieldName).text('Error al subir el archivo ❌');
+                    }
+                });
+            });
+        });
+    </script>
 @stop

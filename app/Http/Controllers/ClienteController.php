@@ -200,7 +200,18 @@ class ClienteController extends Controller
         return $pdf->download('OrdenDeServicio.pdf');
     }
 
-
+    public function uploadFile(Request $request)
+    {
+        $field = array_keys($request->all())[1]; // Obtiene el nombre del campo dinámicamente
+        if ($request->hasFile($field)) {
+            $file = $request->file($field);
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $path = $file->storeAs('public/documentos', $filename); // Guarda en storage/app/public/documentos
+            return response()->json(['message' => 'Archivo subido correctamente', 'path' => $path]);
+        }
+        return response()->json(['error' => 'Error al subir el archivo'], 400);
+    }
+    
 
     public function crearcita(Vehiculo $vehiculo)
     {
