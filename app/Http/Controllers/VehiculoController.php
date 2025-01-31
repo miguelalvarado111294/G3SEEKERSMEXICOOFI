@@ -58,36 +58,51 @@ class VehiculoController extends Controller
     }*/
 
     public function createvehiculo(Request $request, $id)
-    {
-        // Validación de los datos incluyendo la tarjeta de circulación
-        $request->validate([
-            'marca' => 'required|string|max:255',
-            'modelo' => 'required|string|max:255',
-            'noserie' => 'required|string|max:255',
-            'nomotor' => 'required|string|max:255',
-            'placa' => 'required|string|max:255',
-            'color' => 'required|string|max:255',
-            'comentarios' => 'nullable|string',
-            'tarjetacirculacion' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048' // Máximo 2MB
-        ]);
+{
+    // Validación de los datos incluyendo la tarjeta de circulación
+    $request->validate([
+        'marca' => 'required|string|max:255',
+        'modelo' => 'required|string|max:255',
+        'noserie' => 'required|string|max:255',
+        'nomotor' => 'required|string|max:255',
+        'placa' => 'required|string|max:255',
+        'color' => 'required|string|max:255',
+        'comentarios' => 'nullable|string',
+        'tarjetacirculacion' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048' // Máximo 2MB
+    ]);
 
-        $datosCliente = $request->except('_token');
-        $datosCliente['cliente_id'] = $id;
+    $datosCliente = $request->except('_token');
+    $datosCliente['cliente_id'] = $id;
 
-        // Manejar la subida del archivo
-        if ($request->hasFile('tarjetacirculacion')) {
-            $archivo = $request->file('tarjetacirculacion');
-            $ruta = $archivo->store('tarjetas_circulacion', 'public'); // Guardar en storage/app/public/tarjetas_circulacion
-            $datosCliente['tarjetacirculacion'] = $ruta;
-        }
-
-        $mArray = array_map('strtoupper', $datosCliente);
-        Vehiculo::create($mArray);
-
-        // Agregar mensaje a la sesión
-        session()->flash('mensaje', 'Vehículo creado exitosamente.');
-        return redirect()->route('buscar.vehiculo', $id);
+    // Manejar la subida del archivo
+    if ($request->hasFile('tarjetacirculacion')) {
+        $archivo = $request->file('tarjetacirculacion');
+        $ruta = $archivo->store('tarjetas_circulacion', 'public'); // Guardar en storage/app/public/tarjetas_circulacion
+        $datosCliente['tarjetacirculacion'] = $ruta;
     }
+
+    // Excluimos 'tarjetacirculacion' de la conversión a mayúsculas
+    $datosClienteSinTarjeta = $datosCliente;
+    if (isset($datosCliente['tarjetacirculacion'])) {
+        unset($datosClienteSinTarjeta['tarjetacirculacion']);
+    }
+
+    // Convertimos a mayúsculas los campos excepto 'tarjetacirculacion'
+    $mArray = array_map('strtoupper', $datosClienteSinTarjeta);
+
+    // Reintroducimos 'tarjetacirculacion' sin cambios
+    if (isset($datosCliente['tarjetacirculacion'])) {
+        $mArray['tarjetacirculacion'] = $datosCliente['tarjetacirculacion'];
+    }
+
+    // Crear el vehículo con los datos procesados
+    Vehiculo::create($mArray);
+
+    // Agregar mensaje a la sesión
+    session()->flash('mensaje', 'Vehículo creado exitosamente.');
+    return redirect()->route('buscar.vehiculo', $id);
+}
+
 
 
 
