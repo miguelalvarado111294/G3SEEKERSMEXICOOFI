@@ -64,7 +64,7 @@
                 $('#status-' + fieldName).text('Subiendo...');
 
                 $.ajax({
-                    url: "{{ route('upload.file') }}", // Ruta para manejar la subida en Laravel
+                    url: "{{ route('upload.filee') }}", // Ruta para manejar la subida en Laravel
                     type: "POST",
                     data: formData,
                     processData: false,
