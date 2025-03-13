@@ -32,8 +32,7 @@
                         <!-- Si no es un campo de archivo, se maneja como un campo de texto -->
                         <input type="{{ $name == 'email' ? 'email' : 'text' }}" class="form-control"
                                name="{{ $name }}" value="{{ old($name, $cliente->$name ?? '') }}" id="{{ $name }}"
-                               {{ in_array($name, ['nombre', 'apellidopat', 'apellidomat', 'telefono', 'email', 'rfc']) ? 'required' : '' }}
-                               {{ $name == 'telefono' ? 'pattern="[0-9]{10}" maxlength="10"' : '' }}>
+                               {{ in_array($name, ['nombre', 'apellidopat', 'apellidomat', 'telefono', 'email']) ? 'required' : '' }}>
                     @endif
 
                     <!-- Mostrar mensaje de error si existe -->
