@@ -23,27 +23,22 @@
             @foreach ($fields as $name => $label)
                 <div class="form-group">
                     <label for="{{ $name }}">{{ $label }}</label>
-                    @if (in_array($name, ['actaconstitutiva', 'consFiscal', 'comprDom', 'ine']))
 
+                    <!-- Si el campo es de archivo, se maneja de forma diferente -->
+                    @if (in_array($name, ['actaconstitutiva', 'consFiscal', 'comprDom', 'ine']))
                         <input type="file" class="form-control upload-file" name="{{ $name }}" id="{{ $name }}" accept="image/*" data-field="{{ $name }}">
                         <small id="status-{{ $name }}" class="text-muted"></small>
                     @else
-                        <input type="text" class="form-control" name="{{ $name }}" value="{{ old($name) }}" id="{{ $name }}">
-                    @endif
-                    @error($name)
-                        <small style="color: red">{{ $message }}</small>
-
-                        <input type="file" class="form-control-file upload-file" name="{{ $name }}" id="{{ $name }}" accept="image/*,application/pdf" data-field="{{ $name }}">
-                        <small id="status-{{ $name }}" class="text-muted"></small>
-                    @else
+                        <!-- Si no es un campo de archivo, se maneja como un campo de texto -->
                         <input type="{{ $name == 'email' ? 'email' : 'text' }}" class="form-control"
                                name="{{ $name }}" value="{{ old($name, $cliente->$name ?? '') }}" id="{{ $name }}"
                                {{ in_array($name, ['nombre', 'apellidopat', 'apellidomat', 'telefono', 'email', 'rfc']) ? 'required' : '' }}
                                {{ $name == 'telefono' ? 'pattern="[0-9]{10}" maxlength="10"' : '' }}>
                     @endif
+
+                    <!-- Mostrar mensaje de error si existe -->
                     @error($name)
                         <small class="text-danger">{{ $message }}</small>
-
                     @enderror
                 </div>
             @endforeach
