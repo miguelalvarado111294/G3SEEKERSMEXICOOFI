@@ -110,11 +110,11 @@ class CuentaController extends Controller
             'comentarios' => 'nullable|alpha|min:10|max:100'
         ]);
     }
-
     private function prepareData(Request $request, $clienteId)
     {
         $datosCliente = $request->except('_token');
         $datosCliente['cliente_id'] = $clienteId;
         return array_map('strtoupper', $datosCliente);
-    }
+
+}
 }

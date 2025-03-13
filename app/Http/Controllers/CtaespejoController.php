@@ -30,7 +30,10 @@ class CtaespejoController extends Controller
 
         $datosCliente = $request->except('_token');
         $datosCliente['cuenta_id'] = $id;
+
         $datosCliente = array_map('strtoupper', $datosCliente);
+
+ 
 
         Ctaespejo::create($datosCliente);
         return redirect()->route('buscar.ctaespejo', $id);
@@ -84,14 +87,5 @@ class CtaespejoController extends Controller
         return view('ctaespejo.create', compact('cuentas', 'clientes'));
     }
 
-    
-    public function ale()
-    {
-        
-        return view('ale');
-    }
-    
-
-    
 
 }
