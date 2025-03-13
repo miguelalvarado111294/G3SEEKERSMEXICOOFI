@@ -24,7 +24,7 @@
                 <div class="form-group">
                     <label for="{{ $name }}">{{ $label }}</label>
                     @if (in_array($name, ['actaconstitutiva', 'consFiscal', 'comprDom', 'ine']))
-<<<<<<< HEAD
+
                         <input type="file" class="form-control upload-file" name="{{ $name }}" id="{{ $name }}" accept="image/*" data-field="{{ $name }}">
                         <small id="status-{{ $name }}" class="text-muted"></small>
                     @else
@@ -32,7 +32,7 @@
                     @endif
                     @error($name)
                         <small style="color: red">{{ $message }}</small>
-=======
+
                         <input type="file" class="form-control-file upload-file" name="{{ $name }}" id="{{ $name }}" accept="image/*,application/pdf" data-field="{{ $name }}">
                         <small id="status-{{ $name }}" class="text-muted"></small>
                     @else
@@ -43,7 +43,7 @@
                     @endif
                     @error($name)
                         <small class="text-danger">{{ $message }}</small>
->>>>>>> 9af01c4 (bugs)
+
                     @enderror
                 </div>
             @endforeach
