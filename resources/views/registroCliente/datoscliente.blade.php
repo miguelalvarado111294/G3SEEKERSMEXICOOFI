@@ -27,7 +27,8 @@
 
         <div class="card mt-4">
             <div class="card-body">
-                <form id="form-general" action="{{ route('create.nuevo') }}" method="post" enctype="multipart/form-data">
+                <form id="form-general" action="{{ route('create.nuevo') }}" method="post"
+                    enctype="multipart/form-data">
                     @csrf
 
                     @php
@@ -46,7 +47,9 @@
                     @foreach ($fields as $field => $label)
                         <div class="form-group">
                             <label for="{{ $field }}">{{ $label }}</label>
-                            <input type="text" class="form-control" name="{{ $field }}" value="{{ old($field, isset($cliente) ? $cliente->$field : '') }}" id="{{ $field }}" placeholder="{{ $label }}">
+                            <input type="text" class="form-control" name="{{ $field }}"
+                                value="{{ old($field, isset($cliente) ? $cliente->$field : '') }}" id="{{ $field }}"
+                                placeholder="{{ $label }}">
                             @error($field)
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
@@ -58,15 +61,18 @@
                             'actaconstitutiva' => 'Acta Constitutiva',
                             'consFiscal' => 'Constancia de Situación Fiscal',
                             'comprDom' => 'Comprobante de Domicilio',
-                            'tarjetacirculacion' => 'Tarjeta de Circulación',
-                            'compPago' => 'Comprobante de Pago',
+                            'ine' => 'Ine',
+                            'compPago' => 'Comprobante de Pago', 
+                            'tarjetacirculacion' => 'tarjeta de circulacion'
+
                         ];
                     @endphp
 
                     @foreach ($fileFields as $field => $label)
                         <div class="form-group">
                             <label for="{{ $field }}">{{ $label }}</label><br>
-                            <input type="file" class="form-control upload-file" name="{{ $field }}" id="{{ $field }}" accept="image/*,.pdf">
+                            <input type="file" class="form-control upload-file" name="{{ $field }}" id="{{ $field }}"
+                                accept="image/*,.pdf">
                             <small class="form-text text-muted">Imágenes no mayores a 3 MB.</small>
                             <small id="status-{{ $field }}" class="form-text text-muted"></small>
                             @error($field)

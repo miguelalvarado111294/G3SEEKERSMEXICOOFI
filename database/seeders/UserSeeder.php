@@ -38,6 +38,7 @@ class UserSeeder extends Seeder
             'password' => bcrypt('contabilidad')
         ])->assignRole('Contabilidad');
 
+
         User::create([
             'name' => 'Operaciones',
             'email' => 'operaciones@seekers-mexico.com.mx',

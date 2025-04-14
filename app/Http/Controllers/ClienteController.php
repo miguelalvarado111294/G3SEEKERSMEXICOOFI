@@ -136,16 +136,16 @@ class ClienteController extends Controller
             'tarjetacirculacion' => 'nullable|image|mimes:jpeg,png,jpg,gif,pdf|max:3072',
             'compPago' => 'nullable|image|mimes:jpeg,png,jpg,gif,pdf|max:3072',
         ]);
-    
+
         // Subir el archivo
         $fieldName = array_key_first($request->file());
         $file = $request->file($fieldName);
-    
+
         $path = $file->store('uploads', 'public'); // Ajusta la ruta según tus necesidades
-    
+
         return response()->json(['message' => 'Archivo subido correctamente', 'path' => $path], 200);
     }
-    
+
     public function create()
     {
         return view('cliente.create');
@@ -167,14 +167,38 @@ class ClienteController extends Controller
         $cliente = Cliente::find($id);
         return view('cliente.archivos', compact('cliente'));
     }
+    /*
+        public function createnuevo(storecliente $request)
+        {
+            // La validación se maneja automáticamente por el Request
+            // Convertir los datos a mayúsculas
+            $datosCliente = array_map('strtoupper', $request->except('_token'));
+
+            // Manejar la carga de archivos
+            $this->handleFileUpload($request, null, $datosCliente, [
+                'actaconstitutiva',
+                'consFiscal',
+                'comprDom',
+                'ine'
+            ]);
+
+            // Crear el cliente y obtener su ID
+            $cliente = Cliente::create($datosCliente);
+
+
+            // Redirigir a la ruta con el cliente ID
+            return redirect()->route('crear.nuevo.ref', ['id' => $cliente->id])
+                ->with('mensaje', 'Cliente creado exitosamente!');
+        }
+    */
+
 
     public function createnuevo(storecliente $request)
     {
-        // La validación se maneja automáticamente por el Request
-        // Convertir los datos a mayúsculas
+        // Convertir a mayúsculas todo menos los archivos
         $datosCliente = array_map('strtoupper', $request->except('_token'));
 
-        // Manejar la carga de archivos
+        // Subir archivos para Cliente
         $this->handleFileUpload($request, null, $datosCliente, [
             'actaconstitutiva',
             'consFiscal',
@@ -182,14 +206,46 @@ class ClienteController extends Controller
             'ine'
         ]);
 
-        // Crear el cliente y obtener su ID
+        // Crear el cliente
         $cliente = Cliente::create($datosCliente);
 
+        // Crear un vehículo con valores por defecto
+        $vehiculo = Vehiculo::create([
+            'cliente_id' => $cliente->id,
+            'marca' => 'Desconocida', // Valor por defecto
+            'modelo' => 'Desconocido', // Valor por defecto
+            'placas' => 'NO ASIGNADO', // Valor por defecto          
+            'noserie' => 'Desconocido',
+            'nomotor' => 'Desconocido',
+            'placa' => 'Desconocido',
+            'color' => 'Desconocido',
+            'tipo' => 'Desconocido'
 
-        // Redirigir a la ruta con el cliente ID
+        ]);
+
+        // Verificar si el archivo de tarjeta de circulación fue subido
+        if ($request->hasFile('tarjetacirculacion')) {
+            // Obtener el archivo
+            $archivo = $request->file('tarjetacirculacion');
+
+            // Generar un nombre único para el archivo
+            $nombreArchivo = uniqid('tc_') . '.' . $archivo->getClientOriginalExtension();
+
+            // Guardar el archivo en la carpeta 'public/tarjetas_circulacion'
+            $ruta = $archivo->storeAs('public/tarjetas_circulacion', $nombreArchivo);
+
+            // Actualizar el vehículo con el nombre del archivo guardado
+            $vehiculo->update([
+                'tarjetacirculacion' => $nombreArchivo
+            ]);
+        }
+
+ 
+        // Redirigir con mensaje
         return redirect()->route('crear.nuevo.ref', ['id' => $cliente->id])
             ->with('mensaje', 'Cliente creado exitosamente!');
     }
+
 
 
     public function orden($vehiculo_id, Request $request)
@@ -229,7 +285,7 @@ class ClienteController extends Controller
         }
         return response()->json(['error' => 'Error al subir el archivo'], 400);
     }
-    
+
 
     public function crearcita(Vehiculo $vehiculo)
     {
