@@ -116,84 +116,83 @@ class DispositivoController extends Controller
 
 
     public function stodis(Request $request, $id)
-{
-    $vehiculo_id = $id;
-    $vehiculo = Vehiculo::findOrFail($vehiculo_id);
-    $cliente_id = $vehiculo->cliente_id;
-
-    // Validar el archivo si es necesario
-    $request->validate([
-        'compPago' => 'nullable|mimes:jpg,jpeg,png,pdf|max:5000',  // Validación para el recibo
-    ]);
-
-    // Asignación manual
-    if ($request->tipo_asignacion == 'manual') {
-        $dispositivo = new Dispositivo();
-        $dispositivo->cliente_id = $cliente_id;
-        $dispositivo->vehiculo_id = $vehiculo_id;
-        $dispositivo->plataforma_id = $request->plataforma_id;
-        $dispositivo->modelo = $request->modelo;
-        $dispositivo->noserie = $request->noserie;
-        $dispositivo->imei = $request->imei;
-        $dispositivo->cuenta = $request->cuenta;
-        $dispositivo->sucursal = $request->sucursal;
-        $dispositivo->fechadeinstalacion = $request->fechadeinstalacion;
-        $dispositivo->fechacompra = $request->fechacompra ?: '2000-01-01';
-        $dispositivo->precio = $request->precio ?: '0';
-        $dispositivo->ubicaciondispositivo = $request->ubicaciondispositivo;
-        $dispositivo->noeconomico = $request->noeconomico;
-        $dispositivo->comentarios = $request->comentarios;
-
-        // Manejar el archivo del recibo de pago
-        if ($request->hasFile('compPago')) {
-            $archivo = $request->file('compPago');
-            $rutaRecibo = $archivo->store('compPago', 'public');  // Guardar en la carpeta public/recibos_pago
-            $dispositivo->compPago = $rutaRecibo;  // Almacenar la ruta en el campo recibo_pago
-        }
-
-        $dispositivo->save();  // Guardar el dispositivo
-
-        return redirect()->route('buscar.dispositivo', $vehiculo_id)->with('mensaje', 'Dispositivo asignado correctamente');
-    }
-
-    // Asignación desde inventario
-    if ($request->tipo_asignacion == 'inventario') {
-        $dispositivo_id = $request->dispositivo_id;
-        $dispositivo = Dispositivo::findOrFail($dispositivo_id);
-
-        // Actualizamos los campos con los datos del request
-        $dispositivo->cliente_id = $cliente_id;
-        $dispositivo->vehiculo_id = $vehiculo_id;
-        $dispositivo->plataforma_id = $request->plataforma_id;
-        $dispositivo->modelo = $request->modelo;
-        $dispositivo->noserie = $request->noserie;
-        $dispositivo->imei = $request->imei;
-        $dispositivo->cuenta = $request->cuenta;
-        $dispositivo->sucursal = $request->sucursal;
-        $dispositivo->fechadeinstalacion = $request->fechadeinstalacion;
-        $dispositivo->fechacompra = $request->fechacompra ?: '2000-01-01';
-        $dispositivo->precio = $request->precio ?: '0';
-        $dispositivo->ubicaciondispositivo = $request->ubicaciondispositivo;
-        $dispositivo->noeconomico = $request->noeconomico;
-        $dispositivo->comentarios = $request->comentarios;
-
-        // Manejar el archivo del recibo de pago
-        if ($request->hasFile('compPago')) {
-            // Si el dispositivo ya tiene un archivo de recibo, lo eliminamos
-            if ($dispositivo->compPago) {
-                Storage::disk('public')->delete($dispositivo->compPago);
+    {
+        $vehiculo_id = $id;
+        $vehiculo = Vehiculo::findOrFail($vehiculo_id);
+        $cliente_id = $vehiculo->cliente_id;
+    
+        // Validar el archivo si es necesario
+        $request->validate([
+            'compPago' => 'nullable|mimes:jpg,jpeg,png,pdf|max:5000',
+        ]);
+    
+        // Asignación manual
+        if ($request->tipo_asignacion == 'manual') {
+            $dispositivo = new Dispositivo();
+            $dispositivo->cliente_id = $cliente_id;
+            $dispositivo->vehiculo_id = $vehiculo_id;
+            $dispositivo->plataforma_id = $request->plataforma_id;
+            $dispositivo->modelo = $request->modelo;
+            $dispositivo->noserie = trim($request->noserie) ?: 'sin número de serie';
+            $dispositivo->imei = $request->imei;
+            $dispositivo->cuenta = $request->cuenta;
+            $dispositivo->sucursal = $request->sucursal;
+            $dispositivo->fechadeinstalacion = $request->fechadeinstalacion;
+            $dispositivo->fechacompra = $request->fechacompra ?: '2000-01-01';
+            $dispositivo->precio = $request->precio ?: '0';
+            $dispositivo->ubicaciondispositivo = $request->ubicaciondispositivo;
+            $dispositivo->noeconomico = $request->noeconomico;
+            $dispositivo->comentarios = $request->comentarios;
+    
+            // Manejar el archivo del recibo de pago
+            if ($request->hasFile('compPago')) {
+                $archivo = $request->file('compPago');
+                $rutaRecibo = $archivo->store('compPago', 'public');
+                $dispositivo->compPago = $rutaRecibo;
             }
-
-            $archivo = $request->file('compPago');
-            $rutaRecibo = $archivo->store('compPago', 'public');  // Guardar en la carpeta public/recibos_pago
-            $dispositivo->compPago = $rutaRecibo;  // Almacenar la ruta en el campo recibo_pago
+    
+            $dispositivo->save();
+    
+            return redirect()->route('buscar.dispositivo', $vehiculo_id)->with('mensaje', 'Dispositivo asignado correctamente');
         }
-
-        $dispositivo->save();  // Guardar los cambios en el dispositivo
-
-        return redirect()->route('buscar.dispositivo', $vehiculo_id)->with('mensaje', 'Dispositivo actualizado correctamente');
+    
+        // Asignación desde inventario
+        if ($request->tipo_asignacion == 'inventario') {
+            $dispositivo_id = $request->dispositivo_id;
+            $dispositivo = Dispositivo::findOrFail($dispositivo_id);
+    
+            $dispositivo->cliente_id = $cliente_id;
+            $dispositivo->vehiculo_id = $vehiculo_id;
+            $dispositivo->plataforma_id = $request->plataforma_id;
+            $dispositivo->modelo = $request->modelo;
+            $dispositivo->noserie = trim($request->noserie) ?: 'sin número de serie';
+            $dispositivo->imei = $request->imei;
+            $dispositivo->cuenta = $request->cuenta;
+            $dispositivo->sucursal = $request->sucursal;
+            $dispositivo->fechadeinstalacion = $request->fechadeinstalacion;
+            $dispositivo->fechacompra = $request->fechacompra ?: '2000-01-01';
+            $dispositivo->precio = $request->precio ?: '0';
+            $dispositivo->ubicaciondispositivo = $request->ubicaciondispositivo;
+            $dispositivo->noeconomico = $request->noeconomico;
+            $dispositivo->comentarios = $request->comentarios;
+    
+            // Manejar el archivo del recibo de pago
+            if ($request->hasFile('compPago')) {
+                if ($dispositivo->compPago) {
+                    Storage::disk('public')->delete($dispositivo->compPago);
+                }
+    
+                $archivo = $request->file('compPago');
+                $rutaRecibo = $archivo->store('compPago', 'public');
+                $dispositivo->compPago = $rutaRecibo;
+            }
+    
+            $dispositivo->save();
+    
+            return redirect()->route('buscar.dispositivo', $vehiculo_id)->with('mensaje', 'Dispositivo actualizado correctamente');
+        }
     }
-}
+    
 
 
 
