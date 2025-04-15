@@ -41,25 +41,34 @@ class VehiculoController extends Controller
     {
         return view('registroCliente.datosvehiculo', compact('id'));
     }
-    /*
-    public function createvehiculo(Request $request, $id)
-    {
-        return $request->tarjetacirculacion;
-        $this->validateRequest($request, $id);
-        
-        $datosCliente = $request->except('_token');
-        $datosCliente['cliente_id'] = $id;
-        $mArray = array_map('strtoupper', $datosCliente);
-        Vehiculo::insert($mArray);
-
-        // Agregar mensaje a la sesión
-        session()->flash('mensaje', 'Vehículo creado exitosamente.');
-        return redirect()->route('buscar.vehiculo', $id);
-    }*/
 
     public function createvehiculo(Request $request, $id)
 {
-    // Validación de los datos incluyendo la tarjeta de circulación
+    // Lista de campos requeridos
+    $camposRequeridos = ['marca', 'modelo', 'noserie', 'nomotor', 'placa', 'color'];
+
+    // Verificamos si todos los campos requeridos están vacíos
+    $sinDatos = collect($camposRequeridos)->every(function ($campo) use ($request) {
+        return !$request->filled($campo);
+    });
+
+    if ($sinDatos) {
+        Vehiculo::create([
+            'marca' => 'NO SE INGRESARON DATOS PARA ESTO',
+            'modelo' => 'NO SE INGRESARON DATOS PARA ESTO',
+            'noserie' => 'NO SE INGRESARON DATOS PARA ESTO',
+            'nomotor' => 'NO SE INGRESARON DATOS PARA ESTO',
+            'placa' => 'NO SE INGRESARON DATOS PARA ESTO',
+            'color' => 'NO SE INGRESARON DATOS PARA ESTO',
+            'comentarios' => 'NO SE INGRESARON DATOS PARA ESTO',
+            'cliente_id' => $id
+        ]);
+
+        session()->flash('mensaje', 'Vehículo creado sin datos.');
+        return redirect()->route('buscar.vehiculo', $id);
+    }
+
+    // Validación normal
     $request->validate([
         'marca' => 'required|string|max:255',
         'modelo' => 'required|string|max:255',
@@ -68,37 +77,31 @@ class VehiculoController extends Controller
         'placa' => 'required|string|max:255',
         'color' => 'required|string|max:255',
         'comentarios' => 'nullable|string',
-        'tarjetacirculacion' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048' // Máximo 2MB
+        'tarjetacirculacion' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048'
     ]);
 
     $datosCliente = $request->except('_token');
     $datosCliente['cliente_id'] = $id;
 
-    // Manejar la subida del archivo
     if ($request->hasFile('tarjetacirculacion')) {
         $archivo = $request->file('tarjetacirculacion');
-        $ruta = $archivo->store('tarjetas_circulacion', 'public'); // Guardar en storage/app/public/tarjetas_circulacion
+        $ruta = $archivo->store('tarjetas_circulacion', 'public');
         $datosCliente['tarjetacirculacion'] = $ruta;
     }
 
-    // Excluimos 'tarjetacirculacion' de la conversión a mayúsculas
     $datosClienteSinTarjeta = $datosCliente;
     if (isset($datosCliente['tarjetacirculacion'])) {
         unset($datosClienteSinTarjeta['tarjetacirculacion']);
     }
 
-    // Convertimos a mayúsculas los campos excepto 'tarjetacirculacion'
     $mArray = array_map('strtoupper', $datosClienteSinTarjeta);
 
-    // Reintroducimos 'tarjetacirculacion' sin cambios
     if (isset($datosCliente['tarjetacirculacion'])) {
         $mArray['tarjetacirculacion'] = $datosCliente['tarjetacirculacion'];
     }
 
-    // Crear el vehículo con los datos procesados
     Vehiculo::create($mArray);
 
-    // Agregar mensaje a la sesión
     session()->flash('mensaje', 'Vehículo creado exitosamente.');
     return redirect()->route('buscar.vehiculo', $id);
 }
@@ -111,7 +114,6 @@ class VehiculoController extends Controller
         $datosVehiculo = $request->except('_token');
         Vehiculo::insert($datosVehiculo);
 
-        // Agregar mensaje a la sesión
         return redirect('vehiculo')->with('mensaje', 'Vehículo agregado exitosamente.');
     }
 
@@ -122,19 +124,8 @@ class VehiculoController extends Controller
         return view('vehiculo.edit', compact('vehiculo', 'clientes'));
     }
 
-    /* public function update(Request $request, $id)
-    {
-        $this->validateRequest($request, $id);
-
-        Vehiculo::where('id', $id)->update($request->except(['_token', '_method']));
-        // Agregar mensaje a la sesión
-        session()->flash('mensaje', 'Vehículo actualizado exitosamente.');
-        return redirect()->route('buscar.vehiculo', Vehiculo::find($id)->cliente_id);
-    }*/
-
     public function update(Request $request, $id)
     {
-        // Validación de los datos (puedes personalizar las reglas de validación según sea necesario)
         $request->validate([
             'marca' => 'required|string|min:2|max:100',
             'modelo' => 'required|string|min:2|max:100',
@@ -143,50 +134,39 @@ class VehiculoController extends Controller
             'placa' => 'required|string|min:2|max:100',
             'color' => 'nullable|string|max:100',
             'comentarios' => 'nullable|string|max:255',
-            'tarjetacirculacion' => 'nullable|mimes:jpeg,png,jpg,pdf|max:5000', // Reglas para el archivo
+            'tarjetacirculacion' => 'nullable|mimes:jpeg,png,jpg,pdf|max:5000',
         ]);
 
         $vehiculo = Vehiculo::findOrFail($id);
-        $datosVehiculo = $request->except(['_token', '_method', 'tarjetacirculacion']); // Excluir campos no necesarios
+        $datosVehiculo = $request->except(['_token', '_method', 'tarjetacirculacion']);
 
-        // Manejar la carga del archivo si existe
         $this->handleFileUpload($request, $vehiculo, $datosVehiculo, ['tarjetacirculacion']);
 
-        // Actualizar los datos del vehículo
         $vehiculo->update($datosVehiculo);
 
-        // Mensaje de éxito
         return redirect()->route('buscar.vehiculo', $vehiculo->cliente_id)->with('mensaje', 'Vehículo actualizado exitosamente');
     }
-
 
     protected function handleFileUpload(Request $request, $model, &$datos, $fields)
     {
         foreach ($fields as $field) {
             if ($request->hasFile($field)) {
-                // Eliminar archivo anterior si existe
                 if ($model->{$field}) {
                     Storage::disk('public')->delete($model->{$field});
                 }
 
-                // Procesar y guardar el nuevo archivo
                 $archivo = $request->file($field);
-                $ruta = $archivo->store('tarjetas_circulacion', 'public'); // Guardar archivo en la carpeta correspondiente
-
-                // Actualizar el campo del modelo con la nueva ruta del archivo
+                $ruta = $archivo->store('tarjetas_circulacion', 'public');
                 $datos[$field] = $ruta;
             }
         }
     }
-
-
 
     public function destroy($id)
     {
         $vehiculo = Vehiculo::findOrFail($id);
         $vehiculo->delete();
 
-        // Agregar mensaje a la sesión
         session()->flash('mensaje', 'Vehículo eliminado exitosamente.');
         return redirect()->route('buscar.vehiculo', $vehiculo->cliente_id);
     }
