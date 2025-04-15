@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->string('plataforma_id')->nullable();
             $table->string('modelo');
-            $table->string('noserie');
+            $table->string('noserie')->nullable();
             $table->string('imei');
             $table->string('cuenta')->nullable();
             $table->string('sucursal')->nullable();
