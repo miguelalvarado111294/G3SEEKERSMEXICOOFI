@@ -44,44 +44,17 @@ class VehiculoController extends Controller
 
     public function createvehiculo(Request $request, $id)
 {
-    // Lista de campos requeridos
-    $camposRequeridos = ['marca', 'modelo', 'noserie', 'nomotor', 'placa', 'color'];
-
-    // Verificamos si todos los campos requeridos están vacíos
-    $sinDatos = collect($camposRequeridos)->every(function ($campo) use ($request) {
-        return !$request->filled($campo);
-    });
-
-    if ($sinDatos) {
-        Vehiculo::create([
-            'marca' => 'NO SE INGRESARON DATOS PARA ESTO',
-            'modelo' => 'NO SE INGRESARON DATOS PARA ESTO',
-            'noserie' => 'NO SE INGRESARON DATOS PARA ESTO',
-            'nomotor' => 'NO SE INGRESARON DATOS PARA ESTO',
-            'placa' => 'NO SE INGRESARON DATOS PARA ESTO',
-            'color' => 'NO SE INGRESARON DATOS PARA ESTO',
-            'comentarios' => 'NO SE INGRESARON DATOS PARA ESTO',
-            'cliente_id' => $id
-        ]);
-
-        session()->flash('mensaje', 'Vehículo creado sin datos.');
-        return redirect()->route('buscar.vehiculo', $id);
-    }
-
-    // Validación normal
-    $request->validate([
-        'marca' => 'required|string|max:255',
-        'modelo' => 'required|string|max:255',
-        'noserie' => 'required|string|max:255',
-        'nomotor' => 'required|string|max:255',
-        'placa' => 'required|string|max:255',
-        'color' => 'required|string|max:255',
-        'comentarios' => 'nullable|string',
-        'tarjetacirculacion' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048'
-    ]);
-
     $datosCliente = $request->except('_token');
     $datosCliente['cliente_id'] = $id;
+
+    // Asignar valores por defecto si no se enviaron
+    $datosCliente['marca'] = trim($request->marca) ?: 'SIN MARCA';
+    $datosCliente['modelo'] = trim($request->modelo) ?: 'SIN MODELO';
+    $datosCliente['noserie'] = trim($request->noserie) ?: 'SIN NÚMERO DE SERIE';
+    $datosCliente['nomotor'] = trim($request->nomotor) ?: 'SIN NÚMERO DE MOTOR';
+    $datosCliente['placa'] = trim($request->placa) ?: 'SIN PLACA';
+    $datosCliente['color'] = trim($request->color) ?: 'SIN COLOR';
+    $datosCliente['comentarios'] = trim($request->comentarios) ?: 'SIN COMENTARIOS';
 
     if ($request->hasFile('tarjetacirculacion')) {
         $archivo = $request->file('tarjetacirculacion');
@@ -105,6 +78,7 @@ class VehiculoController extends Controller
     session()->flash('mensaje', 'Vehículo creado exitosamente.');
     return redirect()->route('buscar.vehiculo', $id);
 }
+
 
 
     public function store(Request $request, $id)
