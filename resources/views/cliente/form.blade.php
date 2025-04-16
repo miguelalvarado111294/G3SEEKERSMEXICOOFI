@@ -13,10 +13,12 @@
                     'direccion' => 'Dirección',
                     'email' => 'Email',
                     'rfc' => 'RFC',
+/*
                     'actaconstitutiva' => 'Acta Constitutiva',
                     'consFiscal' => 'Constancia de Situación Fiscal',
                     'comprDom' => 'Comprobante de Domicilio',
                     'ine' => 'INE'
+                */
                 ];
             @endphp
 
@@ -47,7 +49,7 @@
             </div>
 
             <div class="form-group text-center">
-                <a href="{{ URL::previous() }}" class="btn btn-dark">Regresar</a>
+                <a href="{{ URL::previous() }}" class="btn btn-dark">Volver Atras</a>
             </div>
         </form>
     </div>
