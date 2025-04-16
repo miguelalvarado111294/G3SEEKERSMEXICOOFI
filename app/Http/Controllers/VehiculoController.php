@@ -43,41 +43,40 @@ class VehiculoController extends Controller
     }
 
     public function createvehiculo(Request $request, $id)
-{
-    $datosCliente = $request->except('_token');
-    $datosCliente['cliente_id'] = $id;
+    {
+        $datosCliente = $request->except('_token');
+        $datosCliente['cliente_id'] = $id;
 
-    // Asignar valores por defecto si no se enviaron
-    $datosCliente['marca'] = trim($request->marca) ?: 'SIN MARCA';
-    $datosCliente['modelo'] = trim($request->modelo) ?: 'SIN MODELO';
-    $datosCliente['noserie'] = trim($request->noserie) ?: 'SIN NÚMERO DE SERIE';
-    $datosCliente['nomotor'] = trim($request->nomotor) ?: 'SIN NÚMERO DE MOTOR';
-    $datosCliente['placa'] = trim($request->placa) ?: 'SIN PLACA';
-    $datosCliente['color'] = trim($request->color) ?: 'SIN COLOR';
-    $datosCliente['comentarios'] = trim($request->comentarios) ?: 'SIN COMENTARIOS';
+        $datosCliente['marca'] = trim($request->marca) ?: 'SIN MARCA';
+        $datosCliente['modelo'] = trim($request->modelo) ?: 'SIN MODELO';
+        $datosCliente['noserie'] = trim($request->noserie) ?: 'SIN NÚMERO DE SERIE';
+        $datosCliente['nomotor'] = trim($request->nomotor) ?: 'SIN NÚMERO DE MOTOR';
+        $datosCliente['placa'] = trim($request->placa) ?: 'SIN PLACA';
+        $datosCliente['color'] = trim($request->color) ?: 'SIN COLOR';
+        $datosCliente['comentarios'] = trim($request->comentarios) ?: 'SIN COMENTARIOS';
 
-    if ($request->hasFile('tarjetacirculacion')) {
-        $archivo = $request->file('tarjetacirculacion');
-        $ruta = $archivo->store('tarjetas_circulacion', 'public');
-        $datosCliente['tarjetacirculacion'] = $ruta;
+        if ($request->hasFile('tarjetacirculacion')) {
+            $archivo = $request->file('tarjetacirculacion');
+            $ruta = $archivo->store('tarjetas_circulacion', 'public');
+            $datosCliente['tarjetacirculacion'] = $ruta;
+        }
+
+        $datosClienteSinTarjeta = $datosCliente;
+        if (isset($datosCliente['tarjetacirculacion'])) {
+            unset($datosClienteSinTarjeta['tarjetacirculacion']);
+        }
+
+        $mArray = array_map('strtoupper', $datosClienteSinTarjeta);
+
+        if (isset($datosCliente['tarjetacirculacion'])) {
+            $mArray['tarjetacirculacion'] = $datosCliente['tarjetacirculacion'];
+        }
+
+        Vehiculo::create($mArray);
+
+        session()->flash('mensaje', 'Vehículo creado exitosamente.');
+        return redirect()->route('buscar.vehiculo', $id);
     }
-
-    $datosClienteSinTarjeta = $datosCliente;
-    if (isset($datosCliente['tarjetacirculacion'])) {
-        unset($datosClienteSinTarjeta['tarjetacirculacion']);
-    }
-
-    $mArray = array_map('strtoupper', $datosClienteSinTarjeta);
-
-    if (isset($datosCliente['tarjetacirculacion'])) {
-        $mArray['tarjetacirculacion'] = $datosCliente['tarjetacirculacion'];
-    }
-
-    Vehiculo::create($mArray);
-
-    session()->flash('mensaje', 'Vehículo creado exitosamente.');
-    return redirect()->route('buscar.vehiculo', $id);
-}
 
 
 
@@ -103,8 +102,8 @@ class VehiculoController extends Controller
         $request->validate([
             'marca' => 'required|string|min:2|max:100',
             'modelo' => 'required|string|min:2|max:100',
-            'noserie' => 'required|string|min:2|max:100',
-            'nomotor' => 'required|string|min:2|max:100',
+            'noserie' => 'nullable|string|min:2|max:100',
+            'nomotor' => 'nullable|string|min:2|max:100',
             'placa' => 'required|string|min:2|max:100',
             'color' => 'nullable|string|max:100',
             'comentarios' => 'nullable|string|max:255',
@@ -128,7 +127,6 @@ class VehiculoController extends Controller
                 if ($model->{$field}) {
                     Storage::disk('public')->delete($model->{$field});
                 }
-
                 $archivo = $request->file($field);
                 $ruta = $archivo->store('tarjetas_circulacion', 'public');
                 $datos[$field] = $ruta;
@@ -150,8 +148,8 @@ class VehiculoController extends Controller
         return $request->validate([
             'marca' => 'required|alpha_dash|min:3|max:100',
             'modelo' => 'required|alpha_num|alpha_dash',
-            'noserie' => 'required|alpha_dash|min:5|unique:vehiculos,noserie,' . $id,
-            'nomotor' => 'required|alpha_dash|min:5|unique:vehiculos,nomotor,' . $id,
+            'noserie' => 'nullable|alpha_dash|min:5|unique:vehiculos,noserie,' . $id,
+            'nomotor' => 'nullable|alpha_dash|min:5|unique:vehiculos,nomotor,' . $id,
             'placa' => 'required|alpha_dash|min:4|unique:vehiculos,placa,' . $id,
             'color' => 'string|min:4|max:15'
         ]);

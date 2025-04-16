@@ -27,13 +27,13 @@ class storecliente extends FormRequest
 
         return [
 
-            'nombre' =>                     'required|alpha|min:2|max:100',
+            'nombre' =>                     'nullable|alpha|min:2|max:100',
             'segnombre' =>                  'nullable|alpha',
-            'apellidopat' =>                'required|alpha|min:3|max:100',
-            'apellidomat' =>                'required|alpha|min:3|max:100',
-            'telefono' =>                   'required|numeric|digits:10|unique:clientes,telefono,' . $cliente->id,
-            'direccion' =>                  'required',
-            'email' =>                      'required|string|min:2|max:100|unique:clientes,email' . $cliente->id,
+            'apellidopat' =>                'nullable|alpha|min:3|max:100',
+            'apellidomat' =>                'nullable|alpha|min:3|max:100',
+            'telefono' =>                   'nullable|numeric|digits:10|unique:clientes,telefono,' . $cliente->id,
+            'direccion' =>                  'nullable',
+            'email' =>                      'nullable|string|min:2|max:100|unique:clientes,email' . $cliente->id,
             'rfc' =>                        'nullable|alpha_num|min:2|max:100|unique:clientes,rfc'. $cliente->id,
             'actaconstitutiva' =>           'mimes:jpeg,png,jpg,png,pdf|max:5000',
             'consFiscal' =>                 'mimes:jpeg,png,jpg,png,pdf|max:5000',

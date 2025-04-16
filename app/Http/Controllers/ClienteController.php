@@ -45,12 +45,8 @@ class ClienteController extends Controller
                 ->orWhere('rfc', 'LIKE', "%{$busqueda}%");
         })->orderBy('id', 'desc')->paginate(10);
 
-        // Verificar si falta completar perfil
         foreach ($clientes as $cliente) {
-            // Verificar si el cliente tiene cuentas asociadas
             $cliente->has_account = $cliente->cuentas()->count() > 0;
-
-            // Marcar como incompleto si el cliente no tiene cuentas asociadas
             $cliente->profile_incomplete = !$cliente->has_account;
         }
 
@@ -70,25 +66,26 @@ class ClienteController extends Controller
     }
 
     public function store(storecliente $request)
-    {
-        // La validación se maneja automáticamente por el Request
-        // Convertir los datos a mayúsculas
-        $datosCliente = array_map('strtoupper', $request->except('_token'));
+{
+    $datosCliente = [];
 
-        // Manejar la carga de archivos
-        $this->handleFileUpload($request, null, $datosCliente, [
-            'actaconstitutiva',
-            'consFiscal',
-            'comprDom',
-            'ine'
-        ]);
-
-        // Crear el cliente
-        Cliente::create($datosCliente);
-
-        // Enviar mensaje de sesión
-        return redirect()->route('cliente.index')->with('mensaje', 'Cliente creado exitosamente.');
+    foreach ($request->except('_token') as $key => $value) {
+        $valor = strtoupper(trim($value));
+        $datosCliente[$key] = $valor ?: 'SIN DATOS GUARDADOS';
     }
+
+    $this->handleFileUpload($request, null, $datosCliente, [
+        'actaconstitutiva',
+        'consFiscal',
+        'comprDom',
+        'ine'
+    ]);
+
+    Cliente::create($datosCliente);
+
+    return redirect()->route('cliente.index')->with('mensaje', 'Cliente creado exitosamente.');
+}
+
 
     public function edit($id)
     {
@@ -130,18 +127,17 @@ class ClienteController extends Controller
     public function uploadFilee(Request $request)
     {
         $request->validate([
-            'actaconstitutiva' => 'nullable|image|mimes:jpeg,png,jpg,gif,pdf|max:3072', // Ajusta las reglas de validación
+            'actaconstitutiva' => 'nullable|image|mimes:jpeg,png,jpg,gif,pdf|max:3072',
             'consFiscal' => 'nullable|image|mimes:jpeg,png,jpg,gif,pdf|max:3072',
             'comprDom' => 'nullable|image|mimes:jpeg,png,jpg,gif,pdf|max:3072',
             'tarjetacirculacion' => 'nullable|image|mimes:jpeg,png,jpg,gif,pdf|max:3072',
             'compPago' => 'nullable|image|mimes:jpeg,png,jpg,gif,pdf|max:3072',
         ]);
 
-        // Subir el archivo
         $fieldName = array_key_first($request->file());
         $file = $request->file($fieldName);
 
-        $path = $file->store('uploads', 'public'); // Ajusta la ruta según tus necesidades
+        $path = $file->store('uploads', 'public');
 
         return response()->json(['message' => 'Archivo subido correctamente', 'path' => $path], 200);
     }
@@ -167,38 +163,12 @@ class ClienteController extends Controller
         $cliente = Cliente::find($id);
         return view('cliente.archivos', compact('cliente'));
     }
-    /*
-        public function createnuevo(storecliente $request)
-        {
-            // La validación se maneja automáticamente por el Request
-            // Convertir los datos a mayúsculas
-            $datosCliente = array_map('strtoupper', $request->except('_token'));
-
-            // Manejar la carga de archivos
-            $this->handleFileUpload($request, null, $datosCliente, [
-                'actaconstitutiva',
-                'consFiscal',
-                'comprDom',
-                'ine'
-            ]);
-
-            // Crear el cliente y obtener su ID
-            $cliente = Cliente::create($datosCliente);
-
-
-            // Redirigir a la ruta con el cliente ID
-            return redirect()->route('crear.nuevo.ref', ['id' => $cliente->id])
-                ->with('mensaje', 'Cliente creado exitosamente!');
-        }
-    */
 
 
     public function createnuevo(storecliente $request)
     {
-        // Convertir a mayúsculas todo menos los archivos
         $datosCliente = array_map('strtoupper', $request->except('_token'));
 
-        // Subir archivos para Cliente
         $this->handleFileUpload($request, null, $datosCliente, [
             'actaconstitutiva',
             'consFiscal',
@@ -206,15 +176,13 @@ class ClienteController extends Controller
             'ine'
         ]);
 
-        // Crear el cliente
         $cliente = Cliente::create($datosCliente);
 
-        // Crear un vehículo con valores por defecto
         $vehiculo = Vehiculo::create([
             'cliente_id' => $cliente->id,
-            'marca' => 'Desconocida', // Valor por defecto
-            'modelo' => 'Desconocido', // Valor por defecto
-            'placas' => 'NO ASIGNADO', // Valor por defecto          
+            'marca' => 'Desconocida',
+            'modelo' => 'Desconocido',
+            'placas' => 'NO ASIGNADO',
             'noserie' => 'Desconocido',
             'nomotor' => 'Desconocido',
             'placa' => 'Desconocido',
@@ -223,25 +191,18 @@ class ClienteController extends Controller
 
         ]);
 
-        // Verificar si el archivo de tarjeta de circulación fue subido
         if ($request->hasFile('tarjetacirculacion')) {
-            // Obtener el archivo
             $archivo = $request->file('tarjetacirculacion');
 
-            // Generar un nombre único para el archivo
             $nombreArchivo = uniqid('tc_') . '.' . $archivo->getClientOriginalExtension();
 
-            // Guardar el archivo en la carpeta 'public/tarjetas_circulacion'
             $ruta = $archivo->storeAs('public/tarjetas_circulacion', $nombreArchivo);
 
-            // Actualizar el vehículo con el nombre del archivo guardado
             $vehiculo->update([
                 'tarjetacirculacion' => $nombreArchivo
             ]);
         }
 
- 
-        // Redirigir con mensaje
         return redirect()->route('crear.nuevo.ref', ['id' => $cliente->id])
             ->with('mensaje', 'Cliente creado exitosamente!');
     }
@@ -255,10 +216,8 @@ class ClienteController extends Controller
         $dispositivo = Dispositivo::where('vehiculo_id', $vehiculo->id)->first();
         $linea = Linea::where('dispositivo_id', $dispositivo->id)->first();
 
-        // Guardar la dirección en una variable
         $direccion = $request->direccion;
 
-        // Quitar la letra "T" de la fecha
         $fechacita = str_replace('T', ' ', $request->fechacita);
 
         $pdf = PDF::loadView('funciones.orden', [
@@ -276,11 +235,11 @@ class ClienteController extends Controller
 
     public function uploadFile(Request $request)
     {
-        $field = array_keys($request->all())[1]; // Obtiene el nombre del campo dinámicamente
+        $field = array_keys($request->all())[1]; 
         if ($request->hasFile($field)) {
             $file = $request->file($field);
             $filename = time() . '_' . $file->getClientOriginalName();
-            $path = $file->storeAs('public/documentos', $filename); // Guarda en storage/app/public/documentos
+            $path = $file->storeAs('public/documentos', $filename); 
             return response()->json(['message' => 'Archivo subido correctamente', 'path' => $path]);
         }
         return response()->json(['error' => 'Error al subir el archivo'], 400);
@@ -308,12 +267,10 @@ class ClienteController extends Controller
             return response()->json(['error' => 'Cliente no encontrado'], 404);
         }
 
-        // Verificar si tiene vehículos asociados
         if ($cliente->vehiculos->isEmpty()) {
             return response()->json(['error' => 'No se encontraron vehículos asociados a este cliente'], 404);
         }
 
-        // Retornar los vehículos como respuesta JSON
         return response()->json($cliente->vehiculos);
     }
 
@@ -333,7 +290,6 @@ class ClienteController extends Controller
         return $vehiculo->dispositivo;
         return response()->json($vehiculo->dispositivo);
     }
-    //comentario para hacer push 
     public function ordenins(Request $request)
     {
 

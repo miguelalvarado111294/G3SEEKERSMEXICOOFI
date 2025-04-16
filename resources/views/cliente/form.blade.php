@@ -24,18 +24,14 @@
                 <div class="form-group">
                     <label for="{{ $name }}">{{ $label }}</label>
 
-                    <!-- Si el campo es de archivo, se maneja de forma diferente -->
                     @if (in_array($name, ['actaconstitutiva', 'consFiscal', 'comprDom', 'ine']))
                         <input type="file" class="form-control upload-file" name="{{ $name }}" id="{{ $name }}" accept="image/*" data-field="{{ $name }}">
                         <small id="status-{{ $name }}" class="text-muted"></small>
                     @else
-                        <!-- Si no es un campo de archivo, se maneja como un campo de texto -->
                         <input type="{{ $name == 'email' ? 'email' : 'text' }}" class="form-control"
-                               name="{{ $name }}" value="{{ old($name, $cliente->$name ?? '') }}" id="{{ $name }}"
-                               {{ in_array($name, ['nombre', 'apellidopat', 'apellidomat', 'telefono', 'email']) ? 'required' : '' }}>
+                               name="{{ $name }}" value="{{ old($name, $cliente->$name ?? '') }}" id="{{ $name }}">
                     @endif
 
-                    <!-- Mostrar mensaje de error si existe -->
                     @error($name)
                         <small class="text-danger">{{ $message }}</small>
                     @enderror

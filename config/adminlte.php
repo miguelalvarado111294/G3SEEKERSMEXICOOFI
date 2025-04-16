@@ -293,101 +293,115 @@ return [
     |
     */
 
-   'menu' => [
-    // Navbar items:
-    [
-        'type' => 'fullscreen-widget',
-        'topnav_right' => true,
-    ],
+    'menu' => [
+        // Navbar items:
+        [
+            'type' => 'fullscreen-widget',
+            'topnav_right' => true,
+        ],
 
-    // Sidebar items:
-    [
-        'header' => 'Panel de Administracion',
-        'can' => 'admin.index'
-    ],
-    [
-        'text' => 'Usuarios',
-        'route' => 'admin.users.index',
-        'icon' => 'fas fa-users', // Icono adecuado para "Usuarios"
-        'can' => 'admin.index'
-    ],
+        // Sidebar items:
+        [
+            'header' => 'Panel de Administracion',
+            'can' => 'admin.index'
+        ],
+        [
+            'text' => 'Usuarios',
+            'route' => 'admin.users.index',
+            'icon' => 'fas fa-users', // Icono adecuado para "Usuarios"
+            'can' => 'admin.index'
+        ],
 
-    ['header' => 'Datos del Cliente'],
-    [
-        'text' => 'Clientes',
-        'route' => 'cliente.index',
-        'icon' => 'fas fa-address-book', // Icono adecuado para "Clientes"
-    ],
-    [
-        'text' => 'Referencias',
-        'route' => 'referencia.index',
-        'icon' => 'fas fa-link', // Icono adecuado para "Referencias"
-    ],
-    [
-        'text' => 'Usuarios y Contraseñas',
-        'route' => 'cuenta.index',
-        'icon' => 'fas fa-key', // Icono adecuado para "Usuarios y Contraseñas"
-        'can' => 'cuenta.index'
-    ],
-    [
-        'text' => 'Vehículos',
-        'route' => 'vehiculo.index',
-        'icon' => 'fas fa-car', // Icono adecuado para "Vehículos"
-    ],
-    [
-        'text' => 'Dispositivo',
-        'route' => 'dispositivo.index',
-        'icon' => 'fas fa-cogs', // Icono adecuado para "Dispositivo"
-    ],
-    [
-        'text' => 'Líneas',
-        'route' => 'linea.index',
-        'icon' => 'fas fa-phone', // Icono adecuado para "Líneas"
-    ],
-    [
-        'text' => 'Sensores',
-        'route' => 'sensor.index',
-        'icon' => 'fas fa-bolt', // Icono adecuado para "Sensores"
-    ],
-    [
-        'text' => 'Inventario',
-        'route' => 'inventario.stok',
-        'icon' => 'fas fa-warehouse', // Icono adecuado para "Inventario"
-        'can' => 'inventario'
+        ['header' => 'Datos del Cliente'],
+        [
+            'text' => 'Clientes',
+            'route' => 'cliente.index',
+            'icon' => 'fas fa-address-book', // Icono adecuado para "Clientes"
+        ],
+        [
+            'text' => 'Referencias',
+            'route' => 'referencia.index',
+            'icon' => 'fas fa-link', // Icono adecuado para "Referencias"
+        ],
+        [
+            'text' => 'Usuarios y Contraseñas',
+            'route' => 'cuenta.index',
+            'icon' => 'fas fa-key', // Icono adecuado para "Usuarios y Contraseñas"
+            'can' => 'cuenta.index'
+        ],
+        [
+            'text' => 'Vehículos',
+            'route' => 'vehiculo.index',
+            'icon' => 'fas fa-car', // Icono adecuado para "Vehículos"
+        ],
+        [
+            'text' => 'Dispositivo',
+            'route' => 'dispositivo.index',
+            'icon' => 'fas fa-cogs', // Icono adecuado para "Dispositivo"
+        ],
+        [
+            'text' => 'Líneas',
+            'route' => 'linea.index',
+            'icon' => 'fas fa-phone', // Icono adecuado para "Líneas"
+        ],
+        [
+            'text' => 'Sensores',
+            'route' => 'sensor.index',
+            'icon' => 'fas fa-bolt', // Icono adecuado para "Sensores"
+        ],
+        [
+            'text' => 'Inventario',
+            'route' => 'inventario.stok',
+            'icon' => 'fas fa-warehouse', // Icono adecuado para "Inventario"
+            'can' => 'inventario'
+
+        ],
+        [
+            'text' => 'Renovaciones',
+            'route' => 'renovaciones',
+            'icon' => 'fas fa-sync', // Icono adecuado para "Inventario"
+            'can' => 'renovaciones'
+
+        ],
+
+        [
+            'header' => 'Cliente nuevo',
+            'can' => 'admin.index'
+        ],
+
+        [
+            'text' => 'Registro de Cliente nuevo',
+            'route' => 'crear.nuevo',
+            'icon' => 'fas fa-user-plus', // Icono adecuado para "Registro de Cliente"
+            'can' => 'admin.index'
+        ],
+
+        [
+            'header' => 'Generar Formatos',
+            'can' => 'crear.orden'
+        ],
+
+        [
+            'text' => 'Generar Orden de Instalación',
+            'route' => 'ordeninstalacion',
+            'icon' => 'fas fa-file-alt', // Icono adecuado para "Generar Orden"
+            'can' => 'crear.orden'
+        ],
+        [
+            'header' => 'Generar Reportes',
+            'can' => 'crear.orden'
+        ],
+
+        [
+            'text' => 'Generar Reportes',
+            'route' => '',
+            'icon' => 'fas fa-file-alt', // Icono adecuado para "Generar Orden"
+            'can' => ''
+        ],
+
+
 
     ],
-    [
-        'text' => 'Renovaciones',
-        'route' => 'renovaciones',
-        'icon' => 'fas fa-sync', // Icono adecuado para "Inventario"
-        'can' => 'renovaciones'
-
-    ],
-
-    [
-        'header' => 'Cliente nuevo',
-        'can' => 'admin.index'
-    ],
-
-    [
-        'text' => 'Registro de Cliente nuevo',
-        'route' => 'crear.nuevo',
-        'icon' => 'fas fa-user-plus', // Icono adecuado para "Registro de Cliente"
-        'can' => 'admin.index'
-    ],
-
-    [
-        'header' => 'Generar Formatos',
-        'can' => 'crear.orden'
-    ],
-
-    [
-        'text' => 'Generar Orden de Instalación',
-        'route' => 'ordeninstalacion',
-        'icon' => 'fas fa-file-alt', // Icono adecuado para "Generar Orden"
-        'can' => 'crear.orden'
-    ],
-],
 
 
 

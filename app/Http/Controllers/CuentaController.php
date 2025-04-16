@@ -30,19 +30,15 @@ class CuentaController extends Controller
     {
         $this->validateRequest($request, $id);
         
-        // Verificar si ya existe una cuenta asociada al cliente
         $existeCuenta = Cuenta::where('cliente_id', $id)->first();
     
-        // Si ya existe una cuenta, redirigir con un mensaje de error
         if ($existeCuenta) {
             return redirect()->route('confirmation')->with('alert', 'Ya existe una cuenta asociada a este cliente.');
         }
         
-        // Si no existe, proceder a crear la nueva cuenta
         $datosCliente = $this->prepareData($request, $id);
         Cuenta::create($datosCliente);
         
-        // Redirigir con un mensaje de éxito
         return redirect()->route('confirmation')->with('success', 'Cuenta creada exitosamente.');
     }
     
@@ -96,7 +92,7 @@ class CuentaController extends Controller
         $request->validate([
             'usuario' => 'required|alpha_dash|min:3|max:15|unique:cuentas,usuario,' . $id,
             'contrasenia' => 'required|alpha_dash|min:2|max:15',
-            'contraseniaParo' => 'required|alpha_dash|min:2|max:100',
+            'contraseniaParo' => 'nullable|alpha_dash|min:2|max:100',
             'comentarios' => 'nullable|alpha|min:10|max:100'
         ]);
     }
@@ -106,7 +102,7 @@ class CuentaController extends Controller
         $request->validate([
             'usuario' => 'required|alpha_dash|min:3|max:15',
             'contrasenia' => 'required|alpha_dash|min:2|max:15',
-            'contraseniaParo' => 'required|alpha_dash|min:2|max:100',
+            'contraseniaParo' => 'nullable|alpha_dash|min:2|max:100',
             'comentarios' => 'nullable|alpha|min:10|max:100'
         ]);
     }

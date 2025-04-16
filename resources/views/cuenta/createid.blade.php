@@ -3,16 +3,9 @@
 @section('title', 'G3SEEKERSMX')
 
 @section('css')
-    <!-- AdminLTE CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/css/adminlte.min.css">
-
-    <!-- Font Awesome (iconos) -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
-
-    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-
-    <!-- jQuery UI CSS -->
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.min.css">
 @endsection
 
@@ -21,74 +14,52 @@
     <h3 class="text-center">Crear Usuario y Contraseña</h3>
     <br>
 
-
-
-
-    <form action=" {{ route('cuentap.crear', $id) }} " method="post">
+    <form action="{{ route('cuentap.crear', $id) }}" method="post" class="mx-auto" style="max-width: 700px;">
         @csrf
 
         <div class="form-group">
-            <label>Usuario:</label>
-            <input type="text" class="form-control" name="usuario" value="{{ old('usuario') }}">
+            <label for="usuario">Usuario:</label>
+            <input type="text" class="form-control form-control-sm" name="usuario" value="{{ old('usuario') }}">
+            @error('usuario')
+                <small class="text-danger"> {{ $message }}</small>
+            @enderror
         </div>
-        @error('usuario')
-            <small style ="color: red"> {{ $message }}</small>
-        @enderror
-        <br>
 
         <div class="form-group">
-            <label> Contraseña : </label>
-            <input type="text" class="form-control" name="contrasenia"value="{{ old('contrasenia') }}">
+            <label for="contrasenia">Contraseña:</label>
+            <input type="text" class="form-control form-control-sm" name="contrasenia" value="{{ old('contrasenia') }}">
+            @error('contrasenia')
+                <small class="text-danger"> {{ $message }}</small>
+            @enderror
         </div>
-        @error('contrasenia')
-            <small style ="color: red"> {{ $message }}</small>
-        @enderror
-        <br>
-        <br>
 
         <div class="form-group">
-            <label>Contraseña de Paro:</label>
-            <input type="text" class="form-control" name="contraseniaParo" value="{{ old('contraseniaParo') }}">
+            <label for="contraseniaParo">Contraseña de Paro:</label>
+            <input type="text" class="form-control form-control-sm" name="contraseniaParo" value="{{ old('contraseniaParo') }}">
+            @error('contraseniaParo')
+                <small class="text-danger"> {{ $message }}</small>
+            @enderror
         </div>
-        @error('contraseniaParo')
-            <small style ="color: red"> {{ $message }}</small>
-        @enderror
-        <br>
-        <br>
-
 
         <div class="form-group">
-            <label> Comentarios:</label>
-            <input type="text" class="form-control" name="comentarios" value="{{ old('comentarios') }}">
+            <label for="comentarios">Comentarios:</label>
+            <input type="text" class="form-control form-control-sm" name="comentarios" value="{{ old('comentarios') }}">
+            @error('comentarios')
+                <small class="text-danger"> {{ $message }}</small>
+            @enderror
         </div>
-        @error('comentarios')
-            <small style ="color: red"> {{ $message }}</small>
-        @enderror
-        <br>
-        <br>
 
-
-        <div class="form-group">
+        <div class="text-center mt-4">
             <input type="submit" class="btn btn-success" value="Enviar Datos">
+        </div>
     </form>
-    </div>
 @endsection
 
 @section('js')
-    <!-- jQuery -->
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
-
-    <!-- Popper.js (necesario para Bootstrap) -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous">
-    </script>
-
-    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!-- AdminLTE JS -->
     <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/js/adminlte.min.js"></script>
-
     <script>
         console.log("Hi, I'm using the Laravel-AdminLTE package!");
     </script>
