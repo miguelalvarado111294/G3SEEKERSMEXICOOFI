@@ -87,8 +87,10 @@ public function buscarVehiculo($id)
         return redirect()->back()->with('error', 'Cliente no encontrado.');
     }
 
-    // Obtener vehículos relacionados con el cliente
-    $vehiculos = Vehiculo::where('cliente_id', $id)->paginate(10);
+    // Obtener vehículos relacionados con el cliente, ordenados por ID descendente
+    $vehiculos = Vehiculo::where('cliente_id', $id)
+                         ->orderBy('id', 'desc') // Asegura que los vehículos más recientes aparezcan primero
+                         ->paginate(10);
 
     // Obtener la cuenta asociada al cliente
     $cuenta = Cuenta::where('cliente_id', $id)->select('usuario')->get();
@@ -101,6 +103,7 @@ public function buscarVehiculo($id)
         'cuenta' => $cuenta,
     ]);
 }
+
 
 
     public function buscarDispositivo($id)

@@ -39,6 +39,11 @@
             </div>
 
             <div class="form-group">
+                <label>Fecha de Compra:</label>
+                <input type="date" class="form-control" name="fechadeinstalacion">
+            </div>
+
+            <div class="form-group">
                 <label>Fecha de Instalación:</label>
                 <input type="date" class="form-control" name="fechadeinstalacion">
             </div>

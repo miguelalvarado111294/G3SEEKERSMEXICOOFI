@@ -1,3 +1,18 @@
+<label>Tipo de Vehículo:</label>
+            <select name="tipo" class="form-control">
+                <option value="trailer">Trailer</option>
+                <option value="tractocamion">Tractocamión</option>
+                <option value="motoneta">Motoneta</option>
+                <option value="motocicleta">Motocicleta</option>
+                <option value="auto" selected>Auto</option>
+                <option value="barco">Barco</option>
+                <option value="camioneta">Camioneta</option>
+                <option value="maquinaria_pesada">Maquinaria Pesada</option>
+                <option value="otro">Otro</option>
+            </select>
+
+<br>
+
 <div class="form-group">
     <label for="marca">Marca del Vehiculo</label>
     <input type="text" class="form-control" name="marca"

@@ -24,8 +24,6 @@ class CuentaController extends Controller
         return view('registroCliente.datoscuenta', compact('id'));
     }
 
-
-    
     public function createnuevocta(Request $request, $id)
     {
         $this->validateRequest($request, $id);
@@ -41,7 +39,6 @@ class CuentaController extends Controller
         
         return redirect()->route('confirmation')->with('success', 'Cuenta creada exitosamente.');
     }
-    
 
     public function stocta(Request $request, $id)
     {
@@ -71,9 +68,8 @@ class CuentaController extends Controller
     {
         $this->validateUpdateRequest($request);
         Cuenta::where('id', $id)->update($request->except(['_token', '_method']));
-        $cuenta=Cuenta::find($id);
+        $cuenta = Cuenta::find($id);
         return redirect()->route('buscar.cuenta', $cuenta->cliente_id);
-
     }
 
     public function destroy($id)
@@ -106,11 +102,12 @@ class CuentaController extends Controller
             'comentarios' => 'nullable|alpha|min:10|max:100'
         ]);
     }
+
     private function prepareData(Request $request, $clienteId)
     {
+        // Se elimina la conversión a mayúsculas
         $datosCliente = $request->except('_token');
         $datosCliente['cliente_id'] = $clienteId;
-        return array_map('strtoupper', $datosCliente);
-
-}
+        return $datosCliente; // No se hace ningún cambio a mayúsculas
+    }
 }

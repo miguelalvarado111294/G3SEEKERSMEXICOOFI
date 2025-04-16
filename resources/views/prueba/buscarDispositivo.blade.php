@@ -32,22 +32,21 @@
     @endif
 
 
+    <br>    @can('crear.cita')
+        <div class="text-center">
+            <a href="{{ route('crear.cita', $vehiculo) }}" class="btn btn-success">Generar Orden de Servicio</a>
+        </div>
+    @endcan
     <br>
+
     @can('dispositivo.create')
         @if ($numerodedispositivos <= 0)
             <div class="text-center">
-                <a href="{{ route('dispositivof.crear', $vehiculoid) }}" class="btn btn-warning">Asignar dispositivo</a>
+                <a href="{{ route('dispositivof.crear', $vehiculoid) }}" class="btn btn-primary">Vincular un GPS</a>
             </div>
         @endif
     @endcan
-    <br>
-    @can('crear.cita')
-        <div class="text-center">
-            <a href="{{ route('crear.cita', $vehiculo) }}" class="btn btn-warning">Generar orden</a>
-        </div>
-    @endcan
-
-    <br>
+      <br>
 
     <!-- Contenedor con flexbox para centrar las tarjetas -->
     <div class="row justify-content-center">
@@ -68,6 +67,8 @@
                         <p><strong>Modelo:</strong> {{ $value->modelo }}</p>
                         <p><strong>IMEI:</strong> {{ $value->imei }}</p>
                         <p><strong>Fecha de Instalación:</strong> {{ $value->fechadeinstalacion }}</p>
+                        <p><strong>Fecha de Fecha Compra:</strong> {{ $value->fechacompra }}</p>
+
                         <p><strong>Ubicacion Dispositivo:</strong> {{ $value->ubicaciondispositivo }}</p>
                         <p><strong>Sucursal:</strong> {{ $value->sucursal }}</p>
                         <p>
@@ -83,8 +84,8 @@
                         <p><strong>Observaciones:</strong> {{ $value->comentarios }}</p>
                         <br>
                         <div class ="text-center">
-                            <a href="{{ route('buscar.linea', $value->id) }}" class="btn btn-primary btn-sm">Linea</a>
-                            <a href="{{ route('buscar.sensor', $value->id) }}" class="btn btn-primary btn-sm">Sensor</a>
+                            <a href="{{ route('buscar.linea', $value->id) }}" class="btn btn-primary btn-sm">Ver la Linea</a>
+                            <a href="{{ route('buscar.sensor', $value->id) }}" class="btn btn-primary btn-sm">Ver el Sensor</a>
                         </div>
                     </div>
                     <div class="card-footer text-center">
@@ -120,6 +121,9 @@
                         <li><b>Número de Serie:</b> {{ $vehiculo->noserie }}</li>
                         <li><b>Placa:</b> {{ $vehiculo->placa }}</li>
                         <li><b>Color:</b> {{ $vehiculo->color }}</li>
+
+
+                        
 
                         <li><b>Tarjeta de Circulacion:</b> {{ $vehiculo->tarjetadecirculacion }}</li>
 

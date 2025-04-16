@@ -66,25 +66,25 @@ class ClienteController extends Controller
     }
 
     public function store(storecliente $request)
-{
-    $datosCliente = [];
+    {
+        $datosCliente = [];
 
-    foreach ($request->except('_token') as $key => $value) {
-        $valor = strtoupper(trim($value));
-        $datosCliente[$key] = $valor ?: 'SIN DATOS GUARDADOS';
+        foreach ($request->except('_token') as $key => $value) {
+            $valor = strtoupper(trim($value));
+            $datosCliente[$key] = $valor ?: 'SIN DATOS GUARDADOS';
+        }
+
+        $this->handleFileUpload($request, null, $datosCliente, [
+            'actaconstitutiva',
+            'consFiscal',
+            'comprDom',
+            'ine'
+        ]);
+
+        Cliente::create($datosCliente);
+
+        return redirect()->route('cliente.index')->with('mensaje', 'Cliente creado exitosamente.');
     }
-
-    $this->handleFileUpload($request, null, $datosCliente, [
-        'actaconstitutiva',
-        'consFiscal',
-        'comprDom',
-        'ine'
-    ]);
-
-    Cliente::create($datosCliente);
-
-    return redirect()->route('cliente.index')->with('mensaje', 'Cliente creado exitosamente.');
-}
 
 
     public function edit($id)
@@ -103,7 +103,8 @@ class ClienteController extends Controller
             'telefono' => 'required|numeric|digits:10',
             'direccion' => 'required',
             'email' => 'required|string|min:2|max:100|email',
-            'rfc' => 'nullable|alpha_num|min:2|max:100',
+            'rfc' => 'nullable',
+
             'actaconstitutiva' => 'mimes:pdf,jpeg,png,jpg|max:5000',
             'consFiscal' => 'mimes:pdf,jpeg,png,jpg|max:5000',
             'comprDom' => 'mimes:pdf,jpeg,png,jpg|max:5000',
@@ -235,11 +236,11 @@ class ClienteController extends Controller
 
     public function uploadFile(Request $request)
     {
-        $field = array_keys($request->all())[1]; 
+        $field = array_keys($request->all())[1];
         if ($request->hasFile($field)) {
             $file = $request->file($field);
             $filename = time() . '_' . $file->getClientOriginalName();
-            $path = $file->storeAs('public/documentos', $filename); 
+            $path = $file->storeAs('public/documentos', $filename);
             return response()->json(['message' => 'Archivo subido correctamente', 'path' => $path]);
         }
         return response()->json(['error' => 'Error al subir el archivo'], 400);

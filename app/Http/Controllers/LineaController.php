@@ -34,7 +34,7 @@ class LineaController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'simcard' => 'required|min:18|max:20',
+'simcard' => 'required|regex:/^[0-9-]{18,20}$/',
             'telefono' => 'required|numeric|digits:10',
             'tipolinea' => 'required|alpha|min:2|max:5',
             'renovacion' => 'required|alpha'
@@ -65,7 +65,7 @@ class LineaController extends Controller
     if ($request->origen == 'manual') {
 
         $request->validate([
-            'simcard' => 'required|numeric',
+'simcard' => 'required|regex:/^[0-9-]{18,20}$/',
             'telefono' => 'required|numeric|digits:10',
             'tipolinea' => 'required',
             'renovacion' => 'required|date',

@@ -27,17 +27,15 @@ class CtaespejoController extends Controller
             'contrasenia' => 'alpha_dash|min:2|max:15|nullable',
             'comentarios' => 'alpha|max:100|nullable',
         ]);
-
+    
         $datosCliente = $request->except('_token');
         $datosCliente['cuenta_id'] = $id;
-
-        $datosCliente = array_map('strtoupper', $datosCliente);
-
- 
-
+    
+     
         Ctaespejo::create($datosCliente);
         return redirect()->route('buscar.ctaespejo', $id);
     }
+    
 
     public function edit($id)
     {

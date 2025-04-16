@@ -69,7 +69,7 @@
                         <br>
 
                         <div class="form-group">
-                            <label for="renovacion">Renovación:</label>
+                            <label for="renovacion">Fecha de contratacion de la linea:</label>
                             <input type="date" class="form-control" name="renovacion" value="{{ old('renovacion') }}">
                         </div>
                         @error('renovacion')

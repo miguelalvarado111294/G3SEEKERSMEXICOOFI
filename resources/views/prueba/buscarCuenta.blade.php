@@ -44,20 +44,21 @@
                         <!-- Card for each account -->
                         <div class="card">
                             <div class="card-header bg-primary text-white">
-                                <h5 class="card-title">Credenciales de Acceso</h5>
+                                <h5 class="card-title">Nombre de la Cuenta " {{ $value->usuario }} "</h5>
                             </div>
                             <div class="card-body text-center" >
-                                
-                                <p><strong>Contraseña:</strong> {{ $value->usuario }}</p>
+                                <h5>Datos de Acceso</h5>
+                                <br><br>
+                                <p><strong>Usuario:</strong> {{ $value->usuario }}</p>
                                 <p><strong>Contraseña:</strong> {{ $value->contrasenia }}</p>
                                 <p><strong>Contraseña de motor:</strong> {{ $value->contraseniaParo }}</p>
                                 <p><strong>Comentarios:</strong> {{ $value->comentarios }}</p>
-
+<br><br><br>
                                 <!-- Actions: Links to Vehículos and Cuentas Espejo -->
                            
                            
-                                <a href="{{ route('buscar.ctaespejo', $value->id) }}" class="btn btn-primary btn-sm">Cuenta Espejo</a>
-                                <a href="{{ route('buscar.vehiculo', $cliente_id) }}" class="btn btn-primary btn-sm">Vehículos</a>
+                                <a href="{{ route('buscar.ctaespejo', $value->id) }}" class="btn btn-primary btn-sm">Ir a Cuenta Espejo</a>
+                                <a href="{{ route('buscar.vehiculo', $cliente_id) }}" class="btn btn-primary btn-sm">Ir a Vehículos</a>
                             </div>
 
                             <div class="card-footer text-center">

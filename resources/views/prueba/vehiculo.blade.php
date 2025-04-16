@@ -49,7 +49,6 @@
             <table class="table table-hover table-responsive-sm">
                 <thead class="thead-light">
                     <tr>
-                        <th>Id del vehículo</th>
                         <th>Fecha de instalación</th>
                         <th>Marca</th>
                         <th>Modelo</th>
@@ -65,7 +64,6 @@
                 <tbody>
                     @foreach ($vehiculos as $vehiculo)
                         <tr>
-                            <td>{{ $vehiculo->id }}</td>
                             <td>{{ $vehiculo->fechacompra ?? 'N/A' }}</td>
                             <td>{{ $vehiculo->marca }}</td>
                             <td>{{ $vehiculo->modelo }}</td>
@@ -106,7 +104,7 @@
                                 @endcan
 
                                 <a href="{{ route('buscar.dispositivo', $vehiculo->id) }}" class="btn btn-info btn-sm">
-                                    <i class="fas fa-cogs"></i> Dispositivo
+                                    <i class="fas fa-cogs"></i> Ver GPS Instalado
                                 </a>
                             </td>
                         </tr>

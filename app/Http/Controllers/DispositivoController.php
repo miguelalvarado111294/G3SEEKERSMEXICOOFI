@@ -56,18 +56,19 @@ class DispositivoController extends Controller
             $dispositivo = new Dispositivo();
             $dispositivo->cliente_id = $cliente_id;
             $dispositivo->vehiculo_id = $vehiculo_id;
-            $dispositivo->plataforma_id = $request->plataforma_id;
-            $dispositivo->modelo = $request->modelo;
-            $dispositivo->noserie = trim($request->noserie) ?: 'sin número de serie';
-            $dispositivo->imei = $request->imei;
-            $dispositivo->cuenta = $request->cuenta;
-            $dispositivo->sucursal = $request->sucursal;
-            $dispositivo->fechadeinstalacion = $request->fechadeinstalacion;
-            $dispositivo->fechacompra = $request->fechacompra ?: '2000-01-01';
-            $dispositivo->precio = $request->precio ?: '0';
-            $dispositivo->ubicaciondispositivo = $request->ubicaciondispositivo;
-            $dispositivo->noeconomico = $request->noeconomico;
-            $dispositivo->comentarios = $request->comentarios;
+            $dispositivo->plataforma_id = $request->plataforma_id ?: 'no se registraron datos para este campo';
+            $dispositivo->modelo = $request->modelo ?: 'no se registraron datos para este campo';
+            $dispositivo->noserie = trim($request->noserie) ?: 'no se registraron datos para este campo';
+            $dispositivo->imei = $request->imei ?: 'no se registraron datos para este campo';
+            $dispositivo->cuenta = $request->cuenta ?: 'no se registraron datos para este campo';
+            $dispositivo->sucursal = $request->sucursal ?: 'no se registraron datos para este campo';
+            $dispositivo->fechadeinstalacion = $request->fechadeinstalacion ?: '0001-01-01';
+            $dispositivo->fechacompra = $request->fechacompra ?: '0001-01-01';
+            $dispositivo->precio = $request->precio ?: 'no se registraron datos para este campo';
+            $dispositivo->ubicaciondispositivo = $request->ubicaciondispositivo ?: 'no se registraron datos para este campo';
+            $dispositivo->noeconomico = $request->noeconomico ?: 'no se registraron datos para este campo';
+            $dispositivo->comentarios = $request->comentarios ?: ' ';
+
 
             if ($request->hasFile('compPago')) {
                 $archivo = $request->file('compPago');
@@ -178,11 +179,11 @@ class DispositivoController extends Controller
     {
         return [
             'modelo' => 'required|string|min:2|max:100',
-            'noserie' => 'nullable|sometimes|alpha_dash|min:20|unique:dispositivos,noserie' . ($id ? ",$id" : ''),
-            'imei' => 'required|string|min:15|max:20|regex:/^[0-9-]+$/|unique:dispositivos,imei' . ($id ? ",$id" : ''),
+            'noserie' => 'nullable|sometimes|alpha_dash|min:17|max:19|unique:dispositivos,noserie' . ($id ? ",$id" : ''),
+            'imei' => 'required|string|min:15|max:25|regex:/^[A-Za-z0-9\-.]+$/|unique:dispositivos,imei' . ($id ? ",$id" : ''),
         ];
     }
-    
+
 
     public function historial($vehiculo_id)
     {
