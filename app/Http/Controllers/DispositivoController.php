@@ -44,7 +44,6 @@ class DispositivoController extends Controller
 
     public function stodis(Request $request, $id)
     {
-        return $request;
         $vehiculo_id = $id;
         $vehiculo = Vehiculo::findOrFail($vehiculo_id);
         $cliente_id = $vehiculo->cliente_id;
