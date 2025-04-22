@@ -18,28 +18,16 @@
                             'direccion' => 'Dirección',
                             'email' => 'Email',
                             'rfc' => 'RFC',
-                            /*
-                            'actaconstitutiva' => 'Acta Constitutiva',
-                            'consFiscal' => 'Constancia de Situación Fiscal',
-                            'comprDom' => 'Comprobante de Domicilio',
-                            'ine' => 'INE'
-                            */
                         ];
                     @endphp
 
                     @foreach ($fields as $name => $label)
                         <div class="form-group">
                             <label for="{{ $name }}">{{ $label }}</label>
-                            @if (in_array($name, ['actaconstitutiva', 'consFiscal', 'comprDom', 'ine']))
-                                <input type="file" class="form-control-sm form-control upload-file" name="{{ $name }}" id="{{ $name }}" accept="image/*" data-field="{{ $name }}">
-                                <small id="status-{{ $name }}" class="text-muted"></small>
-                            @else
-                                <input type="{{ $name == 'email' ? 'email' : 'text' }}" 
-                                       class="form-control form-control-sm"
-                                       name="{{ $name }}" 
-                                       value="{{ old($name, $cliente->$name ?? '') }}" 
-                                       id="{{ $name }}">
-                            @endif
+                            <input class="form-control form-control-sm"
+                                   name="{{ $name }}"
+                                   value="{{ old($name, $cliente->$name ?? '') }}"
+                                   id="{{ $name }}">
                             @error($name)
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror

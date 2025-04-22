@@ -57,60 +57,67 @@
         </div>
     </div>
 
-    <div class="card mt-4" style="display: {{ isset($dispositivos) && !$dispositivos->isEmpty() ? 'block' : 'none' }};">
-        <div class="card-header bg-success text-white">
-            <h5 class="card-title">Resultados de Selección</h5>
-        </div>
-        <div class="card-body">
-            @if (isset($dispositivos) && !$dispositivos->isEmpty())
-                <table class="table table-striped table-bordered">
-                    <thead>
-                        <tr>
-                            <th>Plataforma ID</th>
-                            <th>Fecha de Compra</th>
-                            <th>Dispositivo</th>
-                            <th>Cliente</th>
-                            <th>Vehículo</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($dispositivos as $dispositivo)
+
+
+
+    @if(request()->has('mes') && request()->has('año') && isset($dispositivos))
+        <div class="card mt-4">
+            <div class="card-header bg-success text-white">
+                <h5 class="card-title">Resultados de Selección</h5>
+            </div>
+            <div class="card-body">
+                @if(!$dispositivos->isEmpty())
+                    <table class="table table-striped table-bordered">
+                        <thead>
                             <tr>
-                                <td>{{ $dispositivo->plataforma_id }}</td>
-                                <td>{{ $dispositivo->fechacompra }}</td>
-                                <td>{{ $dispositivo->modelo }}</td>
-                                <td>
-                                    @if($dispositivo->cliente)
-                                        {{ $dispositivo->cliente->nombre }} 
-                                        @if($dispositivo->cliente->segundo_nombre) 
-                                            {{ $dispositivo->cliente->segundo_nombre }} 
-                                        @endif
-                                        {{ $dispositivo->cliente->apellidopat }} 
-                                        {{ $dispositivo->cliente->apellidomat }}
-                                    @else
-                                        N/A
-                                    @endif
-                                </td>
-                                <td>
-                                    @if($dispositivo->vehiculo)
-                                        {{ $dispositivo->vehiculo->marca }} 
-                                        {{ $dispositivo->vehiculo->modelo }}
-                                    @else
-                                        N/A
-                                    @endif
-                                </td>
+                                <th>Plataforma ID</th>
+                                <th>Fecha de Compra</th>
+                                <th>Dispositivo</th>
+                                <th>Cliente</th>
+                                <th>Vehículo</th>
                             </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-                <div class="d-flex justify-content-center">
-                    {{ $dispositivos->links() }}
-                </div>
-            @else
-                <div class="alert alert-warning">No se encontraron dispositivos para este mes y año.</div>
-            @endif
+                        </thead>
+                        <tbody>
+                            @foreach ($dispositivos as $dispositivo)
+                                <tr>
+                                    <td>{{ $dispositivo->plataforma_id }}</td>
+                                    <td>{{ $dispositivo->fechacompra }}</td>
+                                    <td>{{ $dispositivo->modelo }}</td>
+                                    <td>
+                                        @if($dispositivo->cliente)
+                                            {{ $dispositivo->cliente->nombre }}
+                                            @if($dispositivo->cliente->segundo_nombre)
+                                                {{ $dispositivo->cliente->segundo_nombre }}
+                                            @endif
+                                            {{ $dispositivo->cliente->apellidopat }}
+                                            {{ $dispositivo->cliente->apellidomat }}
+                                        @else
+                                            N/A
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if($dispositivo->vehiculo)
+                                            {{ $dispositivo->vehiculo->marca }}
+                                            {{ $dispositivo->vehiculo->modelo }}
+                                        @else
+                                            N/A
+                                        @endif
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                    <div class="d-flex justify-content-center">
+                        {{ $dispositivos->appends(request()->all())->links() }}
+                    </div>
+
+                @else
+                    <div class="alert alert-warning">No se encontraron dispositivos para este mes y año.</div>
+                @endif
+            </div>
         </div>
-    </div>
+    @endif
+
 @endsection
 
 @section('js')

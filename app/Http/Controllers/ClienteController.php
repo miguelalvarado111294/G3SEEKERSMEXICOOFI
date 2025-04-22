@@ -71,7 +71,7 @@ class ClienteController extends Controller
 
         foreach ($request->except('_token') as $key => $value) {
             $valor = strtoupper(trim($value));
-            $datosCliente[$key] = $valor ?: 'SIN DATOS GUARDADOS';
+            $datosCliente[$key] = $valor ?: 'sinregistro';
         }
 
         $this->handleFileUpload($request, null, $datosCliente, [
