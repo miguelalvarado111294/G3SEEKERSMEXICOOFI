@@ -40,7 +40,7 @@
 
             <div class="form-group">
                 <label>Fecha de Compra:</label>
-                <input type="date" class="form-control" name="fechadeinstalacion">
+                <input type="date" class="form-control" name="fechacompra">
             </div>
 
             <div class="form-group">

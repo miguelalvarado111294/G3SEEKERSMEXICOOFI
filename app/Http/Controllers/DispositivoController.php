@@ -44,6 +44,7 @@ class DispositivoController extends Controller
 
     public function stodis(Request $request, $id)
     {
+        return $request;
         $vehiculo_id = $id;
         $vehiculo = Vehiculo::findOrFail($vehiculo_id);
         $cliente_id = $vehiculo->cliente_id;
@@ -63,7 +64,9 @@ class DispositivoController extends Controller
             $dispositivo->cuenta = $request->cuenta ?: 'no se registraron datos para este campo';
             $dispositivo->sucursal = $request->sucursal ?: 'no se registraron datos para este campo';
             $dispositivo->fechadeinstalacion = $request->fechadeinstalacion ?: '0001-01-01';
-            $dispositivo->fechacompra = $request->fechacompra ?: '0001-01-01';
+            $dispositivo->fechacompra = $request->fechacompra ?: '0001-01-01'; 
+
+            
             $dispositivo->precio = $request->precio ?: 'no se registraron datos para este campo';
             $dispositivo->ubicaciondispositivo = $request->ubicaciondispositivo ?: 'no se registraron datos para este campo';
             $dispositivo->noeconomico = $request->noeconomico ?: 'no se registraron datos para este campo';
